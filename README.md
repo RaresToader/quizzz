@@ -10,7 +10,7 @@ Add your own name (do not add the names for others!) to the section below.
 
 | Profile Picture | Name | Email |
 |---|---|---|
-| ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/4519/avatar.png?width=50) | Jakub Patałuch | J.J.Pataluch@student.tudelft.nl |
+| ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/4519/avatar.png?width=30) | Jakub Patałuch | J.J.Pataluch@student.tudelft.nl |
 
 <!-- Instructions (remove once assignment has been completed -->
 <!-- - Add (only!) your own name to the table above (use Markdown formatting) -->
