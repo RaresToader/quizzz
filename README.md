@@ -14,6 +14,7 @@ Add your own name (do not add the names for others!) to the section below.
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/4772/avatar.png?width=10) | Rares Toader | R.A.Toader@student.tudelft.nl |
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/4788/avatar.png?width=400) | Arthur | A.J.P.Jacques@student.tudelft.nl |
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/4467/avatar.png?width=400) | Yannick Rijsenbrij | Y.O.Rijsenbrij@student.tudelft.nl |
+| ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/4702/avatar.png?width=400) | Francisco Ruas Vaz | f.ruasvaz@student.tudelft.nl |
 
 <!-- Instructions (remove once assignment has been completed -->
 <!-- - Add (only!) your own name to the table above (use Markdown formatting) -->
