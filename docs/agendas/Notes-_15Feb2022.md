@@ -8,8 +8,11 @@ Notes:		Michiel Bakker
 
 **Agenda items:**
 -Finalise backlog
+
 -Start with Code of Conduct
+
 -Summary action points
+
 -TA comments
 
 **Back Log:**
