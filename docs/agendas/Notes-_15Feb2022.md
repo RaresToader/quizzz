@@ -7,6 +7,7 @@ Chair: 		Yannick Rijsenbrij
 Notes:		Michiel Bakker
 
 **Agenda items:**
+
 -Finalise backlog
 
 -Start with Code of Conduct
@@ -18,7 +19,7 @@ Notes:		Michiel Bakker
 **Back Log:**
 Timur said that we need to be more precise with a formula and that the final back-log needs to be issues on gitlab (also the ‘won’t have’).
 
-Code of conduct:
+**Code of conduct:**
 We came to the conclusion that we would do the code of conduct together on Thursday via a Discord-call.
 
 **Action points:**
