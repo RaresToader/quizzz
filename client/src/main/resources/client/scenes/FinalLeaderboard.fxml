@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: #191919;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AddQuoteCtrl">
+   <children>
+      <Label layoutX="225.0" layoutY="9.0" text="Final Leaderboard" textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="72.0" />
+         </font>
+      </Label>
+      <Button layoutX="24.0" layoutY="607.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="179.0" style="-fx-background-color: #f15025;" text="Leave" textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="40.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </Button>
+      <AnchorPane layoutX="200.0" layoutY="161.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
+         <children>
+            <Label prefHeight="61.0" prefWidth="306.0" text="Player 1[ ]">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="200.0" layoutY="319.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
+         <children>
+            <Label prefHeight="61.0" prefWidth="306.0" text="Player 5 [ ]">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="680.0" layoutY="161.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
+         <children>
+            <Label prefHeight="61.0" prefWidth="306.0" text="Player 2">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="200.0" layoutY="395.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
+         <children>
+            <Label prefHeight="61.0" prefWidth="306.0" text="Player 7 [ ]">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="680.0" layoutY="319.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
+         <children>
+            <Label prefHeight="61.0" prefWidth="306.0" text="Player 6 [ ]">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="680.0" layoutY="395.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
+         <children>
+            <Label prefHeight="61.0" prefWidth="306.0" text="Player 8 [ ]">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="200.0" layoutY="471.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
+         <children>
+            <Label prefHeight="61.0" prefWidth="306.0" text="Player 9 [ ]">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="680.0" layoutY="471.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
+         <children>
+            <Label prefHeight="61.0" prefWidth="306.0" text="Player 10 [ ]">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="200.0" layoutY="243.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
+         <children>
+            <Label prefHeight="61.0" prefWidth="306.0" text="Player 3 [ ]">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="680.0" layoutY="243.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
+         <children>
+            <Label prefHeight="61.0" prefWidth="306.0" text="Player 4">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="147.0" layoutY="161.0" prefHeight="61.0" prefWidth="58.0" text="1." textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="147.0" layoutY="243.0" prefHeight="61.0" prefWidth="58.0" text="2." textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="147.0" layoutY="319.0" prefHeight="0.0" prefWidth="58.0" text="3." textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="147.0" layoutY="472.0" prefHeight="61.0" prefWidth="58.0" text="5." textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="147.0" layoutY="396.0" prefHeight="38.0" prefWidth="58.0" text="4." textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="630.0" layoutY="161.0" prefHeight="61.0" prefWidth="58.0" text="6." textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="630.0" layoutY="243.0" prefHeight="61.0" prefWidth="58.0" text="7." textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="630.0" layoutY="319.0" prefHeight="61.0" prefWidth="58.0" text="8." textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="620.0" layoutY="472.0" prefHeight="61.0" prefWidth="58.0" text="10." textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="630.0" layoutY="396.0" prefHeight="61.0" prefWidth="58.0" text="9." textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="36.0" />
+         </font>
+      </Label>
+      <Button layoutX="1000.0" layoutY="607.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="179.0" style="-fx-background-color: #f15025 #f15025;" text="Play again" textFill="WHITE">
+         <font>
+            <Font name="Monaco" size="23.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="88.0" fitWidth="96.0" layoutX="980.0" layoutY="450.0">
+         <image>
+            <Image url="@../../photos/sadEmote.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
