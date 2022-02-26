@@ -61,17 +61,17 @@
       </Label>
       <ImageView fitHeight="90.0" fitWidth="52.0" layoutX="448.0" layoutY="243.0">
          <image>
-            <Image url="@../../../../../../../../../Desktop/cssoopp/singleplayerPhoto.png" />
+            <Image url="@../../photos/singleplayerPhoto.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="101.0" fitWidth="104.0" layoutX="431.0" layoutY="449.0">
          <image>
-            <Image url="@../../../../../../../../../Desktop/cssoopp/multiPlayerphoto.png" />
+            <Image url="@../../photos/multiPlayerphoto.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="75.0" fitWidth="47.0" layoutX="793.0" layoutY="74.0">
          <image>
-            <Image url="@../../../../../../../../../Desktop/cssoopp/zapp!.png" />
+            <Image url="@../../photos/zapp!.png" />
          </image>
       </ImageView>
    </children>
