@@ -22,9 +22,17 @@
             <Font size="48.0" />
          </font>
       </TextField>
-      <Button layoutX="514.0" layoutY="446.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="Enter" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="661.0" layoutY="430.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="Enter" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Monaco" size="44.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="390.0" layoutY="430.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="Cancel" textFill="WHITE">
+         <font>
+            <Font size="44.0" />
          </font>
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
