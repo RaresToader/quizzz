@@ -17,10 +17,7 @@
         <module name="NestedForDepth"> <!-- Maximum 2 nested for loops-->
             <property name="max" value="2"/>
         </module>
-        <module name="UnusedLocalVariable"/> <!-- Not allowed to have unused local variables -->
-        <module name="OneStatementPerLine"> <!-- Not allowed to have multiple statements per line -->
-            <property name="treatTryResourcesAsStatement" value="true"/> <!-- try with resources is considered a statement -->
-        </module>
+
         <module name="NestedTryDepth"> <!-- Maximum depth of try blocks is 3-->
             <property name="max" value="3"/>
         </module>
