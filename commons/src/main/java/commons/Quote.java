@@ -43,7 +43,6 @@ public class Quote {
     private Quote() {
         // for object mappers
     }
-
     public Quote(Person person, String quote) {
         this.person = person;
         this.quote = quote;
