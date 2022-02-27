@@ -7,6 +7,7 @@
     <module name="TreeWalker">
         <module name="UnusedImports" />
         <module name="RedundantImport"/>  <!--Checks for redundant (e.g duplicate) imports -->
+        <module name="IllegalImport"/> <!-- Checks for illegal imports -->
         <module name="AvoidDoubleBraceInitialization"/> <!-- Avoid double bracket initialisation -->
         <module name="AvoidInlineConditionals"/> <!-- No in-line conditionals -->
         <module name="EmptyStatement"/> <!-- Detects empty statement(e.g ; after if) -->
@@ -16,7 +17,13 @@
         <module name="NestedForDepth"> <!-- Maximum 2 nested for loops-->
             <property name="max" value="2"/>
         </module>
-
+        <module name="UnusedLocalVariable"/> <!-- Not allowed to have unused local variables -->
+        <module name="OneStatementPerLine"> <!-- Not allowed to have multiple statements per line -->
+            <property name="treatTryResourcesAsStatement" value="true"/> <!-- try with resources is considered a statement -->
+        </module>
+        <module name="NestedTryDepth"> <!-- Maximum depth of try blocks is 3-->
+            <property name="max" value="3"/>
+        </module>
 
     </module>
 
