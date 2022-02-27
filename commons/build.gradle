@@ -2,5 +2,4 @@
 
 dependencies {
 	implementation group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '2.2.3'
-	testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '4.3.1'
 }

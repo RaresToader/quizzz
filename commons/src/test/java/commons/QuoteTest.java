@@ -15,25 +15,15 @@
  */
 package commons;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.extension.Extension;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-@ExtendWith(MockitoExtension.class)
 public class QuoteTest {
 
 	private static final Person SOME_PERSON = new Person("a", "b");
-	@Mock
-	private Person person;
-
-	@InjectMocks
-	private Quote quote;
 
 	@Test
 	public void checkConstructor() {
@@ -64,9 +54,5 @@ public class QuoteTest {
 		assertTrue(actual.contains(Quote.class.getSimpleName()));
 		assertTrue(actual.contains("\n"));
 		assertTrue(actual.contains("person"));
-	}
-	@Test
-	public void trialTest(){
-		assertNotNull(quote);
 	}
 }
