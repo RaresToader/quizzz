@@ -22,7 +22,9 @@
             <property name="max" value="3"/>
         </module>
 
-    </module>
+        <module name="OneStatementPerLine"> <!-- Not allowed to have multiple statements per line -->
+
+        </module>
 
 
 
