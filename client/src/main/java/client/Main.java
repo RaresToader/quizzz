@@ -15,30 +15,26 @@
  */
 package client;
 
-import static com.google.inject.Guice.createInjector;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import com.google.inject.Injector;
-
 import client.scenes.AddQuoteCtrl;
 import client.scenes.MainCtrl;
 import client.scenes.QuoteOverviewCtrl;
+import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import static com.google.inject.Guice.createInjector;
 
 public class Main extends Application {
 
     private static final Injector INJECTOR = createInjector(new MyModule());
     private static final MyFXML FXML = new MyFXML(INJECTOR);
 
-    public static void main(String[] args) throws URISyntaxException, IOException {
+    public static void main(String[] args) {
         launch();
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
 
         var overview = FXML.load(QuoteOverviewCtrl.class, "client", "scenes", "QuoteOverview.fxml");
         var add = FXML.load(AddQuoteCtrl.class, "client", "scenes", "AddQuote.fxml");
