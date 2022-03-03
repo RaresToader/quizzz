@@ -22,7 +22,7 @@
             <Font size="48.0" />
          </font>
       </TextField>
-      <Button fx:id="enter" layoutX="663.0" layoutY="508.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="Enter" textAlignment="CENTER" textFill="WHITE">
+      <Button fx:id="enter" layoutX="663.0" layoutY="508.0" mnemonicParsing="false" onAction="#enterButton" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="Enter" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Monaco" size="44.0" />
          </font>
