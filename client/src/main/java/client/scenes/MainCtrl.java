@@ -58,4 +58,7 @@ public class MainCtrl {
         primaryStage.setTitle("Main Screen");
         primaryStage.setScene(splashScreen);
     }
+    public void closeSplash(){
+        primaryStage.close();
+    }
 }
