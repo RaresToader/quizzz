@@ -22,7 +22,7 @@
             <Font size="48.0" />
          </font>
       </TextField>
-      <Button layoutX="661.0" layoutY="430.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="Enter" textAlignment="CENTER" textFill="WHITE">
+      <Button layoutX="663.0" layoutY="508.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="Enter" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Monaco" size="44.0" />
          </font>
@@ -30,7 +30,7 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
-      <Button layoutX="390.0" layoutY="430.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="Cancel" textFill="WHITE">
+      <Button layoutX="388.0" layoutY="508.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="Cancel" textFill="WHITE">
          <font>
             <Font size="44.0" />
          </font>
@@ -38,5 +38,13 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
+      <TextField layoutX="451.0" layoutY="380.0" prefHeight="91.0" prefWidth="329.0" promptText="server" style="-fx-background-color: #ffffff; -fx-border-radius: 20px;">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+         <font>
+            <Font size="48.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>
