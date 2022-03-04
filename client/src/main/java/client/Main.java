@@ -40,8 +40,8 @@ public class Main extends Application {
 
         var enterMenu = FXML.load(EnterMenuCtrl.class, "client", "scenes", "EnterMenu.fxml");
         var splash = FXML.load(SplashCtrl.class, "client", "scenes", "SplashScreen.fxml");
-
+        var globalLeaderboard = FXML.load(GlobalLeaderboardCtrl.class,"client", "scenes", "GlobalLeaderboard.fxml");
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, enterMenu, splash);
+        mainCtrl.initialize(primaryStage, enterMenu, splash,globalLeaderboard);
     }
 }

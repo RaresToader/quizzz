@@ -34,9 +34,11 @@ public class MainCtrl {
     private Scene enterMenu;
     private SplashCtrl splashCtrl;
     private Scene splashScreen;
+    private GlobalLeaderboardCtrl globalLeaderboardCtrl;
+    private Scene globalLeadScreen;
 
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
-            Pair<SplashCtrl, Parent> splash) {
+            Pair<SplashCtrl, Parent> splash,Pair<GlobalLeaderboardCtrl,Parent> globalLeaderboard) {
 
         this.primaryStage = primaryStage;
         this.enterMenuCtrl = enterMenu.getKey();
@@ -45,6 +47,8 @@ public class MainCtrl {
         this.splashCtrl = splash.getKey();
         this.splashScreen = new Scene(splash.getValue());
 
+        this.globalLeaderboardCtrl = globalLeaderboard.getKey();
+        this.globalLeadScreen= new Scene(globalLeaderboard.getValue());
         showEnterMenu();
         primaryStage.show();
     }
@@ -60,5 +64,9 @@ public class MainCtrl {
     }
     public void closeSplash(){
         primaryStage.close();
+    }
+    public void showGlobalLeaderboard(){
+        primaryStage.setTitle("Global Leaderboard");
+        primaryStage.setScene(this.globalLeadScreen);
     }
 }
