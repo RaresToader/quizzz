@@ -16,9 +16,6 @@
 package client;
 
 import static com.google.inject.Guice.createInjector;
-
-
-
 import client.scenes.*;
 import com.google.inject.Injector;
 
