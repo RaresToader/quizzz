@@ -17,6 +17,7 @@ package client.scenes;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -37,6 +38,8 @@ public class MainCtrl {
     private GlobalLeaderboardCtrl globalLeaderboardCtrl;
     private Scene globalLeadScreen;
 
+    private static final String iconPath = "/photos/clientIcon.png";
+
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
             Pair<SplashCtrl, Parent> splash,Pair<GlobalLeaderboardCtrl,Parent> globalLeaderboard) {
 
@@ -49,6 +52,9 @@ public class MainCtrl {
 
         this.globalLeaderboardCtrl = globalLeaderboard.getKey();
         this.globalLeadScreen= new Scene(globalLeaderboard.getValue());
+
+        //Set program icon
+        this.primaryStage.getIcons().add(new Image(MainCtrl.class.getResourceAsStream(iconPath)));
         showEnterMenu();
         primaryStage.show();
     }
