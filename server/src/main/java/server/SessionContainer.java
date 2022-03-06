@@ -4,6 +4,7 @@ import commons.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SessionContainer {
     private List<Session> sessionList;
@@ -114,4 +115,17 @@ public class SessionContainer {
 
         return sessionList.get(id);
     }
+
+    public List<Session> getSessionList() {
+        return sessionList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SessionContainer that = (SessionContainer) o;
+        return Objects.equals(sessionList, that.sessionList);
+    }
+
 }
