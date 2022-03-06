@@ -48,7 +48,7 @@ public class PlayerTest {
     public void equalsTest1() {
         Player playerOne = new Player("name");
         Player playerTwo = new Player("name");
-        assertEquals(playerTwo, playerTwo);
+        assertEquals(playerOne, playerTwo);
     }
 
     @Test
