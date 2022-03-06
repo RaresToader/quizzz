@@ -1,0 +1,102 @@
+[
+  {
+    "title": "Using an air conditioner for 1 hour during summer",
+    "consumption_in_wh": 3250,
+    "source": "https://americanhomewater.com/how-much-power-does-an-air-conditioner-use/"
+  },
+  {
+    "title": "Biking for 1 hour",
+    "consumption_in_wh": 698,
+    "source": "https://runrepeat.com/calories-burned-cycling-biking"
+  },
+  {
+    "title": "Clicking a mouse 10 000 times",
+    "consumption_in_wh": 165,
+    "source": "https://gadgets360.com/others/news/revealed-the-number-of-calories-you-burn-with-click-of-a-mouse-341940"
+  },
+  {
+    "title": "Using a desktop PC for 1 hour",
+    "consumption_in_wh": 205,
+    "source": "https://www.energuide.be/en/questions-answers/how-much-power-does-a-computer-use-and-how-much-co2-does-that-represent/54/"
+  },
+  {
+    "title": "Driving an EV 10 kilometers",
+    "consumption_in_wh": 2000,
+    "source": "https://www.virta.global/blog/ev-charging-101-how-much-electricity-does-an-electric-car-use"
+  },
+  {
+    "title": "Using an electric scooter for 1 hour",
+    "consumption_in_wh": 230,
+    "source": "https://www.endesa.com/en/blogs/endesa-s-blog/light/are-electric-scooters-efficient"
+  },
+  {
+    "title": "Using a hair dryer for 30 minutes",
+    "consumption_in_wh": 500,
+    "source": "https://ecocostsavings.com/hair-dryer-wattage/"
+  },
+  {
+    "title": "Relaxing in the jacuzzi for 30 minutes",
+    "consumption_in_wh": 1500,
+    "source": "https://www.directenergy.com/learning-center/how-much-electricity-does-a-hot-tub-use"
+  },
+  {
+    "title": "Using a laptop for 2 hours",
+    "consumption_in_wh": 136,
+    "source": "https://www.energuide.be/en/questions-answers/how-much-power-does-a-computer-use-and-how-much-co2-does-that-represent/54/"
+  },
+  {
+    "title": "Using a LED lightbulb for 24 hours",
+    "consumption_in_wh": 120,
+    "source": "https://insights.regencylighting.com/kw-vs-kwh-how-much-energy-is-my-lighting-using"
+  },
+  {
+    "title": "Microwaving a frozen pizza for 15 minutes",
+    "consumption_in_wh": 360,
+    "source": "https://blog.constellation.com/2016/05/20/toaster-oven-vs-microwave-energy-efficiency/"
+  },
+  {
+    "title": "Cooking potatoes for 30 minutes in an electric oven",
+    "consumption_in_wh": 1000,
+    "source": "https://blog.constellation.com/2016/05/20/toaster-oven-vs-microwave-energy-efficiency/"
+  },
+  {
+    "title": "Flying for 5km in a Boeing 707",
+    "consumption_in_wh": 1805,
+    "source": "https://en.wikipedia.org/wiki/Energy_efficiency_in_transport"
+  },
+  {
+    "title": "Using a printer continously for 1 hour",
+    "consumption_in_wh": 400,
+    "source": "https://energyusecalculator.com/electricity_printer.htm"
+  },
+  {
+    "title": "Running for 30 minutes",
+    "consumption_in_wh": 370,
+    "source": "https://www.verywellfit.com/how-many-calories-does-running-burn-2911108"
+  },
+  {
+    "title": "Sleeping for 8 hours",
+    "consumption_in_wh": 465,
+    "source": "https://www.sleepfoundation.org/how-sleep-works/how-your-body-uses-calories-while-you-sleep"
+  },
+  {
+    "title": "Standing up for 2 hours",
+    "consumption_in_wh": 349,
+    "source": "https://www.healthline.com/health/fitness-exercise/calories-burned-standing#TOC_TITLE_HDR_1"
+  },
+  {
+    "title": "Swimming for 30 minutes",
+    "consumption_in_wh": 290,
+    "source": "https://www.swimming.org/justswim/best-swimming-stroke-for-weight-loss/"
+  },
+  {
+    "title": "Taking the train for 30 km",
+    "consumption_in_wh": 1650,
+    "source": "https://en.wikipedia.org/wiki/Energy_efficiency_in_transport"
+  },
+  {
+    "title": "Cruising on a small yacht for 30 minutes",
+    "consumption_in_wh": 1050,
+    "source": "https://sailingmagazine.net/article-1495-saving-energy-at-sea.html"
+  }
+]

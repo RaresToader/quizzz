@@ -15,14 +15,12 @@
  */
 package client;
 
-import client.scenes.AddQuoteCtrl;
-import client.scenes.MainCtrl;
-import client.scenes.QuoteOverviewCtrl;
+import static com.google.inject.Guice.createInjector;
+import client.scenes.*;
 import com.google.inject.Injector;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import static com.google.inject.Guice.createInjector;
 
 public class Main extends Application {
 
@@ -36,10 +34,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        var overview = FXML.load(QuoteOverviewCtrl.class, "client", "scenes", "QuoteOverview.fxml");
-        var add = FXML.load(AddQuoteCtrl.class, "client", "scenes", "AddQuote.fxml");
-
+        var enterMenu = FXML.load(EnterMenuCtrl.class, "client", "scenes", "EnterMenu.fxml");
+        var splash = FXML.load(SplashCtrl.class, "client", "scenes", "SplashScreen.fxml");
+        var globalLeaderboard = FXML.load(GlobalLeaderboardCtrl.class,"client", "scenes", "GlobalLeaderboard.fxml");
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, overview, add);
+        mainCtrl.initialize(primaryStage, enterMenu, splash,globalLeaderboard);
     }
 }

@@ -17,41 +17,62 @@ package client.scenes;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class MainCtrl {
 
     private Stage primaryStage;
-
+    /*
     private QuoteOverviewCtrl overviewCtrl;
     private Scene overview;
 
     private AddQuoteCtrl addCtrl;
     private Scene add;
+    */
+    private EnterMenuCtrl enterMenuCtrl;
+    private Scene enterMenu;
+    private SplashCtrl splashCtrl;
+    private Scene splashScreen;
+    private GlobalLeaderboardCtrl globalLeaderboardCtrl;
+    private Scene globalLeadScreen;
 
-    public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-            Pair<AddQuoteCtrl, Parent> add) {
+    private static final String iconPath = "/photos/clientIcon.png";
+
+    public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
+            Pair<SplashCtrl, Parent> splash,Pair<GlobalLeaderboardCtrl,Parent> globalLeaderboard) {
+
         this.primaryStage = primaryStage;
-        this.overviewCtrl = overview.getKey();
-        this.overview = new Scene(overview.getValue());
+        this.enterMenuCtrl = enterMenu.getKey();
+        this.enterMenu = new Scene(enterMenu.getValue());
 
-        this.addCtrl = add.getKey();
-        this.add = new Scene(add.getValue());
+        this.splashCtrl = splash.getKey();
+        this.splashScreen = new Scene(splash.getValue());
 
-        showOverview();
+        this.globalLeaderboardCtrl = globalLeaderboard.getKey();
+        this.globalLeadScreen= new Scene(globalLeaderboard.getValue());
+
+        //Set program icon
+        this.primaryStage.getIcons().add(new Image(MainCtrl.class.getResourceAsStream(iconPath)));
+        showEnterMenu();
         primaryStage.show();
     }
 
-    public void showOverview() {
-        primaryStage.setTitle("Quotes: Overview");
-        primaryStage.setScene(overview);
-        overviewCtrl.refresh();
+    public void showEnterMenu() {
+        primaryStage.setTitle("Enter Menu");
+        primaryStage.setScene(enterMenu);
     }
 
-    public void showAdd() {
-        primaryStage.setTitle("Quotes: Adding Quote");
-        primaryStage.setScene(add);
-        add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
+    public void showSplash() {
+        primaryStage.setTitle("Main Screen");
+        primaryStage.setScene(splashScreen);
+    }
+    public void closeSplash(){
+        primaryStage.close();
+    }
+    public void showGlobalLeaderboard(){
+        primaryStage.setTitle("Global Leaderboard");
+        primaryStage.setScene(this.globalLeadScreen);
     }
 }

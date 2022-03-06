@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2021 Delft University of Technology
  *
@@ -13,24 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package client;
+package server.database;
 
-import client.scenes.*;
-import com.google.inject.Binder;
-import com.google.inject.Module;
-import com.google.inject.Scopes;
+import commons.Activity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import client.scenes.MainCtrl;
+public interface ActivityRepository extends JpaRepository<Activity, Long> {}
 
-public class MyModule implements Module {
 
-    @Override
-    public void configure(Binder binder) {
-        binder.bind(MainCtrl.class).in(Scopes.SINGLETON);
-
-        binder.bind(EnterMenuCtrl.class).in(Scopes.SINGLETON);
-        binder.bind(SplashCtrl.class).in(Scopes.SINGLETON);
-        binder.bind(GlobalLeaderboardCtrl.class).in(Scopes.SINGLETON);
-
-    }
-}
