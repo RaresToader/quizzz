@@ -1,6 +1,7 @@
 package server;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -30,6 +31,7 @@ public class ActivityParser {
              * on the repository
              */
             for (Object o : array) {
+
                 JSONObject object = (JSONObject) o;
                 String title = (String) object.get("title");
                 long consumption = (long) object.get("consumption_in_wh");
