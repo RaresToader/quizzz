@@ -6,7 +6,32 @@
 <module name = "Checker">
     <module name="TreeWalker">
         <module name="UnusedImports" />
+        <module name="RedundantImport"/>  <!--Checks for redundant (e.g duplicate) imports -->
+        <module name="IllegalImport"/> <!-- Checks for illegal imports -->
+        <module name="AvoidDoubleBraceInitialization"/> <!-- Avoid double bracket initialisation -->
+        <module name="AvoidInlineConditionals"/> <!-- No in-line conditionals -->
+        <module name="EmptyStatement"/> <!-- Detects empty statement(e.g ; after if) -->
+        <module name="NestedIfDepth">    <!-- Maximum 3 nested if's -->
+        <property name="max" value="3"/>
+        </module>
+        <module name="NestedForDepth"> <!-- Maximum 2 nested for loops-->
+            <property name="max" value="2"/>
+        </module>
+
+        <module name="NestedTryDepth"> <!-- Maximum depth of try blocks is 3-->
+            <property name="max" value="3"/>
+        </module>
+        <module name="ParameterNumber"> <!-- Maximum number of function parameters is 10-->
+            <property name="max" value="10"/>
+            <property name="tokens" value="METHOD_DEF"/>
+        </module>
+        <module name="MethodLength">    <!-- Maximum number of lines in a function is 60-->
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="max" value="60"/>
+        </module>
     </module>
+
+
 
     <!-- TODO: decide in your team with other checkers to add! -->
 
