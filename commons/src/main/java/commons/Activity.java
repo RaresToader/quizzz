@@ -9,10 +9,10 @@ public class Activity {
     private int consumption_in_wh;
     private String source;
 
-    public Activity(String title,int consumption_in_wh,String source) {
-        this.title= title;
-        this.consumption_in_wh=consumption_in_wh;
-        this.source=source;
+    public Activity(String title, int consumption_in_wh, String source) {
+        this.title = title;
+        this.consumption_in_wh = consumption_in_wh;
+        this.source = source;
     }
 
     public String getTitle() {

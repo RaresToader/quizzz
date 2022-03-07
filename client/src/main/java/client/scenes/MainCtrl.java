@@ -80,7 +80,8 @@ public class MainCtrl {
         primaryStage.setTitle("Global Leaderboard");
         primaryStage.setScene(this.globalLeadScreen);
     }
-    public void showSingleplayer(){
+
+    public void showSingleplayer() {
         primaryStage.setTitle("Singleplayer");
         primaryStage.setScene(this.questionScreen);
     }
