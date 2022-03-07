@@ -18,7 +18,7 @@ public class QuestionScreenCtrl {
     @FXML
     private Button thirdChoice;
 
-
+    
     public void chooseFirst(){
         chosenAnswer = firstChoice.toString();
         setBackground(firstChoice, secondChoice, thirdChoice);

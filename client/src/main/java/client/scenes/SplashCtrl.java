@@ -30,5 +30,7 @@ public class SplashCtrl {
     public void leaderboardButton(){
         mainCtrl.showGlobalLeaderboard();
     }
-
+    public void toSinglePlayer(){
+        mainCtrl.showSingleplayer();
+    }
 }
