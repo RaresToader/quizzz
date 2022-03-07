@@ -19,12 +19,12 @@ public class ActivityController {
     }
 
 
-    @GetMapping(path = "/all")
+    @GetMapping( "/all")
     public List<Activity> getAll() {
         return activityRepository.findAll();
     }
 
-    @PostMapping(path = "/add")
+    @PostMapping("/add")
     public ResponseEntity<Activity> addActivity(@RequestBody Activity toBeAdded) {
         if (toBeAdded==null || toBeAdded.getSource() == null || toBeAdded.getTitle() == null) {
             return ResponseEntity.badRequest().build();
@@ -33,13 +33,13 @@ public class ActivityController {
         return ResponseEntity.ok(newActivity);
     }
 
-    @DeleteMapping(path = "/all")
+    @DeleteMapping("/all")
     public ResponseEntity<Activity> deleteAllActivities() {
         this.activityRepository.deleteAll();
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping(path = "/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<Activity> deleteActivityByObject(@RequestBody Activity toBeDeleted) {
         if (toBeDeleted == null || toBeDeleted.getSource() == null || toBeDeleted.getTitle() == null) {
             return ResponseEntity.badRequest().build();
@@ -48,7 +48,7 @@ public class ActivityController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Activity> deleteActivityById(@PathVariable long id) {
         if (activityRepository.findById(id).isEmpty())
             return ResponseEntity.badRequest().build();
@@ -56,7 +56,7 @@ public class ActivityController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping(path = "/modify")
+    @PutMapping("/modify")
     public ResponseEntity<Activity> modifyActivity(@RequestBody Activity activity) {
 
         if (activity == null || activityRepository.findById(activity.getId()).isEmpty() || activity.getTitle() == null || activity.getSource() == null)
