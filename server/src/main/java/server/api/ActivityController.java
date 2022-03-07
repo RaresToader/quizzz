@@ -26,7 +26,7 @@ public class ActivityController {
 
     @PostMapping(path = "/add")
     public ResponseEntity<Activity> addActivity(@RequestBody Activity toBeAdded) {
-        if (toBeAdded.getSource() == null || toBeAdded.getTitle() == null) {
+        if (toBeAdded==null || toBeAdded.getSource() == null || toBeAdded.getTitle() == null) {
             return ResponseEntity.badRequest().build();
         }
         Activity newActivity = activityRepository.save(toBeAdded);
