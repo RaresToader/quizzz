@@ -73,7 +73,7 @@ public class ActivityTest {
     @Test
     public void toStringTest(){
         Activity activity = new Activity("test", 10, "test");
-        String result ="Activity{title='test', consumption_in_wh=10, source='test'}";
+        String result ="Activity{id=0, title='test', consumption_in_wh=10, source='test'}";
         assertEquals(activity.toString(),result);
     }
 }

@@ -22,6 +22,12 @@ public class Activity {
         this.source=source;
     }
 
+    /**
+     * For the Object Mapper
+     */
+    private Activity(){
+
+    }
     public String getTitle() {
         return title;
     }
@@ -34,11 +40,15 @@ public class Activity {
         return source;
     }
 
+    public long getId(){
+        return id;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setConsumption_in_wh(int consumption_in_wh) {
+    public void setConsumption_in_wh(long consumption_in_wh) {
         this.consumption_in_wh = consumption_in_wh;
     }
 
@@ -62,7 +72,8 @@ public class Activity {
     @Override
     public String toString() {
         return "Activity{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", consumption_in_wh=" + consumption_in_wh +
                 ", source='" + source + '\'' +
                 '}';
