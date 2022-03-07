@@ -2,14 +2,21 @@
 
 package commons;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
-
+@Entity
 public class Activity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String title;
-    private int consumption_in_wh;
+    private long consumption_in_wh;
     private String source;
 
-    public Activity(String title,int consumption_in_wh,String source) {
+    public Activity(String title,long consumption_in_wh,String source) {
         this.title= title;
         this.consumption_in_wh=consumption_in_wh;
         this.source=source;
@@ -19,7 +26,7 @@ public class Activity {
         return title;
     }
 
-    public int getConsumption_in_wh() {
+    public long getConsumption_in_wh() {
         return consumption_in_wh;
     }
 
