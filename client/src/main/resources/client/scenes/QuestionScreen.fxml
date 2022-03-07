@@ -22,7 +22,7 @@
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Button fx:id="firstChoice" layoutX="100.0" layoutY="216.0" mnemonicParsing="false" onAction="#chooseFirst" prefHeight="50.0" prefWidth="100.0" text="Choose this!" textFill="RED">
+                  <Button fx:id="firstChoice" layoutX="100.0" layoutY="216.0" mnemonicParsing="false" onAction="#chooseFirst" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #474747#474747 #474747#474747;" text="Choose this!" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
@@ -35,7 +35,7 @@
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Button fx:id="secondChoice" layoutX="100.0" layoutY="216.0" mnemonicParsing="false" onAction="#chooseSecond" prefHeight="50.0" prefWidth="100.0" text="Choose this!" textFill="RED">
+                  <Button fx:id="secondChoice" layoutX="100.0" layoutY="216.0" mnemonicParsing="false" onAction="#chooseSecond" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #474747#474747 #474747#474747;" text="Choose this!" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
@@ -48,7 +48,7 @@
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Button fx:id="thirdChoice" layoutX="100.0" layoutY="216.0" mnemonicParsing="false" onAction="#chooseThird" prefHeight="50.0" prefWidth="100.0" text="Choose this! " textFill="RED">
+                  <Button fx:id="thirdChoice" layoutX="100.0" layoutY="216.0" mnemonicParsing="false" onAction="#chooseThird" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #474747#474747 #474747#474747;" text="Choose this! " textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
