@@ -37,11 +37,14 @@ public class MainCtrl {
     private Scene splashScreen;
     private GlobalLeaderboardCtrl globalLeaderboardCtrl;
     private Scene globalLeadScreen;
+    private Scene queueScreen;
+    private QueueCtrl queueCtrl;
 
     private static final String iconPath = "/photos/clientIcon.png";
 
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
-            Pair<SplashCtrl, Parent> splash,Pair<GlobalLeaderboardCtrl,Parent> globalLeaderboard) {
+            Pair<SplashCtrl, Parent> splash,Pair<GlobalLeaderboardCtrl,Parent> globalLeaderboard,
+                           Pair<QueueCtrl, Parent> queue) {
 
         this.primaryStage = primaryStage;
         this.enterMenuCtrl = enterMenu.getKey();
@@ -49,6 +52,9 @@ public class MainCtrl {
 
         this.splashCtrl = splash.getKey();
         this.splashScreen = new Scene(splash.getValue());
+
+        this.queueCtrl = queue.getKey();
+        this.queueScreen = new Scene(queue.getValue());
 
         this.globalLeaderboardCtrl = globalLeaderboard.getKey();
         this.globalLeadScreen= new Scene(globalLeaderboard.getValue());
@@ -74,5 +80,9 @@ public class MainCtrl {
     public void showGlobalLeaderboard(){
         primaryStage.setTitle("Global Leaderboard");
         primaryStage.setScene(this.globalLeadScreen);
+    }
+    public void showQueue() {
+        primaryStage.setTitle("Multiplayer queue");
+        primaryStage.setScene((this.queueScreen));
     }
 }
