@@ -15,7 +15,7 @@
             <Font name="Monaco" size="72.0" />
          </font>
       </Label>
-      <Button layoutX="487.0" layoutY="506.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="270.0" style="-fx-background-color: #f15025;" text="Cancel" textFill="WHITE">
+      <Button fx:id="goBack" layoutX="487.0" layoutY="506.0" mnemonicParsing="false" onAction="#goBackToSplash" prefHeight="91.0" prefWidth="270.0" style="-fx-background-color: #f15025;" text="Cancel" textFill="WHITE">
          <font>
             <Font name="Monaco" size="48.0" />
          </font>

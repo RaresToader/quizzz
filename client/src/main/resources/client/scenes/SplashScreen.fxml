@@ -18,7 +18,7 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
-      <Button fx:id="multi" alignment="CENTER" layoutX="425.0" layoutY="432.0" mnemonicParsing="false" prefHeight="132.0" prefWidth="520.0" style="-fx-background-color: #f15025;" text=" Multiplayer" textAlignment="CENTER" textFill="WHITE">
+      <Button fx:id="multi" alignment="CENTER" layoutX="425.0" layoutY="432.0" mnemonicParsing="false" onAction="#goToMultiplayerQueue" prefHeight="132.0" prefWidth="520.0" style="-fx-background-color: #f15025;" text=" Multiplayer" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Monaco" size="48.0" />
          </font>
