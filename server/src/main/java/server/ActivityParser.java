@@ -21,7 +21,7 @@ public class ActivityParser {
     /**
      * This will parse all the activities and create a list of activities.
      */
-    public void activityParse(){
+    public void activityParse() {
         try {
             JSONArray array = (JSONArray) jsonParser.parse(new FileReader("server/src/main/resources/activity-bank/76/activities.json"));
             /**
