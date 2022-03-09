@@ -38,7 +38,7 @@ public class ServerUtils {
      */
     public Player addPlayer(String username){
         return ClientBuilder.newClient(new ClientConfig())
-                .target(SERVER).path("player/").request(APPLICATION_JSON)
+                .target(SERVER).path("player/add").request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .post(Entity.entity(new Player(username), APPLICATION_JSON),Player.class);
     }
@@ -55,6 +55,14 @@ public class ServerUtils {
                 .get(new GenericType<Player>(){});
     }
 
+    /**
+     * Checks if the server matches with the host server
+     * @param otherServer another url
+     * @return a boolean, representing whether the server matches.
+     */
+    public boolean checkIfServerMatches(String otherServer){
+        return this.SERVER.equals(otherServer);
+    }
     /**
      * Retrieves the list of all players
      * @return a list of players, from the player repository
