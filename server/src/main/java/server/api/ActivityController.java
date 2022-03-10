@@ -41,7 +41,7 @@ public class ActivityController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<Activity> deleteActivityByObject(@RequestBody Activity toBeDeleted) {
-        if (toBeDeleted == null || toBeDeleted.getSource() == null || toBeDeleted.getTitle() == null) {
+        if (toBeDeleted == null) {
             return ResponseEntity.badRequest().build();
         }
         activityRepository.delete(toBeDeleted);
