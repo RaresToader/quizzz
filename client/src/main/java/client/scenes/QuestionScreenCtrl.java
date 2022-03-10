@@ -1,7 +1,10 @@
 package client.scenes;
 
+import client.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+
 
 public class QuestionScreenCtrl {
 
@@ -18,10 +21,29 @@ public class QuestionScreenCtrl {
     @FXML
     private Button thirdChoice;
 
+    @FXML
+    private Label question;
+
     /**
      * Clicking the first button disables the other buttons and changes
      * the button's background color so the player knows which button he clicked.
      */
+
+    /*
+    Runnable getQuestion = new Runnable() {
+        @Override
+        public void run() {
+            question.setText(Utils.getCurrentQuestion().toString());
+        }
+    };
+
+     */
+
+    public void initialize() {
+        //ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        //executor.scheduleAtFixedRate(getQuestion, 0, 3, TimeUnit.SECONDS); //To implement scheduled refresh
+    }
+
     public void chooseFirst() {
         chosenAnswer = firstChoice.toString();
         secondChoice.setDisable(true);

@@ -10,7 +10,7 @@
    <children>
       <Pane layoutX="28.0" layoutY="28.0" prefHeight="664.0" prefWidth="1224.0" style="-fx-background-color: #474747#474747;">
          <children>
-            <Label layoutX="217.0" layoutY="13.0" prefHeight="93.0" prefWidth="927.0" text="What uses more energy?" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="question" layoutX="217.0" layoutY="13.0" prefHeight="93.0" prefWidth="927.0" text="What uses more energy?" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Monaco" size="55.0" />
                </font>
