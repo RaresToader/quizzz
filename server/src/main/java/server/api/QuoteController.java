@@ -35,7 +35,7 @@ public class QuoteController {
         this.repo = repo;
     }
 
-    @GetMapping(path = { "", "/" })
+    @GetMapping(path = {"", "/"})
     public List<Quote> getAll() {
         return repo.findAll();
     }
@@ -48,7 +48,7 @@ public class QuoteController {
         return ResponseEntity.ok(repo.getById(id));
     }
 
-    @PostMapping(path = { "", "/" })
+    @PostMapping(path = {"", "/"})
     public ResponseEntity<Quote> add(@RequestBody Quote quote) {
 
         if (quote.person == null || isNullOrEmpty(quote.person.firstName) || isNullOrEmpty(quote.person.lastName)
