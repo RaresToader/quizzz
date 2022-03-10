@@ -9,18 +9,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import server.database.ActivityRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 public class TestActivityRepository implements ActivityRepository {
-    public final List<Activity> activities;
-    public final List<String> calledMethods;
-
-    public TestActivityRepository(List<Activity> activities, List<String> calledMethods) {
-        this.activities = activities;
-        this.calledMethods = calledMethods;
-    }
+    public final List<Activity> activities = new ArrayList<>();
+    public final List<String> calledMethods = new ArrayList<>();
 
     @Override
     public List<Activity> findAll() {
@@ -130,7 +126,7 @@ public class TestActivityRepository implements ActivityRepository {
     @Override
     public void deleteById(Long aLong) {
         calledMethods.add("deleteById");
-        activities.stream().filter(x-> x.getId()!=aLong).toList();
+        activities.stream().filter(x -> x.getId() != aLong).toList();
     }
 
     @Override
