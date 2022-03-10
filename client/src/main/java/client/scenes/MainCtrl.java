@@ -39,12 +39,12 @@ public class MainCtrl {
     private Scene globalLeadScreen;
     private Scene queueScreen;
     private QueueCtrl queueCtrl;
-
+    private QuestionScreenCtrl questionScreenCtrl;
+    private Scene questionScreen;
     private static final String iconPath = "/photos/clientIcon.png";
 
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
-            Pair<SplashCtrl, Parent> splash,Pair<GlobalLeaderboardCtrl,Parent> globalLeaderboard,
-                           Pair<QueueCtrl, Parent> queue) {
+                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue) {
 
         this.primaryStage = primaryStage;
         this.enterMenuCtrl = enterMenu.getKey();
@@ -57,8 +57,10 @@ public class MainCtrl {
         this.queueScreen = new Scene(queue.getValue());
 
         this.globalLeaderboardCtrl = globalLeaderboard.getKey();
-        this.globalLeadScreen= new Scene(globalLeaderboard.getValue());
+        this.globalLeadScreen = new Scene(globalLeaderboard.getValue());
 
+        this.questionScreenCtrl = questionScreen.getKey();
+        this.questionScreen = new Scene(questionScreen.getValue());
         //Set program icon
         this.primaryStage.getIcons().add(new Image(MainCtrl.class.getResourceAsStream(iconPath)));
         showEnterMenu();
@@ -74,15 +76,24 @@ public class MainCtrl {
         primaryStage.setTitle("Main Screen");
         primaryStage.setScene(splashScreen);
     }
-    public void closeSplash(){
+
+    public void closeSplash() {
         primaryStage.close();
     }
-    public void showGlobalLeaderboard(){
+
+    public void showGlobalLeaderboard() {
         primaryStage.setTitle("Global Leaderboard");
         primaryStage.setScene(this.globalLeadScreen);
     }
+<<<<<<< client/src/main/java/client/scenes/MainCtrl.java
     public void showQueue() {
         primaryStage.setTitle("Multiplayer queue");
         primaryStage.setScene((this.queueScreen));
+=======
+
+    public void showSingleplayer() {
+        primaryStage.setTitle("Singleplayer");
+        primaryStage.setScene(this.questionScreen);
+>>>>>>> client/src/main/java/client/scenes/MainCtrl.java
     }
 }

@@ -32,6 +32,6 @@ public class MyModule implements Module {
         binder.bind(SplashCtrl.class).in(Scopes.SINGLETON);
         binder.bind(QueueCtrl.class).in(Scopes.SINGLETON);
         binder.bind(GlobalLeaderboardCtrl.class).in(Scopes.SINGLETON);
-
+        binder.bind(QuestionScreenCtrl.class).in(Scopes.SINGLETON);
     }
 }

@@ -24,12 +24,12 @@ public class EnterMenuCtrl {
     }
 
     @FXML
-    public void cleanText(){
+    public void cleanText() {
         username.clear();
         server.clear();
     }
 
-    public void enterButton(){
+    public void enterButton() {
         mainCtrl.showSplash();
     }
 

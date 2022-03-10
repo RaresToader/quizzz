@@ -2,14 +2,18 @@ package commons;
 
 public class Points {
 
-    int currPoints = 0;
-    Countdown countdown = new Countdown();
+    private int addPoints = 0;
+    private Countdown countdown = new Countdown();
 
-    public int getPoints(boolean answered){
-        if(answered){
+    /**
+     * The player receives points based on how much time is left,
+     * scaling equally between 1000 for 30 seconds left and 500 for 0 seconds left.
+     */
+    public int getPoints(boolean answered) {
+        if (answered) {
             int getTime = countdown.getCurrTime();
-            currPoints = 500 + (500/30 * getTime);
+            addPoints = 500 + (500 / 30 * getTime);
         }
-        return currPoints;
+        return addPoints;
     }
 }
