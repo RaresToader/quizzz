@@ -71,5 +71,5 @@ public class ActivityControllerTest {
         var actual = systemUnderTest.deleteAllActivities();
         assertEquals(actual.getStatusCode(), HttpStatus.OK);
     }
-    
+
 }
