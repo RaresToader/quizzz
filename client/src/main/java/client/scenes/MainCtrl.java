@@ -85,15 +85,12 @@ public class MainCtrl {
         primaryStage.setTitle("Global Leaderboard");
         primaryStage.setScene(this.globalLeadScreen);
     }
-<<<<<<< client/src/main/java/client/scenes/MainCtrl.java
     public void showQueue() {
         primaryStage.setTitle("Multiplayer queue");
         primaryStage.setScene((this.queueScreen));
-=======
-
+    }
     public void showSingleplayer() {
         primaryStage.setTitle("Singleplayer");
         primaryStage.setScene(this.questionScreen);
->>>>>>> client/src/main/java/client/scenes/MainCtrl.java
     }
 }
