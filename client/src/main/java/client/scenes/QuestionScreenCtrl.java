@@ -1,13 +1,15 @@
 package client.scenes;
 
+import commons.Points;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class QuestionScreenCtrl {
 
-    public String chosenAnswer;
-    public String correctAnswer;
-    public int points = 0;
+    private Points receivedPoints = new Points();
+    private String chosenAnswer;
+    private String correctAnswer;
+    private int points = 0;
 
     @FXML
     private Button firstChoice;
@@ -102,6 +104,7 @@ public class QuestionScreenCtrl {
     public void setBackground(Button yourAnswer, Button nextAnswer, Button lastAnswer) {
         if (chosenAnswer.equals(correctAnswer)) {
             yourAnswer.setStyle("-fx-background-color: green;");
+            points += receivedPoints.getPoints(true);
         } else {
             yourAnswer.setStyle("-fx-background-color: red;");
             if (correctAnswer.equals(nextAnswer.toString())) {
@@ -111,4 +114,33 @@ public class QuestionScreenCtrl {
             }
         }
     }
+
+    /**
+     * Gets the answer chosen by the player
+     */
+    public String getChosenAnswer(){
+        return chosenAnswer;
+    }
+
+    /**
+     * gets the correct answer to the current question
+     */
+    public String getCorrectAnswer(){
+        return correctAnswer;
+    }
+
+    /**
+     * gets the amount of points the player currently has
+     */
+    public int getPoints(){
+        return points;
+    }
+
+    /**
+     * sets the correct answer to the given string
+     */
+    public void setCorrectAnswer(String correctAnswer){
+        this.correctAnswer = correctAnswer;
+    }
+
 }
