@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 
-public class PickNicknameCtrl{
+public class PickNicknameCtrl {
 
     @FXML
     private Button EnterNicknameButton;

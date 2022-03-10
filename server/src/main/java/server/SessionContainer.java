@@ -19,8 +19,8 @@ public class SessionContainer {
      */
     public int getNumOfActivePlayers() {
         int playerSum = 0;
-        for(Session x : sessionList) {
-            if(x == null) continue;
+        for (Session x : sessionList) {
+            if (x == null) continue;
 
             playerSum += x.getPlayerNum();
         }
@@ -29,9 +29,8 @@ public class SessionContainer {
     }
 
     /**
-     *
      * @param gameType - type of game (0 for singleplayer / 1 for multiplayer)
-     * @param author - PLayer object of session initiator
+     * @param author   - PLayer object of session initiator
      * @return Boolean value depending on whether session has been initiated
      */
     public boolean createSession(boolean gameType, Player author) {
@@ -40,12 +39,12 @@ public class SessionContainer {
         Session newSess = new Session(gameType);
         newSess.addPlayer(author);
 
-        if(sessionList.size() >= SessionContainer.maxSessions) return false;
+        if (sessionList.size() >= SessionContainer.maxSessions) return false;
 
         //Attempt to add new session in place of some deleted one
-        for(int i=0; i<sessionList.size(); i++) {
-            if(sessionList.get(i) == null) {
-                sessionList.set(i,newSess);
+        for (int i = 0; i < sessionList.size(); i++) {
+            if (sessionList.get(i) == null) {
+                sessionList.set(i, newSess);
                 return true;
             }
         }
@@ -55,17 +54,16 @@ public class SessionContainer {
     }
 
     /**
-     *
      * @param x - Player to look for
      * @return Number of session player is inside (-1 if in none session)
      */
     public int findUserSession(Player x) {
-        if(x == null) return -1;
+        if (x == null) return -1;
 
-        for(int i=0; i<sessionList.size(); i++) {
-            if(sessionList.get(i) == null) continue;
+        for (int i = 0; i < sessionList.size(); i++) {
+            if (sessionList.get(i) == null) continue;
 
-            if(sessionList.get(i).isPlayerInSession(x)) {
+            if (sessionList.get(i).isPlayerInSession(x)) {
                 return i;
             }
         }
@@ -75,18 +73,19 @@ public class SessionContainer {
 
     /**
      * Finds session for player
+     *
      * @param x - Player to be added
      * @return ID of session or -1 if no session was found
      */
     public int findAvailableSession(Player x) {
         this.cleanup(); //Perform cleanup
-        if(this.findUserSession(x) != -1) return -1;
+        if (this.findUserSession(x) != -1) return -1;
 
-        for(int i=0; i<sessionList.size(); i++) {
-            if(sessionList.get(i) == null) continue;
+        for (int i = 0; i < sessionList.size(); i++) {
+            if (sessionList.get(i) == null) continue;
 
             Session curr = (Session) this.sessionList.get(i);
-            if(!curr.isAvailable(x)) continue;
+            if (!curr.isAvailable(x)) continue;
 
             curr.addPlayer(x);
             return i;
@@ -99,11 +98,11 @@ public class SessionContainer {
      * Deletes inactive sessions
      */
     public void cleanup() {
-        if(sessionList == null) return;
+        if (sessionList == null) return;
 
-        for(int i=0; i<this.sessionList.size(); i++) {
-            if(this.sessionList.get(i).getPlayerNum() == 0) {
-                this.sessionList.set(i,null);
+        for (int i = 0; i < this.sessionList.size(); i++) {
+            if (this.sessionList.get(i).getPlayerNum() == 0) {
+                this.sessionList.set(i, null);
             }
         }
 
@@ -111,7 +110,7 @@ public class SessionContainer {
     }
 
     public Session getSession(int id) {
-        if(id >= sessionList.size()) return null;
+        if (id >= sessionList.size()) return null;
 
         return sessionList.get(id);
     }

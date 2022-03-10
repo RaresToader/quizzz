@@ -8,11 +8,11 @@ public class Countdown {
 
     Timer timer = new Timer();
 
-    public void startTimer(){
+    public void startTimer() {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                while(currTime >= 0) {
+                while (currTime >= 0) {
                     currTime = currTime - 1;
                 }
                 timer.cancel();
@@ -20,7 +20,7 @@ public class Countdown {
         }, 0, 1000);
     }
 
-    public int getCurrTime(){
+    public int getCurrTime() {
         return currTime;
     }
 

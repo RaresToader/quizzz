@@ -24,11 +24,16 @@ public class SplashCtrl {
     private Button leadeboard;
     @FXML
     private Label playerCounter;
-    public void quitButton(){
+
+    public void quitButton() {
         mainCtrl.closeSplash();
     }
-    public void leaderboardButton(){
+
+    public void leaderboardButton() {
         mainCtrl.showGlobalLeaderboard();
     }
 
+    public void toSinglePlayer() {
+        mainCtrl.showSingleplayer();
+    }
 }

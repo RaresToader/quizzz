@@ -30,7 +30,7 @@ public class EnterMenuCtrl {
 
 
     @FXML
-    public void cleanText(){
+    public void cleanText() {
         username.clear();
         server.clear();
     }
