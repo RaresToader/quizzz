@@ -15,6 +15,7 @@
  */
 package client.scenes;
 
+import client.utils.Utils;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -92,5 +93,6 @@ public class MainCtrl {
     public void showSingleplayer() {
         primaryStage.setTitle("Singleplayer");
         primaryStage.setScene(this.questionScreen);
+        System.out.println(Utils.getCurrentQuestion()); //Get current question
     }
 }

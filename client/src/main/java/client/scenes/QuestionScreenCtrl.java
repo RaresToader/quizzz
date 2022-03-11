@@ -3,6 +3,8 @@ package client.scenes;
 import commons.Points;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+
 
 public class QuestionScreenCtrl {
 
@@ -20,10 +22,14 @@ public class QuestionScreenCtrl {
     @FXML
     private Button thirdChoice;
 
+    @FXML
+    private Label question;
+
     /**
      * Clicking the first button disables the other buttons and changes
      * the button's background color so the player knows which button he clicked.
      */
+
     public void chooseFirst() {
         chosenAnswer = firstChoice.toString();
         secondChoice.setDisable(true);

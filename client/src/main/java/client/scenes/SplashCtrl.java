@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,6 +25,10 @@ public class SplashCtrl {
     private Button leadeboard;
     @FXML
     private Label playerCounter;
+
+    public void initialize() {
+        playerCounter.setText(Utils.getActivePlayers());
+    }
 
     public void quitButton() {
         mainCtrl.closeSplash();
