@@ -26,6 +26,7 @@ public class SplashCtrl {
     private Label playerCounter;
 
     public void quitButton() {
+
         mainCtrl.closeSplash();
     }
 
