@@ -36,7 +36,7 @@ public class ServerUtils {
 
     public String getCorrect() {
         return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("/correct") //
+                .target(SERVER).path("/correct/mostExpensive") //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .get(new GenericType<String>() {

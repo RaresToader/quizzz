@@ -1,5 +1,6 @@
 package server;
 
+import commons.Activity;
 import commons.QuizzQuestion;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,21 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/correct")
 public class CorrectAnswer {
 
-    @GetMapping("/")
+    @GetMapping("/mostExpensive")
     @ResponseBody
     public String getMostExpensive(QuizzQuestion quizzQuestion) {
-        long highest = quizzQuestion.getFirstChoice().getConsumption_in_wh();
-        long second = quizzQuestion.getSecondChoice().getConsumption_in_wh();
-        long third = quizzQuestion.getThirdChoice().getConsumption_in_wh();
+        Activity highest = quizzQuestion.getFirstChoice();
+        Activity second = quizzQuestion.getSecondChoice();
+        Activity third = quizzQuestion.getThirdChoice();
 
-        if(second > highest) {
+        if(second.getConsumption_in_wh() > highest.getConsumption_in_wh()) {
             highest = second;
         }
 
-        if(third > highest) {
+        if(third.getConsumption_in_wh() > highest.getConsumption_in_wh()) {
             highest = third;
         }
 
-        return Long.toString(highest);
+        return highest.getTitle();
     }
 }
