@@ -30,7 +30,6 @@ public class ServerUtils {
 
     private static final String SERVER = "http://localhost:8080/";
 
-<<<<<<< client/src/main/java/client/utils/ServerUtils.java
     /**
      * Adds a player by a username
      * see server/src/../PlayerController
@@ -108,9 +107,7 @@ public class ServerUtils {
     }
     /**
      * Code from the example repository
-=======
 
->>>>>>> client/src/main/java/client/utils/ServerUtils.java
     public void getQuotesTheHardWay() throws IOException {
         var url = new URL("http://localhost:8080/api/quotes");
         var is = url.openConnection().getInputStream();
