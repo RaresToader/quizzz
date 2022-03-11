@@ -1,9 +1,10 @@
 package client.scenes;
 
-import client.utils.ServerUtils;
-import commons.Player;
+import client.Session;
+import client.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import javax.inject.Inject;
@@ -20,6 +21,8 @@ public class EnterMenuCtrl {
     private Button enter;
     @FXML
     private TextField server;
+    @FXML
+    private Label errorText;
 
     @Inject
     public EnterMenuCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
@@ -35,14 +38,18 @@ public class EnterMenuCtrl {
         server.clear();
     }
 
-    public void enterButton(){
-        String nickname = username.getText();
-        if(serverUtils.checkIfServerMatches(server.getText())){
-            Player player = serverUtils.addPlayer(nickname);
+    public void enterButton() {
+        String nickname   = username.getText();
+        String serverAddr = server.getText();
+        if(nickname != null && nickname.length() > 0 && Utils.isAlphaNumeric(nickname)) { //Invalid nickname
+            if(serverAddr == null || serverAddr.length() == 0) { //Invalid serverAddr
+                errorText.setText("Server address is invalid");
+                return;
+            }
+
+            Session.setNickname(nickname);
+            Session.setServerAddr(serverAddr);
             mainCtrl.showSplash();
-        }
-        else{
-            server.setText("THE SERVER DOES NOT EXIST");
-        }
+        } else errorText.setText("Provided username is invalid");
     }
 }
