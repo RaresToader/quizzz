@@ -34,6 +34,15 @@ public class ServerUtils {
 
     private static final String SERVER = "http://localhost:8080/";
 
+    public String getCorrect() {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path("/correct") //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(new GenericType<String>() {
+                });
+    }
+
     public void getQuotesTheHardWay() throws IOException {
         var url = new URL("http://localhost:8080/api/quotes");
         var is = url.openConnection().getInputStream();
