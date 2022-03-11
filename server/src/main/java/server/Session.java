@@ -32,7 +32,7 @@ public class Session {
         this.currentQuestion   = -1;
         this.questionStartedAt = LocalDate.of(2030,1,1);
 
-        this.generateTestQuestions();
+        this.generateTestQuestions(); //Temporary until we construct function that generates random question set
     }
 
     private void generateTestQuestions() {
@@ -96,6 +96,28 @@ public class Session {
     }
 
     /**
+     * Adds player answer
+     * @param x - Answer object
+     */
+    public void addAnswer(Answer x) {
+        if(x == null) return; //If null object
+
+        //Is player who submits an answer member of the session
+        //If answer is submitted to other question than current
+        if(!this.isPlayerInSession(x.getNickname()) || currentQuestion != x.getQuestionNum()) return;
+
+
+        //If answer has already been submitted
+        for(Answer ans : this.answers) {
+            if(ans.getQuestionNum() == x.getQuestionNum() && ans.getNickname().equals(x.getNickname())) {
+                return;
+            }
+        }
+
+        this.answers.add(x);
+    }
+
+    /**
      *
      * @param p - Player to be removed from game
      * @return Boolean value depending on whether deletion operation was successful
@@ -150,6 +172,14 @@ public class Session {
 
     public boolean isGameType() {
         return gameType;
+    }
+
+    public List<QuizzQuestion> getQuestions() {
+        return this.questions;
+    }
+
+    public List<Answer> getAnswers() {
+        return this.answers;
     }
 
     @Override

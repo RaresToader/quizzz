@@ -102,6 +102,10 @@ public class SessionContainer {
         return;
     }
 
+    public static void clear() {
+        SessionContainer.sessionList = new ArrayList<Session>();
+    }
+
     public static Session getSession(int id) {
         if (id >= sessionList.size()) return null;
 
