@@ -31,7 +31,7 @@ public class ActivityControllerTest {
 
     @Test
     public void addActivity() {
-        assertNotEquals(systemUnderTest.addActivity(new Activity("test", "test",10, "test","test")).getStatusCode(), HttpStatus.BAD_REQUEST);
+        assertNotEquals(systemUnderTest.addActivity(new Activity("test", "test","10", 10L       ,"test")).getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
     @Test
