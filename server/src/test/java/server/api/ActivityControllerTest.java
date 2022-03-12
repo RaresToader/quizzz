@@ -46,7 +46,7 @@ public class ActivityControllerTest {
 
     @Test
     public void deleteByIdTest() {
-        assertEquals(systemUnderTest.deleteActivityById("nothing").getStatusCode(), HttpStatus.BAD_REQUEST);
+        assertEquals(systemUnderTest.deleteActivityById(0L).getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
     @Test

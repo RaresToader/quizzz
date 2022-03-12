@@ -8,14 +8,17 @@ import java.util.Objects;
 
 @Entity
 public class Activity {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long realID;
+
     private String id;
     private String title;
-    private long consumption_in_wh;
+    private Long consumption_in_wh;
     private String source;
     private String image_path;
-
-    public Activity(String id, String title, long consumption_in_wh, String source, String image_path) {
+    public Activity(String id, String image_path, String title,Long consumption_in_wh, String source) {
         this.id = id;
         this.title = title;
         this.consumption_in_wh = consumption_in_wh;
@@ -23,11 +26,18 @@ public class Activity {
         this.image_path = image_path;
     }
 
+    public Long getRealID() {
+        return realID;
+    }
+
+    public void setRealID(Long realID) {
+        this.realID = realID;
+    }
 
     /**
      * For the Object Mapper
      */
-    private Activity() {
+    public Activity() {
 
     }
 

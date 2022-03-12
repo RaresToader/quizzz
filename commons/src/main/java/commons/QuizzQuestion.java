@@ -71,7 +71,7 @@ public class QuizzQuestion {
     }
 
     public static QuizzQuestion randomQuestion(List<QuizzQuestion> Database) { // have to get a random question from database once we figure out how to pass the database
-        return new QuizzQuestion("a", new Activity("a", "a",1, "v","path"), new Activity("a", "a",1, "v","path"),new Activity("a", "a",1, "v","path"));
+        return new QuizzQuestion("a",new Activity("test","test","test",10L,"test"),new Activity("test","test","test",10L,"test"),new Activity("test","test","test",10L,"test"));
     }
 
     @Override
