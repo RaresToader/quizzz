@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ActivityTest {
-    private Activity activity = new Activity("test", "test", 10, "test", "path");
+    private Activity activity = new Activity("test", "test", "test", 10l, "test");
 
     @Test
     public void constructorTest() {
@@ -34,14 +34,14 @@ public class ActivityTest {
 
     @Test
     public void equalsTest2() {
-        Activity activity2 = new Activity("test", "test", 10, "test", "path");
+        Activity activity2 = new Activity("test", "test", "test", 10l, "test");
         assertEquals(activity, activity2);
 
     }
 
     @Test
     public void equalsTest3() {
-        Activity activity2 = new Activity("test2", "test2", 100, "test2", "path");
+        Activity activity2 = new Activity("test2", "test", "test", 10l, "path");
         assertNotEquals(activity, activity2);
     }
 
@@ -65,7 +65,7 @@ public class ActivityTest {
 
     @Test
     public void toStringTest() {
-        String result = "Activity{id='test', title='test', consumption_in_wh=10, source='test', image_path='path'}";
+        String result = "Activity{id='test', title='test', consumption_in_wh=10, source='test', image_path='test'}";
         assertEquals(activity.toString(), result);
     }
 }
