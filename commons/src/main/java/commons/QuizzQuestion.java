@@ -9,8 +9,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-import java.util.List;
-
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
 public class QuizzQuestion {
