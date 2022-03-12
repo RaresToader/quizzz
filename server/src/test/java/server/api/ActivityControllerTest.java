@@ -31,7 +31,7 @@ public class ActivityControllerTest {
 
     @Test
     public void addActivity() {
-        assertNotEquals(systemUnderTest.addActivity(new Activity("test", 10, "test")).getStatusCode(), HttpStatus.BAD_REQUEST);
+        assertNotEquals(systemUnderTest.addActivity(new Activity("test", "test",10, "test","test")).getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ActivityControllerTest {
 
     @Test
     public void deleteByIdTest() {
-        assertEquals(systemUnderTest.deleteActivityById(1).getStatusCode(), HttpStatus.BAD_REQUEST);
+        assertEquals(systemUnderTest.deleteActivityById("nothing").getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
     @Test

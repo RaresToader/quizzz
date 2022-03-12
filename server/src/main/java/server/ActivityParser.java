@@ -37,12 +37,7 @@ public class ActivityParser {
              * on the repository
              */
             for (Object o : array) {
-                JSONObject object = (JSONObject) o;
-                String title = (String) object.get("title");
-                long consumption = (long) object.get("consumption_in_wh");
-                String source = (String) object.get("source");
-                Activity newActivity = new Activity(title, consumption, source);
-                list.add(newActivity);
+
             }
         } catch (IOException | ParseException e) {
             e.printStackTrace();

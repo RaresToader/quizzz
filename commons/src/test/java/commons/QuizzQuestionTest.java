@@ -8,35 +8,35 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class QuizzQuestionTest {
     @Test
     public void checkConstructor() {
-        var p = new QuizzQuestion("a", new Activity("a", 1, "v"), new Activity("a", 1, "v"), new Activity("a", 1, "v"));
+        var p = new QuizzQuestion("a", new Activity("a", "a", 1, "a", "a"), new Activity("a", "a", 1, "a", "a"), new Activity("a", "a", 1, "a", "a"));
         assertEquals("a", p.getQuestion());
-        assertEquals(new Activity("a", 1, "v"), p.getFirstChoice());
-        assertEquals(new Activity("a", 1, "v"), p.getSecondChoice());
-        assertEquals(new Activity("a", 1, "v"), p.getThirdChoice());
+        assertEquals(new Activity("a", "a", 1, "a", "a"), p.getFirstChoice());
+        assertEquals(new Activity("a", "a", 1, "a", "a"), p.getSecondChoice());
+        assertEquals(new Activity("a", "a", 1, "a", "a"), p.getThirdChoice());
     }
 
     @Test
     public void equalsHashCode() {
-        var a = new QuizzQuestion("a", new Activity("a", 1, "v"), new Activity("a", 1, "v"), new Activity("a", 1, "v"));
-        var b = new QuizzQuestion("a", new Activity("a", 1, "v"), new Activity("a", 1, "v"), new Activity("a", 1, "v"));
+        var a = new QuizzQuestion("a", new Activity("a","a" ,1,"a", "a"), new Activity("a","a" ,1,"a", "a"),  new Activity("a","a" ,1,"a", "a"));
+        var b = new QuizzQuestion("a", new Activity("a","a" ,1,"a", "a"), new Activity("a","a" ,1,"a", "a"),  new Activity("a","a" ,1,"a", "a"));
         assertEquals(a, b);
         assertEquals(a.hashCode(), b.hashCode());
     }
 
     @Test
     public void notEqualsHashCode() {
-        var a = new QuizzQuestion("b", new Activity("a", 1, "v"), new Activity("a", 1, "v"), new Activity("a", 1, "v"));
-        var b = new QuizzQuestion("a", new Activity("a", 1, "v"), new Activity("a", 1, "v"), new Activity("a", 1, "v"));
+        var a = new QuizzQuestion("a", new Activity("a","a" ,1,"a", "a"), new Activity("a","a" ,1,"a", "a"),  new Activity("a","a" ,1,"a", "a"));
+        var b = new QuizzQuestion("b", new Activity("a","a" ,1,"a", "a"), new Activity("a","a" ,1,"a", "a"),  new Activity("a","a" ,1,"a", "a"));
         assertNotEquals(a, b);
         assertNotEquals(a.hashCode(), b.hashCode());
     }
 
     @Test
     public void hasToString() {
-        var actual = new QuizzQuestion("a", new Activity("a", 1, "v"), new Activity("a", 1, "v"), new Activity("a", 1, "v")).toString();
-        assertTrue(actual.contains("a"));
-        assertTrue(actual.contains("\n"));
-        assertTrue(actual.contains("question"));
+        var a = new QuizzQuestion("a", new Activity("a","a" ,1,"a", "a"), new Activity("a","a" ,1,"a", "a"),  new Activity("a","a" ,1,"a", "a")).toString();
+        assertTrue(a.contains("a"));
+        assertTrue(a.contains("\n"));
+        assertTrue(a.contains("question"));
     }
 }
 

@@ -49,7 +49,7 @@ public class ActivityController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Activity> deleteActivityById(@PathVariable long id) {
+    public ResponseEntity<Activity> deleteActivityById(@PathVariable String id) {
         if (activityRepository.findById(id).isEmpty())
             return ResponseEntity.badRequest().build();
         activityRepository.deleteById(id);
