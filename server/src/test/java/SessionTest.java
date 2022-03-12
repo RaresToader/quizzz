@@ -44,7 +44,7 @@ public class SessionTest {
     @Test
     public void getQuestionStartedTest() {
         Session x = new Session(false);
-        QuizzQuestion testQ = new QuizzQuestion("This is test question", new Activity("abc","abc","55",10l,"abc"),  new Activity("abc","abc","55",10l,"abc"),  new Activity("abc","abc","55",10l,"abc"));
+        QuizzQuestion testQ = new QuizzQuestion("This is test question", new Activity("abc","abc","abc",10L,"abc"),  new Activity("bac","bac","bac",10L,"bac"),  new Activity("cab","cab","cab",10L,"cab"));
         x.startGame();
         assertEquals(testQ,x.getCurrentQuestion());
     }

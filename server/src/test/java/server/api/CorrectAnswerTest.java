@@ -11,7 +11,7 @@ class CorrectAnswerTest {
 
     @Test
     void getMostExpensive() {
-        Activity first = new Activity("Using an air conditioner for 1 hour during summer", "test", "https://americanhomewater.com/how-much-power-does-an-air-conditioner-use/", 3250l
+        Activity first = new Activity("test", "test", "Using an air conditioner for 1 hour during summer", 3250l
                 , "path");
         Activity second = new Activity("Flying for 5km in a Boeing 707", "test","https://en.wikipedia.org/wiki/Energy_efficiency_in_transport" ,1805l,
                  "path");
