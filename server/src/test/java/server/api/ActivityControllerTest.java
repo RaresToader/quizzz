@@ -53,5 +53,9 @@ public class ActivityControllerTest {
     public void modify() {
         assertEquals(systemUnderTest.modifyActivity(Mockito.mock(Activity.class)).getStatusCode(), HttpStatus.BAD_REQUEST);
     }
-
+    @Test
+    public void getRandom60Test(){
+       var actual = systemUnderTest.get60RandomActivities();
+       assertEquals(actual.getStatusCode(),HttpStatus.BAD_REQUEST);
+    }
 }

@@ -17,10 +17,13 @@ package client.utils;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
+import commons.Activity;
 import org.glassfish.jersey.client.ClientConfig;
 
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.GenericType;
+
+import java.util.List;
 
 public class ServerUtils {
 
@@ -35,5 +38,12 @@ public class ServerUtils {
                 });
     }
 
-
+    public List<Activity> get60RandomActivities() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/randomset")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Activity>>() {
+                });
+    }
 }
