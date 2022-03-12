@@ -6,12 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
+import client.utils.ServerUtils;
 import javax.inject.Inject;
 
 public class EnterMenuCtrl {
 
     private final MainCtrl mainCtrl;
+    private final ServerUtils serverUtils;
     @FXML
     private TextField username;
     @FXML
@@ -24,9 +25,12 @@ public class EnterMenuCtrl {
     private Label errorText;
 
     @Inject
-    public EnterMenuCtrl(MainCtrl mainCtrl) {
+    public EnterMenuCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
         this.mainCtrl = mainCtrl;
+        this.serverUtils = serverUtils;
     }
+
+
 
     @FXML
     public void cleanText() {
@@ -48,5 +52,4 @@ public class EnterMenuCtrl {
             mainCtrl.showSplash();
         } else errorText.setText("Provided username is invalid");
     }
-
 }
