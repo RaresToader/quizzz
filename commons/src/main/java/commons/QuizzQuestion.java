@@ -70,9 +70,6 @@ public class QuizzQuestion {
         this.thirdChoice = thirdChoice;
     }
 
-    public static QuizzQuestion randomQuestion(List<QuizzQuestion> Database) { // have to get a random question from database once we figure out how to pass the database
-        return new QuizzQuestion("a",new Activity("test","test","test",10L,"test"),new Activity("test","test","test",10L,"test"),new Activity("test","test","test",10L,"test"));
-    }
 
     @Override
     public boolean equals(Object obj) {

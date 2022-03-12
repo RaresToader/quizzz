@@ -1,17 +1,29 @@
 package client.scenes;
 
+import client.utils.ServerUtils;
 import commons.Points;
+import commons.QuizzQuestion;
+import commons.RandomSelection;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import javax.inject.Inject;
+import java.util.List;
+
 
 public class QuestionScreenCtrl {
 
+    private final ServerUtils serverUtils;
     private Points receivedPoints = new Points();
     private String chosenAnswer;
     private String correctAnswer;
     private int points = 0;
+
+    @Inject
+    public QuestionScreenCtrl(ServerUtils server) {
+        this.serverUtils = server;
+    }
 
     @FXML
     private Button firstChoice;
@@ -41,6 +53,13 @@ public class QuestionScreenCtrl {
          */
         firstChoice.setOnAction(event -> clickedAgainResetFirst());
 
+    }
+
+    /**
+     * Initialise a singerplayer game
+     */
+    public void init() {
+        List<QuizzQuestion> list = new RandomSelection(serverUtils.get60RandomActivities()).getListOfQuestions();
     }
 
     /**
@@ -124,28 +143,28 @@ public class QuestionScreenCtrl {
     /**
      * Gets the answer chosen by the player
      */
-    public String getChosenAnswer(){
+    public String getChosenAnswer() {
         return chosenAnswer;
     }
 
     /**
      * gets the correct answer to the current question
      */
-    public String getCorrectAnswer(){
+    public String getCorrectAnswer() {
         return correctAnswer;
     }
 
     /**
      * gets the amount of points the player currently has
      */
-    public int getPoints(){
+    public int getPoints() {
         return points;
     }
 
     /**
      * sets the correct answer to the given string
      */
-    public void setCorrectAnswer(String correctAnswer){
+    public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
 
