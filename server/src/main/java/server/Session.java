@@ -36,7 +36,7 @@ public class Session {
     }
 
     private void generateTestQuestions() {
-        QuizzQuestion q1 = new QuizzQuestion("This is test question", new Activity("abc", 55, "abc"), new Activity("bac", 66, "bac"), new Activity("cab", 566, "cab"));
+        QuizzQuestion q1 = new QuizzQuestion("This is test question", new Activity("abc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
         this.questions.add(q1);
     }
 

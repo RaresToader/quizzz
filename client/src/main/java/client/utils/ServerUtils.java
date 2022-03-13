@@ -25,6 +25,13 @@ import org.glassfish.jersey.client.ClientConfig;
 import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+import commons.Activity;
+import org.glassfish.jersey.client.ClientConfig;
+
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.GenericType;
+
+import java.util.List;
 
 public class ServerUtils {
 
@@ -63,8 +70,8 @@ public class ServerUtils {
      *
      * @param otherServer another url
      * @return a boolean, representing whether the server matches.
-     */
     public boolean checkIfServerMatches(String otherServer) {
+     */
         return this.SERVER.equals(otherServer);
     }
 
@@ -78,21 +85,27 @@ public class ServerUtils {
                 .target(SERVER).path("player/").request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
                 .get(new GenericType<List<Player>>() {
+    public List<Activity> get60RandomActivities() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/randomset")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Activity>>() {
                 });
     }
 
     /**
      * Retrives a list of all activities
      *
-     * @return the list of all activities, from the activity repository
      */
+     * @return the list of all activities, from the activity repository
     public List<Activity> getAllActivities() {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(SERVER).path("activity/all").request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
+                .target(SERVER).path("activity/all").request(APPLICATION_JSON)
                 .get(new GenericType<List<Activity>>() {
-                });
     }
+                });
 
     /**
      * Retrieve an activity by id
@@ -103,15 +116,15 @@ public class ServerUtils {
     public Activity getActivityById(long id) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("activity/" + id).request(APPLICATION_JSON)
-                .accept(APPLICATION_JSON)
                 .get(new GenericType<Activity>() {
-                });
-    }
+                .accept(APPLICATION_JSON)
 
+    }
+                });
     public String getCorrect() {
+                .request(APPLICATION_JSON) //
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path("/correct/mostExpensive") //
-                .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .get(new GenericType<String>() {
                 });
