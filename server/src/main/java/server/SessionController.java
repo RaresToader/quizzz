@@ -30,6 +30,11 @@ public class SessionController {
         int sessionId = SessionContainer.findUserSession(nickname);
         //System.out.println("For "+nickname+" it is "+sessionId); //DEBUG LINE
         Session x = SessionContainer.getSession(sessionId);
+
+        if(x.hasEnded()) {
+            return new QuizzQuestion("0",null,null,null);
+        }
+
         if(!x.isStarted()) { //If game is not started
             x.startGame();
         }

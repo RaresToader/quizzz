@@ -15,6 +15,7 @@ public class Session {
     private static final int playerLimit = 20; //To be determined
     private List<String> playerList;
     private boolean started;
+    private boolean ended;
     private String gameAdmin;
     private boolean gameType; //0 for singleplayer || 1 for multiplayer
     private List<QuizzQuestion> questions;
@@ -25,6 +26,7 @@ public class Session {
     public Session(boolean gameType) {
         this.playerList        = new ArrayList<String>();
         this.started           = false;
+        this.ended             = false;
         this.gameAdmin         = null;
         this.gameType          = gameType;
         this.questions         = new ArrayList<QuizzQuestion>();
@@ -52,6 +54,12 @@ public class Session {
 
     public QuizzQuestion getCurrentQuestion() {
         if(!this.started) return null;
+
+        //If there have already been 20 questions, end the game
+        if(currentQuestion >= 20) {
+            this.endGame();
+            return null;
+        }
 
         //If everyone has answered that question OR this is first question OR time has passed then get new question
         if(this.haveEveryoneAnswered() || questionStartedAt.getYear() == 2030 || Duration.between(questionStartedAt.atStartOfDay(), LocalDate.now().atStartOfDay()).toSeconds() > 20) {
@@ -144,6 +152,10 @@ public class Session {
         if(x == null) return false;
 
         return this.playerList.contains(x);
+    }
+
+    public boolean hasEnded() {
+        return ended;
     }
 
     public int getPlayerNum() {
