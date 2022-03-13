@@ -70,10 +70,11 @@ public class ActivityTest {
         activity.setSource("new");
         assertEquals(activity.getSource(), "new");
     }
+
     @Test
-    public void toStringTest(){
+    public void toStringTest() {
         Activity activity = new Activity("test", 10, "test");
-        String result ="Activity{id=0, title='test', consumption_in_wh=10, source='test'}";
-        assertEquals(activity.toString(),result);
+        String result = "Activity{id=0, title='test', consumption_in_wh=10, source='test'}";
+        assertEquals(activity.toString(), result);
     }
 }

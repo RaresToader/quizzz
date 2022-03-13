@@ -49,7 +49,7 @@ public class PlayerController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Player> modifyPlayerByPath(@PathVariable String id, @RequestBody Player player) {
-        if (id == null || playerRepo.findById(id).isEmpty() || player == null || player.getUsername()==null) {
+        if (id == null || playerRepo.findById(id).isEmpty() || player == null || player.getUsername() == null) {
             return ResponseEntity.notFound().build();
         }
         Player toBeModified = playerRepo.getById(id);

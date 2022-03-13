@@ -20,6 +20,7 @@ public class ActivityParser {
      * For some reason relative path doesn't work...
      */
     private final String path = "server/src/main/resources/activity-bank/76/activities.json";
+
     public ActivityParser(JSONParser parser) {
         this.jsonParser = parser;
     }

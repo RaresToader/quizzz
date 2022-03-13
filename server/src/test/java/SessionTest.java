@@ -12,18 +12,18 @@ public class SessionTest {
         Session x = new Session(false);
         assertFalse(x.isStarted());
         assertNotNull(x.getPlayerList());
-        assertEquals(0,x.getPlayerNum());
+        assertEquals(0, x.getPlayerNum());
         assertNull(x.getGameAdmin());
         assertFalse(x.isGameType());
-        assertEquals(1,x.getQuestions().size());
-        assertEquals(0,x.getAnswers().size());
+        assertEquals(1, x.getQuestions().size());
+        assertEquals(0, x.getAnswers().size());
     }
 
     @Test
     public void haveEveryoneAnsweredSingleplayerTest() {
         Session x = new Session(false);
         x.addPlayer("test");
-        Answer toAdd = new Answer("test",0,-1);
+        Answer toAdd = new Answer("test", 0, -1);
         x.addAnswer(toAdd);
         assertTrue(x.haveEveryoneAnswered());
     }
@@ -44,9 +44,9 @@ public class SessionTest {
     @Test
     public void getQuestionStartedTest() {
         Session x = new Session(false);
-        QuizzQuestion testQ = new QuizzQuestion("This is test question", new Activity("abc",55,"abc"), new Activity("bac",66,"bac"), new Activity("cab", 566, "cab"));
+        QuizzQuestion testQ = new QuizzQuestion("This is test question", new Activity("abc", 55, "abc"), new Activity("bac", 66, "bac"), new Activity("cab", 566, "cab"));
         x.startGame();
-        assertEquals(testQ,x.getCurrentQuestion());
+        assertEquals(testQ, x.getCurrentQuestion());
     }
 
     @Test

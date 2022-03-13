@@ -5,7 +5,8 @@ public class Answer {
     private int answer;
     private int questionNum;
 
-    public Answer() {}
+    public Answer() {
+    }
 
     public Answer(String nickname, int answer, int questionNum) {
         this.nickname = nickname;

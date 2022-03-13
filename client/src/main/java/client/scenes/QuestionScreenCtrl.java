@@ -124,28 +124,28 @@ public class QuestionScreenCtrl {
     /**
      * Gets the answer chosen by the player
      */
-    public String getChosenAnswer(){
+    public String getChosenAnswer() {
         return chosenAnswer;
     }
 
     /**
      * gets the correct answer to the current question
      */
-    public String getCorrectAnswer(){
+    public String getCorrectAnswer() {
         return correctAnswer;
     }
 
     /**
      * gets the amount of points the player currently has
      */
-    public int getPoints(){
+    public int getPoints() {
         return points;
     }
 
     /**
      * sets the correct answer to the given string
      */
-    public void setCorrectAnswer(String correctAnswer){
+    public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
 

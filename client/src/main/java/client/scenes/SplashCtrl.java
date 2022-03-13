@@ -38,9 +38,11 @@ public class SplashCtrl {
     public void leaderboardButton() {
         mainCtrl.showGlobalLeaderboard();
     }
+
     public void goToMultiplayerQueue() {
         mainCtrl.showQueue();
     }
+
     public void toSinglePlayer() {
         mainCtrl.showSingleplayer();
     }

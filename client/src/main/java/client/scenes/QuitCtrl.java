@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-
 public class QuitCtrl {
 
     @FXML
@@ -22,10 +21,9 @@ public class QuitCtrl {
 
 
     /**
-     *
      * This method pops up a new FXML-scene that displays a message that asks if you really want to quit.
-     * @param event (the press of the exit in a scene)
      *
+     * @param event (the press of the exit in a scene)
      */
 
     @FXML
@@ -37,14 +35,15 @@ public class QuitCtrl {
 
     }
 
-    /** This need to be linked to the button in the 'QuitPopUpScene' if the player excepts the quit than there needs to be a link
+    /**
+     * This need to be linked to the button in the 'QuitPopUpScene' if the player excepts the quit than there needs to be a link
      * back to the main screen
-     * @param event (the press of the 'confirm quit'-button in the 'ConfirmQuitPopUpScene'
      *
+     * @param event (the press of the 'confirm quit'-button in the 'ConfirmQuitPopUpScene'
      */
 
     @FXML
-    public void confirmQuit(ActionEvent event){
+    public void confirmQuit(ActionEvent event) {
         // links to main scene
 
     }

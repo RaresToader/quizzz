@@ -19,25 +19,27 @@ public class ActivityController {
     }
 
 
-    @GetMapping( "/all")
+    @GetMapping("/all")
     public List<Activity> getAll() {
         return activityRepository.findAll();
     }
 
     @PostMapping("/add")
     public ResponseEntity<Activity> addActivity(@RequestBody Activity toBeAdded) {
-        if (toBeAdded==null || toBeAdded.getSource() == null || toBeAdded.getTitle() == null) {
+        if (toBeAdded == null || toBeAdded.getSource() == null || toBeAdded.getTitle() == null) {
             return ResponseEntity.badRequest().build();
         }
         Activity newActivity = activityRepository.save(toBeAdded);
         return ResponseEntity.ok(newActivity);
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Activity> getActivityById(@PathVariable long id){
-        if(this.activityRepository.findById(id).isEmpty())
+    public ResponseEntity<Activity> getActivityById(@PathVariable long id) {
+        if (this.activityRepository.findById(id).isEmpty())
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(this.activityRepository.findById(id).get());
     }
+
     @DeleteMapping("/all")
     public ResponseEntity<Activity> deleteAllActivities() {
         this.activityRepository.deleteAll();
@@ -73,5 +75,5 @@ public class ActivityController {
         Activity saved = activityRepository.save(toBeModified);
         return ResponseEntity.ok(saved);
     }
-    
+
 }

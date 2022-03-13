@@ -33,68 +33,79 @@ public class ServerUtils {
     /**
      * Adds a player by a username
      * see server/src/../PlayerController
+     *
      * @param username String, representing the username of the player to add
      * @return the created player, which is also added to the database
      */
-    public Player addPlayer(String username){
+    public Player addPlayer(String username) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("player/add").request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .post(Entity.entity(new Player(username), APPLICATION_JSON),Player.class);
+                .post(Entity.entity(new Player(username), APPLICATION_JSON), Player.class);
     }
 
     /**
      * Retrieves a player by username(which acts in our case as an identifier)
+     *
      * @param username String representing the username of the player to be retrieved
      * @return the retrived player
      */
-    public Player getPlayer(String username){
+    public Player getPlayer(String username) {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(SERVER).path("player/"+username).request(APPLICATION_JSON)
+                .target(SERVER).path("player/" + username).request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<Player>(){});
+                .get(new GenericType<Player>() {
+                });
     }
 
     /**
      * Checks if the server matches with the host server
+     *
      * @param otherServer another url
      * @return a boolean, representing whether the server matches.
      */
-    public boolean checkIfServerMatches(String otherServer){
+    public boolean checkIfServerMatches(String otherServer) {
         return this.SERVER.equals(otherServer);
     }
+
     /**
      * Retrieves the list of all players
+     *
      * @return a list of players, from the player repository
      */
-    public List<Player> getAllPlayers(){
+    public List<Player> getAllPlayers() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("player/").request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<List<Player>>(){});
+                .get(new GenericType<List<Player>>() {
+                });
     }
 
     /**
      * Retrives a list of all activities
+     *
      * @return the list of all activities, from the activity repository
      */
-    public List<Activity> getAllActivities(){
+    public List<Activity> getAllActivities() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("activity/all").request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<List<Activity>>(){});
+                .get(new GenericType<List<Activity>>() {
+                });
     }
 
     /**
      * Retrieve an activity by id
+     *
      * @param id the id of the activity
      * @return the activity from the repository
      */
-    public Activity getActivityById(long id){
+    public Activity getActivityById(long id) {
         return ClientBuilder.newClient(new ClientConfig())
-                .target(SERVER).path("activity/"+id).request(APPLICATION_JSON)
+                .target(SERVER).path("activity/" + id).request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<Activity>(){});
+                .get(new GenericType<Activity>() {
+                });
     }
 
     public String getCorrect() {
@@ -105,35 +116,5 @@ public class ServerUtils {
                 .get(new GenericType<String>() {
                 });
     }
-    /**
-     * Code from the example repository
 
-    public void getQuotesTheHardWay() throws IOException {
-        var url = new URL("http://localhost:8080/api/quotes");
-        var is = url.openConnection().getInputStream();
-        var br = new BufferedReader(new InputStreamReader(is));
-        String line;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
-        }
-    }
-
-    public List<Quote> getQuotes() {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/quotes") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .get(new GenericType<List<Quote>>() {
-                });
-    }
-
-    public Quote addQuote(Quote quote) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/quotes") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
-    }
-
-     */
 }

@@ -18,11 +18,11 @@ public class CorrectAnswer {
         Activity second = quizzQuestion.getSecondChoice();
         Activity third = quizzQuestion.getThirdChoice();
 
-        if(second.getConsumption_in_wh() > highest.getConsumption_in_wh()) {
+        if (second.getConsumption_in_wh() > highest.getConsumption_in_wh()) {
             highest = second;
         }
 
-        if(third.getConsumption_in_wh() > highest.getConsumption_in_wh()) {
+        if (third.getConsumption_in_wh() > highest.getConsumption_in_wh()) {
             highest = third;
         }
 
