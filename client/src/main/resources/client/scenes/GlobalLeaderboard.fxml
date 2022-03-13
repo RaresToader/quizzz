@@ -28,10 +28,10 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <TableView layoutX="436.0" layoutY="158.0" prefHeight="509.0" prefWidth="391.0">
+      <TableView fx:id="tableView" layoutX="436.0" layoutY="158.0" prefHeight="509.0" prefWidth="391.0">
         <columns>
-          <TableColumn prefWidth="207.93753051757812" text="Player" />
-          <TableColumn prefWidth="182.0625" sortType="DESCENDING" text="Score" />
+          <TableColumn fx:id="nameColumn" prefWidth="207.93753051757812" text="Player" />
+          <TableColumn fx:id="scoreColumn" prefWidth="182.0625" sortType="DESCENDING" text="Score" />
         </columns>
       </TableView>
    </children>

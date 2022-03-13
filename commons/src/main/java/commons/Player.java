@@ -16,6 +16,7 @@ public class Player {
         //for object mapper
     }
 
+
     public String getUsername() {
         return username;
     }
