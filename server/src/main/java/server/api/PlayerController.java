@@ -81,5 +81,14 @@ public class PlayerController {
         return ResponseEntity.ok().build();
     }
 
-
+    /**
+     * Retrieves the top 10 players
+     * @return a list of 10 players
+     */
+    @GetMapping("/leaderboard")
+    public ResponseEntity<List<Player>> getLeaderboardPlayers(){
+        List<Player> allPlayers = this.playerRepo.findAll();
+        allPlayers.sort(new PlayerComparator());
+        return ResponseEntity.ok(allPlayers.subList(0,9));
+    }
 }
