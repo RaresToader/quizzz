@@ -1,0 +1,31 @@
+@import "MainStylesheet.css";
+
+#singleplayerButton {
+    /*-fx-translate-x: 300pt;*/
+}
+
+#quitButton {
+    -fx-translate-y: 20pt;
+}
+
+#groupLabel {
+    -fx-translate-y: 15pt;
+    -fx-translate-x: 20pt;
+}
+
+#leaderboardButton {
+    -fx-font-size: 20pt;
+}
+
+#playerCountNumber {
+    -fx-translate-x: -70pt;
+}
+
+#playerCountLabel {
+    -fx-translate-x: -70pt;
+}
+
+#titleLabel {
+    -fx-translate-x: -50pt;
+    -fx-translate-y: -20pt;
+}
