@@ -80,7 +80,7 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     private Optional<Activity> find(Long id) {
-        return activities.stream().filter(q -> q.getId() == id).findFirst();
+        return activities.stream().filter(q -> q.getRealID() == id).findFirst();
     }
 
     @Override
@@ -125,7 +125,7 @@ public class TestActivityRepository implements ActivityRepository {
     @Override
     public void deleteById(Long aLong) {
         calledMethods.add("deleteById");
-        activities.stream().filter(x -> x.getId() != aLong).toList();
+        activities.stream().filter(x -> x.getRealID() != aLong).toList();
     }
 
     @Override

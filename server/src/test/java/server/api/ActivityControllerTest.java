@@ -37,7 +37,7 @@ public class ActivityControllerTest {
 
     @Test
     public void cannotAddNullSource() {
-        var actual = systemUnderTest.addActivity(new Activity("test", 0, null));
+        var actual = systemUnderTest.addActivity(new Activity("test", "test", "test",10l,null));
         assertEquals(actual.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
@@ -48,7 +48,7 @@ public class ActivityControllerTest {
 
     @Test
     public void addActivityTest1() {
-        var actual = systemUnderTest.addActivity(new Activity("test", 0, "test"));
+        var actual = systemUnderTest.addActivity(new Activity("test", "test", "test",10l,"test"));
         assertEquals(actual.getStatusCode(), HttpStatus.OK);
     }
     @Test
