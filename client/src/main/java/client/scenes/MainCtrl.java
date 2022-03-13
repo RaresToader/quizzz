@@ -86,10 +86,12 @@ public class MainCtrl {
         primaryStage.setTitle("Global Leaderboard");
         primaryStage.setScene(this.globalLeadScreen);
     }
+
     public void showQueue() {
         primaryStage.setTitle("Multiplayer queue");
         primaryStage.setScene((this.queueScreen));
     }
+
     public void showSingleplayer() {
         primaryStage.setTitle("Singleplayer");
         primaryStage.setScene(this.questionScreen);

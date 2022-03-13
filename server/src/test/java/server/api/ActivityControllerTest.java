@@ -143,7 +143,7 @@ public class ActivityControllerTest {
         systemUnderTest.addActivity(test);
         test.setConsumption_in_wh(10);
         var actual = systemUnderTest.modifyActivity(test);
-        assertEquals(actual.getStatusCode(),HttpStatus.OK);
+        assertEquals(actual.getStatusCode(), HttpStatus.OK);
     }
 
     @Test

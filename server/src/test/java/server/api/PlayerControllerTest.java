@@ -276,16 +276,18 @@ public class PlayerControllerTest {
     public void deleteTest5() {
         systemUnderTest.addPlayer(new Player("test"));
         systemUnderTest.deleteByObject(new Player("test"));
-        assertEquals(repo.players.size(),0);
+        assertEquals(repo.players.size(), 0);
     }
+
     @Test
-    public void deleteTest6(){
+    public void deleteTest6() {
         systemUnderTest.addPlayer(new Player("test"));
         var actual = systemUnderTest.deleteByObject(new Player("test"));
-        assertEquals(actual.getStatusCode(),HttpStatus.OK);
+        assertEquals(actual.getStatusCode(), HttpStatus.OK);
     }
+
     @Test
-    public void deleteTest7(){
+    public void deleteTest7() {
         systemUnderTest.addPlayer(new Player("test"));
         systemUnderTest.deleteByObject(new Player("test"));
         assertTrue(repo.calledMethods.contains("deleteById"));

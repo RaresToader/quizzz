@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class SessionController {
 
-    public SessionController() {}
+    public SessionController() {
+    }
 
     /**
      * Controller for getting number of active players
@@ -18,13 +19,14 @@ public class SessionController {
 
     /**
      * Controller for getting current question
+     *
      * @param nickname - nickname of the user creating the request
      */
     @GetMapping("/session/question/{nickname}")
     public QuizzQuestion getCurrentQuestion(@PathVariable("nickname") String nickname) {
         int session = SessionContainer.findUserSession(nickname);
-        if(session == -1) { //If not session provided for that user yet
-            SessionContainer.createSession(false,nickname); //TODO
+        if (session == -1) { //If not session provided for that user yet
+            SessionContainer.createSession(false, nickname); //TODO
         }
 
         int sessionId = SessionContainer.findUserSession(nickname);
@@ -40,7 +42,7 @@ public class SessionController {
         }
 
         QuizzQuestion retQ = x.getCurrentQuestion();
-        if(retQ == null) return new QuizzQuestion("0",null,null,null); //DEBUG line
+        if (retQ == null) return new QuizzQuestion("0", null, null, null); //DEBUG line
         else return retQ;
     }
 

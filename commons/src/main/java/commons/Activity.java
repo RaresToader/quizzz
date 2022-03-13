@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
+
 @Entity
 public class Activity {
     @Id
@@ -16,18 +17,19 @@ public class Activity {
     private long consumption_in_wh;
     private String source;
 
-    public Activity(String title,long consumption_in_wh,String source) {
-        this.title= title;
-        this.consumption_in_wh=consumption_in_wh;
-        this.source=source;
+    public Activity(String title, long consumption_in_wh, String source) {
+        this.title = title;
+        this.consumption_in_wh = consumption_in_wh;
+        this.source = source;
     }
 
     /**
      * For the Object Mapper
      */
-    private Activity(){
+    private Activity() {
 
     }
+
     public String getTitle() {
         return title;
     }
@@ -40,7 +42,7 @@ public class Activity {
         return source;
     }
 
-    public long getId(){
+    public long getId() {
         return id;
     }
 
