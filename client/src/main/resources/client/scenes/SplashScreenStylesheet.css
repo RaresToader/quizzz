@@ -1,9 +1,5 @@
 @import "MainStylesheet.css";
 
-#singleplayerButton {
-    /*-fx-translate-x: 300pt;*/
-}
-
 #quitButton {
     -fx-translate-y: 20pt;
 }
