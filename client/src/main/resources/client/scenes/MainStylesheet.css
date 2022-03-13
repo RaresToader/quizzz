@@ -3,3 +3,21 @@
 .root{
     -fx-font-family: "Fugaz One", cursive;
 }
+
+.standardButton {
+    -fx-font-size: 38pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+}
+
+.label {
+    -fx-font-size: 24pt;
+}
+
+.title {
+    -fx-font-size: 72pt;
+}
