@@ -15,6 +15,7 @@
  */
 package client.scenes;
 
+import client.utils.Utils;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -37,11 +38,14 @@ public class MainCtrl {
     private Scene splashScreen;
     private GlobalLeaderboardCtrl globalLeaderboardCtrl;
     private Scene globalLeadScreen;
-
+    private Scene queueScreen;
+    private QueueCtrl queueCtrl;
+    private QuestionScreenCtrl questionScreenCtrl;
+    private Scene questionScreen;
     private static final String iconPath = "/photos/clientIcon.png";
 
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
-            Pair<SplashCtrl, Parent> splash,Pair<GlobalLeaderboardCtrl,Parent> globalLeaderboard) {
+                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue) {
 
         this.primaryStage = primaryStage;
         this.enterMenuCtrl = enterMenu.getKey();
@@ -50,9 +54,14 @@ public class MainCtrl {
         this.splashCtrl = splash.getKey();
         this.splashScreen = new Scene(splash.getValue());
 
-        this.globalLeaderboardCtrl = globalLeaderboard.getKey();
-        this.globalLeadScreen= new Scene(globalLeaderboard.getValue());
+        this.queueCtrl = queue.getKey();
+        this.queueScreen = new Scene(queue.getValue());
 
+        this.globalLeaderboardCtrl = globalLeaderboard.getKey();
+        this.globalLeadScreen = new Scene(globalLeaderboard.getValue());
+
+        this.questionScreenCtrl = questionScreen.getKey();
+        this.questionScreen = new Scene(questionScreen.getValue());
         //Set program icon
         this.primaryStage.getIcons().add(new Image(MainCtrl.class.getResourceAsStream(iconPath)));
         showEnterMenu();
@@ -68,11 +77,24 @@ public class MainCtrl {
         primaryStage.setTitle("Main Screen");
         primaryStage.setScene(splashScreen);
     }
-    public void closeSplash(){
+
+    public void closeSplash() {
         primaryStage.close();
     }
-    public void showGlobalLeaderboard(){
+
+    public void showGlobalLeaderboard() {
         primaryStage.setTitle("Global Leaderboard");
         primaryStage.setScene(this.globalLeadScreen);
+    }
+
+    public void showQueue() {
+        primaryStage.setTitle("Multiplayer queue");
+        primaryStage.setScene((this.queueScreen));
+    }
+
+    public void showSingleplayer() {
+        primaryStage.setTitle("Singleplayer");
+        primaryStage.setScene(this.questionScreen);
+        System.out.println(Utils.getCurrentQuestion()); //Get current question
     }
 }

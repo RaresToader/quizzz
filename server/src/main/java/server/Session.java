@@ -1,7 +1,11 @@
 package server;
 
-import commons.Player;
+import commons.Activity;
+import commons.Answer;
+import commons.QuizzQuestion;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,30 +13,67 @@ import java.util.Objects;
 public class Session {
 
     private static final int playerLimit = 20; //To be determined
-    private List<Player> playerList;
+    private List<String> playerList;
     private boolean started;
-    private Player gameAdmin;
+    private String gameAdmin;
     private boolean gameType; //0 for singleplayer || 1 for multiplayer
+    private List<QuizzQuestion> questions;
+    private List<Answer> answers;
+    private int currentQuestion;
+    private LocalDate questionStartedAt;
 
     public Session(boolean gameType) {
-        this.playerList  = new ArrayList<Player>();
-        this.started     = false;
-        this.gameAdmin   = null;
-        this.gameType    = gameType;
+        this.playerList = new ArrayList<String>();
+        this.started = false;
+        this.gameAdmin = null;
+        this.gameType = gameType;
+        this.questions = new ArrayList<QuizzQuestion>();
+        this.answers = new ArrayList<Answer>();
+        this.currentQuestion = -1;
+        this.questionStartedAt = LocalDate.of(2030, 1, 1);
+
+        this.generateTestQuestions(); //Temporary until we construct function that generates random question set
+    }
+
+    private void generateTestQuestions() {
+        QuizzQuestion q1 = new QuizzQuestion("This is test question", new Activity("abc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
+        this.questions.add(q1);
+    }
+
+    public boolean haveEveryoneAnswered() {
+        int playerNum = playerList.size();
+        int answersNum = 0;
+        for (Answer x : answers) {
+            if (x.getQuestionNum() == this.currentQuestion) answersNum++;
+        }
+
+        return answersNum == playerNum;
+    }
+
+    public QuizzQuestion getCurrentQuestion() {
+        if (!this.started) return null;
+
+        //If everyone has answered that question OR this is first question OR time has passed then get new question
+        if (this.haveEveryoneAnswered() || questionStartedAt.getYear() == 2030 || Duration.between(questionStartedAt.atStartOfDay(), LocalDate.now().atStartOfDay()).toSeconds() > 20) {
+            this.currentQuestion++;
+            this.questionStartedAt = LocalDate.now();
+        }
+
+
+        return this.questions.get(currentQuestion);
     }
 
     /**
-     *
      * @param p - Player to be added
      * @return boolean value whether addition of player is possible
      */
-    public boolean isAvailable(Player p) {
+    public boolean isAvailable(String p) {
         //Game is full OR player is already in game OR has started
-        if(this.playerList.size() >= Session.playerLimit ||
+        if (this.playerList.size() >= Session.playerLimit ||
                 this.playerList.contains(p) || this.started) return false;
 
         //Attempting to add another player to singleplayer
-        if(!this.gameType && this.playerList.size() == 1) return false;
+        if (!this.gameType && this.playerList.size() == 1) return false;
 
         return true;
     }
@@ -41,11 +82,11 @@ public class Session {
      * @param p - Player to be added to game
      * @return boolean value whether operation of addition was successful
      */
-    public boolean addPlayer(Player p) {
-        if(!this.isAvailable(p)) return false;
+    public boolean addPlayer(String p) {
+        if (!this.isAvailable(p)) return false;
 
         //Setting up gameAdmin
-        if(this.playerList.size() == 0) {
+        if (this.playerList.size() == 0) {
             this.gameAdmin = p;
         }
 
@@ -54,17 +95,39 @@ public class Session {
     }
 
     /**
+     * Adds player answer
      *
+     * @param x - Answer object
+     */
+    public void addAnswer(Answer x) {
+        if (x == null) return; //If null object
+
+        //Is player who submits an answer member of the session
+        //If answer is submitted to other question than current
+        if (!this.isPlayerInSession(x.getNickname()) || currentQuestion != x.getQuestionNum()) return;
+
+
+        //If answer has already been submitted
+        for (Answer ans : this.answers) {
+            if (ans.getQuestionNum() == x.getQuestionNum() && ans.getNickname().equals(x.getNickname())) {
+                return;
+            }
+        }
+
+        this.answers.add(x);
+    }
+
+    /**
      * @param p - Player to be removed from game
      * @return Boolean value depending on whether deletion operation was successful
      */
-    public boolean removePlayer(Player p) {
-        if(this.playerList.size() == 0 || !playerList.contains(p)) return false;
+    public boolean removePlayer(String p) {
+        if (this.playerList.size() == 0 || !playerList.contains(p)) return false;
 
         playerList.remove(p); //Remove player from playerList
 
-        if(gameAdmin.equals(p)) { //If player is the game's admin
-            if(playerList.size() == 0) gameAdmin = null;
+        if (gameAdmin.equals(p)) { //If player is the game's admin
+            if (playerList.size() == 0) gameAdmin = null;
             else gameAdmin = playerList.get(0);
         }
 
@@ -72,12 +135,11 @@ public class Session {
     }
 
     /**
-     *
      * @param x - Player to find for
      * @return Boolean value determining whether player is inside this session
      */
-    public boolean isPlayerInSession(Player x) {
-        if(x == null) return false;
+    public boolean isPlayerInSession(String x) {
+        if (x == null) return false;
 
         return this.playerList.contains(x);
     }
@@ -94,7 +156,7 @@ public class Session {
         this.started = false;
     }
 
-    public List<Player> getPlayerList() {
+    public List<String> getPlayerList() {
         return playerList;
     }
 
@@ -102,12 +164,20 @@ public class Session {
         return started;
     }
 
-    public Player getGameAdmin() {
+    public String getGameAdmin() {
         return gameAdmin;
     }
 
     public boolean isGameType() {
         return gameType;
+    }
+
+    public List<QuizzQuestion> getQuestions() {
+        return this.questions;
+    }
+
+    public List<Answer> getAnswers() {
+        return this.answers;
     }
 
     @Override

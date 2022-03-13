@@ -16,6 +16,7 @@
 package client;
 
 import static com.google.inject.Guice.createInjector;
+
 import client.scenes.*;
 import com.google.inject.Injector;
 
@@ -27,6 +28,7 @@ public class Main extends Application {
     private static final Injector INJECTOR = createInjector(new MyModule());
     private static final MyFXML FXML = new MyFXML(INJECTOR);
 
+
     public static void main(String[] args) {
         launch();
     }
@@ -36,8 +38,10 @@ public class Main extends Application {
 
         var enterMenu = FXML.load(EnterMenuCtrl.class, "client", "scenes", "EnterMenu.fxml");
         var splash = FXML.load(SplashCtrl.class, "client", "scenes", "SplashScreen.fxml");
-        var globalLeaderboard = FXML.load(GlobalLeaderboardCtrl.class,"client", "scenes", "GlobalLeaderboard.fxml");
+        var queue = FXML.load(QueueCtrl.class, "client", "scenes", "QueueScreen.fxml");
+        var globalLeaderboard = FXML.load(GlobalLeaderboardCtrl.class, "client", "scenes", "GlobalLeaderboard.fxml");
+        var questionScreen = FXML.load(QuestionScreenCtrl.class, "client", "scenes", "QuestionScreen.fxml");
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, enterMenu, splash,globalLeaderboard);
+        mainCtrl.initialize(primaryStage, enterMenu, splash, globalLeaderboard, questionScreen, queue);
     }
 }

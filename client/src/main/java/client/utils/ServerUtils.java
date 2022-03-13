@@ -15,48 +15,120 @@
  */
 package client.utils;
 
-import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.List;
-
-import org.glassfish.jersey.client.ClientConfig;
-
-import commons.Quote;
+import commons.Activity;
+import commons.Player;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
+import org.glassfish.jersey.client.ClientConfig;
+
+import java.util.List;
+
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
 
     private static final String SERVER = "http://localhost:8080/";
 
-    public void getQuotesTheHardWay() throws IOException {
-        var url = new URL("http://localhost:8080/api/quotes");
-        var is = url.openConnection().getInputStream();
-        var br = new BufferedReader(new InputStreamReader(is));
-        String line;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
-        }
+    /**
+     * Adds a player by a username
+     * see server/src/../PlayerController
+     *
+     * @param username String, representing the username of the player to add
+     * @return the created player, which is also added to the database
+     */
+    public Player addPlayer(String username) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("player/add").request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(new Player(username), APPLICATION_JSON), Player.class);
     }
 
-    public List<Quote> getQuotes() {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/quotes") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .get(new GenericType<List<Quote>>() {});
+    /**
+     * Retrieves a player by username(which acts in our case as an identifier)
+     *
+     * @param username String representing the username of the player to be retrieved
+     * @return the retrived player
+     */
+    public Player getPlayer(String username) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("player/" + username).request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<Player>() {
+                });
     }
 
-    public Quote addQuote(Quote quote) {
-        return ClientBuilder.newClient(new ClientConfig()) //
-                .target(SERVER).path("api/quotes") //
-                .request(APPLICATION_JSON) //
-                .accept(APPLICATION_JSON) //
-                .post(Entity.entity(quote, APPLICATION_JSON), Quote.class);
+    /**
+     * Checks if the server matches with the host server
+     *
+     * @param otherServer another url
+     * @return a boolean, representing whether the server matches.
+     */
+    public boolean checkIfServerMatches(String otherServer) {
+
+        return this.SERVER.equals(otherServer);
     }
+
+    /**
+     * Retrieves the list of all players
+     *
+     * @return a list of players, from the player repository
+     */
+    public List<Player> getAllPlayers() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("player/").request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Player>>() {
+                });
+    }
+
+    /**
+     * Retrieves a list of 60 Random Activities
+     *
+     * @return a list of 60 activities
+     */
+    public List<Activity> get60RandomActivities() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/randomset")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Activity>>() {
+                });
+    }
+
+    /**
+     * Retrives a list of all activities
+     *
+     * @return the list of all activities, from the activity repository
+     */
+    public List<Activity> getAllActivities() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/all").request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Activity>>() {
+                });
+    }
+
+    /**
+     * Retrieve an activity by id
+     *
+     * @param id the id of the activity
+     * @return the activity from the repository
+     */
+    public Activity getActivityById(long id) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/" + id).request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<Activity>() {
+                });
+    }
+
+    public String getCorrect() {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path("/correct/mostExpensive").request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON) //
+                .get(new GenericType<String>() {
+                });
+    }
+
 }

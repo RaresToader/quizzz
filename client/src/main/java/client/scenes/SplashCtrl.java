@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,14 +22,28 @@ public class SplashCtrl {
     @FXML
     private Button multi;
     @FXML
-    private Button leadeboard;
+    private Button leaderboard;
     @FXML
     private Label playerCounter;
-    public void quitButton(){
+
+    public void initialize() {
+        playerCounter.setText(Utils.getActivePlayers());
+    }
+
+    public void quitButton() {
+
         mainCtrl.closeSplash();
     }
-    public void leaderboardButton(){
+
+    public void leaderboardButton() {
         mainCtrl.showGlobalLeaderboard();
     }
 
+    public void goToMultiplayerQueue() {
+        mainCtrl.showQueue();
+    }
+
+    public void toSinglePlayer() {
+        mainCtrl.showSingleplayer();
+    }
 }
