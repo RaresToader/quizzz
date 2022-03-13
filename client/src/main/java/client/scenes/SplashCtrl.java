@@ -22,7 +22,7 @@ public class SplashCtrl {
     @FXML
     private Button multi;
     @FXML
-    private Button leadeboard;
+    private Button leaderboard;
     @FXML
     private Label playerCounter;
 
@@ -31,15 +31,18 @@ public class SplashCtrl {
     }
 
     public void quitButton() {
+
         mainCtrl.closeSplash();
     }
 
     public void leaderboardButton() {
         mainCtrl.showGlobalLeaderboard();
     }
+
     public void goToMultiplayerQueue() {
         mainCtrl.showQueue();
     }
+
     public void toSinglePlayer() {
         mainCtrl.showSingleplayer();
     }

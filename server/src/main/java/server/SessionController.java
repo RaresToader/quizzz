@@ -10,7 +10,8 @@ import java.time.LocalDate;
 @RestController
 public class SessionController {
 
-    public SessionController() {}
+    public SessionController() {
+    }
 
     /**
      * Controller for getting number of active players
@@ -22,6 +23,7 @@ public class SessionController {
 
     /**
      * Controller for getting current question
+     *
      * @param nickname - nickname of the user creating the request
      */
     @GetMapping("/session/question/{nickname}")
@@ -34,12 +36,12 @@ public class SessionController {
         int sessionId = SessionContainer.findUserSession(nickname);
         //System.out.println("For "+nickname+" it is "+sessionId); //DEBUG LINE
         Session x = SessionContainer.getSession(sessionId);
-        if(!x.isStarted()) { //If game is not started
+        if (!x.isStarted()) { //If game is not started
             x.startGame();
         }
 
         QuizzQuestion retQ = x.getCurrentQuestion();
-        if(retQ == null) return new QuizzQuestion("0",null,null,null); //DEBUG line
+        if (retQ == null) return new QuizzQuestion("0", null, null, null); //DEBUG line
         else return retQ;
     }
 

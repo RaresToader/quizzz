@@ -1,0 +1,2529 @@
+[
+  {
+    "id": "02-electric_stove",
+    "image_path": "02/electric_stove.png",
+    "title": "Using an electric stove for 1 hour",
+    "consumption_in_wh": 1200,
+    "source": "https://blog.arcadia.com/electricity-costs-10-key-household-products/"
+  },
+  {
+    "id": "02-nft",
+    "image_path": "02/nft.png",
+    "title": "Creating an NFT",
+    "consumption_in_wh": 142000,
+    "source": "https://postergrind.com/how-much-energy-does-it-take-to-make-an-nft/"
+  },
+  {
+    "id": "02-air_conditioner",
+    "image_path": "02/air_conditioner.jpg",
+    "title": "Using an air conditioner for 7 days",
+    "consumption_in_wh": 168000,
+    "source": "https://joteo.net/electricity-usage-calculator/electricity-usage-of-a-garment-steamer"
+  },
+  {
+    "id": "02-portable_heater",
+    "image_path": "02/portable_heater.png",
+    "title": "Using a portable heater for 1 hour",
+    "consumption_in_wh": 1500,
+    "source": "https://www.siliconvalleypower.com/residents/save-energy/appliance-energy-use-chart"
+  },
+  {
+    "id": "02-bitcoin",
+    "image_path": "02/bitcoin.png",
+    "title": "Performing a bitcoin transaction",
+    "consumption_in_wh": 1173000,
+    "source": "https://fortune.com/2021/10/26/bitcoin-electricity-consumption-carbon-footprin/"
+  },
+  {
+    "id": "02-dishwasher",
+    "image_path": "02/dishwasher.png",
+    "title": "Using a dishwasher for 2 hours",
+    "consumption_in_wh": 3600,
+    "source": "https://joteo.net/electricity-usage-calculator/electricity-usage-of-a-garment-steamer"
+  },
+  {
+    "id": "02-hair_dryer",
+    "image_path": "02/hair_dryer.png",
+    "title": "Using a hair dryer for half an hour",
+    "consumption_in_wh": 600,
+    "source": "https://www.siliconvalleypower.com/residents/save-energy/appliance-energy-use-chart"
+  },
+  {
+    "id": "02-iphone",
+    "image_path": "02/iphone.png",
+    "title": "Charging, an iphone 6, 100 times",
+    "consumption_in_wh": 1050,
+    "source": "https://blog.arcadia.com/electricity-costs-10-key-household-products/"
+  },
+  {
+    "id": "02-garment_steamer",
+    "image_path": "02/garment_steamer.jpg",
+    "title": "Using a garment steamer for 24 hours",
+    "consumption_in_wh": 38500,
+    "source": "https://joteo.net/electricity-usage-calculator/electricity-usage-of-a-garment-steamer"
+  },
+  {
+    "id": "02-tv",
+    "image_path": "02/tv.png",
+    "title": "Watching the TV for 1 day",
+    "consumption_in_wh": 1200,
+    "source": "https://letsavelectricity.com/how-much-power-does-a-tv-use-in-an-hour/"
+  },
+  {
+    "id": "02-tesla",
+    "image_path": "02/tesla.png",
+    "title": "Driving a Tesla for 10000 miles",
+    "consumption_in_wh": 3400000,
+    "source": "https://www.carshtuff.com/post/how-much-electricity-does-a-tesla-use"
+  },
+  {
+    "id": "02-instagram",
+    "image_path": "02/instagram.png",
+    "title": "Scrolling through instagram for 2 hours",
+    "consumption_in_wh": 772,
+    "source": "https://earth.org/how-social-media-habits-are-contributing-to-internet-pollution/"
+  },
+  {
+    "id": "02-dehumidifier",
+    "image_path": "02/dehumidifier.png",
+    "title": "Using a dehumidifier  for 2 weeks continuously",
+    "consumption_in_wh": 2880,
+    "source": "https://generatorist.com/power-consumption-of-household-appliances"
+  },
+  {
+    "id": "02-electric_can_opener",
+    "image_path": "02/electric_can_opener.png",
+    "title": "Using an electric can opener for 1 hour",
+    "consumption_in_wh": 170,
+    "source": "https://generatorist.com/power-consumption-of-household-appliances"
+  },
+  {
+    "id": "02-desktop",
+    "image_path": "02/desktop.png",
+    "title": "Using a Desktop computer for 5 hours",
+    "consumption_in_wh": 300,
+    "source": "https://www.siliconvalleypower.com/residents/save-energy/appliance-energy-use-chart"
+  },
+  {
+    "id": "02-electric_oven",
+    "image_path": "02/electric_oven.png",
+    "title": "Using an electric oven for 1 hour",
+    "consumption_in_wh": 2300,
+    "source": "https://www.siliconvalleypower.com/residents/save-energy/appliance-energy-use-chart"
+  },
+  {
+    "id": "02-coffee_machine",
+    "image_path": "02/coffee_machine.png",
+    "title": "Brewing 10 coffees using a coffee machine",
+    "consumption_in_wh": 1200,
+    "source": "https://www.siliconvalleypower.com/residents/save-energy/appliance-energy-use-chart"
+  },
+  {
+    "id": "02-electric_water_heater",
+    "image_path": "02/electric_water_heater.png",
+    "title": "Using an electric water heater for 10 days",
+    "consumption_in_wh": 280000,
+    "source": "https://generatorist.com/power-consumption-of-household-appliances"
+  },
+  {
+    "id": "02-blender",
+    "image_path": "02/blender.png",
+    "title": "Using a blender for 24 hours straight",
+    "consumption_in_wh": 24000,
+    "source": "https://generatorist.com/power-consumption-of-household-appliances"
+  },
+  {
+    "id": "02-ceiling_fan",
+    "image_path": "02/ceiling_fan.png",
+    "title": "Using a ceiling fan for 4 hours",
+    "consumption_in_wh": 300,
+    "source": "https://www.siliconvalleypower.com/residents/save-energy/appliance-energy-use-chart"
+  },
+  {
+    "id": "08-hairdryer",
+    "image_path": "08/hairdryer.png",
+    "title": "How much energy does a hairdrier consume in 15 minutes of use?",
+    "consumption_in_wh": 380,
+    "source": "https://energyusecalculator.com/electricity_hairdryer.htm?"
+  },
+  {
+    "id": "08-blanket",
+    "image_path": "08/blanket.jpg",
+    "title": "Electric blanket for 8 hours",
+    "consumption_in_wh": 1600,
+    "source": "https://home.howstuffworks.com/question91.htm"
+  },
+  {
+    "id": "08-waffle-maker",
+    "image_path": "08/waffle-maker.jpg",
+    "title": "How much energy does it take to use a waffle maker for 5 minutes?",
+    "consumption_in_wh": 90,
+    "source": "https://joteo.net/electricity-usage-calculator/electricity-usage-of-a-waffle-maker"
+  },
+  {
+    "id": "08-fridge",
+    "image_path": "08/fridge.png",
+    "title": "Have the fridge running for a day",
+    "consumption_in_wh": 1200,
+    "source": "https://unboundsolar.com/solar-information/power-table"
+  },
+  {
+    "id": "08-kettle",
+    "image_path": "08/kettle.jpg",
+    "title": "Heating 10 litres of water by using an electric kettle",
+    "consumption_in_wh": 910,
+    "source": "https://www.theguardian.com/notesandqueries/query/0,5753,-2452,00.html"
+  },
+  {
+    "id": "08-toothbrush",
+    "image_path": "08/toothbrush.jpg",
+    "title": "Brushing your teeth 3 times with an electrical toothbrush",
+    "consumption_in_wh": 30,
+    "source": "https://www.energuide.be/en/questions-answers/how-much-energy-do-my-household-appliances-use/71/"
+  },
+  {
+    "id": "08-train",
+    "image_path": "08/train.jpg",
+    "title": "Taking the train in Japan for one kilometre",
+    "consumption_in_wh": 1490,
+    "source": "https://en.wikipedia.org/wiki/Energy_efficiency_in_transport"
+  },
+  {
+    "id": "08-freezer",
+    "image_path": "08/freezer.png",
+    "title": "Have the freezer running for a day",
+    "consumption_in_wh": 1240,
+    "source": "https://unboundsolar.com/solar-information/power-table"
+  },
+  {
+    "id": "08-heater",
+    "image_path": "08/heater.jpg",
+    "title": "How much energy does an electric heater consume in 5 hours?",
+    "consumption_in_wh": 10000,
+    "source": "https://www.quora.com/How-many-units-will-a-2-kwh-heater-consume-in-5-hours"
+  },
+  {
+    "id": "08-gaming-computer",
+    "image_path": "08/gaming-computer.png",
+    "title": "Average Gaming Computer running a game for 2 hours",
+    "consumption_in_wh": 650,
+    "source": "https://gamerforfun.com/how-much-electricity-does-a-gaming-pc-use/"
+  },
+  {
+    "id": "08-robot-vacuum",
+    "image_path": "08/robot-vacuum.jpg",
+    "title": "Robot vacuum for 2 hours usage",
+    "consumption_in_wh": 120,
+    "source": "https://www.thehomehacksdiy.com/how-much-power-watts-does-a-robot-vacuum-use/"
+  },
+  {
+    "id": "08-skydiving",
+    "image_path": "08/skydiving.jpg",
+    "title": "Going indoor skydiving for 30 minutes",
+    "consumption_in_wh": 200000,
+    "source": "https://www.isg-group.de/products-and-services/our-tunnel-models/"
+  },
+  {
+    "id": "08-iron",
+    "image_path": "08/iron.jpg",
+    "title": "Using a soldering iron for 30 minutes",
+    "consumption_in_wh": 20,
+    "source": "https://www.electronics-notes.com/articles/constructional_techniques/soldering/soldering-irons.php"
+  },
+  {
+    "id": "08-tv",
+    "image_path": "08/tv.jpg",
+    "title": "Watching tv for an hour",
+    "consumption_in_wh": 50,
+    "source": "https://ecocostsavings.com/tv-wattage/"
+  },
+  {
+    "id": "08-car",
+    "image_path": "08/car.jpg",
+    "title": "Driving 100km in an electric car",
+    "consumption_in_wh": 15000,
+    "source": "https://www.energuide.be/en/questions-answers/how-much-power-does-an-electric-car-use/212/"
+  },
+  {
+    "id": "08-toaster",
+    "image_path": "08/toaster.png",
+    "title": "Make three slices of toast in a 2-slice toaster",
+    "consumption_in_wh": 120,
+    "source": "https://www.batteryequivalents.com/off-the-grid-how-many-watts-does-a-toaster-use.html"
+  },
+  {
+    "id": "08-oculus",
+    "image_path": "08/oculus.png",
+    "title": "Gaming on a Oculus Quest 2 VR headset for 3 hours",
+    "consumption_in_wh": 11,
+    "source": "https://www.thehomehacksdiy.com/how-much-power-watts-does-a-vr-headset-use/"
+  },
+  {
+    "id": "08-nintendo",
+    "image_path": "08/nintendo.jpg",
+    "title": "Playing Mario Kart on a Nintendo DS lite for 6 hours",
+    "consumption_in_wh": 5,
+    "source": "https://tim.cexx.org/?p=345"
+  },
+  {
+    "id": "08-bus",
+    "image_path": "08/bus.jpg",
+    "title": "Taking the bus for one kilometre",
+    "consumption_in_wh": 2000,
+    "source": "https://www.sustainable-bus.com/news/electric-bus-range-focus-on-electricity-consumption-a-sum-up"
+  },
+  {
+    "id": "08-phone",
+    "image_path": "08/phone.jpg",
+    "title": "How much energy does charging your phone for 3 hours consume?",
+    "consumption_in_wh": 15,
+    "source": "https://getinstacash.in/blog/electricity-to-charge-your-phone/"
+  },
+  {
+    "id": "44-hairdryer",
+    "image_path": "44/hairdryer.jpeg",
+    "title": "Using a hair dryer for 1 hour at max setting",
+    "consumption_in_wh": 1900,
+    "source": "https://ecocostsavings.com/hair-dryer-wattage/"
+  },
+  {
+    "id": "44-humidifier",
+    "image_path": "44/humidifier.jpeg",
+    "title": "Using a humidifier for 8 hours",
+    "consumption_in_wh": 1400,
+    "source": "http://www.wrecc.com/what-uses-watts-in-your-home/"
+  },
+  {
+    "id": "44-fridge",
+    "image_path": "44/fridge.jpeg",
+    "title": "Using a refrigerator for 8 hours",
+    "consumption_in_wh": 6400,
+    "source": "https://paylesspower.com/blog/how-many-watts-does-a-refrigerator-use/"
+  },
+  {
+    "id": "44-kettle",
+    "image_path": "44/kettle.jpeg",
+    "title": "Using an electric kettle for 30 mins",
+    "consumption_in_wh": 1000,
+    "source": "https://www.daftlogic.com/information-appliance-power-consumption.htm"
+  },
+  {
+    "id": "44-cooktop",
+    "image_path": "44/cooktop.jpeg",
+    "title": "Using an induction cooktop for 15 minutes",
+    "consumption_in_wh": 500,
+    "source": "https://letsavelectricity.com/induction-cooktop-power-consumption-calculator/#:~:text=Calculate%20Power%20Consumption%20of%20an%20Induction%20Cooktop%3A&text=On%20an%20average%20the%20rated,less%20is%20the%20cooking%20time."
+  },
+  {
+    "id": "44-bitcoin",
+    "image_path": "44/bitcoin.jpeg",
+    "title": "Energy consumption in a Bitcoin transaction",
+    "consumption_in_wh": 2264930,
+    "source": "https://www.statista.com/statistics/881541/bitcoin-energy-consumption-transaction-comparison-visa"
+  },
+  {
+    "id": "44-microwave",
+    "image_path": "44/microwave.jpeg",
+    "title": "Using a microwave for 15 mins",
+    "consumption_in_wh": 300,
+    "source": "https://blog.arcadia.com/electricity-costs-10-key-household-products/#:~:text=We%20estimated%20that%20a%20microwave,an%20average%20microwave%20to%20run."
+  },
+  {
+    "id": "44-ceiling-fan",
+    "image_path": "44/ceiling-fan.jpeg",
+    "title": "Using a medium-sized ceiling fan overnight (8 hours)",
+    "consumption_in_wh": 150,
+    "source": "https://ecocostsavings.com/ceiling-fan-power/"
+  },
+  {
+    "id": "44-coffee-maker",
+    "image_path": "44/coffee-maker.jpeg",
+    "title": "Using a coffee maker for 1 hour (average usage per day)",
+    "consumption_in_wh": 900,
+    "source": "http://www.wrecc.com/what-uses-watts-in-your-home/"
+  },
+  {
+    "id": "44-dishwasher",
+    "image_path": "44/dishwasher.jpeg",
+    "title": "Using a dishwasher for 2.5 hours",
+    "consumption_in_wh": 4500,
+    "source": "https://energyusecalculator.com/electricity_dishwasher.htm"
+  },
+  {
+    "id": "44-freezer",
+    "image_path": "44/freezer.jpeg",
+    "title": "Using a freezer for 12 hours",
+    "consumption_in_wh": 4000,
+    "source": "http://www.wrecc.com/what-uses-watts-in-your-home/"
+  },
+  {
+    "id": "44-electric-heater",
+    "image_path": "44/electric-heater.jpeg",
+    "title": "Using an electric heater for 8 hours a day",
+    "consumption_in_wh": 12000,
+    "source": "https://www.vivintsolar.com/blog/how-much-electricity-does-a-space-heater-use"
+  },
+  {
+    "id": "44-projector",
+    "image_path": "44/projector.jpeg",
+    "title": "Using a projector for 3 hours",
+    "consumption_in_wh": 750,
+    "source": "https://www.daftlogic.com/information-appliance-power-consumption.htm"
+  },
+  {
+    "id": "44-window-ac",
+    "image_path": "44/window-ac.jpeg",
+    "title": "Using a window air conditioning unit for 8 hours",
+    "consumption_in_wh": 7000,
+    "source": "https://americanhomewater.com/how-much-power-does-an-air-conditioner-use/"
+  },
+  {
+    "id": "44-switch",
+    "image_path": "44/switch.jpeg",
+    "title": "Playing Nintendo Switch for 3 hours",
+    "consumption_in_wh": 54,
+    "source": "https://blog.constellation.com/2020/04/29/energy-costs-of-gaming-consoles-and-gaming-pcs/"
+  },
+  {
+    "id": "44-tesla",
+    "image_path": "44/tesla.jpeg",
+    "title": "Driving 100km in a Tesla Model X",
+    "consumption_in_wh": 20000,
+    "source": "https://www.tesla.com/en_EU/support/european-union-energy-label"
+  },
+  {
+    "id": "44-complete-desktop",
+    "image_path": "44/complete-desktop.jpeg",
+    "title": "Using a complete desktop setup (includes computer, printer, internet modem and loud speakers) for 8 hours",
+    "consumption_in_wh": 1600,
+    "source": "https://www.energuide.be/en/questions-answers/how-much-power-does-a-computer-use-and-how-much-co2-does-that-represent/54/"
+  },
+  {
+    "id": "44-printer",
+    "image_path": "44/printer.jpeg",
+    "title": "Printing using a commercial printer for 1 hour",
+    "consumption_in_wh": 400,
+    "source": "https://energyusecalculator.com/electricity_printer.htm"
+  },
+  {
+    "id": "44-ps5",
+    "image_path": "44/ps5.jpeg",
+    "title": "Playing a PS5 game for 3 hours",
+    "consumption_in_wh": 600,
+    "source": "https://www.playstation.com/en-gb/legal/ecodesign/"
+  },
+  {
+    "id": "44-dryer",
+    "image_path": "44/dryer.jpeg",
+    "title": "Using a clothes dryer for 30 mins",
+    "consumption_in_wh": 2400,
+    "source": "http://www.wrecc.com/what-uses-watts-in-your-home/"
+  },
+  {
+    "id": "75-human_body",
+    "image_path": "75/human_body.jpg",
+    "title": "Amount of energy necessary for the human body in 1 day",
+    "consumption_in_wh": 350,
+    "source": "https://www.quora.com/How-much-energy-can-the-human-body-generate"
+  },
+  {
+    "id": "75-washing_machine",
+    "image_path": "75/washing_machine.jpg",
+    "title": "Using your washing machine for 1 hour",
+    "consumption_in_wh": 1000,
+    "source": "https://www.directenergy.com/learning-center/how-much-energy-washing-machine-use"
+  },
+  {
+    "id": "75-stove",
+    "image_path": "75/stove.jpg",
+    "title": "Using a stove for 1 hour and 30 minutes on medium-high heat",
+    "consumption_in_wh": 2250,
+    "source": "https://www.directenergy.com/learning-center/what-uses-most-electricity-in-my-home"
+  },
+  {
+    "id": "75-coffee_maker",
+    "image_path": "75/coffee_maker.png",
+    "title": "Brewing 8 cups of coffee using a coffee maker",
+    "consumption_in_wh": 1600,
+    "source": "https://www.trung-nguyen-online.com/how-much-electricity-does-a-coffee-maker-use/"
+  },
+  {
+    "id": "75-dishwasher",
+    "image_path": "75/dishwasher.jpg",
+    "title": "Using the dishwasher 1 hour everyday, for a month",
+    "consumption_in_wh": 9900,
+    "source": "https://www.directenergy.com/learning-center/what-uses-most-electricity-in-my-home"
+  },
+  {
+    "id": "75-solar_panel",
+    "image_path": "75/solar_panel.png",
+    "title": "Amount of electricity that a solar panel produces in one day",
+    "consumption_in_wh": 3000,
+    "source": "https://economictimes.indiatimes.com/small-biz/productline/power-generation/home-solar-system-renewable-energy-solutions-for-residential-users/articleshow/69540881.cms?from=mdr"
+  },
+  {
+    "id": "75-laptop",
+    "image_path": "75/laptop.jpg",
+    "title": "Using a laptop for 8 hours",
+    "consumption_in_wh": 800,
+    "source": "https://www.energuide.be/en/questions-answers/how-much-power-does-a-computer-use-and-how-much-co2-does-that-represent/54/"
+  },
+  {
+    "id": "75-led",
+    "image_path": "75/led.png",
+    "title": "Leaving 5 LED light bulbs on for a whole day",
+    "consumption_in_wh": 1200,
+    "source": "https://unboundsolar.com/solar-information/power-table"
+  },
+  {
+    "id": "75-lightbulb",
+    "image_path": "75/lightbulb.jpg",
+    "title": "Leaving 5 incadescent light bulbs on for a whole day",
+    "consumption_in_wh": 12000,
+    "source": "https://www.directenergy.com/learning-center/what-uses-most-electricity-in-my-home"
+  },
+  {
+    "id": "75-hair_dryer",
+    "image_path": "75/hair_dryer.png",
+    "title": "Using a hair dryer for 3 hours",
+    "consumption_in_wh": 3600,
+    "source": "https://blog.arcadia.com/electricity-costs-10-key-household-products/"
+  },
+  {
+    "id": "75-iron",
+    "image_path": "75/iron.jpg",
+    "title": "Ironing your clothes for 1 hour",
+    "consumption_in_wh": 1200,
+    "source": "https://unboundsolar.com/solar-information/power-table"
+  },
+  {
+    "id": "75-tv",
+    "image_path": "75/tv.jpg",
+    "title": "Leaving your tv on for a whole day",
+    "consumption_in_wh": 1400,
+    "source": "https://ecocostsavings.com/tv-wattage/"
+  },
+  {
+    "id": "75-oven",
+    "image_path": "75/oven.png",
+    "title": "Using an oven for 2 hours on medium-high heat",
+    "consumption_in_wh": 5000,
+    "source": "https://www.directenergy.com/learning-center/what-uses-most-electricity-in-my-home"
+  },
+  {
+    "id": "75-electric_car",
+    "image_path": "75/electric_car.png",
+    "title": "Driving an electric car from the centre of Delft to the centre of Rotterdam (16km)",
+    "consumption_in_wh": 3200,
+    "source": "https://www.virta.global/blog/ev-charging-101-how-much-electricity-does-an-electric-car-use"
+  },
+  {
+    "id": "75-toaster",
+    "image_path": "75/toaster.jpg",
+    "title": "Using 4 slices of bread on a toaster",
+    "consumption_in_wh": 1400,
+    "source": "https://www.batteryequivalents.com/off-the-grid-how-many-watts-does-a-toaster-use.html"
+  },
+  {
+    "id": "75-google",
+    "image_path": "75/google.jpg",
+    "title": "Searching something on google 300 times",
+    "consumption_in_wh": 90,
+    "source": "https://www.nytimes.com/2011/09/09/technology/google-details-and-defends-its-use-of-electricity.html"
+  },
+  {
+    "id": "75-air_conditioning",
+    "image_path": "75/air_conditioning.jpg",
+    "title": "Using air conditioning for 8 hours",
+    "consumption_in_wh": 4000,
+    "source": "https://localunitedservices.com/much-electricity-air-conditioner-use-per-hour/"
+  },
+  {
+    "id": "75-electric_bike",
+    "image_path": "75/electric_bike.png",
+    "title": "Driving an eBike from Den Haag to Amsterdam (65 km)",
+    "consumption_in_wh": 480,
+    "source": "https://meloyelo.nz/blog/how-far-can-you-ride-on-a-charge/"
+  },
+  {
+    "id": "75-dryer",
+    "image_path": "75/dryer.png",
+    "title": "Using your dryer for 1 hour",
+    "consumption_in_wh": 2000,
+    "source": "https://www.whirlpool.ca/en_ca/blog/washers-and-dryers/how-many-kwh-does-a-dryer-use.html"
+  },
+  {
+    "id": "75-phone",
+    "image_path": "75/phone.jpg",
+    "title": "Using your smartphone for a week",
+    "consumption_in_wh": 915,
+    "source": "https://www.forbes.com/sites/christopherhelman/2013/09/07/how-much-energy-does-your-iphone-and-other-devices-use-and-what-to-do-about-it/?sh=45530aaa2f70"
+  },
+  {
+    "id": "50-brain",
+    "image_path": "50/brain.png",
+    "title": "How many watt hours does a brain use",
+    "consumption_in_wh": 20,
+    "source": "https://www.munichre.com/topics-online/en/digitalisation/interview-henning-beck.html"
+  },
+  {
+    "id": "50-x-mas_tree",
+    "image_path": "50/x-mas_tree.jpeg",
+    "title": "Lightning up the Christmas tree for 8 hours",
+    "consumption_in_wh": 8000,
+    "source": "https://www.energuide.be/en/questions-answers/who-takes-care-of-the-christmas-lights-and-how-much-power-do-they-actually-use/186/"
+  },
+  {
+    "id": "50-air_conditioner",
+    "image_path": "50/air_conditioner.png",
+    "title": "Energy consumption of central Air Conditioner for an hour",
+    "consumption_in_wh": 3500,
+    "source": "https://www.senicaair.com/blog/how-many-watts-does-an-air-conditioner-use"
+  },
+  {
+    "id": "50-sanandreaswr",
+    "image_path": "50/sanandreaswr.png",
+    "title": "Achieving a world record speedrun in GTA: San Andreas on an xbox 360",
+    "consumption_in_wh": 595,
+    "source": "https://www.electricalclassroom.com/power-consumption-of-xbox-and-playstation/"
+  },
+  {
+    "id": "50-bitcoin",
+    "image_path": "50/bitcoin.png",
+    "title": "Transaction of 1 Bitcoin",
+    "consumption_in_wh": 2265000,
+    "source": "https://www.statista.com/statistics/881541/bitcoin-energy-consumption-transaction-comparison-visa/"
+  },
+  {
+    "id": "50-dishwasher",
+    "image_path": "50/dishwasher.png",
+    "title": "Energy consumption of a dishwasher for an hour",
+    "consumption_in_wh": 1800,
+    "source": "https://www.inspirecleanenergy.com/blog/sustainable-living/cost-to-run-dishwasher"
+  },
+  {
+    "id": "50-samsung",
+    "image_path": "50/samsung.png",
+    "title": "The amount of energy in Wh the company Samsung uses in an hour",
+    "consumption_in_wh": 2615981,
+    "source": "https://www.statista.com/statistics/1250731/electricity-consumption-top-tech-companies-worldwide"
+  },
+  {
+    "id": "50-cern",
+    "image_path": "50/cern.png",
+    "title": "The amount of watt hours a CERN laboratory consume in an hour",
+    "consumption_in_wh": 148401800,
+    "source": "https://home.cern/science/engineering/powering-cern"
+  },
+  {
+    "id": "50-cementfactory",
+    "image_path": "50/cementfactory.png",
+    "title": "Producing cement in a factory for a day",
+    "consumption_in_wh": 650000000,
+    "source": "https://www.quora.com/How-much-electricity-does-a-factory-use"
+  },
+  {
+    "id": "50-netherlands",
+    "image_path": "50/netherlands.png",
+    "title": "How much energy does Netherlands consumes per capita?",
+    "consumption_in_wh": 6238120,
+    "source": "https://www.worlddata.info/europe/netherlands/energy-consumption.php"
+  },
+  {
+    "id": "50-apple",
+    "image_path": "50/apple.png",
+    "title": "The watt hours the company Apple uses in an day",
+    "consumption_in_wh": 7068493,
+    "source": "https://www.statista.com/statistics/1250731/electricity-consumption-top-tech-companies-worldwide/"
+  },
+  {
+    "id": "50-hair_dryer",
+    "image_path": "50/hair_dryer.png",
+    "title": "Energy consumption of a hair dryer on highest setting for an hour",
+    "consumption_in_wh": 1875,
+    "source": "https://ecocostsavings.com/hair-dryer-wattage/"
+  },
+  {
+    "id": "50-visa",
+    "image_path": "50/visa.png",
+    "title": "100000 VISA transactions",
+    "consumption_in_wh": 148000,
+    "source": "https://www.statista.com/statistics/881541/bitcoin-energy-consumption-transaction-comparison-visa/"
+  },
+  {
+    "id": "50-tv",
+    "image_path": "50/tv.png",
+    "title": "Energy consumption of a 70 inch TV for an hour",
+    "consumption_in_wh": 109,
+    "source": "https://ecocostsavings.com/tv-wattage/"
+  },
+  {
+    "id": "50-leagueoflegends",
+    "image_path": "50/leagueoflegends.png",
+    "title": "Playing League of Legends for one year",
+    "consumption_in_wh": 1200000,
+    "source": "https://grist.org/article/video-games-consume-more-electricity-than-25-power-plants-can-produce/"
+  },
+  {
+    "id": "50-PC",
+    "image_path": "50/PC.png",
+    "title": "PC working for 8 hours",
+    "consumption_in_wh": 800,
+    "source": "https://smarterbusiness.co.uk/blogs/how-much-energy-do-my-appliances-use-infographic/"
+  },
+  {
+    "id": "50-electric_scooter",
+    "image_path": "50/electric_scooter.jpg",
+    "title": "Charging an electric scooter for 5 hours",
+    "consumption_in_wh": 230,
+    "source": "https://www.endesa.com/en/blogs/endesa-s-blog/light/are-electric-scooters-efficient"
+  },
+  {
+    "id": "50-electric_car",
+    "image_path": "50/electric_car.png",
+    "title": "How many watt hours does an electric car use",
+    "consumption_in_wh": 30000,
+    "source": "https://www.motorbiscuit.com/how-many-kilowatt-hours-does-electric-car-use/"
+  },
+  {
+    "id": "50-Lightbulb",
+    "image_path": "50/Lightbulb.png",
+    "title": "The watt hours a LED light bulb uses for 1 hour",
+    "consumption_in_wh": 170,
+    "source": "https://www.familyhandyman.com/list/how-much-electricity-items-in-your-house-use/"
+  },
+  {
+    "id": "50-toaster",
+    "image_path": "50/toaster.jpg",
+    "title": "Using a toaster for 10 minutes",
+    "consumption_in_wh": 200,
+    "source": "https://www.thehomehacksdiy.com/how-much-electricity-power-does-a-toaster-use/"
+  },
+  {
+    "id": "50-shrek",
+    "image_path": "50/shrek.png",
+    "title": "Consumption of watching Shrek in Netflix",
+    "consumption_in_wh": 115,
+    "source": "https://www.iea.org/commentaries/the-carbon-footprint-of-streaming-video-fact-checking-the-headlines"
+  },
+  {
+    "id": "50-Keyboard",
+    "image_path": "50/Keyboard.png",
+    "title": "Keyboard working for an hour",
+    "consumption_in_wh": 2,
+    "source": "https://techtreatbox.com/how-many-watts-keyboard-use"
+  },
+  {
+    "id": "05-hairdryer",
+    "image_path": "05/hairdryer.jpg",
+    "title": "Using a hair dryer for 10 min",
+    "consumption_in_wh": 250,
+    "source": "https://letsavelectricity.com/hair-dryer-power-consumption/"
+  },
+  {
+    "id": "05-cake",
+    "image_path": "05/cake.jpg",
+    "title": "Baking a cake in an electric oven during 40 minutes",
+    "consumption_in_wh": 2000,
+    "source": "https://www.directenergy.com/learning-center/how-much-energy-does-oven-and-electric-stove-use"
+  },
+  {
+    "id": "05-air_conditioner",
+    "image_path": "05/air_conditioner.png",
+    "title": "Using a central air conditioner during two hours",
+    "consumption_in_wh": 6000,
+    "source": "https://americanhomewater.com/how-much-power-does-an-air-conditioner-use/"
+  },
+  {
+    "id": "05-vacuumcleaner",
+    "image_path": "05/vacuumcleaner.jpg",
+    "title": "Using a vacuum cleaner during 30 minutes",
+    "consumption_in_wh": 700,
+    "source": "https://www.electricalclassroom.com/energy-usage-of-vacuum-cleaner/"
+  },
+  {
+    "id": "05-kettle",
+    "image_path": "05/kettle.jpg",
+    "title": "Using an electric kettle",
+    "consumption_in_wh": 40,
+    "source": "https://mishry.com/electric-kettle-power-consumption"
+  },
+  {
+    "id": "05-espressoMachine",
+    "image_path": "05/espressoMachine.jpg",
+    "title": "Using an Espresso machine for 5 minutes",
+    "consumption_in_wh": 70,
+    "source": "https://farmhouseinsider.com/power-consumption-of-household-appliances/"
+  },
+  {
+    "id": "05-bitcoin",
+    "image_path": "05/bitcoin.png",
+    "title": "The transaction of a single Bitcoin",
+    "consumption_in_wh": 2291000,
+    "source": "https://digiconomist.net/bitcoin-energy-consumption/"
+  },
+  {
+    "id": "05-solar",
+    "image_path": "05/solar.jpg",
+    "title": "Energy produced by a solar panel for per hour",
+    "consumption_in_wh": 325,
+    "source": "https://www.yesenergysolutions.co.uk/advice/how-much-energy-solar-panels-produce-home"
+  },
+  {
+    "id": "05-hydrogen",
+    "image_path": "05/hydrogen.jpg",
+    "title": "Producing 1kg of hydrogen",
+    "consumption_in_wh": 33000,
+    "source": "https://www.idealhy.eu/index.php?page=lh2_outline"
+  },
+  {
+    "id": "05-eth",
+    "image_path": "05/eth.png",
+    "title": "1 Ethereum transaction",
+    "consumption_in_wh": 238220,
+    "source": "https://www.statista.com/statistics/1265891/ethereum-energy-consumption-transaction-comparison-visa/"
+  },
+  {
+    "id": "05-electriccar",
+    "image_path": "05/electriccar.jpg",
+    "title": "Driving an electric car for 10km",
+    "consumption_in_wh": 2000,
+    "source": "https://www.virta.global/blog/ev-charging-101-how-much-electricity-does-an-electric-car-use"
+  },
+  {
+    "id": "05-visa",
+    "image_path": "05/visa.png",
+    "title": "100,000 VISA transactions",
+    "consumption_in_wh": 148630,
+    "source": "https://www.statista.com/statistics/1265891/ethereum-energy-consumption-transaction-comparison-visa/"
+  },
+  {
+    "id": "05-tv",
+    "image_path": "05/tv.png",
+    "title": "Watching TV during two hours",
+    "consumption_in_wh": 120,
+    "source": "https://ecocostsavings.com/tv-wattage/"
+  },
+  {
+    "id": "05-computer",
+    "image_path": "05/computer.jpg",
+    "title": "Using an average computer without monitor for an hour",
+    "consumption_in_wh": 250,
+    "source": "https://www.kompulsa.com/much-power-computers-consume/"
+  },
+  {
+    "id": "05-tesla",
+    "image_path": "05/tesla.png",
+    "title": "Driving your Tesla Model 3 for 50 kilometers",
+    "consumption_in_wh": 8000,
+    "source": "https://www.tesla.com/en_EU/support/european-union-energy-label"
+  },
+  {
+    "id": "05-coal",
+    "image_path": "05/coal.jpg",
+    "title": "Energy released by burning one kilo of coal",
+    "consumption_in_wh": 2500,
+    "source": "https://www.wattisduurzaam.nl/26290/energie-opwekken/kernenergie/energiedichtheid-zonnepaneel-70-tot-500-keer-hoger-dan-voor-kolen/#:~:text=De%20energiedichtheid%20van%20steenkool%20ligt,tot%203%2C7%20kWh%20elektriciteit."
+  },
+  {
+    "id": "05-google",
+    "image_path": "05/google.png",
+    "title": "100 Google search queries",
+    "consumption_in_wh": 30,
+    "source": "https://store.chipkin.com/articles/did-you-know-it-takes-00003-kwh-per-google-search-and-more#:~:text=Google's%20Energy%20Consumption%3A,of%20orange%20juice%2C%20Google%20says."
+  },
+  {
+    "id": "05-internet",
+    "image_path": "05/internet.png",
+    "title": "Utilization of every GB of data on the Internet",
+    "consumption_in_wh": 5000,
+    "source": "https://www.aceee.org/files/proceedings/2012/data/papers/0193-000409.pdf"
+  },
+  {
+    "id": "05-washingMachine",
+    "image_path": "05/washingMachine.jpg",
+    "title": "Annual energy consumption of a washing machine",
+    "consumption_in_wh": 99000,
+    "source": "https://www.coolblue.nl/en/advice/energy-consumption-washing-machine.html"
+  },
+  {
+    "id": "05-phone",
+    "image_path": "05/phone.jpg",
+    "title": "Charge your phone for one year",
+    "consumption_in_wh": 7000,
+    "source": "https://jfk.men/gear/zoveel-kost-het-opladen-van-je-iphone-per-jaar/#:~:text=De%20meestgebruikte%20waarde%20om%20stroomverbruik,in%20Nederland%20op%2022%20cent."
+  },
+  {
+    "id": "43-hairdryer",
+    "image_path": "43/hairdryer.jpeg",
+    "title": "Using the hairdryer for 1 hour",
+    "consumption_in_wh": 1875,
+    "source": "https://ecocostsavings.com/hair-dryer-wattage/"
+  },
+  {
+    "id": "43-led_light_bulb",
+    "image_path": "43/led_light_bulb.jpeg",
+    "title": "Keeping a led light bulb on for an hour",
+    "consumption_in_wh": 10,
+    "source": "https://www.electrical4u.net/electrical-basic/led-bulb-power-consumption-calculation-led-energy-bill-calculator/"
+  },
+  {
+    "id": "43-electric_stove",
+    "image_path": "43/electric_stove.jpeg",
+    "title": "Using an electric stove for 1 hour",
+    "consumption_in_wh": 3000,
+    "source": "https://www.directenergy.com/learning-center/how-much-energy-does-oven-and-electric-stove-use"
+  },
+  {
+    "id": "43-smartphone_charger",
+    "image_path": "43/smartphone_charger.jpeg",
+    "title": "Using a Smartphone Charger for an hour",
+    "consumption_in_wh": 5,
+    "source": "https://energyusecalculator.com/electricity_cellphone.htm#:~:text=Cell%20Phones%20use%20approximately%202,dollar%20for%20a%20full%20year."
+  },
+  {
+    "id": "43-washing_machine",
+    "image_path": "43/washing_machine.jpeg",
+    "title": "Using the washing machine for 1 hour",
+    "consumption_in_wh": 2000,
+    "source": "https://letsavelectricity.com/calculate-power-consumption-of-a-washing-machine/"
+  },
+  {
+    "id": "43-game_console",
+    "image_path": "43/game_console.jpeg",
+    "title": "Using a Game Console for an hour",
+    "consumption_in_wh": 90,
+    "source": "https://energyusecalculator.com/electricity_gameconsole.htm"
+  },
+  {
+    "id": "43-air_fryer",
+    "image_path": "43/air_fryer.jpeg",
+    "title": "Electricity consumption of an air fryer, 1 hour",
+    "consumption_in_wh": 1500,
+    "source": "https://www.familyguidecentral.com/is-your-air-fryer-using-a-lot-of-electricity-lets-compare/"
+  },
+  {
+    "id": "43-microwave",
+    "image_path": "43/microwave.jpeg",
+    "title": "Using a microwave for an hour",
+    "consumption_in_wh": 1200,
+    "source": "https://blog.arcadia.com/electricity-costs-10-key-household-products/"
+  },
+  {
+    "id": "43-wifi_router",
+    "image_path": "43/wifi_router.jpeg",
+    "title": "Using a Wifi Router for an hour",
+    "consumption_in_wh": 15,
+    "source": "https://www.electrical4u.net/energy-calculation/wifi-router-power-consumption-calculation-power-saving-tips/#:~:text=Typically%2C%20the%20router%20consumes%20electricity,consumption%20will%20be%2015%20Wh."
+  },
+  {
+    "id": "43-clock",
+    "image_path": "43/clock.jpeg",
+    "title": "A clock, going on for an hour",
+    "consumption_in_wh": 5,
+    "source": "https://www.burlingtonhydro.com/powertoconserve/residential/appliance-usage.html"
+  },
+  {
+    "id": "43-heater",
+    "image_path": "43/heater.jpeg",
+    "title": "Using a Heater for an hour",
+    "consumption_in_wh": 1500,
+    "source": "https://learnmetrics.com/how-much-does-it-cost-to-run-an-electric-heater/#:~:text=1%2C500W%20heater%20will%20consume,consume%201.5%20kWh%20of%20electricity."
+  },
+  {
+    "id": "43-person",
+    "image_path": "43/person.jpeg",
+    "title": "Average energy consumption of a person in The Netherlands",
+    "consumption_in_wh": 1704,
+    "source": "https://www.worlddata.info/europe/netherlands/energy-consumption.php"
+  },
+  {
+    "id": "43-led_lamp",
+    "image_path": "43/led_lamp.jpeg",
+    "title": "Using a Desk LED Lamp for an hour",
+    "consumption_in_wh": 15,
+    "source": "https://besthurricanelantern.com/how-many-watts-does-a-desk-lamp-use/#:~:text=It%20is%20observed%20that%20a,glowing%20perfectly%20on%20your%20desk."
+  },
+  {
+    "id": "43-dish_washer",
+    "image_path": "43/dish_washer.jpeg",
+    "title": "Using a Powerful Dishwasher for an hour",
+    "consumption_in_wh": 1200,
+    "source": "https://www.directenergy.com/learning-center/how-much-energy-dishwasher-use"
+  },
+  {
+    "id": "43-electric_scooter",
+    "image_path": "43/electric_scooter.jpeg",
+    "title": "Riding an electric scooter at average speed for an hour",
+    "consumption_in_wh": 1145,
+    "source": "https://escooternerds.com/electric-scooter-performance-voltage-wattage-capacity-amps/"
+  },
+  {
+    "id": "43-toaster",
+    "image_path": "43/toaster.jpeg",
+    "title": "Using a Toaster for an hour",
+    "consumption_in_wh": 1200,
+    "source": "https://energyusecalculator.com/electricity_toaster.htm#:~:text=A%20toaster%20is%20found%20in,will%20use%20around%201200%20watts."
+  },
+  {
+    "id": "43-coffee_machine",
+    "image_path": "43/coffee_machine.jpeg",
+    "title": "Using a Coffee Machine for an hour",
+    "consumption_in_wh": 800,
+    "source": "https://www.trung-nguyen-online.com/how-much-power-does-a-coffee-maker-use-per-day/"
+  },
+  {
+    "id": "43-printer",
+    "image_path": "43/printer.jpeg",
+    "title": "Using a Printer for an hour",
+    "consumption_in_wh": 40,
+    "source": "https://energyusecalculator.com/electricity_printer.htm"
+  },
+  {
+    "id": "43-vacuum_cleaner",
+    "image_path": "43/vacuum_cleaner.jpeg",
+    "title": "Using a Vacuum Cleaner for an hour",
+    "consumption_in_wh": 1400,
+    "source": "https://www.electricalclassroom.com/energy-usage-of-vacuum-cleaner/#:~:text=A%20typical%20vacuum%20cleaner%20consumes%201.4kWh%20of%20energy%20per,can%20cost%20you%2017%20cents."
+  },
+  {
+    "id": "43-light_pole",
+    "image_path": "43/light_pole.jpeg",
+    "title": "Electricity consumption of a light pole, 1 hour",
+    "consumption_in_wh": 100,
+    "source": "https://kanglight.com/how-much-does-a-street-light-cost-to-run/"
+  },
+  {
+    "id": "00-vacuuming",
+    "image_path": "00/vacuuming.jpeg",
+    "title": "Vacuuming your home for 30min",
+    "consumption_in_wh": 900,
+    "source": "https://www.philips.com.sg/c-p/FC9350_61/3000-series-bagless-vacuum-cleaner"
+  },
+  {
+    "id": "00-fridge",
+    "image_path": "00/fridge.png",
+    "title": "Using a refridgerator for 1 month",
+    "consumption_in_wh": 40000,
+    "source": "https://www.kompulsa.com/refrigerator-power-consumption-deciphering-the-label/"
+  },
+  {
+    "id": "00-shower",
+    "image_path": "00/shower.png",
+    "title": "Taking a hot shower for 6 minutes",
+    "consumption_in_wh": 4000,
+    "source": "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower"
+  },
+  {
+    "id": "00-scooter",
+    "image_path": "00/scooter.png",
+    "title": "Riding your electric scooter to university (10km)",
+    "consumption_in_wh": 330,
+    "source": "https://dx.doi.org/10.1016/j.apenergy.2013.10.043"
+  },
+  {
+    "id": "00-hotplate",
+    "image_path": "00/hotplate.png",
+    "title": "Boiling one liter of water using a hotplate",
+    "consumption_in_wh": 183,
+    "source": "https://www.iforgotitswednesday.com/how-many-kilowatts-does-it-take-to-boil-1-litre-of-water/"
+  },
+  {
+    "id": "00-smartphone",
+    "image_path": "00/smartphone.png",
+    "title": "Charging your smartphone at night",
+    "consumption_in_wh": 10,
+    "source": "https://9to5mac.com/2021/09/16/iphone-13-battery-life/"
+  },
+  {
+    "id": "00-playstation",
+    "image_path": "00/playstation.png",
+    "title": "Playing a game for 3h on your gaming console",
+    "consumption_in_wh": 420,
+    "source": "https://www.thehomehacksdiy.com/how-much-electricity-does-a-ps4-use/"
+  },
+  {
+    "id": "49-hairdryer",
+    "image_path": "49/hairdryer.jpg",
+    "title": "Using a typical hairdryer on high heat for 2 minutes",
+    "consumption_in_wh": 50,
+    "source": "https://energyusecalculator.com/electricity_hairdryer.htm"
+  },
+  {
+    "id": "49-nft",
+    "image_path": "49/nft.jpg",
+    "title": "An Etherium transaction for producing an NFT",
+    "consumption_in_wh": 48000,
+    "source": "https://nftexplained.info/how-much-energy-does-an-nft-use/"
+  },
+  {
+    "id": "49-air_conditioner",
+    "image_path": "49/air_conditioner.png",
+    "title": "Using an air conditioner when it\u2019s warm for 1 hour",
+    "consumption_in_wh": 3000,
+    "source": "https://bardi.com/how-many-watts-does-an-air-conditioner-use/?__cf_chl_tk=BKCBFsmUOlEm8VJVJjRyRaZvXk.4.EuJW6IfpWYm5iA-1646296870-0-gaNycGzNCKU"
+  },
+  {
+    "id": "49-bitcoin",
+    "image_path": "49/bitcoin.jpg",
+    "title": "Mining 0.0005 Bitcoin",
+    "consumption_in_wh": 861,
+    "source": "https://www.thebalance.com/how-much-power-does-the-bitcoin-network-use-391280"
+  },
+  {
+    "id": "49-elevator",
+    "image_path": "49/elevator.jpg",
+    "title": "Using a hydraulic lift elevator alone",
+    "consumption_in_wh": 152,
+    "source": "https://wp.josh.com/2013/05/29/elevator-power-usage-should-i-take-the-stairs/"
+  },
+  {
+    "id": "49-marshall",
+    "image_path": "49/marshall.jpg",
+    "title": "Powering the iconic Marshall JCM 800 amplifier head at maximum power, for an hour",
+    "consumption_in_wh": 175,
+    "source": "https://www.andyfrench.co.uk/wp-content/uploads/2021/02/marshall_jcm800series_manual.pdf"
+  },
+  {
+    "id": "49-microwave-oven",
+    "image_path": "49/microwave-oven.jpg",
+    "title": "Boiling 350 mL of room-temperature (17\u00b0 C) water in a microwave",
+    "consumption_in_wh": 70,
+    "source": "https://www.treehugger.com/ask-pablo-electric-kettle-stove-or-microwave-oven-4858652"
+  },
+  {
+    "id": "49-rick-astley",
+    "image_path": "49/rick-astley.png",
+    "title": "Watching the music video for \u201cNever Gonna Give You Up\u201d by Rick Astley, once",
+    "consumption_in_wh": 101,
+    "source": "https://thefactsource.com/how-much-electricity-does-youtube-use/"
+  },
+  {
+    "id": "49-iphone",
+    "image_path": "49/iphone.jpg",
+    "title": "Charging an iphone overnight",
+    "consumption_in_wh": 19,
+    "source": "https://www.zdnet.com/article/heres-how-much-it-costs-to-charge-a-smartphone-for-a-year/"
+  },
+  {
+    "id": "49-radiohead",
+    "image_path": "49/radiohead.jpg",
+    "title": "One minute of powering amplifiers for a Radiohead concert",
+    "consumption_in_wh": 1050,
+    "source": "http://large.stanford.edu/courses/2012/ph240/landreman2/"
+  },
+  {
+    "id": "49-tesla",
+    "image_path": "49/tesla.jpg",
+    "title": "Driving a Tesla Model 3 for 5 km",
+    "consumption_in_wh": 755,
+    "source": "https://ev-database.org/cheatsheet/energy-consumption-electric-car"
+  },
+  {
+    "id": "49-air-fryer",
+    "image_path": "49/air-fryer.jpg",
+    "title": "Frying a batch of french fries in an air fryer",
+    "consumption_in_wh": 625,
+    "source": "https://www.airfryermarket.com/do-air-fryers-consume-a-lot-of-electricity/"
+  },
+  {
+    "id": "49-gamer-setup",
+    "image_path": "49/gamer-setup.jpg",
+    "title": "Powering a 5m RGB LED strip for a gamer setup, for one hour",
+    "consumption_in_wh": 60,
+    "source": "https://www.tinytronics.nl/shop/en/lighting/led-strips/led-strips/standard-5050-rgb-led-strip-300-leds-5m-12v"
+  },
+  {
+    "id": "49-eiffel-tower",
+    "image_path": "49/eiffel-tower.jpg",
+    "title": "Lighting up the Eiffel Tower the entire year",
+    "consumption_in_wh": 7800,
+    "source": "https://www.mane.co.uk/news/how-much-energy-do-these-world-famous-buildings-use-209647/"
+  },
+  {
+    "id": "49-electric-kettle",
+    "image_path": "49/electric-kettle.jpg",
+    "title": "Boiling 350 mL of room-temperature (17\u00b0 C) water in an electric kettle",
+    "consumption_in_wh": 40,
+    "source": "https://www.treehugger.com/ask-pablo-electric-kettle-stove-or-microwave-oven-4858652"
+  },
+  {
+    "id": "49-netflix",
+    "image_path": "49/netflix.jpg",
+    "title": "Watching Netflix for 1 hour",
+    "consumption_in_wh": 6100,
+    "source": "https://www.weforum.org/agenda/2020/03/carbon-footprint-netflix-video-streaming-climate-change"
+  },
+  {
+    "id": "49-ps5",
+    "image_path": "49/ps5.jpg",
+    "title": "Playing Spider Man: Miles Morales on a PS5 for one hour",
+    "consumption_in_wh": 200,
+    "source": "https://stealthoptional.com/next-gen/ps5-power-consumption-energy-usage-xbox-comparison/#:~:text=power%20consumption%20comparison-,How%20much%20power%20does%20the%20PS5%20use%3F,1.3W%20when%20turned%20off"
+  },
+  {
+    "id": "49-electric-toothbrush",
+    "image_path": "49/electric-toothbrush.jpg",
+    "title": "Using an electric toothbrush for a year",
+    "consumption_in_wh": 300,
+    "source": "https://koboguide.com/electric-toothbrush-power-consumption/"
+  },
+  {
+    "id": "49-electric-stove",
+    "image_path": "49/electric-stove.jpeg",
+    "title": "Boiling 350 mL of room-temperature (17\u00b0 C) water on an electric stove",
+    "consumption_in_wh": 110,
+    "source": "https://www.treehugger.com/ask-pablo-electric-kettle-stove-or-microwave-oven-4858652"
+  },
+  {
+    "id": "49-beef",
+    "image_path": "49/beef.jpg",
+    "title": "Producing 30 grams of beef ",
+    "consumption_in_wh": 625,
+    "source": "https://www.researchgate.net/figure/Energy-consumption-in-meat-supply-chain-MJ-kg-of-purchasable-meat_fig3_312345750/"
+  },
+  {
+    "id": "52-data",
+    "image_path": "52/data.jpg",
+    "title": "Energy the Internet uses to handle 1GB of data",
+    "consumption_in_wh": 5000,
+    "source": "https://www.aceee.org/files/proceedings/2012/data/papers/0193-000409.pdf"
+  },
+  {
+    "id": "52-gas",
+    "image_path": "52/gas.jpg",
+    "title": "Gas energy in the UK for 2021",
+    "consumption_in_wh": 123000000000000,
+    "source": "https://ourworldindata.org/grapher/gas-electricity-per-capita"
+  },
+  {
+    "id": "52-beer",
+    "image_path": "52/beer.jpg",
+    "title": "Producing a barrel of beer",
+    "consumption_in_wh": 58000,
+    "source": "https://business.directenergy.com/blog/2017/september/oktoberfest-using-less-energy"
+  },
+  {
+    "id": "52-wind_turbine",
+    "image_path": "52/wind_turbine.png",
+    "title": "Energy produced by a wind turbine at optimal efficiency",
+    "consumption_in_wh": 1500000,
+    "source": "https://www.energuide.be/en/questions-answers/how-much-power-does-an-electric-car-use/212/"
+  },
+  {
+    "id": "52-shower",
+    "image_path": "52/shower.jpg",
+    "title": "Heating a shower in an average shower head",
+    "consumption_in_wh": 2500,
+    "source": "https://greengeekblog.com/tools/shower-cost-calculator"
+  },
+  {
+    "id": "52-nuclear",
+    "image_path": "52/nuclear.jpg",
+    "title": "How much nuclear power did the Netherlands (as a country) consume this year ?",
+    "consumption_in_wh": 29900000,
+    "source": "https://ourworldindata.org/energy-production-consumption"
+  },
+  {
+    "id": "52-pc",
+    "image_path": "52/pc.png",
+    "title": "Using your PC for an hour",
+    "consumption_in_wh": 200,
+    "source": "https://www.energuide.be/en/questions-answers/how-much-power-does-a-computer-use-and-how-much-co2-does-that-represent/54/#:~:text=A%20complete%20desktop%20uses%20an,consumption%20comes%20to%20600%20kWh."
+  },
+  {
+    "id": "52-wine",
+    "image_path": "52/wine.jpg",
+    "title": "Production of wine per year in california",
+    "consumption_in_wh": 51200000000,
+    "source": "http://www.designlife-cycle.com/wine-bottle"
+  },
+  {
+    "id": "52-windmill",
+    "image_path": "52/windmill.jpg",
+    "title": "Energy production of a windmill per year",
+    "consumption_in_wh": 610000000000,
+    "source": "https://www.ewea.org/wind-energy-basics/faq"
+  },
+  {
+    "id": "52-solar",
+    "image_path": "52/solar.jpg",
+    "title": "Solar energy generated in the year 2020",
+    "consumption_in_wh": 844000000000000,
+    "source": "https://www.researchgate.net/publication/259388709_ENERGY_AUDIT_IN_SNACK_PROCESSING_LINE"
+  },
+  {
+    "id": "52-subway",
+    "image_path": "52/subway.jpg",
+    "title": "Powering up the New York City subway for a year",
+    "consumption_in_wh": 1800000000000,
+    "source": "https://www.nycsubway.org/wiki/Subway_FAQ:_Facts_and_Figures"
+  },
+  {
+    "id": "52-chips",
+    "image_path": "52/chips.jpg",
+    "title": "Producing bags of chips for a day",
+    "consumption_in_wh": 418000,
+    "source": "https://www.researchgate.net/publication/259388709_ENERGY_AUDIT_IN_SNACK_PROCESSING_LINE"
+  },
+  {
+    "id": "52-transaction",
+    "image_path": "52/transaction.jpg",
+    "title": "Completing Bitcoin transaction",
+    "consumption_in_wh": 2300000,
+    "source": "https://digiconomist.net/bitcoin-energy-consumption"
+  },
+  {
+    "id": "52-smartphone",
+    "image_path": "52/smartphone.jpg",
+    "title": "Charging your smartphone every day for a year",
+    "consumption_in_wh": 1000,
+    "source": "https://www.thewhizcells.com/smartphone-energy-use/"
+  },
+  {
+    "id": "52-wind",
+    "image_path": "52/wind.jpeg",
+    "title": "Wind Energy used worldwide in 2018",
+    "consumption_in_wh": 3257000000,
+    "source": "https://ourworldindata.org/energy-production-consumption"
+  },
+  {
+    "id": "52-electric_vehicle",
+    "image_path": "52/electric_vehicle.jpg",
+    "title": "Covering 100km of distance with an electric vehicle",
+    "consumption_in_wh": 15000,
+    "source": "https://www.energuide.be/en/questions-answers/how-much-power-does-an-electric-car-use/212/"
+  },
+  {
+    "id": "52-eiffel",
+    "image_path": "52/eiffel.png",
+    "title": "Lighting up the Eiffel Tower for a year",
+    "consumption_in_wh": 7800000000,
+    "source": "https://cleantechnica.com/2014/10/13/eiffel-tower-now-greener-ever/#:~:text=The%20monument%20consumes%207.8%20million,705%2C000%20kWh%20annually%20for%20HVAC."
+  },
+  {
+    "id": "52-e-bike",
+    "image_path": "52/e-bike.jpg",
+    "title": "Riding An e-Bike for an hour",
+    "consumption_in_wh": 20000,
+    "source": "https://www.cyclevolta.com/understanding-e-bike-power-range-and-energy"
+  },
+  {
+    "id": "52-renewable",
+    "image_path": "52/renewable.jpg",
+    "title": "Renewable energy consumption in the Netherlands in 2021",
+    "consumption_in_wh": 4000000,
+    "source": "https://ourworldindata.org/grapher/per-capita-renewables"
+  },
+  {
+    "id": "52-crypto",
+    "image_path": "52/crypto.jpg",
+    "title": "Producing a bitcoin per hour",
+    "consumption_in_wh": 3250,
+    "source": "https://minerdaily.com/2021/how-much-power-does-it-take-to-mine-a-bitcoin"
+  },
+  {
+    "id": "07-heating",
+    "image_path": "07/heating.jpg",
+    "title": "Heating your house for a day",
+    "consumption_in_wh": 3600,
+    "source": "https://www.pickhvac.com/space-heater/using/how-much-electricity-use/"
+  },
+  {
+    "id": "07-router",
+    "image_path": "07/router.jpeg",
+    "title": "Using a router for a full year",
+    "consumption_in_wh": 85000,
+    "source": "https://www.sustainable-bus.com/news/electric-bus-range-focus-on-electricity-consumption-a-sum-up/"
+  },
+  {
+    "id": "07-boeing_737",
+    "image_path": "07/boeing_737.jpg",
+    "title": "Flying a Boeing 737 for 12 hours",
+    "consumption_in_wh": 86400000,
+    "source": "http://large.stanford.edu/courses/2013/ph240/eller1/"
+  },
+  {
+    "id": "07-nft_creation",
+    "image_path": "07/nft_creation.png",
+    "title": "Creating an NFT",
+    "consumption_in_wh": 142000,
+    "source": "https://postergrind.com/how-much-energy-does-it-take-to-make-an-nft/"
+  },
+  {
+    "id": "07-pencilsharpener",
+    "image_path": "07/pencilsharpener.jpg",
+    "title": "Sharpening an pencil for 6 seconds",
+    "consumption_in_wh": 10,
+    "source": "http://ugweb.cs.ualberta.ca/~vis/courses/num/labs/labSpring2002/lab2/powerhome.html"
+  },
+  {
+    "id": "07-toothbrush",
+    "image_path": "07/toothbrush.jpg",
+    "title": "Using an electric toothbrush daily, for a year",
+    "consumption_in_wh": 300,
+    "source": "https://www.energuide.be/en/questions-answers/how-much-energy-do-my-household-appliances-use/71/"
+  },
+  {
+    "id": "07-cooking",
+    "image_path": "07/cooking.jpg",
+    "title": "Using a gas stove for one hour",
+    "consumption_in_wh": 3333,
+    "source": "https://homex.com/ask/how-much-electricity-does-a-gas-stove-use"
+  },
+  {
+    "id": "07-bitcoin",
+    "image_path": "07/bitcoin.jpeg",
+    "title": "Making a Bitcoin transaction",
+    "consumption_in_wh": 1173000,
+    "source": "https://fortune.com/2021/10/26/bitcoin-electricity-consumption-carbon-footprin/#:~:text=The%20report%20states%20that%20each,of%20electricity%20that%20costs%20%24176."
+  },
+  {
+    "id": "07-phoneCharging",
+    "image_path": "07/phoneCharging.jpeg",
+    "title": "Charging a smartphone",
+    "consumption_in_wh": 5,
+    "source": "https://www.thehomehacksdiy.com/how-much-electricity-does-it-cost-to-charge-a-smartphone/"
+  },
+  {
+    "id": "07-TU_busdriving",
+    "image_path": "07/TU_busdriving.jpg",
+    "title": "Taking the bus between delft station and TUDelft campus aula",
+    "consumption_in_wh": 6440,
+    "source": "https://www.sustainable-bus.com/news/electric-bus-range-focus-on-electricity-consumption-a-sum-up/"
+  },
+  {
+    "id": "07-graphics_card",
+    "image_path": "07/graphics_card.jpg",
+    "title": "Running a high-end graphics card for two hours (RTX 3080-Ti)",
+    "consumption_in_wh": 700,
+    "source": "https://www.tomsguide.com/news/nvidia-geforce-rtx-3080-successors-could-have-monster-power-requirements"
+  },
+  {
+    "id": "07-beer_brewing",
+    "image_path": "07/beer_brewing.jpeg",
+    "title": "Brew a bottle of beer",
+    "consumption_in_wh": 200,
+    "source": "http://www.emberstrategies.com/blog/2014/5/14/how-much-energy-does-it-take-to-make-a-beer"
+  },
+  {
+    "id": "07-BlackCoffee",
+    "image_path": "07/BlackCoffee.jpeg",
+    "title": "Making a cup of black coffee in a coffee machine",
+    "consumption_in_wh": 83,
+    "source": "https://business.directenergy.com/blog/2017/september/international-coffee-day"
+  },
+  {
+    "id": "07-navigation",
+    "image_path": "07/navigation.jpeg",
+    "title": "Running navigation equipment on a sailboat for 24 hours",
+    "consumption_in_wh": 626400,
+    "source": "https://www.save-marine.com/en/electricity-cruising-sailboat"
+  },
+  {
+    "id": "07-smartphone",
+    "image_path": "07/smartphone.jpeg",
+    "title": "Creating a smartphone",
+    "consumption_in_wh": 278000,
+    "source": "https://www.theatlantic.com/technology/archive/2014/10/the-energy-in-things/381557/"
+  },
+  {
+    "id": "07-driving",
+    "image_path": "07/driving.jpeg",
+    "title": "Driving for one hour",
+    "consumption_in_wh": 110250,
+    "source": "http://www.kerrywong.com/2006/05/26/how-much-energy-do-we-use-driving/"
+  },
+  {
+    "id": "07-guitarAmp",
+    "image_path": "07/guitarAmp.jpg",
+    "title": "Running a guitar amplifier for a hour",
+    "consumption_in_wh": 40,
+    "source": "http://ugweb.cs.ualberta.ca/~vis/courses/num/labs/labSpring2002/lab2/powerhome.html"
+  },
+  {
+    "id": "07-pc_gaming",
+    "image_path": "07/pc_gaming.jpg",
+    "title": "Using a gaming pc for one hour",
+    "consumption_in_wh": 400,
+    "source": "https://computerinfobits.com/how-much-energy-do-gaming-computers-use/"
+  },
+  {
+    "id": "07-netflix",
+    "image_path": "07/netflix.jpeg",
+    "title": "Watching Netflix for one hour",
+    "consumption_in_wh": 800,
+    "source": "https://www.carbonbrief.org/factcheck-what-is-the-carbon-footprint-of-streaming-video-on-netflix"
+  },
+  {
+    "id": "07-transactions",
+    "image_path": "07/transactions.jpeg",
+    "title": "Performing 100.000 VISA transactions",
+    "consumption_in_wh": 149000,
+    "source": "https://www.scoop.co.nz/stories/BU2201/S00097/energy-consumed-by-one-ethereum-transaction-could-power-over-100000-visa-transactions.htm"
+  },
+  {
+    "id": "07-nft_sale",
+    "image_path": "07/nft_sale.jpg",
+    "title": "Selling an NFT",
+    "consumption_in_wh": 87000,
+    "source": "https://postergrind.com/how-much-energy-does-it-take-to-make-an-nft/"
+  },
+  {
+    "id": "07-google",
+    "image_path": "07/google.jpeg",
+    "title": "Doing 10 Google searches",
+    "consumption_in_wh": 3,
+    "source": "https://store.chipkin.com/articles/did-you-know-it-takes-00003-kwh-per-google-search-and-more#:~:text=Google%20says%20it%20spends%20about,That's%20hard%20work!"
+  },
+  {
+    "id": "07-drying",
+    "image_path": "07/drying.jpeg",
+    "title": "Drying your hair for 10 minutes",
+    "consumption_in_wh": 250,
+    "source": "https://energyusecalculator.com/electricity_hairdryer.htm"
+  },
+  {
+    "id": "07-InductionCooktop",
+    "image_path": "07/InductionCooktop.jpg",
+    "title": "Using a standard induction cooktop for one hour",
+    "consumption_in_wh": 1800,
+    "source": "https://apreparedkitchen.com/induction-cooktop-vs-electric-power-consumption/"
+  },
+  {
+    "id": "07-robotVacuum",
+    "image_path": "07/robotVacuum.jpg",
+    "title": "Running a robot vacuum for a month",
+    "consumption_in_wh": 4000,
+    "source": "https://www.thehomehacksdiy.com/how-much-power-watts-does-a-robot-vacuum-use/"
+  },
+  {
+    "id": "07-ElectricKettle",
+    "image_path": "07/ElectricKettle.jpg",
+    "title": "Heating up watter in an electric kettle",
+    "consumption_in_wh": 40,
+    "source": "https://mishry.com/electric-kettle-power-consumption"
+  },
+  {
+    "id": "41-brain",
+    "image_path": "41/brain.jpg",
+    "title": "Brain energy consumption during a regular day",
+    "consumption_in_wh": 372,
+    "source": "https://time.com/5400025/does-thinking-burn-calories/"
+  },
+  {
+    "id": "41-refrigerator",
+    "image_path": "41/refrigerator.jpeg",
+    "title": "A modern refrigerator working for 1 hour",
+    "consumption_in_wh": 40,
+    "source": "https://www.directenergy.com/learning-center/how-much-electricity-does-my-refrigerator-use"
+  },
+  {
+    "id": "41-router",
+    "image_path": "41/router.png",
+    "title": "Energy consumption for router/modem in a day",
+    "consumption_in_wh": 144,
+    "source": "https://www.thinkenergy.com/power-supply-calculator"
+  },
+  {
+    "id": "41-boil-water",
+    "image_path": "41/boil-water.jpg",
+    "title": "Boiling a cup (250ml) of water from room temperature (21C)",
+    "consumption_in_wh": 46,
+    "source": "https://seesustainability.co.uk/blog/f/boiling-water---how-much-energy"
+  },
+  {
+    "id": "41-water-heater",
+    "image_path": "41/water-heater.jpeg",
+    "title": "Water heater working for 1 hour",
+    "consumption_in_wh": 4000,
+    "source": "https://www.thehomehacksdiy.com/how-much-electricity-energy-does-a-water-heater-use/"
+  },
+  {
+    "id": "41-wifi-router",
+    "image_path": "41/wifi-router.jpg",
+    "title": "Wifi router for 1 hour",
+    "consumption_in_wh": 20,
+    "source": "https://www.lifewire.com/power-network-router-consumes-3971320"
+  },
+  {
+    "id": "41-cycling",
+    "image_path": "41/cycling.jpeg",
+    "title": "Cycling for 1 hour",
+    "consumption_in_wh": 200,
+    "source": "https://www.welovecycling.com/wide/2020/05/14/how-to-convert-watts-into-calories-burned-on-the-bike/"
+  },
+  {
+    "id": "41-toast",
+    "image_path": "41/toast.jpg",
+    "title": "Energy to toast a slice of bread",
+    "consumption_in_wh": 21,
+    "source": "https://www.unhcr.org/innovation/you-use-more-energy-burning-toast-than-most-refugees-hope-to-have/"
+  },
+  {
+    "id": "41-smoke-detector",
+    "image_path": "41/smoke-detector.png",
+    "title": "Keeping a smoke detector on for 1 year",
+    "consumption_in_wh": 3500,
+    "source": "https://askinglot.com/how-much-power-does-a-smoke-detector-use"
+  },
+  {
+    "id": "41-amsterdam",
+    "image_path": "41/amsterdam.jpeg",
+    "title": "Energy used by the whole city of Amsterdam in one second",
+    "consumption_in_wh": 3450,
+    "source": "https://www.worlddata.info/europe/netherlands/energy-consumption.php"
+  },
+  {
+    "id": "41-usain-bolt-record",
+    "image_path": "41/usain-bolt-record.jpg",
+    "title": "Energy Usain Bolt used for his world record 100m sprint",
+    "consumption_in_wh": 2,
+    "source": "https://www.popsci.com/science/article/2013-07/physics-record-breaking-run/"
+  },
+  {
+    "id": "41-protein-synthesis",
+    "image_path": "41/protein-synthesis.jpg",
+    "title": "Protein Synthesis in a young male per day",
+    "consumption_in_wh": 564,
+    "source": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2732256/"
+  },
+  {
+    "id": "41-plane",
+    "image_path": "41/plane.jpeg",
+    "title": "Energy used for trans-Atlantic crossing by plane",
+    "consumption_in_wh": 490000000,
+    "source": "https://www.quora.com/How-many-kilowatt-hours-of-energy-does-an-airliner-use-on-a-trans-Atlantic-crossing"
+  },
+  {
+    "id": "41-sleep",
+    "image_path": "41/sleep.jpeg",
+    "title": "Energy used by human body during 8 hours of sleep",
+    "consumption_in_wh": 500,
+    "source": "https://www.sleepfoundation.org/how-sleep-works/how-your-body-uses-calories-while-you-sleep"
+  },
+  {
+    "id": "41-hundred-google-searches",
+    "image_path": "41/hundred-google-searches.jpg",
+    "title": "Energy used for 100 google search queries",
+    "consumption_in_wh": 30,
+    "source": "https://store.chipkin.com/articles/did-you-know-it-takes-00003-kwh-per-google-search-and-more"
+  },
+  {
+    "id": "41-gaming-pc",
+    "image_path": "41/gaming-pc.png",
+    "title": "Playing games on a gaming PC for 1 hour",
+    "consumption_in_wh": 300,
+    "source": "https://gamerforfun.com/how-much-electricity-does-a-gaming-pc-use/"
+  },
+  {
+    "id": "41-hairDryer",
+    "image_path": "41/hairDryer.jpg",
+    "title": "energy consumption for hair dryer in a day",
+    "consumption_in_wh": 355,
+    "source": "https://www.thinkenergy.com/power-supply-calculator"
+  },
+  {
+    "id": "41-3d-printer",
+    "image_path": "41/3d-printer.png",
+    "title": "Using a 3D printer for 1 hour",
+    "consumption_in_wh": 70,
+    "source": "https://m3dzone.com/3d-printer-power-usage/"
+  },
+  {
+    "id": "41-tesla-charge",
+    "image_path": "41/tesla-charge.jpg",
+    "title": "Tesla Model 3 energy for full charge cycle (0 - 100%)",
+    "consumption_in_wh": 70000,
+    "source": "https://ev-database.org/car/1321/Tesla-Model-3-Long-Range-Dual-Motor"
+  },
+  {
+    "id": "41-ceiling_fan",
+    "image_path": "41/ceiling_fan.jpg",
+    "title": "Energy consumption for ceiling fan in a day",
+    "consumption_in_wh": 315,
+    "source": "https://www.thinkenergy.com/power-supply-calculator"
+  },
+  {
+    "id": "74-XboxOne",
+    "image_path": "74/XboxOne.jpg",
+    "title": "Xbox One",
+    "consumption_in_wh": 100,
+    "source": "https://corexbox.com/how-much-electricity-does-xbox-one-use/"
+  },
+  {
+    "id": "74-USMilitary",
+    "image_path": "74/USMilitary.png",
+    "title": "USA Military Usage of Energy per second",
+    "consumption_in_wh": 1000000,
+    "source": "https://en.wikipedia.org/wiki/Energy_usage_of_the_United_States_military"
+  },
+  {
+    "id": "74-MiningBitcoin",
+    "image_path": "74/MiningBitcoin.png",
+    "title": "Mining one full bitcoin",
+    "consumption_in_wh": 143000000,
+    "source": "https://minerdaily.com/2021/how-much-power-does-it-take-to-mine-a-bitcoin/"
+  },
+  {
+    "id": "74-nft",
+    "image_path": "74/nft.jpg",
+    "title": "Usage of an NFT",
+    "consumption_in_wh": 75000,
+    "source": "https://nftexplained.info/how-much-energy-does-an-nft-use/"
+  },
+  {
+    "id": "74-AC",
+    "image_path": "74/AC.png",
+    "title": "Air Conditioning",
+    "consumption_in_wh": 3000,
+    "source": "https://bardi.com/how-many-watts-does-an-air-conditioner-use/"
+  },
+  {
+    "id": "74-GamingPC",
+    "image_path": "74/GamingPC.jpg",
+    "title": "Running a gaming PC for an hour",
+    "consumption_in_wh": 500,
+    "source": "https://sites.google.com/site/greeningthebeast/energy/taming-the-energy-use-of-gaming-computers"
+  },
+  {
+    "id": "74-ChargingTesla",
+    "image_path": "74/ChargingTesla.png",
+    "title": "Charging a Tesla model 3",
+    "consumption_in_wh": 50000,
+    "source": "https://electrek.co/2021/10/27/how-much-does-it-cost-to-charge-a-tesla/"
+  },
+  {
+    "id": "74-Normal Car_100km",
+    "image_path": "74/Normal Car_100km.jpg",
+    "title": "Regular Car 100km",
+    "consumption_in_wh": 38000,
+    "source": "https://en.wikipedia.org/wiki/Energy_efficiency_in_transport#Land_Passenger_Transport"
+  },
+  {
+    "id": "74-AirFryer",
+    "image_path": "74/AirFryer.jpg",
+    "title": "Using An Air Fryer",
+    "consumption_in_wh": 1500,
+    "source": "https://www.familyguidecentral.com/is-your-air-fryer-using-a-lot-of-electricity-lets-compare/#:~:text=How%20much%20does%20it%20cost,hour%20is%20around%2015%20cents."
+  },
+  {
+    "id": "74-Electric Car_100km",
+    "image_path": "74/Electric Car_100km.jpg",
+    "title": "Driving an Electric Car for 100km",
+    "consumption_in_wh": 187500,
+    "source": "https://www.motorbiscuit.com/how-many-kilowatt-hours-does-electric-car-use/"
+  },
+  {
+    "id": "74-WatchingTV",
+    "image_path": "74/WatchingTV.png",
+    "title": "Watching TV for 1 hour",
+    "consumption_in_wh": 59,
+    "source": "https://ecocostsavings.com/tv-wattage/"
+  },
+  {
+    "id": "74-PhoneCharging",
+    "image_path": "74/PhoneCharging.png",
+    "title": "Charging a Phone",
+    "consumption_in_wh": 1000,
+    "source": "https://www.forbes.com/sites/christopherhelman/2013/09/07/how-much-energy-does-your-iphone-and-other-devices-use-and-what-to-do-about-it/?sh=5d9c4d252f70"
+  },
+  {
+    "id": "74-BrewingCoffee",
+    "image_path": "74/BrewingCoffee.png",
+    "title": "Making one cup of coffee",
+    "consumption_in_wh": 35,
+    "source": "https://blog.arcadia.com/electricity-costs-10-key-household-products/"
+  },
+  {
+    "id": "74-Bus_100km",
+    "image_path": "74/Bus_100km.jpg",
+    "title": "Driving a bus for 100km",
+    "consumption_in_wh": 370830,
+    "source": "https://en.wikipedia.org/wiki/Energy_efficiency_in_transport#Land_Passenger_Transport"
+  },
+  {
+    "id": "74-PS4",
+    "image_path": "74/PS4.jpg",
+    "title": "Playstation 4",
+    "consumption_in_wh": 150,
+    "source": "https://www.thehomehacksdiy.com/how-much-electricity-does-a-ps4-use/#1_Electricity_Power_Consumption_PlayStation_4_Classic"
+  },
+  {
+    "id": "74-FacebookCostAnnualy",
+    "image_path": "74/FacebookCostAnnualy.png",
+    "title": "Energy Usage of Facebook in 2019 per second",
+    "consumption_in_wh": 154000,
+    "source": "https://www.statista.com/statistics/580087/energy-use-of-facebook/"
+  },
+  {
+    "id": "74-LitreMilk",
+    "image_path": "74/LitreMilk.png",
+    "title": "Producing 1 litre of milk",
+    "consumption_in_wh": 42,
+    "source": "https://www.researchgate.net/figure/Breakdown-of-electricity-consumption-per-liter-of-milk-produced-including-cost-of_tbl3_255175693"
+  },
+  {
+    "id": "74-InductionCooktop",
+    "image_path": "74/InductionCooktop.png",
+    "title": "Using a induction cooktop for 1 hour",
+    "consumption_in_wh": 2000,
+    "source": "https://letsavelectricity.com/induction-cooktop-power-consumption-calculator/"
+  },
+  {
+    "id": "74-ElectricKettle",
+    "image_path": "74/ElectricKettle.png",
+    "title": "Boiling 1 litre of water using an electric kettle",
+    "consumption_in_wh": 113,
+    "source": "https://checkappliance.co.uk/how-much-energy-does-a-kettle-use/"
+  },
+  {
+    "id": "74-NintendoSwitch",
+    "image_path": "74/NintendoSwitch.jpg",
+    "title": "Nintendo Switch",
+    "consumption_in_wh": 18,
+    "source": "https://blog.constellation.com/2020/04/29/energy-costs-of-gaming-consoles-and-gaming-pcs/"
+  },
+  {
+    "id": "73-washing-machine",
+    "image_path": "73/washing-machine.jpeg",
+    "title": "Run a washing machine for 30 mins",
+    "consumption_in_wh": 2500,
+    "source": "https://blog.arcadia.com/electricity-costs-10-key-household-products/"
+  },
+  {
+    "id": "73-bottled-water",
+    "image_path": "73/bottled-water.jpeg",
+    "title": "Produce 1 liter of bottled water",
+    "consumption_in_wh": 1944,
+    "source": "https://phys.org/news/2009-03-energy-bottle.html"
+  },
+  {
+    "id": "73-bitcoin",
+    "image_path": "73/bitcoin.jpeg",
+    "title": "1 Bitcoin transaction",
+    "consumption_in_wh": 2209040,
+    "source": "https://digiconomist.net/bitcoin-energy-consumption/"
+  },
+  {
+    "id": "73-boiling-water",
+    "image_path": "73/boiling-water.jpeg",
+    "title": "Boil 1 liter of water",
+    "consumption_in_wh": 183,
+    "source": "https://www.theguardian.com/notesandqueries/query/0,5753,-2452,00.html"
+  },
+  {
+    "id": "73-freezer",
+    "image_path": "73/freezer.jpeg",
+    "title": "Run household freezer for 1 month",
+    "consumption_in_wh": 9000,
+    "source": "https://www.siliconvalleypower.com/residents/save-energy/appliance-energy-use-chart"
+  },
+  {
+    "id": "73-coffee-machine",
+    "image_path": "73/coffee-machine.jpeg",
+    "title": "Run a coffee machine for 1 hour",
+    "consumption_in_wh": 1350,
+    "source": "https://ecocostsavings.com/coffee-maker-wattage/"
+  },
+  {
+    "id": "73-cinema",
+    "image_path": "73/cinema.jpeg",
+    "title": "Watch 105-minute movie at cinema",
+    "consumption_in_wh": 1700,
+    "source": "https://slate.com/technology/2011/06/is-it-more-earth-friendly-to-see-movies-in-a-theater-or-on-dvd.html"
+  },
+  {
+    "id": "73-laptop",
+    "image_path": "73/laptop.jpeg",
+    "title": "Use a laptop for a day",
+    "consumption_in_wh": 60,
+    "source": "https://laptop251.com/laptop-wattage/"
+  },
+  {
+    "id": "73-central-air-conditioning",
+    "image_path": "73/central-air-conditioning.jpeg",
+    "title": "Central air conditioning for 1 hour",
+    "consumption_in_wh": 3000,
+    "source": "https://www.siliconvalleypower.com/residents/save-energy/appliance-energy-use-chart"
+  },
+  {
+    "id": "73-led",
+    "image_path": "73/led.jpeg",
+    "title": "Run a LED light for 1 hour",
+    "consumption_in_wh": 10,
+    "source": "https://energyusecalculator.com/electricity_ledlightbulb.html"
+  },
+  {
+    "id": "73-residential-wind-turbine",
+    "image_path": "73/residential-wind-turbine.jpeg",
+    "title": "Residential wind turbine production per day",
+    "consumption_in_wh": 10000,
+    "source": "https://www.networx.com/article/how-much-power-will-a-residential-wind-t"
+  },
+  {
+    "id": "73-incandescent-light-bulb",
+    "image_path": "73/incandescent-light-bulb.png",
+    "title": "Run a traditional light bulb for 1 hour",
+    "consumption_in_wh": 60,
+    "source": "https://www.npr.org/2014/01/28/267185097/in-the-dark-about-picking-a-light-bulb-this-faq-can-help"
+  },
+  {
+    "id": "73-solar-panel",
+    "image_path": "73/solar-panel.jpeg",
+    "title": "Solar panel production per day",
+    "consumption_in_wh": 1450,
+    "source": "https://www.sunrun.com/go-solar-center/solar-articles/how-much-solar-power-can-my-roof-generate"
+  },
+  {
+    "id": "73-tap-water",
+    "image_path": "73/tap-water.jpeg",
+    "title": "Produce ten liter of tap water",
+    "consumption_in_wh": 13,
+    "source": "https://www.greenbiz.com/article/understanding-energy-within-bottled-water"
+  },
+  {
+    "id": "73-oven",
+    "image_path": "73/oven.jpeg",
+    "title": "Use an oven for 1 hour",
+    "consumption_in_wh": 230,
+    "source": "https://www.siliconvalleypower.com/residents/save-energy/appliance-energy-use-chart"
+  },
+  {
+    "id": "73-toaster",
+    "image_path": "73/toaster.jpeg",
+    "title": "Toast 2 slices of bread",
+    "consumption_in_wh": 400,
+    "source": "https://www.siliconvalleypower.com/residents/save-energy/appliance-energy-use-chart"
+  },
+  {
+    "id": "73-google",
+    "image_path": "73/google.jpeg",
+    "title": "Do 10 Google searches",
+    "consumption_in_wh": 3,
+    "source": "https://business.directenergy.com/blog/2017/november/powering-a-google-search"
+  },
+  {
+    "id": "73-world-energy",
+    "image_path": "73/world-energy.jpeg",
+    "title": "World energy production in 2018",
+    "consumption_in_wh": 167000000000000000,
+    "source": "https://en.wikipedia.org/wiki/World_energy_supply_and_consumption"
+  },
+  {
+    "id": "73-youtube",
+    "image_path": "73/youtube.png",
+    "title": "Stream YouTube for 1 hour",
+    "consumption_in_wh": 12,
+    "source": "https://www.quora.com/How-much-total-power-or-energy-we-consume-to-watch-a-video-on-youtube-with-a-mobile-device"
+  },
+  {
+    "id": "73-bike",
+    "image_path": "73/bike.jpeg",
+    "title": "Cycling for 1 hour",
+    "consumption_in_wh": 100,
+    "source": "https://michaelbluejay.com/electricity/bicyclepower.html"
+  },
+  {
+    "id": "01-wifi",
+    "image_path": "01/wifi.png",
+    "title": "Using a Wi-FI router",
+    "consumption_in_wh": 100,
+    "source": "https://energyusecalculator.com/electricity_wifirouter.htm"
+  },
+  {
+    "id": "01-dodgecoin",
+    "image_path": "01/dodgecoin.jpg",
+    "title": "Making a transaction with dodgecoin",
+    "consumption_in_wh": 120,
+    "source": "https://www.gfinityesports.com/cryptocurrency/dogecoin-environmental-impact-energy-consumption-environmentally-friendly-cryptocurrency/"
+  },
+  {
+    "id": "01-charging_tesla",
+    "image_path": "01/charging_tesla.jpg",
+    "title": "Fully charging a tesla model X",
+    "consumption_in_wh": 120,
+    "source": "https://www.solarreviews.com/blog/how-much-does-it-cost-to-charge-a-tesla-is-it-the-same-as-the-cost-to-charge-other-electric-vehicles"
+  },
+  {
+    "id": "01-console",
+    "image_path": "01/console.png",
+    "title": "Playing on a video game console for 6 hours",
+    "consumption_in_wh": 540,
+    "source": "https://energyusecalculator.com/electricity_gameconsole.htm"
+  },
+  {
+    "id": "01-washing_machine",
+    "image_path": "01/washing_machine.jpg",
+    "title": "Using a washing machine once",
+    "consumption_in_wh": 450,
+    "source": "https://www.coolblue.nl/advies/verbruik-wasmachine.html#id-energieverbruik"
+  },
+  {
+    "id": "01-christmas_tree",
+    "image_path": "01/christmas_tree.jpg",
+    "title": "Leaving a Christmas tree with 700 LED lights lit up for 2 weeks",
+    "consumption_in_wh": 10780,
+    "source": "https://powerley.com/myth-buster-do-christmas-lights-use-a-lot-of-electricity/"
+  },
+  {
+    "id": "01-efurnace",
+    "image_path": "01/efurnace.png",
+    "title": "Using an electric furnace for one day",
+    "consumption_in_wh": 432000,
+    "source": "https://energyusecalculator.com/electricity_furnace.htm"
+  },
+  {
+    "id": "01-washingmachine",
+    "image_path": "01/washingmachine.png",
+    "title": "Average consumption per year by an A washing machine",
+    "consumption_in_wh": 99000,
+    "source": "https://www.coolblue.nl/en/advice/energy-consumption-washing-machine.html"
+  },
+  {
+    "id": "01-microwave",
+    "image_path": "01/microwave.png",
+    "title": "Using a microwave for 6 minutes",
+    "consumption_in_wh": 120,
+    "source": "https://energyusecalculator.com/electricity_microwave.htm"
+  },
+  {
+    "id": "01-mouse",
+    "image_path": "01/mouse.png",
+    "title": "Using a computer mouse",
+    "consumption_in_wh": 5,
+    "source": "https://www.tomsguide.com/us/squeezing-more-life-out-of-your-notebook,review-583-12.html"
+  },
+  {
+    "id": "01-dishwasher",
+    "image_path": "01/dishwasher.jpg",
+    "title": "Average consumption per year by a C dishwasher",
+    "consumption_in_wh": 160000,
+    "source": "https://www.coolblue.nl/en/advice/energy-consumption-dishwasher.html"
+  },
+  {
+    "id": "01-freezer",
+    "image_path": "01/freezer.jpg",
+    "title": "Keeping food in a freezer for 2 days",
+    "consumption_in_wh": 1680,
+    "source": "https://energyusecalculator.com/electricity_freezer.htm"
+  },
+  {
+    "id": "01-vacuum",
+    "image_path": "01/vacuum.png",
+    "title": "Using a vacuum cleaner for one hour",
+    "consumption_in_wh": 1400,
+    "source": "https://blog.constellation.com/2019/11/04/energy-efficient-vacuum-cleaners/"
+  },
+  {
+    "id": "01-ipad",
+    "image_path": "01/ipad.jpg",
+    "title": "Completely charging an Ipad everyday for a week",
+    "consumption_in_wh": 400,
+    "source": "https://www.techadvisor.com/how-to/gadget/how-much-does-it-cost-charge-phone-tablet-or-laptop-3632210/"
+  },
+  {
+    "id": "01-laptop",
+    "image_path": "01/laptop.jpg",
+    "title": "Completely charging a laptop",
+    "consumption_in_wh": 135,
+    "source": "https://www.techadvisor.com/how-to/gadget/how-much-does-it-cost-charge-phone-tablet-or-laptop-3632210/"
+  },
+  {
+    "id": "01-clothesdryer",
+    "image_path": "01/clothesdryer.png",
+    "title": "Using a clothes dryer for one hour",
+    "consumption_in_wh": 3000,
+    "source": "https://energyusecalculator.com/electricity_clothesdryer.htm"
+  },
+  {
+    "id": "01-toasts",
+    "image_path": "01/toasts.jpg",
+    "title": "Making 6 slices of toast every day for 1 month",
+    "consumption_in_wh": 3960,
+    "source": "https://play.google.com/books/reader?id=xYTXfnNa4Z4C&pg=GBS.PP8&hl=sk"
+  },
+  {
+    "id": "01-projector",
+    "image_path": "01/projector.jpg",
+    "title": "Playing an one-hour movie on a regular-sized modern projector.",
+    "consumption_in_wh": 150,
+    "source": "https://projectorninja.com/projector-vs-tv-power-consumption/"
+  },
+  {
+    "id": "01-ev",
+    "image_path": "01/ev.png",
+    "title": "Driving an EV for 10km",
+    "consumption_in_wh": 2000,
+    "source": "https://www.virta.global/blog/ev-charging-101-how-much-electricity-does-an-electric-car-use"
+  },
+  {
+    "id": "01-iron",
+    "image_path": "01/iron.png",
+    "title": "Average consumption per month by a clothes iron",
+    "consumption_in_wh": 120000,
+    "source": "https://www.oliverheatcool.com/about/blog/home-safety/beware-of-the-energy-hogs-in-your-home/"
+  },
+  {
+    "id": "01-tv",
+    "image_path": "01/tv.jpg",
+    "title": "Watching an one-hour movie on a 40-inch TV",
+    "consumption_in_wh": 340,
+    "source": "https://ecocostsavings.com/tv-wattage/#how-much-electricity-does-a-tv-use-per-hour"
+  },
+  {
+    "id": "01-LEDlightbulb",
+    "image_path": "01/LEDlightbulb.png",
+    "title": "Having a LED lightbulb on for a whole day",
+    "consumption_in_wh": 240,
+    "source": "https://energyusecalculator.com/electricity_ledlightbulb.htm"
+  },
+  {
+    "id": "01-blender",
+    "image_path": "01/blender.png",
+    "title": "Using a blender for one hour",
+    "consumption_in_wh": 400,
+    "source": "https://www.electricalclassroom.com/power-consume-energy-usage-of-blenders/#:~:text=Power%20consumption%20of%20blenders,stator%20winding%20for%20speed%20control."
+  },
+  {
+    "id": "01-coffee",
+    "image_path": "01/coffee.png",
+    "title": "Making coffee using an esspresso coffee machine.",
+    "consumption_in_wh": 1400,
+    "source": "https://ecocostsavings.com/coffee-maker-wattage/#:~:text=On%20average%2C%20per%20hour%20at,kWh%20and%202.09%20kWh%20respectively."
+  },
+  {
+    "id": "01-ceiling_fan",
+    "image_path": "01/ceiling_fan.jpg",
+    "title": "Leaving a ceiling fan running for 15 hours",
+    "consumption_in_wh": 1130,
+    "source": "https://energyusecalculator.com/electricity_ceilingfan.htm"
+  },
+  {
+    "id": "06-Making 5 cups of coffee with a coffee maker",
+    "image_path": "06/Making 5 cups of coffee with a coffee maker.png",
+    "title": "Making 5 cups of coffee with a coffee maker",
+    "consumption_in_wh": 200,
+    "source": "https://www.electricalclassroom.com/power-energy-usage-of-coffee-makers/#:~:text=A%20typical%20coffee%20maker%20consume%200.04%20kWh%20of,highest%20power%20consuming%20part%20in%20a%20coffee%20machine."
+  },
+  {
+    "id": "06-An electric car driving one kilometer",
+    "image_path": "06/An electric car driving one kilometer.png",
+    "title": "An electric car driving one kilometer",
+    "consumption_in_wh": 200,
+    "source": "https://www.virta.global/blog/ev-charging-101-how-much-electricity-does-an-electric-car-use"
+  },
+  {
+    "id": "06-Using a wifi router left on all day",
+    "image_path": "06/Using a wifi router left on all day.png",
+    "title": "Using a wifi router left on all day",
+    "consumption_in_wh": 140,
+    "source": "https://energyusecalculator.com/electricity_wifirouter.htm"
+  },
+  {
+    "id": "06-Running one cycle of a C energy label dishwasher",
+    "image_path": "06/Running one cycle of a C energy label dishwasher.png",
+    "title": "Running one cycle of a C energy label dishwasher",
+    "consumption_in_wh": 570,
+    "source": "https://www.coolblue.nl/en/advice/energy-consumption-dishwasher.html"
+  },
+  {
+    "id": "06-Global mining of Bitcoin during one second",
+    "image_path": "06/Global mining of Bitcoin during one second.png",
+    "title": "Global mining of Bitcoin during one second",
+    "consumption_in_wh": 1484352,
+    "source": "https://minerdaily.com/2021/how-much-power-does-it-take-to-mine-a-bitcoin/"
+  },
+  {
+    "id": "06-Leaving an electric stove on for an hour",
+    "image_path": "06/Leaving an electric stove on for an hour.jpg",
+    "title": "Leaving an electric stove on for an hour",
+    "consumption_in_wh": 3000,
+    "source": "https://www.directenergy.com/learning-center/how-much-energy-does-oven-and-electric-stove-use"
+  },
+  {
+    "id": "06-Ironing clothes on high for 30 minutes",
+    "image_path": "06/Ironing clothes on high for 30 minutes.png",
+    "title": "Ironing clothes on high for 30 minutes",
+    "consumption_in_wh": 550,
+    "source": "https://energyusecalculator.com/electricity_iron.htm"
+  },
+  {
+    "id": "06-Using a domestic fridge for a full day",
+    "image_path": "06/Using a domestic fridge for a full day.png",
+    "title": "Using a domestic fridge for a full day",
+    "consumption_in_wh": 1500,
+    "source": "https://reductionrevolution.com.au/blogs/how-to/fridge-power-consumption"
+  },
+  {
+    "id": "06-Using an oven for one day",
+    "image_path": "06/Using an oven for one day.png",
+    "title": "Using an oven for one day ",
+    "consumption_in_wh": 2400,
+    "source": "https://energyusecalculator.com/electricity_oven.htm"
+  },
+  {
+    "id": "06-Using the air condition for one hour",
+    "image_path": "06/Using the air condition for one hour.png",
+    "title": "Using the air condition for one hour",
+    "consumption_in_wh": 3000,
+    "source": "https://bardi.com/how-many-watts-does-an-air-conditioner-use/"
+  },
+  {
+    "id": "06-Boils for 4 minutes using the electric kettle",
+    "image_path": "06/Boils for 4 minutes using the electric kettle.png",
+    "title": "Boils for 4 minutes using the electric kettle ",
+    "consumption_in_wh": 140,
+    "source": "https://www.canstarblue.com.au/electricity/boiling-kettle-costs-think/"
+  },
+  {
+    "id": "06-1 Bitcoin transaction",
+    "image_path": "06/1 Bitcoin transaction.png",
+    "title": "1 Bitcoin transaction",
+    "consumption_in_wh": 2264930,
+    "source": "https://www.statista.com/statistics/881541/bitcoin-energy-consumption-transaction-comparison-visa/"
+  },
+  {
+    "id": "06-Charging your phone once",
+    "image_path": "06/Charging your phone once.png",
+    "title": "Charging your phone once",
+    "consumption_in_wh": 5,
+    "source": "https://www.forbes.com/sites/christopherhelman/2013/09/07/how-much-energy-does-your-iphone-and-other-devices-use-and-what-to-do-about-it/#:~:text=To%20be%20specific%2C%20your%20iPhone,2%2C000%20watt%20hours%2C%20or%202kWh."
+  },
+  {
+    "id": "06-Using 14-15 inch laptop for 6 hours",
+    "image_path": "06/Using 14-15 inch laptop for 6 hours.png",
+    "title": "Using 14-15 inch laptop for 6 hours",
+    "consumption_in_wh": 360,
+    "source": "https://energyusecalculator.com/electricity_laptop.htm"
+  },
+  {
+    "id": "06-Watching Netflix for one hour",
+    "image_path": "06/Watching Netflix for one hour.jpg",
+    "title": "Watching Netflix for one hour",
+    "consumption_in_wh": 77,
+    "source": "https://www.iea.org/commentaries/the-carbon-footprint-of-streaming-video-fact-checking-the-headlines"
+  },
+  {
+    "id": "06-Doing ten searches on internet",
+    "image_path": "06/Doing ten searches on internet.png",
+    "title": "Doing ten searches on internet",
+    "consumption_in_wh": 1000,
+    "source": "https://www.sciencedirect.com/topics/social-sciences/energy-consumption"
+  },
+  {
+    "id": "06-Using a dryer for 45 minutes",
+    "image_path": "06/Using a dryer for 45 minutes.png",
+    "title": "Using a dryer for 45 minutes",
+    "consumption_in_wh": 3750,
+    "source": "https://www.directenergy.com/learning-center/how-much-energy-dryer-use"
+  },
+  {
+    "id": "06-Leaving an LED lightbulb on for an hour",
+    "image_path": "06/Leaving an LED lightbulb on for an hour.jpg",
+    "title": "Leaving an LED lightbulb on for an hour",
+    "consumption_in_wh": 8,
+    "source": "https://www.kompulsa.com/led-power-consumption-how-much-energy-do-leds-consume/"
+  },
+  {
+    "id": "06-Gaming on a high end PC for an hour",
+    "image_path": "06/Gaming on a high end PC for an hour.png",
+    "title": "Gaming on a high end PC for an hour",
+    "consumption_in_wh": 505,
+    "source": "https://www.pcgamer.com/how-much-power-does-my-pc-use/"
+  },
+  {
+    "id": "06-Heating using a 1500 Watts heater for 5 hours",
+    "image_path": "06/Heating using a 1500 Watts heater for 5 hours.png",
+    "title": "Heating using a 1500 Watts heater for 5 hours",
+    "consumption_in_wh": 7500,
+    "source": "https://energyusecalculator.com/electricity_spaceheater.htm"
+  },
+  {
+    "id": "76-hairdryer",
+    "image_path": "76/hairdryer.png",
+    "title": "Using a hair dryer for 30 minutes",
+    "consumption_in_wh": 500,
+    "source": "https://ecocostsavings.com/hair-dryer-wattage/"
+  },
+  {
+    "id": "76-running",
+    "image_path": "76/running.png",
+    "title": "Running for 30 minutes",
+    "consumption_in_wh": 370,
+    "source": "https://www.verywellfit.com/how-many-calories-does-running-burn-2911108"
+  },
+  {
+    "id": "76-electricscooter",
+    "image_path": "76/electricscooter.png",
+    "title": "Using an electric scooter for 1 hour",
+    "consumption_in_wh": 230,
+    "source": "https://www.endesa.com/en/blogs/endesa-s-blog/light/are-electric-scooters-efficient"
+  },
+  {
+    "id": "76-yacht",
+    "image_path": "76/yacht.png",
+    "title": "Cruising on a small yacht for 30 minutes",
+    "consumption_in_wh": 1050,
+    "source": "https://sailingmagazine.net/article-1495-saving-energy-at-sea.html"
+  },
+  {
+    "id": "76-train",
+    "image_path": "76/train.png",
+    "title": "Taking the train for 30 km",
+    "consumption_in_wh": 1650,
+    "source": "https://en.wikipedia.org/wiki/Energy_efficiency_in_transport"
+  },
+  {
+    "id": "76-standing",
+    "image_path": "76/standing.jpeg",
+    "title": "Standing up for 2 hours",
+    "consumption_in_wh": 349,
+    "source": "https://www.healthline.com/health/fitness-exercise/calories-burned-standing#TOC_TITLE_HDR_1"
+  },
+  {
+    "id": "76-microwave",
+    "image_path": "76/microwave.jpeg",
+    "title": "Microwaving a frozen pizza for 15 minutes",
+    "consumption_in_wh": 360,
+    "source": "https://blog.constellation.com/2016/05/20/toaster-oven-vs-microwave-energy-efficiency/"
+  },
+  {
+    "id": "76-clicking",
+    "image_path": "76/clicking.jpeg",
+    "title": "Clicking a mouse 10 000 times",
+    "consumption_in_wh": 165,
+    "source": "https://gadgets360.com/others/news/revealed-the-number-of-calories-you-burn-with-click-of-a-mouse-341940"
+  },
+  {
+    "id": "76-laptop",
+    "image_path": "76/laptop.jpeg",
+    "title": "Using a laptop for 2 hours",
+    "consumption_in_wh": 136,
+    "source": "https://www.energuide.be/en/questions-answers/how-much-power-does-a-computer-use-and-how-much-co2-does-that-represent/54/"
+  },
+  {
+    "id": "76-lightbulb",
+    "image_path": "76/lightbulb.jpeg",
+    "title": "Using a LED lightbulb for 24 hours",
+    "consumption_in_wh": 120,
+    "source": "https://insights.regencylighting.com/kw-vs-kwh-how-much-energy-is-my-lighting-using"
+  },
+  {
+    "id": "76-sleeping",
+    "image_path": "76/sleeping.jpeg",
+    "title": "Sleeping for 8 hours",
+    "consumption_in_wh": 465,
+    "source": "https://www.sleepfoundation.org/how-sleep-works/how-your-body-uses-calories-while-you-sleep"
+  },
+  {
+    "id": "76-plane",
+    "image_path": "76/plane.jpeg",
+    "title": "Flying for 5km in a Boeing 707",
+    "consumption_in_wh": 1805,
+    "source": "https://en.wikipedia.org/wiki/Energy_efficiency_in_transport"
+  },
+  {
+    "id": "76-oven",
+    "image_path": "76/oven.jpeg",
+    "title": "Cooking potatoes for 30 minutes in an electric oven",
+    "consumption_in_wh": 1000,
+    "source": "https://blog.constellation.com/2016/05/20/toaster-oven-vs-microwave-energy-efficiency/"
+  },
+  {
+    "id": "76-drivingEV",
+    "image_path": "76/drivingEV.jpeg",
+    "title": "Driving an EV 10 kilometers",
+    "consumption_in_wh": 2000,
+    "source": "https://www.virta.global/blog/ev-charging-101-how-much-electricity-does-an-electric-car-use"
+  },
+  {
+    "id": "76-desktop",
+    "image_path": "76/desktop.png",
+    "title": "Using a desktop PC for 1 hour",
+    "consumption_in_wh": 205,
+    "source": "https://www.energuide.be/en/questions-answers/how-much-power-does-a-computer-use-and-how-much-co2-does-that-represent/54/"
+  },
+  {
+    "id": "76-airconditioner",
+    "image_path": "76/airconditioner.png",
+    "title": "Using an air conditioner for 1 hour during summer",
+    "consumption_in_wh": 3250,
+    "source": "https://americanhomewater.com/how-much-power-does-an-air-conditioner-use/"
+  },
+  {
+    "id": "76-jacuzzi",
+    "image_path": "76/jacuzzi.png",
+    "title": "Relaxing in the jacuzzi for 30 minutes",
+    "consumption_in_wh": 1500,
+    "source": "https://www.directenergy.com/learning-center/how-much-electricity-does-a-hot-tub-use"
+  },
+  {
+    "id": "76-biking",
+    "image_path": "76/biking.png",
+    "title": "Biking for 1 hour",
+    "consumption_in_wh": 698,
+    "source": "https://runrepeat.com/calories-burned-cycling-biking"
+  },
+  {
+    "id": "76-printer",
+    "image_path": "76/printer.png",
+    "title": "Using a printer continously for 1 hour",
+    "consumption_in_wh": 400,
+    "source": "https://energyusecalculator.com/electricity_printer.htm"
+  },
+  {
+    "id": "76-swimming",
+    "image_path": "76/swimming.png",
+    "title": "Swimming for 30 minutes",
+    "consumption_in_wh": 290,
+    "source": "https://www.swimming.org/justswim/best-swimming-stroke-for-weight-loss/"
+  },
+  {
+    "id": "51-electric_stove",
+    "image_path": "51/electric_stove.jpg",
+    "title": "Using an electric stove for 1 month",
+    "consumption_in_wh": 45000,
+    "source": "https://www.directenergy.com/learning-center/what-uses-most-electricity-in-my-home"
+  },
+  {
+    "id": "51-refrigerator",
+    "image_path": "51/refrigerator.jpg",
+    "title": "Monthly energy consumption of a refrigerator (17-20 cubic foot)",
+    "consumption_in_wh": 205000,
+    "source": "https://www.sparkenergy.com/appliance-electricity-use/"
+  },
+  {
+    "id": "51-air_conditioner",
+    "image_path": "51/air_conditioner.jpg",
+    "title": "Average daily uptake for running a 2-ton central air conditioner",
+    "consumption_in_wh": 48000,
+    "source": "https://www.directenergy.com/learning-center/what-uses-most-electricity-in-my-home"
+  },
+  {
+    "id": "51-washing_machine",
+    "image_path": "51/washing_machine.jpg",
+    "title": "Washing Machine monthly energy usage",
+    "consumption_in_wh": 9000,
+    "source": "https://www.sparkenergy.com/appliance-electricity-use/"
+  },
+  {
+    "id": "51-water_heater",
+    "image_path": "51/water_heater.png",
+    "title": "Average daily uptake for a water heater in a 4-person household",
+    "consumption_in_wh": 10300,
+    "source": "https://www.directenergy.com/learning-center/what-uses-most-electricity-in-my-home"
+  },
+  {
+    "id": "51-microwave",
+    "image_path": "51/microwave.png",
+    "title": "Monthly consumtion of a microwave.",
+    "consumption_in_wh": 16000,
+    "source": "https://www.sparkenergy.com/appliance-electricity-use/"
+  },
+  {
+    "id": "51-television",
+    "image_path": "51/television.png",
+    "title": "Monthly consumption of a television.",
+    "consumption_in_wh": 27000,
+    "source": "https://www.sparkenergy.com/appliance-electricity-use/"
+  },
+  {
+    "id": "51-cycling",
+    "image_path": "51/cycling.png",
+    "title": "Cycling for an hour",
+    "consumption_in_wh": 100,
+    "source": "https://www.npr.org/sections/13.7/2016/12/08/504790589/could-you-power-your-home-with-a-bike?t=1645650372306&t=1646222160386"
+  },
+  {
+    "id": "51-dishwasher",
+    "image_path": "51/dishwasher.png",
+    "title": "Using a dishwasher for 1 month",
+    "consumption_in_wh": 30000,
+    "source": "https://www.directenergy.com/learning-center/what-uses-most-electricity-in-my-home"
+  },
+  {
+    "id": "51-tesla_model_3",
+    "image_path": "51/tesla_model_3.jpg",
+    "title": "Drive a Tesla model 3 for 100km",
+    "consumption_in_wh": 14900,
+    "source": "https://www.tesla.com/en_EU/support/european-union-energy-label"
+  },
+  {
+    "id": "51-cellphone",
+    "image_path": "51/cellphone.png",
+    "title": "Charging a typical 3000 mAh cellphone",
+    "consumption_in_wh": 15,
+    "source": "https://www.quora.com/How-much-in-kwh-does-it-take-to-charge-a-typical-cell-phone?share=1"
+  },
+  {
+    "id": "51-led_projector",
+    "image_path": "51/led_projector.png",
+    "title": "Operating a big LED projector for an hour",
+    "consumption_in_wh": 150,
+    "source": "https://visualjacker.com/projector-power-consumption/"
+  },
+  {
+    "id": "51-gaming_pc",
+    "image_path": "51/gaming_pc.jpeg",
+    "title": "Gaming on an average desktop machine for an hour",
+    "consumption_in_wh": 400,
+    "source": "https://computerinfobits.com/how-much-energy-do-gaming-computers-use/"
+  },
+  {
+    "id": "51-electric_scooter",
+    "image_path": "51/electric_scooter.png",
+    "title": "Fully charge a medium capacity electric scooter",
+    "consumption_in_wh": 810,
+    "source": "https://ecocostsavings.com/electric-scooter-charging-cost/"
+  },
+  {
+    "id": "51-oven_range",
+    "image_path": "51/oven_range.jpg",
+    "title": "Oven range monthly energy consumption",
+    "consumption_in_wh": 58000,
+    "source": "https://www.sparkenergy.com/appliance-electricity-use/"
+  },
+  {
+    "id": "51-cctv_camera",
+    "image_path": "51/cctv_camera.jpg",
+    "title": "Running a CCTV camera 24/7 for a month",
+    "consumption_in_wh": 4000,
+    "source": "https://letsavelectricity.com/cctv-camera-power-consumption-calculator/"
+  },
+  {
+    "id": "51-light_household",
+    "image_path": "51/light_household.png",
+    "title": "Lighting for a 4-5 room household for 1 month",
+    "consumption_in_wh": 50000,
+    "source": "https://www.directenergy.com/learning-center/what-uses-most-electricity-in-my-home"
+  },
+  {
+    "id": "51-electric_oven",
+    "image_path": "51/electric_oven.jpg",
+    "title": "Using an electric oven for 1 month",
+    "consumption_in_wh": 75000,
+    "source": "https://www.directenergy.com/learning-center/what-uses-most-electricity-in-my-home"
+  },
+  {
+    "id": "51-bike_generator",
+    "image_path": "51/bike_generator.jpg",
+    "title": "Use a bike generator an hour a day for a month",
+    "consumption_in_wh": 3000,
+    "source": "https://bikehike.org/how-much-charge-does-a-bicycle-generator-give/#How_much_power_does_a_bike_generator_produce"
+  },
+  {
+    "id": "51-electric_bike",
+    "image_path": "51/electric_bike.jpeg",
+    "title": "Fully charging a 36V electric bike battery",
+    "consumption_in_wh": 360,
+    "source": "https://www.energuide.be/en/questions-answers/what-does-my-electric-bike-consume/1714/"
+  },
+  {
+    "id": "51-dryer",
+    "image_path": "51/dryer.jpg",
+    "title": "Dryer monthly energy consumption",
+    "consumption_in_wh": 75000,
+    "source": "https://www.sparkenergy.com/appliance-electricity-use/"
+  }
+]

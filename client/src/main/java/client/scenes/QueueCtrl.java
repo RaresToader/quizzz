@@ -9,11 +9,13 @@ public class QueueCtrl {
     private final MainCtrl mainCtrl;
     @FXML
     private Button goBack;
+
     @Inject
     public QueueCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
-    public void goBackToSplash(){
+
+    public void goBackToSplash() {
         mainCtrl.showSplash();
     }
 }
