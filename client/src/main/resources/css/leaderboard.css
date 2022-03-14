@@ -1,0 +1,33 @@
+.table-view{
+    -fx-background-color:#808080;
+    -fx-background-radius:50;
+     -fx-control-inner-background: #000000;
+}
+.table-view .column-header{
+    -fx-background-color:#808080;
+    -fx-font-size:25;
+    -fx-text-align:center;
+
+}
+.table-view .table-cell{
+    -fx-background-color:#808080;
+        -fx-font-size:20;
+        -fx-text-align:center;
+}
+.table-row-cell{
+    -fx-text-background-color: black;
+
+}
+.table-row-cell: hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: white;
+}
+.table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+
+}

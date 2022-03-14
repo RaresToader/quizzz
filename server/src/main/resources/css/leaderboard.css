@@ -1,0 +1,15 @@
+.table-view{
+   -fx-background-color:#808080;
+   -fx-background-radius:50;
+}
+.table-view .column-header{
+   -fx-background-color:#808080;
+   -fx-font-size:25;
+
+}
+.table-view .table-cell{
+   -fx-background-color:#808080;
+       -fx-font-size:20;
+
+
+}

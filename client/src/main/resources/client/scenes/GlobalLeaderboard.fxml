@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -10,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #191919;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.GlobalLeaderboardCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #191919;" stylesheets="@css/leaderboard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.GlobalLeaderboardCtrl">
    <children>
       <Button fx:id="goBack" layoutX="26.0" layoutY="604.0" mnemonicParsing="false" onAction="#goBackToSplash" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="Go Back" textFill="WHITE">
          <font>
@@ -20,7 +22,7 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
-      <ImageView fitHeight="64.0" fitWidth="800.0" layoutX="271.0" layoutY="34.0">
+      <ImageView fitHeight="64.0" fitWidth="800.0" layoutX="271.0" layoutY="34.0" opacity="0.0">
          <image>
             <Image url="@../../photos/globalLeaderboard.png" />
          </image>
@@ -28,11 +30,22 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <TableView fx:id="tableView" layoutX="436.0" layoutY="158.0" prefHeight="509.0" prefWidth="391.0">
+      <TableView fx:id="tableView" layoutX="436.0" layoutY="158.0" prefHeight="510.0" prefWidth="396.0" stylesheets="@../../css/leaderboard.css">
         <columns>
-          <TableColumn fx:id="nameColumn" prefWidth="207.93753051757812" text="Player" />
-          <TableColumn fx:id="scoreColumn" prefWidth="182.0625" sortType="DESCENDING" text="Score" />
+          <TableColumn fx:id="nameColumn" prefWidth="203.20001220703125" text="Player" />
+          <TableColumn fx:id="scoreColumn" prefWidth="151.20001220703125" sortType="DESCENDING" text="Score" />
         </columns>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
+         </padding>
       </TableView>
+      <Label layoutX="437.0" layoutY="64.0" prefHeight="64.0" prefWidth="386.0" text="Leaderboard" textFill="WHITE">
+         <font>
+            <Font size="68.0" />
+         </font>
+      </Label>
    </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
+   </padding>
 </AnchorPane>
