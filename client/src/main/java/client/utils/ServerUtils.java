@@ -123,12 +123,27 @@ public class ServerUtils {
                 });
     }
 
+    /**
+     * Get the correct answer
+     * @return a string
+     */
     public String getCorrect() {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path("/correct/mostExpensive").request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON) //
                 .get(new GenericType<String>() {
                 });
+    }
+
+    /**
+     * Gets the top 10 players according to score, in descending order
+     * @return a list of the top 10 players
+     */
+    public List<Player> getLeaderboardPlayers(){
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("/player/leaderboard").request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Player>>(){});
     }
 
 }
