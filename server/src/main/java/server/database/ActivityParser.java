@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.FileReader;
+import java.io.InputStreamReader;
 
 @Configuration
 public class ActivityParser {
@@ -22,8 +23,7 @@ public class ActivityParser {
             /**
              * Use relative path!
              */
-            String path = "server/src/main/resources/activities.json";
-            JSONArray array = (JSONArray) parser.parse(new FileReader(path));
+            JSONArray array = (JSONArray) parser.parse(new InputStreamReader(ActivityParser.class.getResourceAsStream("/activities.json")));
             for(Object object:array){
                 JSONObject helper = (JSONObject) object;
                 String id = (String) helper.get("id");
