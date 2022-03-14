@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+
+.root{
+    -fx-font-family: "Fugaz One", cursive;
+}
 .table-view{
+    -fx-font-family: "Fugaz One", cursive;
     -fx-background-color:#808080;
     -fx-background-radius:50;
      -fx-control-inner-background: #000000;
