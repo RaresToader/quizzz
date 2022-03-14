@@ -48,6 +48,7 @@ public class EnterMenuCtrl {
             }
 
             Session.setNickname(nickname);
+            this.serverUtils.addPlayer(nickname);
             Session.setServerAddr(serverAddr);
             mainCtrl.showSplash();
         } else errorText.setText("Provided username is invalid");
