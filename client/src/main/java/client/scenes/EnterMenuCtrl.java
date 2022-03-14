@@ -34,7 +34,6 @@ public class EnterMenuCtrl {
     }
 
 
-
     @FXML
     public void cleanText() {
         username.clear();
@@ -42,10 +41,10 @@ public class EnterMenuCtrl {
     }
 
     public void enterButton() {
-        String nickname   = username.getText();
+        String nickname = username.getText();
         String serverAddr = server.getText();
-        if(nickname != null && nickname.length() > 0 && Utils.isAlphaNumeric(nickname)) { //Invalid nickname
-            if(serverAddr == null || serverAddr.length() == 0) { //Invalid serverAddr
+        if (nickname != null && nickname.length() > 0 && Utils.isAlphaNumeric(nickname)) { //Invalid nickname
+            if (serverAddr == null || serverAddr.length() == 0) { //Invalid serverAddr
                 errorText.setText("Server address is invalid");
                 return;
             }

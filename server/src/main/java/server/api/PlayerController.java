@@ -49,7 +49,7 @@ public class PlayerController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Player> modifyPlayerByPath(@PathVariable String id, @RequestBody Player player) {
-        if (id == null || playerRepo.findById(id).isEmpty() || player == null || player.getUsername()==null) {
+        if (id == null || playerRepo.findById(id).isEmpty() || player == null || player.getUsername() == null) {
             return ResponseEntity.notFound().build();
         }
         Player toBeModified = playerRepo.getById(id);
@@ -81,5 +81,17 @@ public class PlayerController {
         return ResponseEntity.ok().build();
     }
 
-
+    /**
+     * Retrieves the top 10 players
+     * @return a list of 10 players
+     */
+    @GetMapping("/leaderboard")
+    public ResponseEntity<List<Player>> getLeaderboardPlayers(){
+        List<Player> allPlayers = this.playerRepo.findAll();
+        allPlayers.sort(new PlayerComparator());
+        if(allPlayers.size()>100){
+            return ResponseEntity.ok(allPlayers.subList(0,99));
+        }
+        return ResponseEntity.ok(allPlayers);
+    }
 }

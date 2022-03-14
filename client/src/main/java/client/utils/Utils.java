@@ -42,4 +42,13 @@ public class Utils {
                     .accept(APPLICATION_JSON) //
                     .get(String.class);
     }
+
+    public static boolean submitAnswer(int answer) {
+        String path = "session/answer/" + Session.getNickname() + "/" + answer + "/" + Session.getQuestionNum();
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path(path) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(Boolean.class);
+    }
 }

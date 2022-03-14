@@ -9,10 +9,16 @@ import java.util.List;
 public class RandomSelection {
     private List<QuizzQuestion> listOfQuestions;
 
-    public RandomSelection(List<QuizzQuestion> database) {   //have to pass the database somehow
+    /**
+     * From 60 randomly selected activities, creates 20 quizzz questions
+     * @param database the list of activities from the database
+     */
+    public RandomSelection(List<Activity> database) {
         listOfQuestions = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            listOfQuestions.add(QuizzQuestion.randomQuestion(database));
+            //Question is hardcoded right now
+            listOfQuestions.add(new QuizzQuestion("What activity costs more?",database.get(3*i),
+                    database.get(3*i+1),database.get(3*i+2)));
         }
     }
 
