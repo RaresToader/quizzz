@@ -42,6 +42,12 @@ public class SplashCtrl {
     @FXML
     private AnchorPane confirmQuitAnchor;
 
+    /**
+     * This method is triggered by the action: clicking on Quit button on the Splash screen.
+     * The anchor with the 'pop-up' is made visible and enabled. The buttons "Quit" & "Cancel"
+     * are also made visible and enabled.
+     */
+
     public void visibleConfirmQuitPopUp(){
         confirmQuitAnchor.setVisible(true);
         confirmQuitAnchor.setDisable(false);
@@ -50,6 +56,11 @@ public class SplashCtrl {
         quitButton.setVisible(false);
         quitButton.setDisable(true);
     }
+
+    /**
+     * This method is triggered by the "Cancel"-button in the 'Pop-Up'-screen. It reverses the
+     * visibleConfirmQuitPopUp-method and the screen will be the same as it first was.
+     */
 
     public void invisibleConfirmQuitPopUp(){
         confirmQuitAnchor.setVisible(false);
@@ -63,6 +74,11 @@ public class SplashCtrl {
     public void initialize() {
         playerCounter.setText(Utils.getActivePlayers());
     }
+
+    /**
+     * This method is triggered by the '(Confirm) Quit-Button' that is on the 'confirm-quit' pop-up. It will close
+     * the splashscreen.
+     */
 
     public void quit() {
 
