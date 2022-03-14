@@ -48,7 +48,7 @@ public class ActivityControllerTest {
 
     @Test
     public void addActivityTest1() {
-        var actual = systemUnderTest.addActivity(new Activity("test", "test", "test",10l,"test"));
+        var actual = systemUnderTest.addActivity(new Activity("test", "test", "test",10l,"test'"));
         assertEquals(actual.getStatusCode(), HttpStatus.OK);
     }
     @Test
