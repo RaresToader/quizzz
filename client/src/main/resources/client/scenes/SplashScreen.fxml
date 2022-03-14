@@ -76,7 +76,7 @@
                </image>
             </ImageView>
          </graphic></Label>
-      <AnchorPane fx:id="confirmQuitAnchor" layoutX="358.0" layoutY="193.0" prefHeight="379.0" prefWidth="500.0" style="-fx-background-color: #191919;">
+      <AnchorPane fx:id="confirmQuitAnchor" disable="true" layoutX="358.0" layoutY="193.0" prefHeight="379.0" prefWidth="500.0" style="-fx-background-color: #191919;" visible="false">
          <children>
             <Label id="playerCountLabel" layoutX="28.0" layoutY="72.0" prefHeight="38.0" prefWidth="445.0" styleClass="label" text="Do you really want to quit?" textFill="WHITE">
                <font>
