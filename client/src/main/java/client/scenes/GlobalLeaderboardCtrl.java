@@ -65,8 +65,7 @@ public class GlobalLeaderboardCtrl {
         serverUtils.addPlayer("Rareius");
         serverUtils.addPlayer("Rareys");
         serverUtils.addPlayer("Raresu");
-        System.out.println(serverUtils.getAllPlayers());
-        players.addAll(serverUtils.getAllPlayers());
+        players.addAll(serverUtils.getLeaderboardPlayers());
         tableView.setItems(players);
     }
 }
