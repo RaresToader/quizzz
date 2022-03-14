@@ -42,7 +42,7 @@ public class SplashCtrl {
     @FXML
     private AnchorPane confirmQuitAnchor;
 
-    public void visibleConfirmQuitPopUp(ActionEvent event){
+    public void visibleConfirmQuitPopUp(){
         confirmQuitAnchor.setVisible(true);
         confirmQuitButton.setDisable(false);
         cancelQuitButton.setDisable(false);
@@ -50,7 +50,7 @@ public class SplashCtrl {
         quitButton.setDisable(true);
     }
 
-    public void invisibleConfirmQuitPopUp(ActionEvent event){
+    public void invisibleConfirmQuitPopUp(){
         confirmQuitAnchor.setVisible(false);
         confirmQuitButton.setDisable(true);
         cancelQuitButton.setDisable(true);
