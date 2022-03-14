@@ -92,6 +92,6 @@ public class PlayerController {
         if(allPlayers.size()>100){
             return ResponseEntity.ok(allPlayers.subList(0,99));
         }
-        return ResponseEntity.ok(allPlayers.subList(0,allPlayers.size()-1));
+        return ResponseEntity.ok(allPlayers);
     }
 }
