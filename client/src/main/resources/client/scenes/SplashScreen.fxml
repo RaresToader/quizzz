@@ -37,7 +37,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button id="quitButton" fx:id="quit" graphicTextGap="0.0" layoutX="18.0" layoutY="581.0" mnemonicParsing="false" onAction="#quitButton" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Quit" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <Button id="quitButton" fx:id="quitButton" graphicTextGap="0.0" layoutX="18.0" layoutY="581.0" mnemonicParsing="false" onAction="#visibleConfirmQuitPopUp" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Quit" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -45,7 +45,7 @@
             <Font size="48.0" />
          </font>
       </Button>
-      <Button id="leaderboardButton" fx:id="leadeboard" alignment="CENTER" layoutX="866.0" layoutY="240.0" mnemonicParsing="false" onAction="#leaderboardButton" prefHeight="82.0" prefWidth="179.0" styleClass="standardButton" text="View &#10;leaderboard" textAlignment="CENTER" textFill="WHITE">
+      <Button id="leaderboardButton" fx:id="leaderboard" alignment="CENTER" layoutX="866.0" layoutY="240.0" mnemonicParsing="false" onAction="#leaderboardButton" prefHeight="82.0" prefWidth="179.0" styleClass="standardButton" text="View &#10;leaderboard" textAlignment="CENTER" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -56,7 +56,8 @@
       <Label id="playerCountLabel" layoutX="532.0" layoutY="575.0" prefHeight="38.0" prefWidth="445.0" styleClass="label" text="players currently online" textFill="WHITE">
          <font>
             <Font size="24.0" />
-         </font></Label>
+         </font>
+      </Label>
       <Label id="playerCountNumber" fx:id="playerCounter" layoutX="495.0" layoutY="575.0" prefHeight="35.0" prefWidth="100.0" styleClass="label" text="x" textFill="WHITE">
          <font>
             <Font size="24.0" />
@@ -75,6 +76,29 @@
                </image>
             </ImageView>
          </graphic></Label>
-      <AnchorPane layoutX="532.0" layoutY="302.0" prefHeight="200.0" prefWidth="200.0" visible="false" />
+      <AnchorPane fx:id="confirmQuitAnchor" layoutX="358.0" layoutY="193.0" prefHeight="379.0" prefWidth="500.0" style="-fx-background-color: #191919;">
+         <children>
+            <Label id="playerCountLabel" layoutX="28.0" layoutY="72.0" prefHeight="38.0" prefWidth="445.0" styleClass="label" text="Do you really want to quit?" textFill="WHITE">
+               <font>
+                  <Font size="39.0" />
+               </font>
+            </Label>
+            <Button id="confirmQuitButton" fx:id="confirmQuitButton" graphicTextGap="0.0" layoutX="41.0" layoutY="149.0" mnemonicParsing="false" onAction="#quit" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Quit" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Button>
+            <Button id="quitButton" fx:id="cancelQuitButton" graphicTextGap="0.0" layoutX="277.0" layoutY="149.0" mnemonicParsing="false" onAction="#invisibleConfirmQuitPopUp" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Cancel" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
    </children>
 </AnchorPane>

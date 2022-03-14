@@ -4,8 +4,11 @@ import client.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 import javax.inject.Inject;
+import javax.naming.event.EventContext;
+import java.awt.event.ActionEvent;
 
 public class SplashCtrl {
     private MainCtrl mainCtrl;
@@ -16,21 +19,50 @@ public class SplashCtrl {
     }
 
     @FXML
-    private Button quit;
-    @FXML
     private Button single;
+
     @FXML
     private Button multi;
+
     @FXML
     private Button leaderboard;
+
     @FXML
     private Label playerCounter;
+
+    @FXML
+    private Button quitButton;
+
+    @FXML
+    private Button confirmQuitButton;
+
+    @FXML
+    private Button cancelQuitButton;
+
+    @FXML
+    private AnchorPane confirmQuitAnchor;
+
+    public void visibleConfirmQuitPopUp(ActionEvent event){
+        confirmQuitAnchor.setVisible(true);
+        confirmQuitButton.setDisable(false);
+        cancelQuitButton.setDisable(false);
+        quitButton.setVisible(false);
+        quitButton.setDisable(true);
+    }
+
+    public void invisibleConfirmQuitPopUp(ActionEvent event){
+        confirmQuitAnchor.setVisible(false);
+        confirmQuitButton.setDisable(true);
+        cancelQuitButton.setDisable(true);
+        quitButton.setVisible(true);
+        quitButton.setDisable(false);
+    }
 
     public void initialize() {
         playerCounter.setText(Utils.getActivePlayers());
     }
 
-    public void quitButton() {
+    public void quit() {
 
         mainCtrl.closeSplash();
     }
