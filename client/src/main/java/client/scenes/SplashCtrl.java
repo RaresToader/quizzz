@@ -44,6 +44,7 @@ public class SplashCtrl {
 
     public void visibleConfirmQuitPopUp(){
         confirmQuitAnchor.setVisible(true);
+        confirmQuitAnchor.setDisable(false);
         confirmQuitButton.setDisable(false);
         cancelQuitButton.setDisable(false);
         quitButton.setVisible(false);
@@ -52,6 +53,7 @@ public class SplashCtrl {
 
     public void invisibleConfirmQuitPopUp(){
         confirmQuitAnchor.setVisible(false);
+        confirmQuitAnchor.setDisable(true);
         confirmQuitButton.setDisable(true);
         cancelQuitButton.setDisable(true);
         quitButton.setVisible(true);
