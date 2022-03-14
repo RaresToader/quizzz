@@ -35,8 +35,8 @@ public class SessionContollerTest {
     @Test
     public void getCurrentQuestionTest() {
         SessionController sess = new SessionController();
-        QuizzQuestion expected = new QuizzQuestion("This is test question", new Activity("abc",55,"abc"), new Activity("bac",66,"bac"), new Activity("cab", 566, "cab"));
-        assertEquals(expected,sess.getCurrentQuestion("test"));
+        QuizzQuestion expected = new QuizzQuestion("This is test question", new Activity("abc","abc","abc",10l,"abc"), new Activity("bac","bac","bac",10l,"bac"),new Activity("cab","cab","cab",10l,"cab"));
+        assertEquals(sess.getCurrentQuestion("test"),expected);
     }
 
     @Test
