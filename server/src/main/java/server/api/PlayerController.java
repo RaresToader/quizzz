@@ -89,6 +89,9 @@ public class PlayerController {
     public ResponseEntity<List<Player>> getLeaderboardPlayers(){
         List<Player> allPlayers = this.playerRepo.findAll();
         allPlayers.sort(new PlayerComparator());
-        return ResponseEntity.ok(allPlayers.subList(0,9));
+        if(allPlayers.size()>100){
+            return ResponseEntity.ok(allPlayers.subList(0,99));
+        }
+        return ResponseEntity.ok(allPlayers);
     }
 }
