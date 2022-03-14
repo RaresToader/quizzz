@@ -9,7 +9,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.FileReader;
 import java.io.InputStreamReader;
 
 @Configuration
