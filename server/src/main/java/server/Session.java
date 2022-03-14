@@ -54,7 +54,7 @@ public class Session {
         if (!this.started) return null;
 
         //If everyone has answered that question OR this is first question OR time has passed then get new question
-        if (this.haveEveryoneAnswered() || questionStartedAt.getYear() == 2030 || Duration.between(questionStartedAt.atStartOfDay(), LocalDate.now().atStartOfDay()).toSeconds() > 20) {
+        if(this.haveEveryoneAnswered() || questionStartedAt.getYear() == 2030 || Duration.between(questionStartedAt.atStartOfDay(), LocalDate.now().atStartOfDay()).toSeconds() > 30) {
             this.currentQuestion++;
             this.questionStartedAt = LocalDate.now();
         }
@@ -98,23 +98,25 @@ public class Session {
      * Adds player answer
      *
      * @param x - Answer object
+     * @return boolean value whether operation of addition was successful
      */
-    public void addAnswer(Answer x) {
-        if (x == null) return; //If null object
+    public boolean addAnswer(Answer x) {
+        if(x == null) return false; //If null object
 
         //Is player who submits an answer member of the session
         //If answer is submitted to other question than current
-        if (!this.isPlayerInSession(x.getNickname()) || currentQuestion != x.getQuestionNum()) return;
+        if(!this.isPlayerInSession(x.getNickname()) || currentQuestion != x.getQuestionNum()) return false;
 
 
         //If answer has already been submitted
-        for (Answer ans : this.answers) {
-            if (ans.getQuestionNum() == x.getQuestionNum() && ans.getNickname().equals(x.getNickname())) {
-                return;
+        for(Answer ans : this.answers) {
+            if(ans.getQuestionNum() == x.getQuestionNum() && ans.getNickname().equals(x.getNickname())) {
+                return false;
             }
         }
 
         this.answers.add(x);
+        return true;
     }
 
     /**
@@ -172,12 +174,20 @@ public class Session {
         return gameType;
     }
 
+    public int getCurrentQuestionNum() {
+        return currentQuestion;
+    }
+
     public List<QuizzQuestion> getQuestions() {
         return this.questions;
     }
 
     public List<Answer> getAnswers() {
         return this.answers;
+    }
+
+    public LocalDate getQuestionStartedAt() {
+        return this.questionStartedAt;
     }
 
     @Override
