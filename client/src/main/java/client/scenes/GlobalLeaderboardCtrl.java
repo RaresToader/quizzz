@@ -38,9 +38,6 @@ public class GlobalLeaderboardCtrl {
         nameColumn.setCellValueFactory(new PropertyValueFactory("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory("score"));
         ObservableList<Player> players = FXCollections.observableArrayList();
-        serverUtils.addPlayer("jon");
-        serverUtils.addPlayer("Rares");
-        System.out.println(serverUtils.getAllPlayers());
         players.addAll(serverUtils.getAllPlayers());
         tableView.setItems(players);
     }
