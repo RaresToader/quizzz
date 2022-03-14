@@ -7,8 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import javax.inject.Inject;
-import javax.naming.event.EventContext;
-import java.awt.event.ActionEvent;
+
 
 public class SplashCtrl {
     private MainCtrl mainCtrl;
