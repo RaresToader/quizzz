@@ -43,6 +43,11 @@ public class Utils {
                     .get(String.class);
     }
 
+    /**
+     * Invokes to session/answer/{nickname}/{answer}/{currentQuestion}
+     * @param answer - Answer <0;2> integer variable which tells what answer has user picked A-C
+     * @return Boolean value whether operation was successful
+     */
     public static boolean submitAnswer(int answer) {
         String path = "session/answer/" + Session.getNickname() + "/" + answer + "/" + Session.getQuestionNum();
         return ClientBuilder.newClient(new ClientConfig()) //

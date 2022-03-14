@@ -43,6 +43,7 @@ public class QuestionScreenCtrl {
      */
 
     public void chooseFirst() {
+        System.out.println();
         chosenAnswer = firstChoice.toString();
         secondChoice.setDisable(true);
         thirdChoice.setDisable(true);

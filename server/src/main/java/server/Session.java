@@ -3,6 +3,7 @@ package server;
 import commons.Activity;
 import commons.Answer;
 import commons.QuizzQuestion;
+import commons.QuizzQuestionServerParsed;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -50,7 +51,7 @@ public class Session {
         return answersNum == playerNum;
     }
 
-    public QuizzQuestion getCurrentQuestion() {
+    public QuizzQuestionServerParsed getCurrentQuestion() {
         if (!this.started) return null;
 
         //If everyone has answered that question OR this is first question OR time has passed then get new question
@@ -60,7 +61,7 @@ public class Session {
         }
 
 
-        return this.questions.get(currentQuestion);
+        return new QuizzQuestionServerParsed(this.questions.get(currentQuestion),this.questionStartedAt,this.currentQuestion);
     }
 
     /**
