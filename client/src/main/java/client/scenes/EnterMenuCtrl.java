@@ -50,6 +50,7 @@ public class EnterMenuCtrl {
             }
 
             Session.setNickname(nickname);
+            this.serverUtils.addPlayer(nickname);
             Session.setServerAddr(serverAddr);
             mainCtrl.showSplash();
         }

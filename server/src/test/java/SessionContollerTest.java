@@ -7,7 +7,7 @@ import server.Session;
 import server.SessionContainer;
 import server.SessionController;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +38,8 @@ public class SessionContollerTest {
     @Test
     public void getCurrentQuestionTest() {
         SessionController sess = new SessionController();
-        QuizzQuestionServerParsed expected = new QuizzQuestionServerParsed(new QuizzQuestion("This is test question", new Activity("abc","abc","abc",10l,"abc"), new Activity("bac","bac","bac",10l,"bac"),new Activity("cab","cab","cab",10l,"cab")), LocalDate.now(),0);
+        Date date = new Date();
+        QuizzQuestionServerParsed expected = new QuizzQuestionServerParsed(new QuizzQuestion("This is test question", new Activity("abc","abc","abc",10l,"abc"), new Activity("bac","bac","bac",10l,"bac"),new Activity("cab","cab","cab",10l,"cab")), date.getTime(),0);
         assertEquals(sess.getCurrentQuestion("test"),expected);
     }
 
