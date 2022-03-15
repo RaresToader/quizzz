@@ -40,7 +40,17 @@
                      <font>
                         <Font size="14.0" />
                      </font></Button>
-                  <Label fx:id="secondAnswer" layoutX="9.0" layoutY="138.0" prefHeight="36.0" prefWidth="279.0" />
+                  <Label fx:id="secondAnswer" layoutX="11.0" layoutY="132.0" prefHeight="36.0" prefWidth="279.0" />
+                  <AnchorPane fx:id="finalScreen" disable="true" layoutX="-419.0" layoutY="-30.0" prefHeight="360.0" prefWidth="1137.0" style="-fx-background-color: #CED0CE;" visible="false">
+                     <children>
+                        <Label layoutX="-34.0" layoutY="-60.0" prefHeight="78.0" prefWidth="411.0" text="Congratulations!" translateX="400.0" translateY="110.0">
+                           <font>
+                              <Font size="48.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="finalScore" prefHeight="44.0" prefWidth="344.0" translateX="400.0" translateY="185.0" />
+                     </children>
+                  </AnchorPane>
                </children>
             </Pane>
             <Pane fx:id="thirdBox" layoutX="855.0" layoutY="140.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #CED0CE#CED0CE;">

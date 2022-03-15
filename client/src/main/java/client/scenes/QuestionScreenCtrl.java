@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -18,7 +19,7 @@ import javax.inject.Inject;
 
 public class QuestionScreenCtrl {
 
-
+    private final MainCtrl mainCtrl;
     private final RandomSelection selection = new RandomSelection();
     private final ServerUtils serverUtils;
     private Points receivedPoints = new Points();
@@ -28,8 +29,9 @@ public class QuestionScreenCtrl {
     private QuizzQuestion currQuestion;
 
     @Inject
-    public QuestionScreenCtrl(ServerUtils server) {
+    public QuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.serverUtils = server;
+        this.mainCtrl = mainCtrl;
     }
 
     @FXML
@@ -65,6 +67,11 @@ public class QuestionScreenCtrl {
     @FXML
     private Pane thirdBox;
 
+    @FXML
+    AnchorPane finalScreen;
+    @FXML
+    private Label finalScore;
+
 
     /**
      * Clicking the first button disables the other buttons and changes
@@ -86,9 +93,33 @@ public class QuestionScreenCtrl {
         secondAnswer.setText("");
         thirdAnswer.setText("");
 
+        firstBox.setStyle("-fx-background-color: #CED0CE");
+        secondBox.setStyle("-fx-background-color: #CED0CE;");
+        thirdBox.setStyle("-fx-background-color: #CED0CE;");
+
 
         if(!selection.hasNext()){
+            firstActivity.setText("");
+            secondActivity.setText("");
+            thirdActivity.setText("");
+            thirdChoice.setVisible(false);
             this.question.setText("game over!");
+            this.finalScreen.setDisable(false);
+            this.finalScreen.setVisible(true);
+            this.finalScore.setText("You scored " + 0 + "!"); //once score implemented, display here
+            Timeline timer = new Timeline(
+                    new KeyFrame(Duration.seconds(5),
+                            new EventHandler<ActionEvent>() {
+
+                                @Override
+                                public void handle(ActionEvent event) {
+                                    mainCtrl.showGlobalLeaderboard();
+                                }
+                            }
+                    )
+            );
+            timer.setCycleCount(1);
+            timer.play();
             return;
         }
         currQuestion= selection.next();
@@ -97,9 +128,6 @@ public class QuestionScreenCtrl {
         this.secondActivity.setText(currQuestion.getSecondChoice().getTitle());
         this.thirdActivity.setText(currQuestion.getThirdChoice().getTitle());
 
-        firstBox.setStyle("-fx-background-color: #CED0CE");
-        secondBox.setStyle("-fx-background-color: #CED0CE;");
-        thirdBox.setStyle("-fx-background-color: #CED0CE;");
 
         firstChoice.setDisable(false);
         secondChoice.setDisable(false);
