@@ -1,5 +1,3 @@
-
-
 package commons;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -20,6 +18,10 @@ public class QuizzQuestion {
     private Activity firstChoice;
     private Activity secondChoice;
     private Activity thirdChoice;
+
+    public QuizzQuestion() {
+        //Object mapping
+    }
 
     public QuizzQuestion(String question, Activity firstChoice, Activity secondChoice, Activity thirdChoice) {
         this.question = question;

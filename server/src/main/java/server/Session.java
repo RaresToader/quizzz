@@ -3,10 +3,10 @@ package server;
 import commons.Activity;
 import commons.Answer;
 import commons.QuizzQuestion;
+import commons.QuizzQuestionServerParsed;
 
-import java.time.Duration;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +20,7 @@ public class Session {
     private List<QuizzQuestion> questions;
     private List<Answer> answers;
     private int currentQuestion;
-    private LocalDate questionStartedAt;
+    private long questionStartedAt;
 
     public Session(boolean gameType) {
         this.playerList = new ArrayList<String>();
@@ -30,7 +30,7 @@ public class Session {
         this.questions = new ArrayList<QuizzQuestion>();
         this.answers = new ArrayList<Answer>();
         this.currentQuestion = -1;
-        this.questionStartedAt = LocalDate.of(2030, 1, 1);
+        this.questionStartedAt = -1;
 
         this.generateTestQuestions(); //Temporary until we construct function that generates random question set
     }
@@ -50,17 +50,18 @@ public class Session {
         return answersNum == playerNum;
     }
 
-    public QuizzQuestion getCurrentQuestion() {
+    public QuizzQuestionServerParsed getCurrentQuestion() {
         if (!this.started) return null;
 
+        Date date = new Date();
         //If everyone has answered that question OR this is first question OR time has passed then get new question
-        if(this.haveEveryoneAnswered() || questionStartedAt.getYear() == 2030 || Duration.between(questionStartedAt.atStartOfDay(), LocalDate.now().atStartOfDay()).toSeconds() > 30) {
+        if(this.haveEveryoneAnswered() || questionStartedAt == -1 || date.getTime()-questionStartedAt >= 30000) {
             this.currentQuestion++;
-            this.questionStartedAt = LocalDate.now();
+            this.questionStartedAt = date.getTime();
         }
 
 
-        return this.questions.get(currentQuestion);
+        return new QuizzQuestionServerParsed(this.questions.get(currentQuestion),this.questionStartedAt,this.currentQuestion);
     }
 
     /**
@@ -186,7 +187,7 @@ public class Session {
         return this.answers;
     }
 
-    public LocalDate getQuestionStartedAt() {
+    public long getQuestionStartedAt() {
         return this.questionStartedAt;
     }
 
