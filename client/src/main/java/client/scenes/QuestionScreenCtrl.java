@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
+import client.utils.Utils;
 import commons.Points;
 import commons.QuizzQuestion;
 import commons.RandomSelection;
@@ -17,18 +18,23 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class QuestionScreenCtrl {
 
     private final MainCtrl mainCtrl;
     private final RandomSelection selection = new RandomSelection();
     private final ServerUtils serverUtils;
+    private QuizzQuestion currQuestion = new QuizzQuestion("Not assigned", null,null,null);
+    private int questionNo = 0;
     private Points receivedPoints = new Points();
     private String chosenAnswer;
     private String correctAnswer;
     private int points;
     private int totalPoints;
-    private QuizzQuestion currQuestion;
     private Timeline questionTimer = new Timeline(
             new KeyFrame(Duration.seconds(1),
                     new EventHandler<ActionEvent>() {
@@ -49,6 +55,30 @@ public class QuestionScreenCtrl {
     public QuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.serverUtils = server;
         this.mainCtrl = mainCtrl;
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        QuizzQuestion newQuestion = Utils.getCurrentQuestion().getQuestion();
+                        if(!newQuestion.equals(currQuestion)){
+                            questionNo += 1;
+                            currQuestion = newQuestion;
+
+                            question.setText(currQuestion.getQuestion());
+                            firstChoice.setText(currQuestion.getFirstChoice().getTitle());
+                            secondChoice.setText(currQuestion.getSecondChoice().getTitle());
+                            thirdChoice.setText(currQuestion.getThirdChoice().getTitle());
+
+                            correctAnswer = server.getCorrect();
+                        }
+
+                        if(questionNo > 20){
+                            timer.cancel();
+                        }
+                    }
+                }, 0, 1000
+        );
     }
 
     int progress = 0;
