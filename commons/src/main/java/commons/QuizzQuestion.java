@@ -21,6 +21,10 @@ public class QuizzQuestion {
     private Activity secondChoice;
     private Activity thirdChoice;
 
+    public QuizzQuestion() {
+        //Object mapping
+    }
+
     public QuizzQuestion(String question, Activity firstChoice, Activity secondChoice, Activity thirdChoice) {
         this.question = question;
         this.firstChoice = firstChoice;

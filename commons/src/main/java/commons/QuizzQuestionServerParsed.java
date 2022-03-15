@@ -5,12 +5,12 @@ import java.util.Objects;
 
 public class QuizzQuestionServerParsed {
     private QuizzQuestion question;
-    private LocalDate startTime;
+    private long startTime;
     private int questionNum;
 
     public QuizzQuestionServerParsed() {}
 
-    public QuizzQuestionServerParsed(QuizzQuestion question, LocalDate startTime, int questionNum) {
+    public QuizzQuestionServerParsed(QuizzQuestion question, long startTime, int questionNum) {
         this.question = question;
         this.startTime = startTime;
         this.questionNum = questionNum;
@@ -20,7 +20,7 @@ public class QuizzQuestionServerParsed {
         return question;
     }
 
-    public LocalDate getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
@@ -32,7 +32,7 @@ public class QuizzQuestionServerParsed {
         this.question = question;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 

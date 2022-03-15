@@ -5,8 +5,7 @@ import commons.QuizzQuestion;
 import commons.QuizzQuestionServerParsed;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
-import java.time.LocalDate;
+import java.util.Date;
 
 @RestController
 public class SessionController {
@@ -42,7 +41,7 @@ public class SessionController {
         }
 
         QuizzQuestionServerParsed retQ = x.getCurrentQuestion();
-        if (retQ == null) return new QuizzQuestionServerParsed(new QuizzQuestion("0", null, null, null),null,-1); //DEBUG line
+        if (retQ == null) return new QuizzQuestionServerParsed(new QuizzQuestion("0", null, null, null),-1,-1); //DEBUG line
         else return retQ;
     }
 
@@ -72,8 +71,9 @@ public class SessionController {
             return false;
         }
 
+        Date date = new Date();
         //If question submitted 30 seconds or more after init of question
-        if(Duration.between(x.getQuestionStartedAt().atStartOfDay(), LocalDate.now().atStartOfDay()).toSeconds() > 30) {
+        if(date.getTime() - x.getQuestionStartedAt() > 30000) {
             return false;
         }
 

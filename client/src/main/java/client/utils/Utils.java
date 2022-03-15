@@ -1,7 +1,9 @@
 package client.utils;
 
 import client.Session;
+import commons.QuizzQuestionServerParsed;
 import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.GenericType;
 import org.glassfish.jersey.client.ClientConfig;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -34,13 +36,13 @@ public class Utils {
      * invokes to session/question/{nickname}
      * @return current question
      */
-    public static String getCurrentQuestion() {
+    public static QuizzQuestionServerParsed getCurrentQuestion() {
             String path = "session/question/" + Session.getNickname();
             return ClientBuilder.newClient(new ClientConfig()) //
                     .target(SERVER).path(path) //
                     .request(APPLICATION_JSON) //
                     .accept(APPLICATION_JSON) //
-                    .get(String.class);
+                    .get(new GenericType<QuizzQuestionServerParsed>() {});
     }
 
     /**
