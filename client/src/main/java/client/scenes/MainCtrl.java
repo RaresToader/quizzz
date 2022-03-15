@@ -16,10 +16,15 @@
 package client.scenes;
 
 import client.utils.Utils;
+import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 public class MainCtrl {
@@ -44,6 +49,11 @@ public class MainCtrl {
     private Scene questionScreen;
     private static final String iconPath = "/photos/clientIcon.png";
 
+    public RotateTransition rotationAnimation1;
+    public RotateTransition rotationAnimation2;
+    public RotateTransition rotationAnimation3;
+    public RotateTransition rotationAnimation4;
+
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
                            Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue) {
 
@@ -66,6 +76,12 @@ public class MainCtrl {
         this.primaryStage.getIcons().add(new Image(MainCtrl.class.getResourceAsStream(iconPath)));
         showEnterMenu();
         primaryStage.show();
+
+        this.rotationAnimation1 = createRotationAnimation(queueCtrl.loadingCircle1);
+        this.rotationAnimation2 = createRotationAnimation(queueCtrl.loadingCircle2);
+        this.rotationAnimation3 = createRotationAnimation(queueCtrl.loadingCircle3);
+        this.rotationAnimation4 = createRotationAnimation(queueCtrl.loadingCircle4);
+
     }
 
     public void showEnterMenu() {
@@ -91,6 +107,21 @@ public class MainCtrl {
         primaryStage.setTitle("Multiplayer queue");
         primaryStage.setScene((this.queueScreen));
         queueCtrl.runLoadingAnimation();
+    }
+
+    public RotateTransition createRotationAnimation(Node node) {
+        //Create a pivot offset to allow the circles to rotate around the pivot position instead of themselves
+        double x = queueCtrl.pivot.getLayoutX()-node.getLayoutX();
+        double y = queueCtrl.pivot.getLayoutY()-node.getLayoutY();
+        node.getTransforms().add(new Translate(-x,-y));
+        node.setTranslateX(x); node.setTranslateY(y);
+
+        //Create the animation for the given Node
+        RotateTransition rotationAnimation = new RotateTransition(Duration.seconds(3), node);
+        rotationAnimation.setToAngle(720);
+        rotationAnimation.setCycleCount(Timeline.INDEFINITE);
+
+        return rotationAnimation;
     }
 
     public void showSingleplayer() {
