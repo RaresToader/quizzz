@@ -1,23 +1,18 @@
 package commons;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Activity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long realID;
-
     private String id;
     private String title;
     private Long consumption_in_wh;
     private String source;
     private String image_path;
+
     public Activity(String id, String image_path, String title,Long consumption_in_wh, String source) {
         this.id = id;
         this.title = title;
@@ -26,13 +21,7 @@ public class Activity {
         this.image_path = image_path;
     }
 
-    public Long getRealID() {
-        return realID;
-    }
 
-    public void setRealID(Long realID) {
-        this.realID = realID;
-    }
 
     /**
      * For the Object Mapper
