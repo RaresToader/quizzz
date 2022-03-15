@@ -4,17 +4,26 @@ import client.utils.ServerUtils;
 import commons.Points;
 import commons.QuizzQuestion;
 import commons.RandomSelection;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import javax.inject.Inject;
-import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 
 public class QuestionScreenCtrl {
 
+
+    private final RandomSelection selection = new RandomSelection();
     private final ServerUtils serverUtils;
     private Points receivedPoints = new Points();
     private String chosenAnswer;
@@ -53,45 +62,61 @@ public class QuestionScreenCtrl {
     @FXML
     private Pane thirdBox;
 
+
     /**
      * Clicking the first button disables the other buttons and changes
      * the button's background color so the player knows which button he clicked.
      */
 
-    public void chooseFirst() {
-        chosenAnswer = currQuestion.getFirstChoice().getTitle();
-        secondChoice.setDisable(true);
-        thirdChoice.setDisable(true);
-        //firstChoice.setStyle("-fx-background-color: black;");
-        /*
-            I think the checking part should be done by the server side.
-            setBackground(firstChoice, secondChoice, thirdChoice);
-         */
-        //firstChoice.setOnAction(event -> clickedAgainResetFirst());
-        check(thirdBox);
 
-    }
 
     /**
      * Initialise a singerplayer game
      */
     public void initialize() {
-        RandomSelection selection = new RandomSelection(); //serverUtils.get60RandomActivities()
+        nextDisplay();
+    }
+
+    public void nextDisplay() {
+
+
+        if(!selection.hasNext()){
+            this.question.setText("game over!");
+            return;
+        }
         currQuestion= selection.next();
         this.question.setText(currQuestion.getQuestion());
         this.firstActivity.setText(currQuestion.getFirstChoice().getTitle());
         this.secondActivity.setText(currQuestion.getSecondChoice().getTitle());
         this.thirdActivity.setText(currQuestion.getThirdChoice().getTitle());
-    }
 
-    public void nextDisplay() {
+        firstBox.setStyle("-fx-background-color: #CED0CE");
+        secondBox.setStyle("-fx-background-color: #CED0CE;");
+        thirdBox.setStyle("-fx-background-color: #CED0CE;");
 
+        firstChoice.setDisable(false);
+        secondChoice.setDisable(false);
+        thirdChoice.setDisable(false);
     }
 
     /**
      * After clicking a button again, reset its status and
      * make the other buttons clickable again
      */
+
+    public void chooseFirst() {
+        chosenAnswer = currQuestion.getFirstChoice().getTitle();
+
+        //firstChoice.setStyle("-fx-background-color: black;");
+        /*
+            I think the checking part should be done by the server side.
+            setBackground(firstChoice, secondChoice, thirdChoice);
+         */
+        //firstChoice.setOnAction(event -> clickedAgainResetFirst());
+        check(firstBox);
+
+    }
+
     public void clickedAgainResetFirst() {
 
         firstChoice.setStyle("-fx-background-color: #474747#474747");
@@ -105,8 +130,6 @@ public class QuestionScreenCtrl {
      */
     public void chooseSecond() {
         chosenAnswer = currQuestion.getSecondChoice().getTitle();
-        firstChoice.setDisable(true);
-        thirdChoice.setDisable(true);
         //secondChoice.setStyle("-fx-background-color: black;");
         //secondChoice.setOnAction(e -> clickedAgainResetSecond());
         /**
@@ -132,8 +155,7 @@ public class QuestionScreenCtrl {
      */
     public void chooseThird() {
         chosenAnswer = currQuestion.getThirdChoice().getTitle();
-        firstChoice.setDisable(true);
-        secondChoice.setDisable(true);
+
         //thirdChoice.setStyle("-fx-background-color: black");
         //thirdChoice.setOnAction(e -> clickedAgainResetThird());
         /**
@@ -154,30 +176,52 @@ public class QuestionScreenCtrl {
      * Changes the color of the background so the player can see if
      * they answered the question correctly
      */
-    public void check(Pane chosenBox) {
+    public void check(Pane chosenBox)  {
+
+        firstChoice.setDisable(true);
+        secondChoice.setDisable(true);
+        thirdChoice.setDisable(true);
+
         correctAnswer = currQuestion.getMostExpensive();
         boolean isRight = chosenAnswer.equals(correctAnswer);
         if (chosenAnswer.equals(correctAnswer)) {
+            question.setText("Yeah, that's right!");
             chosenBox.setStyle("-fx-background-color: green;");
             points += receivedPoints.getPoints(true);
-        } else if(correctAnswer.equals(currQuestion.getFirstChoice().getTitle())){
+        } else {
+            question.setText("That's wrong!");
+            if (correctAnswer.equals(currQuestion.getFirstChoice().getTitle())) {
                 firstBox.setStyle("-fx-background-color: green");
                 secondBox.setStyle("-fx-background-color: red;");
                 thirdBox.setStyle("-fx-background-color: red;");
-        } else if(correctAnswer.equals(currQuestion.getSecondChoice().getTitle())) {
-            firstBox.setStyle("-fx-background-color: red");
-            secondBox.setStyle("-fx-background-color: green;");
-            thirdBox.setStyle("-fx-background-color: red;");
-        } else if(correctAnswer.equals(currQuestion.getThirdChoice().getTitle())) {
-            firstBox.setStyle("-fx-background-color: red");
-            secondBox.setStyle("-fx-background-color: red;");
-            thirdBox.setStyle("-fx-background-color: green;");
+            } else if (correctAnswer.equals(currQuestion.getSecondChoice().getTitle())) {
+                firstBox.setStyle("-fx-background-color: red");
+                secondBox.setStyle("-fx-background-color: green;");
+                thirdBox.setStyle("-fx-background-color: red;");
+            } else if (correctAnswer.equals(currQuestion.getThirdChoice().getTitle())) {
+                firstBox.setStyle("-fx-background-color: red");
+                secondBox.setStyle("-fx-background-color: red;");
+                thirdBox.setStyle("-fx-background-color: green;");
+            }
         }
-        distributePoints(isRight);
+        Timeline timer = new Timeline(
+                new KeyFrame(Duration.seconds(3),
+                        new EventHandler<ActionEvent>() {
+
+                            @Override
+                            public void handle(ActionEvent event) {
+                                distributePoints(isRight);
+                            }
+                        }
+                )
+        );
+        timer.setCycleCount(1);
+        timer.play();
     }
 
-    public static void distributePoints(boolean isRight){
+    public void distributePoints(boolean isRight) {
 
+        nextDisplay();
     }
 
     /**
