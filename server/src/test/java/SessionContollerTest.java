@@ -1,10 +1,13 @@
 import commons.Activity;
 import commons.QuizzQuestion;
+import commons.QuizzQuestionServerParsed;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.Session;
 import server.SessionContainer;
 import server.SessionController;
+
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,7 +38,7 @@ public class SessionContollerTest {
     @Test
     public void getCurrentQuestionTest() {
         SessionController sess = new SessionController();
-        QuizzQuestion expected = new QuizzQuestion("This is test question", new Activity("abc","abc","abc",10l,"abc"), new Activity("bac","bac","bac",10l,"bac"),new Activity("cab","cab","cab",10l,"cab"));
+        QuizzQuestionServerParsed expected = new QuizzQuestionServerParsed(new QuizzQuestion("This is test question", new Activity("abc","abc","abc",10l,"abc"), new Activity("bac","bac","bac",10l,"bac"),new Activity("cab","cab","cab",10l,"cab")), LocalDate.now(),0);
         assertEquals(sess.getCurrentQuestion("test"),expected);
     }
 
