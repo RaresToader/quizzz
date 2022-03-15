@@ -1,15 +1,8 @@
 package client.scenes;
 
-import javafx.animation.RotateTransition;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.transform.Translate;
-import javafx.util.Duration;
 
 import javax.inject.Inject;
 
