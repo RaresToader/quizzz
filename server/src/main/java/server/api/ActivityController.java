@@ -66,8 +66,7 @@ public class ActivityController {
 
     @PutMapping("/modify")
     public ResponseEntity<Activity> modifyActivity(@RequestBody Activity activity) {
-
-        if (activity == null || activityRepository.findById(activity.getRealID()).isEmpty() || activity.getTitle() == null || activity.getSource() == null)
+        if(activity == null || activityRepository.findById(activity.getRealID()).isEmpty() || activity.getTitle() == null || activity.getSource() == null)
             return ResponseEntity.badRequest().build();
         Activity toBeModified = activityRepository.getById(activity.getRealID());
         toBeModified.setConsumption_in_wh(activity.getConsumption_in_wh());

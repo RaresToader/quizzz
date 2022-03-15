@@ -3,13 +3,11 @@ package client.scenes;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
-import org.glassfish.jersey.internal.PropertiesResolver;
 
 import javax.inject.Inject;
 
