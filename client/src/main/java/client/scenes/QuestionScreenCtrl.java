@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -25,14 +26,19 @@ public class QuestionScreenCtrl {
     private Points receivedPoints = new Points();
     private String chosenAnswer;
     private String correctAnswer;
-    private int points = 0;
+    private int points;
+    private int totalPoints;
     private QuizzQuestion currQuestion;
+    private Timeline questionTimer;
 
     @Inject
     public QuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.serverUtils = server;
         this.mainCtrl = mainCtrl;
     }
+
+    int progress = 0;
+    int timeLeft;
 
     @FXML
     private Button firstChoice;
@@ -71,6 +77,12 @@ public class QuestionScreenCtrl {
     AnchorPane finalScreen;
     @FXML
     private Label finalScore;
+    @FXML
+    private ProgressBar bar;
+    @FXML
+    private Label time;
+    @FXML
+    private Label pointCounter;
 
 
     /**
@@ -83,7 +95,7 @@ public class QuestionScreenCtrl {
     /**
      * Initialise a singerplayer game
      */
-    public void initialize() {
+    public void init() {
         nextDisplay();
     }
 
@@ -93,42 +105,78 @@ public class QuestionScreenCtrl {
         secondAnswer.setText("");
         thirdAnswer.setText("");
 
+        progress+=1;
+        bar.setProgress(progress*0.05);
+
         firstBox.setStyle("-fx-background-color: #CED0CE");
         secondBox.setStyle("-fx-background-color: #CED0CE;");
         thirdBox.setStyle("-fx-background-color: #CED0CE;");
 
 
         if(!selection.hasNext()){
-            firstActivity.setText("");
-            secondActivity.setText("");
-            thirdActivity.setText("");
-            thirdChoice.setVisible(false);
-            this.question.setText("game over!");
-            this.finalScreen.setDisable(false);
-            this.finalScreen.setVisible(true);
-            this.finalScore.setText("You scored " + 0 + "!"); //once score implemented, display here
-            Timeline timer = new Timeline(
-                    new KeyFrame(Duration.seconds(5),
-                            new EventHandler<ActionEvent>() {
-
-                                @Override
-                                public void handle(ActionEvent event) {
-                                    mainCtrl.showGlobalLeaderboard();
-                                }
-                            }
-                    )
-            );
-            timer.setCycleCount(1);
-            timer.play();
+            endOfGame();
             return;
         }
         currQuestion= selection.next();
+        setNewQuestion();
+        restartTimer();
+
+    }
+    public void restartTimer(){
+        timeLeft = 20;
+        questionTimer.pause();
+        questionTimer = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        new EventHandler<ActionEvent>() {
+
+                            @Override
+                            public void handle(ActionEvent event) {
+                                timeLeft-=1;
+                                time.setText(Integer.toString(timeLeft));
+                                if(timeLeft == 0){
+                                    timeRanOut();
+                                }
+                            }
+                        }
+                )
+        );
+        questionTimer.setCycleCount(20);
+        questionTimer.play();
+    }
+    public void timeRanOut(){
+        question.setText("Time ran out!");
+        wrongAnswer();
+
+    }
+    public void endOfGame(){
+        questionTimer.pause();
+        firstActivity.setText("");
+        secondActivity.setText("");
+        thirdActivity.setText("");
+        thirdChoice.setVisible(false);
+        this.question.setText("game over!");
+        this.finalScreen.setDisable(false);
+        this.finalScreen.setVisible(true);
+        this.finalScore.setText("You scored " + totalPoints + "!"); //once score implemented, display here
+        Timeline timer = new Timeline(
+                new KeyFrame(Duration.seconds(5),
+                        new EventHandler<ActionEvent>() {
+
+                            @Override
+                            public void handle(ActionEvent event) {
+                                mainCtrl.showGlobalLeaderboard();
+                            }
+                        }
+                )
+        );
+        timer.setCycleCount(1);
+        timer.play();
+    }
+    public void setNewQuestion(){
         this.question.setText(currQuestion.getQuestion());
         this.firstActivity.setText(currQuestion.getFirstChoice().getTitle());
         this.secondActivity.setText(currQuestion.getSecondChoice().getTitle());
         this.thirdActivity.setText(currQuestion.getThirdChoice().getTitle());
-
-
         firstChoice.setDisable(false);
         secondChoice.setDisable(false);
         thirdChoice.setDisable(false);
@@ -213,6 +261,7 @@ public class QuestionScreenCtrl {
      */
     public void check(Pane chosenBox)  {
 
+        points = timeLeft*25 + 500;
         firstChoice.setDisable(true);
         secondChoice.setDisable(true);
         thirdChoice.setDisable(true);
@@ -225,30 +274,22 @@ public class QuestionScreenCtrl {
         if (chosenAnswer.equals(correctAnswer)) {
             question.setText("Yeah, that's right!");
             chosenBox.setStyle("-fx-background-color: green;");
-            points += receivedPoints.getPoints(true);
+            totalPoints += points;
+            pointCounter.setText(Integer.toString(totalPoints));
         } else {
             question.setText("That's wrong!");
-            if (correctAnswer.equals(currQuestion.getFirstChoice().getTitle())) {
-                firstBox.setStyle("-fx-background-color: green");
-                secondBox.setStyle("-fx-background-color: red;");
-                thirdBox.setStyle("-fx-background-color: red;");
-            } else if (correctAnswer.equals(currQuestion.getSecondChoice().getTitle())) {
-                firstBox.setStyle("-fx-background-color: red");
-                secondBox.setStyle("-fx-background-color: green;");
-                thirdBox.setStyle("-fx-background-color: red;");
-            } else if (correctAnswer.equals(currQuestion.getThirdChoice().getTitle())) {
-                firstBox.setStyle("-fx-background-color: red");
-                secondBox.setStyle("-fx-background-color: red;");
-                thirdBox.setStyle("-fx-background-color: green;");
-            }
+            wrongAnswer();
         }
+        transition(isRight);
+    }
+    public void transition(boolean isRight){
         Timeline timer = new Timeline(
                 new KeyFrame(Duration.seconds(3),
                         new EventHandler<ActionEvent>() {
 
                             @Override
                             public void handle(ActionEvent event) {
-                                distributePoints(isRight);
+                                nextDisplay();
                             }
                         }
                 )
@@ -257,9 +298,20 @@ public class QuestionScreenCtrl {
         timer.play();
     }
 
-    public void distributePoints(boolean isRight) {
-
-        nextDisplay();
+    public void wrongAnswer(){
+        if (correctAnswer.equals(currQuestion.getFirstChoice().getTitle())) {
+            firstBox.setStyle("-fx-background-color: green");
+            secondBox.setStyle("-fx-background-color: red;");
+            thirdBox.setStyle("-fx-background-color: red;");
+        } else if (correctAnswer.equals(currQuestion.getSecondChoice().getTitle())) {
+            firstBox.setStyle("-fx-background-color: red");
+            secondBox.setStyle("-fx-background-color: green;");
+            thirdBox.setStyle("-fx-background-color: red;");
+        } else if (correctAnswer.equals(currQuestion.getThirdChoice().getTitle())) {
+            firstBox.setStyle("-fx-background-color: red");
+            secondBox.setStyle("-fx-background-color: red;");
+            thirdBox.setStyle("-fx-background-color: green;");
+        }
     }
 
     /**
