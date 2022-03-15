@@ -90,6 +90,7 @@ public class MainCtrl {
     public void showQueue() {
         primaryStage.setTitle("Multiplayer queue");
         primaryStage.setScene((this.queueScreen));
+        queueCtrl.runLoadingAnimation();
     }
 
     public void showSingleplayer() {
