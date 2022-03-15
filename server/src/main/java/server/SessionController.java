@@ -38,7 +38,7 @@ public class SessionController {
         Session x = SessionContainer.getSession(sessionId);
 
         if(x.hasEnded()) {
-            return new QuizzQuestionServerParsed(new QuizzQuestion("0",null,null,null),null,-1);
+            return new QuizzQuestionServerParsed(new QuizzQuestion("0",null,null,null),-1,-1);
         }
 
         if(!x.isStarted()) { //If game is not started
