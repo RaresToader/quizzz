@@ -38,7 +38,7 @@
                         <Font size="14.0" />
                      </font></Button>
                   <Label fx:id="secondAnswer" layoutX="11.0" layoutY="132.0" prefHeight="36.0" prefWidth="279.0" />
-                  <AnchorPane fx:id="finalScreen" disable="true" layoutX="-419.0" layoutY="-30.0" prefHeight="360.0" prefWidth="1137.0" style="-fx-background-color: #CED0CE;" visible="false">
+                  <AnchorPane fx:id="finalScreen" disable="true" layoutX="-419.0" layoutY="-45.0" prefHeight="375.0" prefWidth="1137.0" style="-fx-background-color: #CED0CE;" visible="false">
                      <children>
                         <Label layoutX="-34.0" layoutY="-60.0" prefHeight="78.0" prefWidth="411.0" text="Congratulations!" translateX="400.0" translateY="110.0">
                            <font>
@@ -69,7 +69,7 @@
                   <Font size="42.0" />
                </font>
             </Label>
-            <Label fx:id="pointCounter" layoutX="610.0" layoutY="520.0" prefHeight="64.0" prefWidth="295.0" text="points" textFill="#f15025">
+            <Label fx:id="pointCounter" layoutX="610.0" layoutY="520.0" prefHeight="64.0" prefWidth="295.0" text="0" textFill="#f15025">
                <font>
                   <Font size="42.0" />
                </font>
@@ -80,9 +80,9 @@
                   <Font name="Monaco" size="55.0" />
                </font>
             </Label>
-            <TextFlow layoutX="868.0" layoutY="500.0" prefHeight="104.0" prefWidth="100.0" style="-fx-background-color: #CED0CE;">
+            <TextFlow layoutX="955.0" layoutY="500.0" prefHeight="104.0" prefWidth="100.0" style="-fx-background-color: #CED0CE;">
                <children>
-                  <Label fx:id="time" />
+                  <Label fx:id="time" prefHeight="18.0" prefWidth="73.0" />
                </children>
             </TextFlow>
          </children>

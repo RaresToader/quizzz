@@ -29,7 +29,21 @@ public class QuestionScreenCtrl {
     private int points;
     private int totalPoints;
     private QuizzQuestion currQuestion;
-    private Timeline questionTimer;
+    private Timeline questionTimer = new Timeline(
+            new KeyFrame(Duration.seconds(1),
+                    new EventHandler<ActionEvent>() {
+
+                        @Override
+                        public void handle(ActionEvent event) {
+                            timeLeft-=1;
+                            time.setText(Integer.toString(timeLeft));
+                            if(timeLeft == 0){
+                                timeRanOut();
+                            }
+                        }
+                    }
+            )
+    );
 
     @Inject
     public QuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -146,6 +160,7 @@ public class QuestionScreenCtrl {
     public void timeRanOut(){
         question.setText("Time ran out!");
         wrongAnswer();
+        transition();
 
     }
     public void endOfGame(){
@@ -262,9 +277,6 @@ public class QuestionScreenCtrl {
     public void check(Pane chosenBox)  {
 
         points = timeLeft*25 + 500;
-        firstChoice.setDisable(true);
-        secondChoice.setDisable(true);
-        thirdChoice.setDisable(true);
 
         correctAnswer = currQuestion.getMostExpensive();
         boolean isRight = chosenAnswer.equals(correctAnswer);
@@ -280,9 +292,13 @@ public class QuestionScreenCtrl {
             question.setText("That's wrong!");
             wrongAnswer();
         }
-        transition(isRight);
+        transition();
     }
-    public void transition(boolean isRight){
+    public void transition(){
+        firstChoice.setDisable(true);
+        secondChoice.setDisable(true);
+        thirdChoice.setDisable(true);
+
         Timeline timer = new Timeline(
                 new KeyFrame(Duration.seconds(3),
                         new EventHandler<ActionEvent>() {
