@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.ServerUtils;
 import client.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,10 +12,13 @@ import javax.inject.Inject;
 
 public class SplashCtrl {
     private MainCtrl mainCtrl;
-
+    private final ServerUtils serverUtils;
+    private GlobalLeaderboardCtrl globalLeaderboardCtrl;
     @Inject
-    public SplashCtrl(MainCtrl mainCtrl) {
+    public SplashCtrl(MainCtrl mainCtrl,ServerUtils serverUtils,GlobalLeaderboardCtrl globalLeaderboardCtrl) {
         this.mainCtrl = mainCtrl;
+        this.serverUtils=serverUtils;
+        this.globalLeaderboardCtrl = globalLeaderboardCtrl;
     }
 
     @FXML
@@ -85,6 +89,7 @@ public class SplashCtrl {
     }
 
     public void leaderboardButton() {
+        globalLeaderboardCtrl.initialize();
         mainCtrl.showGlobalLeaderboard();
     }
 
