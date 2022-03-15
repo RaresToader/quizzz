@@ -26,6 +26,8 @@ public class PlayerController {
     public ResponseEntity<Player> addPlayer(@RequestBody Player player) {
         if (player == null || player.getUsername() == null)
             return ResponseEntity.badRequest().build();
+        if(playerRepo.findById(player.getUsername()).isPresent())
+            return ResponseEntity.ok(player);
         Player saved = playerRepo.save(player);
         return ResponseEntity.ok(saved);
     }
@@ -81,5 +83,17 @@ public class PlayerController {
         return ResponseEntity.ok().build();
     }
 
-
+    /**
+     * Retrieves the top 50 players
+     * @return a list of 50 players
+     */
+    @GetMapping("/leaderboard")
+    public ResponseEntity<List<Player>> getLeaderboardPlayers() {
+        List<Player> allPlayers = this.playerRepo.findAll();
+        allPlayers.sort(new PlayerComparator());
+        if (allPlayers.size() < 50)
+            return ResponseEntity.ok(allPlayers);
+        else
+            return ResponseEntity.ok(allPlayers.subList(0, 49));
+    }
 }

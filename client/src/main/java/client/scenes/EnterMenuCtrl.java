@@ -2,11 +2,13 @@ package client.scenes;
 
 import client.Session;
 import client.utils.Utils;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import client.utils.ServerUtils;
+import javafx.util.Duration;
 
 import javax.inject.Inject;
 
@@ -48,8 +50,16 @@ public class EnterMenuCtrl {
             }
 
             Session.setNickname(nickname);
+            this.serverUtils.addPlayer(nickname);
             Session.setServerAddr(serverAddr);
             mainCtrl.showSplash();
-        } else errorText.setText("Provided username is invalid");
+        }
+        else {
+            errorText.setOpacity(1);
+            FadeTransition errorFade = new FadeTransition(Duration.seconds(4), errorText);
+            errorFade.setFromValue(1);
+            errorFade.setToValue(0);
+            errorFade.play();
+        }
     }
 }

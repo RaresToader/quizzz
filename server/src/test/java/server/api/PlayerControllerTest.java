@@ -292,4 +292,19 @@ public class PlayerControllerTest {
         systemUnderTest.deleteByObject(new Player("test"));
         assertTrue(repo.calledMethods.contains("deleteById"));
     }
+    @Test
+    public void comparatorTest(){
+        Player p1 = new Player("a");
+        p1.incrementScore(100);
+        Player p2 = new Player("b");
+        p2.incrementScore(200);
+        Player p3 = new Player("c");
+        p3.incrementScore(300);
+        List<Player> list = new ArrayList<>();
+        list.add(p1);
+        list.add(p2);
+        list.add(p3);
+        list.sort(new PlayerComparator());
+        assertEquals(p1,list.get(2));
+    }
 }
