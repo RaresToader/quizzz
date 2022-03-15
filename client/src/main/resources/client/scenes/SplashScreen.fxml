@@ -56,7 +56,7 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Label id="playerCountLabel" layoutX="532.0" layoutY="575.0" prefHeight="38.0" prefWidth="445.0" styleClass="label" text="players currently online" textFill="WHITE">
+      <Label id="playerCounterLabel" fx:id="playerCounterLabel" layoutX="532.0" layoutY="575.0" prefHeight="38.0" prefWidth="445.0" styleClass="label" text="players currently online" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
@@ -82,7 +82,7 @@
          </graphic></Label>
       <AnchorPane fx:id="confirmQuitAnchor" disable="true" layoutX="358.0" layoutY="193.0" prefHeight="379.0" prefWidth="500.0" style="-fx-background-color: #191919;" visible="false">
          <children>
-            <Label id="playerCountLabel" layoutX="28.0" layoutY="72.0" prefHeight="38.0" prefWidth="445.0" styleClass="label" text="Do you really want to quit?" textFill="WHITE">
+            <Label id="quitQuestionLabel" fx:id="quitQuestionLabel" layoutX="28.0" layoutY="72.0" prefHeight="38.0" prefWidth="445.0" styleClass="label" text="Do you really want to quit?" textFill="WHITE">
                <font>
                   <Font size="39.0" />
                </font>

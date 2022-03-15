@@ -45,6 +45,9 @@ public class SplashCtrl {
     @FXML
     private AnchorPane confirmQuitAnchor;
 
+    @FXML
+    private Label playerCounterLabel;
+
     /**
      * This method is triggered by the action: clicking on Quit button on the Splash screen.
      * The anchor with the 'pop-up' is made visible and enabled. The buttons "Quit" & "Cancel"
@@ -58,6 +61,10 @@ public class SplashCtrl {
         cancelQuitButton.setDisable(false);
         quitButton.setVisible(false);
         quitButton.setDisable(true);
+        leaderboard.setDisable(true);
+        leaderboard.setVisible(false);
+        playerCounterLabel.setVisible(false);
+        playerCounter.setVisible(false);
     }
 
     /**
@@ -72,6 +79,12 @@ public class SplashCtrl {
         cancelQuitButton.setDisable(true);
         quitButton.setVisible(true);
         quitButton.setDisable(false);
+        leaderboard.setVisible(true);
+        leaderboard.setDisable(false);
+        playerCounter.setVisible(false);
+        playerCounterLabel.setVisible(true);
+        playerCounter.setVisible(true);
+
     }
 
     public void initialize() {
