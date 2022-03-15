@@ -15,10 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
-import java.util.Timer;
-import java.util.TimerTask;
-
-
 
 public class QuestionScreenCtrl {
 
