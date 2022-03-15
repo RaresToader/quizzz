@@ -15,9 +15,9 @@
                   <Font name="Monaco" size="55.0" />
                </font>
             </Label>
-            <Pane layoutX="75.0" layoutY="140.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #CED0CE#CED0CE;">
+            <Pane fx:id="firstBox" layoutX="75.0" layoutY="140.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #CED0CE#CED0CE;">
                <children>
-                  <Label layoutY="-6.0" prefHeight="196.0" prefWidth="304.0" text="Activity 1" wrapText="true">
+                  <Label fx:id="firstActivity" layoutY="-6.0" prefHeight="196.0" prefWidth="304.0" text="Activity 1" wrapText="true">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -28,9 +28,9 @@
                      </font></Button>
                </children>
             </Pane>
-            <Pane layoutX="465.0" layoutY="140.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #CED0CE#CED0CE;">
+            <Pane fx:id="secondBox" layoutX="465.0" layoutY="140.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #CED0CE#CED0CE;">
                <children>
-                  <Label layoutY="-6.0" prefHeight="196.0" prefWidth="304.0" text="Activity 2" wrapText="true">
+                  <Label fx:id="secondActivity" layoutY="-6.0" prefHeight="196.0" prefWidth="304.0" text="Activity 2" wrapText="true">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -41,9 +41,9 @@
                      </font></Button>
                </children>
             </Pane>
-            <Pane layoutX="855.0" layoutY="140.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #CED0CE#CED0CE;">
+            <Pane fx:id="thirdBox" layoutX="855.0" layoutY="140.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #CED0CE#CED0CE;">
                <children>
-                  <Label layoutY="-6.0" prefHeight="196.0" prefWidth="304.0" text="Activity 3" wrapText="true">
+                  <Label fx:id="thirdActivity" layoutY="-6.0" prefHeight="196.0" prefWidth="304.0" text="Activity 3" wrapText="true">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -59,7 +59,7 @@
                   <Font size="42.0" />
                </font>
             </Label>
-            <Label layoutX="610.0" layoutY="520.0" prefHeight="64.0" prefWidth="295.0" text="points" textFill="#f15025">
+            <Label fx:id="points" layoutX="610.0" layoutY="520.0" prefHeight="64.0" prefWidth="295.0" text="points" textFill="#f15025">
                <font>
                   <Font size="42.0" />
                </font>
