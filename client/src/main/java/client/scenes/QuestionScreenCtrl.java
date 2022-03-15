@@ -18,7 +18,7 @@ import java.util.TimerTask;
 public class QuestionScreenCtrl {
 
     private final ServerUtils serverUtils;
-    private String currQuestion = "";
+    private QuizzQuestion currQuestion = new QuizzQuestion("", null,null,null);
     private int questionNo = 0;
     private Points receivedPoints = new Points();
     private String chosenAnswer;
@@ -30,14 +30,20 @@ public class QuestionScreenCtrl {
         this.serverUtils = server;
 
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(
-                new TimerTask() {
+        timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
-                        String newQuestion = Utils.getCurrentQuestion();
+                        QuizzQuestion newQuestion = Utils.getCurrentQuestion();
                         if(!newQuestion.equals(currQuestion)){
                             questionNo += 1;
                             currQuestion = newQuestion;
+
+                            question.setText(currQuestion.getQuestion());
+                            firstChoice.setText(currQuestion.getFirstChoice().toString());
+                            secondChoice.setText(currQuestion.getSecondChoice().toString());
+                            thirdChoice.setText(currQuestion.getThirdChoice().toString());
+
+                            correctAnswer = server.getCorrect();
                         }
 
                         if(questionNo > 20){
@@ -46,8 +52,6 @@ public class QuestionScreenCtrl {
                     }
                 }, 0, 1000
         );
-
-        this.correctAnswer = server.getCorrect();
     }
 
     @FXML
