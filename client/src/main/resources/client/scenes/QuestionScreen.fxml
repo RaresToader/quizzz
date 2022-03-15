@@ -26,6 +26,7 @@
                      <font>
                         <Font size="14.0" />
                      </font></Button>
+                  <Label fx:id="firstAnswer" layoutX="20.0" layoutY="136.0" prefHeight="36.0" prefWidth="267.0" />
                </children>
             </Pane>
             <Pane fx:id="secondBox" layoutX="465.0" layoutY="140.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #CED0CE#CED0CE;">
@@ -39,6 +40,7 @@
                      <font>
                         <Font size="14.0" />
                      </font></Button>
+                  <Label fx:id="secondAnswer" layoutX="9.0" layoutY="138.0" prefHeight="36.0" prefWidth="279.0" />
                </children>
             </Pane>
             <Pane fx:id="thirdBox" layoutX="855.0" layoutY="140.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #CED0CE#CED0CE;">
@@ -52,6 +54,7 @@
                      <font>
                         <Font size="14.0" />
                      </font></Button>
+                  <Label fx:id="thirdAnswer" layoutX="10.0" layoutY="150.0" prefHeight="36.0" prefWidth="279.0" />
                </children>
             </Pane>
             <Label layoutX="337.0" layoutY="520.0" prefHeight="64.0" prefWidth="295.0" text="Current points:" textFill="#f15025">

@@ -56,6 +56,13 @@ public class QuestionScreenCtrl {
     private Label thirdActivity;
 
     @FXML
+    private Label firstAnswer;
+    @FXML
+    private Label secondAnswer;
+    @FXML
+    private Label thirdAnswer;
+
+    @FXML
     private Pane firstBox;
     @FXML
     private Pane secondBox;
@@ -78,6 +85,10 @@ public class QuestionScreenCtrl {
     }
 
     public void nextDisplay() {
+
+        firstAnswer.setText("");
+        secondAnswer.setText("");
+        thirdAnswer.setText("");
 
 
         if(!selection.hasNext()){
@@ -184,6 +195,9 @@ public class QuestionScreenCtrl {
 
         correctAnswer = currQuestion.getMostExpensive();
         boolean isRight = chosenAnswer.equals(correctAnswer);
+        firstAnswer.setText("this consumes " + currQuestion.getFirstChoice().getConsumption_in_wh() + " watt per hour");
+        secondAnswer.setText("this consumes " + currQuestion.getSecondChoice().getConsumption_in_wh() + " watt per hour");
+        thirdAnswer.setText("this consumes " + currQuestion.getThirdChoice().getConsumption_in_wh() + " watt per hour");
         if (chosenAnswer.equals(correctAnswer)) {
             question.setText("Yeah, that's right!");
             chosenBox.setStyle("-fx-background-color: green;");
