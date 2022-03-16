@@ -349,3 +349,9 @@ insert into activity (consumption_in_wh, id, image_path, source, title, realid) 
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292)
 	at server.Main.main(Main.java:27)
+2022-03-15 12:04:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'02-electric_stove' (ACTIVITY: ""ID"" BIGINT NOT NULL)"; SQL statement:
+insert into activity (consumption_in_wh, id, image_path, source, title, realid) values (?, ?, ?, ?, ?, ?) [22018-200]
+2022-03-15 12:20:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "02-electric_stove"; SQL statement:
+select activity0_.id as id1_0_0_, activity0_.consumption_in_wh as consumpt2_0_0_, activity0_.image_path as image_pa3_0_0_, activity0_.source as source4_0_0_, activity0_.title as title5_0_0_ from activity activity0_ where activity0_.id=? [22018-200]
