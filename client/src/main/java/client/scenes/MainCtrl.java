@@ -92,6 +92,7 @@ public class MainCtrl {
     public void showSplash() {
         primaryStage.setTitle("Main Screen");
         primaryStage.setScene(splashScreen);
+        splashCtrl.init();
     }
 
     public void closeSplash() {

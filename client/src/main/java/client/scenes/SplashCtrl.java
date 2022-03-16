@@ -2,12 +2,15 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import client.utils.Utils;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import javax.inject.Inject;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class SplashCtrl {
@@ -48,6 +51,29 @@ public class SplashCtrl {
     @FXML
     private Label playerCounterLabel;
 
+    private Timer activePlayersTimer;
+
+    //Dafault JFX method started after function init
+    public void initialize() {}
+
+    //Method to be inited after choosing this screen
+    public void init() {
+        System.out.println("Initiated");
+        activePlayersTimer = new Timer();
+
+        activePlayersTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        playerCounter.setText(Utils.getActivePlayers());
+                    }
+                });
+            }
+        }, 0, 2*1000); //Update active player number every 2 seconds
+    }
+
     /**
      * This method is triggered by the action: clicking on Quit button on the Splash screen.
      * The anchor with the 'pop-up' is made visible and enabled. The buttons "Quit" & "Cancel"
@@ -87,9 +113,7 @@ public class SplashCtrl {
 
     }
 
-    public void initialize() {
-        playerCounter.setText(Utils.getActivePlayers());
-    }
+
 
     /**
      * This method is triggered by the '(Confirm) Quit-Button' that is on the 'confirm-quit' pop-up. It will close
@@ -97,20 +121,23 @@ public class SplashCtrl {
      */
 
     public void quit() {
-
+        activePlayersTimer.cancel();
         mainCtrl.closeSplash();
     }
 
     public void leaderboardButton() {
         globalLeaderboardCtrl.initialize();
+        activePlayersTimer.cancel();
         mainCtrl.showGlobalLeaderboard(true);
     }
 
     public void goToMultiplayerQueue() {
+        activePlayersTimer.cancel();
         mainCtrl.showQueue();
     }
 
     public void toSinglePlayer() {
+        activePlayersTimer.cancel();
         mainCtrl.showSingleplayer();
     }
 }
