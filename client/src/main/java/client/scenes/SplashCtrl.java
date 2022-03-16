@@ -124,7 +124,7 @@ public class SplashCtrl {
         mainCtrl.showQueue();
     }
 
-    public void toSinglePlayer() {
-        mainCtrl.showSingleplayer();
+    public void toSinglePlayerLobby() {
+        mainCtrl.showSingleplayerLobby();
     }
 }
