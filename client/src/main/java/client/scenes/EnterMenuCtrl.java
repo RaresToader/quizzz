@@ -33,7 +33,6 @@ public class EnterMenuCtrl {
         this.serverUtils = serverUtils;
     }
 
-
     @FXML
     public void cleanText() {
         username.clear();
