@@ -94,7 +94,7 @@ public class MainCtrl {
 
     public void showQueue() {
         primaryStage.setTitle("Multiplayer queue");
-        primaryStage.setScene((this.queueScreen));
+        primaryStage.setScene(this.queueScreen);
     }
 
     public void showSingleplayer() {

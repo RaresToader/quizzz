@@ -14,10 +14,9 @@ public class SplashCtrl {
     private MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
     private GlobalLeaderboardCtrl globalLeaderboardCtrl;
-    private AdminPanelCtrl adminPanelCtrl;
 
     @Inject
-    public SplashCtrl(MainCtrl mainCtrl,ServerUtils serverUtils,GlobalLeaderboardCtrl globalLeaderboardCtrl,AdminPanelCtrl adminPanelCtrl) {
+    public SplashCtrl(MainCtrl mainCtrl,ServerUtils serverUtils,GlobalLeaderboardCtrl globalLeaderboardCtrl) {
         this.mainCtrl = mainCtrl;
         this.serverUtils=serverUtils;
         this.globalLeaderboardCtrl = globalLeaderboardCtrl;
@@ -100,7 +99,6 @@ public class SplashCtrl {
     }
 
     public void adminPanelButton(){
-        adminPanelCtrl.initialize();
         mainCtrl.showAdminPanel();
 
     }
