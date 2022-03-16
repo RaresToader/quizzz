@@ -1,11 +1,7 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
-import commons.Player;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+
 
 import javax.inject.Inject;
 
