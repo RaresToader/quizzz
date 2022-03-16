@@ -100,21 +100,20 @@ public class PlayerController {
      * Updated a player's score if he exists in the database, and only if the score is higher than
      * his current stored score
      *
-     * @param id     the id of the player to be modified
-     * @param points the new amount of points
+     * @param player the player to be stored in the database
      * @return the modified player
      */
-    @PutMapping("/update")
-    public ResponseEntity<Player> updatePlayerScore(@RequestBody String id, @RequestBody long points) {
-        if (id == null || playerRepo.findById(id).isEmpty())
+    @PutMapping("/update/")
+    public ResponseEntity<Player> updatePlayerScore(@RequestBody Player player) {
+        if (player == null || player.getUsername() == null || playerRepo.findById(player.getUsername()).isEmpty())
             return ResponseEntity.notFound().build();
 
-        Player toBeModified = playerRepo.findById(id).get();
+        Player toBeModified = playerRepo.findById(player.getUsername()).get();
         long currentScore = toBeModified.getScore();
-        if (currentScore >= points)
+        if (currentScore >= player.getScore())
             return ResponseEntity.ok(toBeModified);
-        playerRepo.deleteById(id);
-        return ResponseEntity.ok(playerRepo.save(new Player(id, points)));
+        playerRepo.deleteById(player.getUsername());
+        return ResponseEntity.ok(playerRepo.save(player));
     }
 
     /**
