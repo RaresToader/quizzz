@@ -133,6 +133,7 @@ public class QuestionScreenCtrl {
     public void init() {
         selection= new RandomSelection();
         nextDisplay();
+
     }
 
     /**
@@ -380,9 +381,12 @@ public class QuestionScreenCtrl {
                             public void handle(ActionEvent event) {
 
                                 mainCtrl.showGlobalLeaderboard(false);
-                                thirdChoice.setVisible(true);
+                                firstBox.setVisible(true);
+                                thirdBox.setVisible(true);
                                 finalScreen.setDisable(true);
                                 finalScreen.setVisible(false);
+                                totalPoints = 0;
+                                pointCounter.setText(String.valueOf(totalPoints));
                             }
                         }
                 )
