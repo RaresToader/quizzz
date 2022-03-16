@@ -36,6 +36,9 @@ public class SplashCtrl {
     private Label playerCounter;
 
     @FXML
+    private Label playerCounterLabel;
+
+    @FXML
     private Button quitButton;
 
     @FXML
