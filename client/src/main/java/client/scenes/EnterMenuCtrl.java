@@ -61,5 +61,6 @@ public class EnterMenuCtrl {
             errorFade.setToValue(0);
             errorFade.play();
         }
+
     }
 }
