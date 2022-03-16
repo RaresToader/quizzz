@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
+import client.utils.Utils;
 import commons.Points;
 import commons.QuizzQuestion;
 import commons.RandomSelection;
@@ -10,11 +11,15 @@ import javafx.scene.control.Label;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class QuestionScreenCtrl {
 
     private final ServerUtils serverUtils;
+    private QuizzQuestion currQuestion = new QuizzQuestion("Not assigned", null,null,null);
+    private int questionNo = 0;
     private Points receivedPoints = new Points();
     private String chosenAnswer;
     private String correctAnswer;
@@ -23,6 +28,30 @@ public class QuestionScreenCtrl {
     @Inject
     public QuestionScreenCtrl(ServerUtils server) {
         this.serverUtils = server;
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        QuizzQuestion newQuestion = Utils.getCurrentQuestion().getQuestion();
+                        if(!newQuestion.equals(currQuestion)){
+                            questionNo += 1;
+                            currQuestion = newQuestion;
+
+                            question.setText(currQuestion.getQuestion());
+                            firstChoice.setText(currQuestion.getFirstChoice().getTitle());
+                            secondChoice.setText(currQuestion.getSecondChoice().getTitle());
+                            thirdChoice.setText(currQuestion.getThirdChoice().getTitle());
+
+                            correctAnswer = server.getCorrect();
+                        }
+
+                        if(questionNo > 20){
+                            timer.cancel();
+                        }
+                    }
+                }, 0, 1000
+        );
     }
 
     @FXML

@@ -2,10 +2,10 @@ package server;
 
 import commons.Answer;
 import commons.QuizzQuestion;
+import commons.QuizzQuestionServerParsed;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
-import java.time.LocalDate;
+import java.util.Date;
 
 @RestController
 public class SessionController {
@@ -27,7 +27,7 @@ public class SessionController {
      * @param nickname - nickname of the user creating the request
      */
     @GetMapping("/session/question/{nickname}")
-    public QuizzQuestion getCurrentQuestion(@PathVariable("nickname") String nickname) {
+    public QuizzQuestionServerParsed getCurrentQuestion(@PathVariable("nickname") String nickname) {
         int session = SessionContainer.findUserSession(nickname);
         if(session == -1) { //If not session provided for that user yet
             SessionContainer.createSession(false,nickname); //TODO It is: provide that implementation for multiplayer too
@@ -40,8 +40,8 @@ public class SessionController {
             x.startGame();
         }
 
-        QuizzQuestion retQ = x.getCurrentQuestion();
-        if (retQ == null) return new QuizzQuestion("0", null, null, null); //DEBUG line
+        QuizzQuestionServerParsed retQ = x.getCurrentQuestion();
+        if (retQ == null) return new QuizzQuestionServerParsed(new QuizzQuestion("0", null, null, null),-1,-1); //DEBUG line
         else return retQ;
     }
 
@@ -71,8 +71,9 @@ public class SessionController {
             return false;
         }
 
+        Date date = new Date();
         //If question submitted 30 seconds or more after init of question
-        if(Duration.between(x.getQuestionStartedAt().atStartOfDay(), LocalDate.now().atStartOfDay()).toSeconds() > 30) {
+        if(date.getTime() - x.getQuestionStartedAt() > 30000) {
             return false;
         }
 

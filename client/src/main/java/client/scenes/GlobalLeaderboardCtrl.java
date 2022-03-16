@@ -38,34 +38,7 @@ public class GlobalLeaderboardCtrl {
         nameColumn.setCellValueFactory(new PropertyValueFactory("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory("score"));
         ObservableList<Player> players = FXCollections.observableArrayList();
-        serverUtils.addPlayer("jon");
-        serverUtils.addPlayer("Rxares");
-        serverUtils.addPlayer("Racres");
-        serverUtils.addPlayer("Rarevs");
-        serverUtils.addPlayer("Rareys");
-        serverUtils.addPlayer("Raresy");
-        serverUtils.addPlayer("Raresgg");
-        serverUtils.addPlayer("Rarefddss");
-        serverUtils.addPlayer("Rarsses");
-        serverUtils.addPlayer("Rarswwes");
-        serverUtils.addPlayer("Raryyes");
-        serverUtils.addPlayer("Rarghjes");
-        serverUtils.addPlayer("Ratrdres");
-        serverUtils.addPlayer("Rarefs");
-        serverUtils.addPlayer("Rares");
-        serverUtils.addPlayer("Rarrhes");
-        serverUtils.addPlayer("Rrares");
-        serverUtils.addPlayer("Rares");
-        serverUtils.addPlayer("Ragfsdrres");
-        serverUtils.addPlayer("Rarefdsfds");
-        serverUtils.addPlayer("Rarees");
-        serverUtils.addPlayer("Rasdserres");
-        serverUtils.addPlayer("Rarssses");
-        serverUtils.addPlayer("Rarfghes");
-        serverUtils.addPlayer("Rareius");
-        serverUtils.addPlayer("Rareys");
-        serverUtils.addPlayer("Raresu");
-        players.addAll(serverUtils.getLeaderboardPlayers());
+        players.addAll(serverUtils.getAllPlayers());
         tableView.setItems(players);
     }
 }

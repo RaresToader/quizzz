@@ -4,6 +4,14 @@
     -fx-translate-y: 20pt;
 }
 
+#confirmQuitButton{
+    -fx-translate-y: 20pt;
+}
+
+#cancelQuitButton{
+    -fx-translate-y: 20pt;
+}
+
 #groupLabel {
     -fx-translate-y: 15pt;
     -fx-translate-x: 20pt;
@@ -17,7 +25,7 @@
     -fx-translate-x: -70pt;
 }
 
-#playerCountLabel {
+#playerCounterLabel {
     -fx-translate-x: -70pt;
 }
 
@@ -25,3 +33,4 @@
     -fx-translate-x: -50pt;
     -fx-translate-y: -20pt;
 }
+
