@@ -84,5 +84,19 @@ public class PlayerTest {
         String toString = "Player{username=" + "'name', score=" + 0 + "}";
         assertEquals(toString, player.toString());
     }
-
+    @Test
+    public void secondConstructorTest(){
+        Player player = new Player("name",1000);
+        assertNotNull(player);
+    }
+    @Test
+    public void secondConstructorTest2(){
+        Player player = new Player("name",1000);
+        assertEquals(player.getScore(),1000);
+    }
+    @Test
+    public void secondConstructorTest3(){
+        Player player = new Player("name",1000);
+        assertEquals(player.getUsername(),"name");
+    }
 }
