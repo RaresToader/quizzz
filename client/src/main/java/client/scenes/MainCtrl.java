@@ -18,10 +18,13 @@ package client.scenes;
 import client.utils.Utils;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -87,6 +90,14 @@ public class MainCtrl {
     public void showEnterMenu() {
         primaryStage.setTitle("Enter Menu");
         primaryStage.setScene(enterMenu);
+        enterMenu.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent k) {
+                if (k.getCode().equals(KeyCode.ENTER)) {
+                    enterMenuCtrl.enterButton();
+                }
+            }
+        });
     }
 
     public void showSplash() {

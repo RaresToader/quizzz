@@ -3,11 +3,14 @@ package client.scenes;
 import client.Session;
 import client.utils.Utils;
 import javafx.animation.FadeTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import client.utils.ServerUtils;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
@@ -32,7 +35,6 @@ public class EnterMenuCtrl {
         this.mainCtrl = mainCtrl;
         this.serverUtils = serverUtils;
     }
-
 
     @FXML
     public void cleanText() {
