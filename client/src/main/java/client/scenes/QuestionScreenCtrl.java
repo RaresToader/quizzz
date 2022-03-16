@@ -127,14 +127,6 @@ public class QuestionScreenCtrl {
     @FXML
     private Label pointCounter;
 
-
-    /**
-     * Clicking the first button disables the other buttons and changes
-     * the button's background color so the player knows which button he clicked.
-     */
-
-
-
     /**
      * Initialise a singerplayer game
      */
@@ -143,7 +135,28 @@ public class QuestionScreenCtrl {
         nextDisplay();
     }
 
+    /**
+     * checks if the game is over and if not display the next question and restarts the timer.
+     */
     public void nextDisplay() {
+
+
+
+
+        if(!selection.hasNext()){
+            endOfGame();
+            return;
+        }
+        currQuestion= selection.next();
+        setNewQuestion();
+        restartTimer();
+
+    }
+
+    /**
+     * display the next question
+     */
+    public void setNewQuestion(){
 
         firstAnswer.setText("");
         secondAnswer.setText("");
@@ -156,18 +169,22 @@ public class QuestionScreenCtrl {
         secondBox.setStyle("-fx-background-color: #CED0CE;");
         thirdBox.setStyle("-fx-background-color: #CED0CE;");
 
+        this.question.setText(currQuestion.getQuestion());
+        this.firstActivity.setText(currQuestion.getFirstChoice().getTitle());
+        this.secondActivity.setText(currQuestion.getSecondChoice().getTitle());
+        this.thirdActivity.setText(currQuestion.getThirdChoice().getTitle());
 
-        if(!selection.hasNext()){
-            endOfGame();
-            return;
-        }
-        currQuestion= selection.next();
-        setNewQuestion();
-        restartTimer();
-
+        firstChoice.setDisable(false);
+        secondChoice.setDisable(false);
+        thirdChoice.setDisable(false);
     }
+
+    /**
+     * restarts the timer
+     */
     public void restartTimer(){
         timeLeft = 20;
+        time.setText(Integer.toString(timeLeft));
         questionTimer.pause();
         questionTimer = new Timeline(
                 new KeyFrame(Duration.seconds(1),
@@ -187,49 +204,17 @@ public class QuestionScreenCtrl {
         questionTimer.setCycleCount(20);
         questionTimer.play();
     }
+
+    /**
+     * handles when the time runs out
+     */
     public void timeRanOut(){
         question.setText("Time ran out!");
         wrongAnswer();
         transition();
 
     }
-    public void endOfGame(){
-        questionTimer.pause();
-        firstActivity.setText("");
-        secondActivity.setText("");
-        thirdActivity.setText("");
-        thirdChoice.setVisible(false);
-        this.question.setText("game over!");
-        this.finalScreen.setDisable(false);
-        this.finalScreen.setVisible(true);
-        this.finalScore.setText("You scored " + totalPoints + "!"); //once score implemented, display here
-        Timeline timer = new Timeline(
-                new KeyFrame(Duration.seconds(5),
-                        new EventHandler<ActionEvent>() {
 
-                            @Override
-                            public void handle(ActionEvent event) {
-
-                                mainCtrl.showGlobalLeaderboard(false);
-                                thirdChoice.setVisible(true);
-                                finalScreen.setDisable(true);
-                                finalScreen.setVisible(false);
-                            }
-                        }
-                )
-        );
-        timer.setCycleCount(1);
-        timer.play();
-    }
-    public void setNewQuestion(){
-        this.question.setText(currQuestion.getQuestion());
-        this.firstActivity.setText(currQuestion.getFirstChoice().getTitle());
-        this.secondActivity.setText(currQuestion.getSecondChoice().getTitle());
-        this.thirdActivity.setText(currQuestion.getThirdChoice().getTitle());
-        firstChoice.setDisable(false);
-        secondChoice.setDisable(false);
-        thirdChoice.setDisable(false);
-    }
 
     /**
      * After clicking a button again, reset its status and
@@ -305,11 +290,13 @@ public class QuestionScreenCtrl {
     }
 
     /**
-     * Changes the color of the background so the player can see if
-     * they answered the question correctly
+     * checks if the answer chosen was the right one, and if so distributes the points. Display the wh for each
+     * choice.
+     * @param chosenBox box of the answer that was chosen
      */
     public void check(Pane chosenBox)  {
 
+        questionTimer.pause();
         points = timeLeft*25 + 500;
 
         correctAnswer = currQuestion.getMostExpensive();
@@ -328,6 +315,29 @@ public class QuestionScreenCtrl {
         }
         transition();
     }
+
+    /**
+     * handles the display when the chosen answer was not the right answer.
+     */
+    public void wrongAnswer(){
+        if (correctAnswer.equals(currQuestion.getFirstChoice().getTitle())) {
+            firstBox.setStyle("-fx-background-color: green");
+            secondBox.setStyle("-fx-background-color: red;");
+            thirdBox.setStyle("-fx-background-color: red;");
+        } else if (correctAnswer.equals(currQuestion.getSecondChoice().getTitle())) {
+            firstBox.setStyle("-fx-background-color: red");
+            secondBox.setStyle("-fx-background-color: green;");
+            thirdBox.setStyle("-fx-background-color: red;");
+        } else if (correctAnswer.equals(currQuestion.getThirdChoice().getTitle())) {
+            firstBox.setStyle("-fx-background-color: red");
+            secondBox.setStyle("-fx-background-color: red;");
+            thirdBox.setStyle("-fx-background-color: green;");
+        }
+    }
+
+    /**
+     * handles the transition between two questions.
+     */
     public void transition(){
         firstChoice.setDisable(true);
         secondChoice.setDisable(true);
@@ -348,22 +358,38 @@ public class QuestionScreenCtrl {
         timer.play();
     }
 
-    public void wrongAnswer(){
-        if (correctAnswer.equals(currQuestion.getFirstChoice().getTitle())) {
-            firstBox.setStyle("-fx-background-color: green");
-            secondBox.setStyle("-fx-background-color: red;");
-            thirdBox.setStyle("-fx-background-color: red;");
-        } else if (correctAnswer.equals(currQuestion.getSecondChoice().getTitle())) {
-            firstBox.setStyle("-fx-background-color: red");
-            secondBox.setStyle("-fx-background-color: green;");
-            thirdBox.setStyle("-fx-background-color: red;");
-        } else if (correctAnswer.equals(currQuestion.getThirdChoice().getTitle())) {
-            firstBox.setStyle("-fx-background-color: red");
-            secondBox.setStyle("-fx-background-color: red;");
-            thirdBox.setStyle("-fx-background-color: green;");
-        }
-    }
+    /**
+     * handles the end of a game.
+     */
+    public void endOfGame(){
+        questionTimer.pause();
+        firstBox.setVisible(false);
+        //secondBox.setVisible(false);
+        thirdBox.setVisible(false);
+        thirdChoice.setVisible(false);
+        bar.setVisible(false);
+        this.question.setText("game over!");
+        this.finalScreen.setDisable(false);
+        this.finalScreen.setVisible(true);
+        this.finalScore.setText("You scored " + totalPoints + "!"); //once score implemented, display here
+        Timeline timer = new Timeline(
+                new KeyFrame(Duration.seconds(5),
+                        new EventHandler<ActionEvent>() {
 
+                            @Override
+                            public void handle(ActionEvent event) {
+
+                                mainCtrl.showGlobalLeaderboard(false);
+                                thirdChoice.setVisible(true);
+                                finalScreen.setDisable(true);
+                                finalScreen.setVisible(false);
+                            }
+                        }
+                )
+        );
+        timer.setCycleCount(1);
+        timer.play();
+    }
     /**
      * Gets the answer chosen by the player
      */
