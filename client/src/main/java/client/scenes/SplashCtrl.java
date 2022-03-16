@@ -66,6 +66,10 @@ public class SplashCtrl {
         cancelQuitButton.setDisable(false);
         quitButton.setVisible(false);
         quitButton.setDisable(true);
+        leaderboard.setDisable(true);
+        leaderboard.setVisible(false);
+        playerCounterLabel.setVisible(false);
+        playerCounter.setVisible(false);
     }
 
     /**
@@ -80,6 +84,12 @@ public class SplashCtrl {
         cancelQuitButton.setDisable(true);
         quitButton.setVisible(true);
         quitButton.setDisable(false);
+        leaderboard.setVisible(true);
+        leaderboard.setDisable(false);
+        playerCounter.setVisible(false);
+        playerCounterLabel.setVisible(true);
+        playerCounter.setVisible(true);
+
     }
 
     public void initialize() {
@@ -98,7 +108,7 @@ public class SplashCtrl {
 
     public void leaderboardButton() {
         globalLeaderboardCtrl.initialize();
-        mainCtrl.showGlobalLeaderboard();
+        mainCtrl.showGlobalLeaderboard(true);
     }
 
     public void adminPanelButton(){

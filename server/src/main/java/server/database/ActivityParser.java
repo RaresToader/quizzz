@@ -5,7 +5,7 @@ import commons.Activity;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,7 +16,7 @@ public class ActivityParser {
 
 
     @Bean
-    public ApplicationRunner parseActivities(ActivityRepository activityRepository) {
+    public CommandLineRunner parseActivities(ActivityRepository activityRepository) {
         return args -> {
             JSONParser parser = new JSONParser();
             /**
@@ -36,3 +36,4 @@ public class ActivityParser {
     }
 
 }
+

@@ -43,5 +43,13 @@
             <Font size="74.0" />
          </font>
       </Label>
+      <Button fx:id="playAgain" layoutX="929.0" layoutY="604.0" mnemonicParsing="false" onAction="#newGame" prefHeight="91.0" prefWidth="244.0" style="-fx-background-color: #f15025;" text="Play Again" textFill="WHITE">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

@@ -2,6 +2,7 @@ package client;
 
 
 public class Session {
+
     private static String nickname;
     private static String serverAddr;
     private static int questionNum;
