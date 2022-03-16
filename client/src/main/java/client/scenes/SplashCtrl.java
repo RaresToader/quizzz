@@ -14,11 +14,13 @@ public class SplashCtrl {
     private MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
     private GlobalLeaderboardCtrl globalLeaderboardCtrl;
+
     @Inject
     public SplashCtrl(MainCtrl mainCtrl,ServerUtils serverUtils,GlobalLeaderboardCtrl globalLeaderboardCtrl) {
         this.mainCtrl = mainCtrl;
         this.serverUtils=serverUtils;
         this.globalLeaderboardCtrl = globalLeaderboardCtrl;
+
     }
 
     @FXML
@@ -34,6 +36,9 @@ public class SplashCtrl {
     private Label playerCounter;
 
     @FXML
+    private Label playerCounterLabel;
+
+    @FXML
     private Button quitButton;
 
     @FXML
@@ -46,7 +51,7 @@ public class SplashCtrl {
     private AnchorPane confirmQuitAnchor;
 
     @FXML
-    private Label playerCounterLabel;
+    private Button adminPanelButton;
 
     /**
      * This method is triggered by the action: clicking on Quit button on the Splash screen.
@@ -65,6 +70,8 @@ public class SplashCtrl {
         leaderboard.setVisible(false);
         playerCounterLabel.setVisible(false);
         playerCounter.setVisible(false);
+        adminPanelButton.setDisable(true);
+        adminPanelButton.setVisible(false);
     }
 
     /**
@@ -84,6 +91,8 @@ public class SplashCtrl {
         playerCounter.setVisible(false);
         playerCounterLabel.setVisible(true);
         playerCounter.setVisible(true);
+        adminPanelButton.setDisable(false);
+        adminPanelButton.setVisible(true);
 
     }
 
@@ -104,6 +113,11 @@ public class SplashCtrl {
     public void leaderboardButton() {
         globalLeaderboardCtrl.initialize();
         mainCtrl.showGlobalLeaderboard(true);
+    }
+
+    public void adminPanelButton(){
+        mainCtrl.showAdminPanel();
+
     }
 
     public void goToMultiplayerQueue() {

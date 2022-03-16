@@ -4,14 +4,6 @@
     -fx-translate-y: 20pt;
 }
 
-#confirmQuitButton{
-    -fx-translate-y: 20pt;
-}
-
-#cancelQuitButton{
-    -fx-translate-y: 20pt;
-}
-
 #groupLabel {
     -fx-translate-y: 15pt;
     -fx-translate-x: 20pt;
@@ -20,7 +12,7 @@
 #leaderboardButton {
     -fx-font-size: 20pt;
 }
-#adminPanelButton {
+#adminButton {
     -fx-font-size: 20pt;
 }
 
@@ -36,4 +28,3 @@
     -fx-translate-x: -50pt;
     -fx-translate-y: -20pt;
 }
-
