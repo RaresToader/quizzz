@@ -15,7 +15,6 @@
  */
 package client.scenes;
 
-import client.utils.Utils;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
@@ -128,7 +127,6 @@ public class MainCtrl {
     public void showSingleplayer() {
         primaryStage.setTitle("Singleplayer");
         primaryStage.setScene(this.questionScreen);
-        this.questionScreenCtrl.init();
-        System.out.println(Utils.getCurrentQuestion()); //Get current question
+        questionScreenCtrl.init();
     }
 }
