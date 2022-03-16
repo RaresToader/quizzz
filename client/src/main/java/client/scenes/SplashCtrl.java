@@ -70,6 +70,8 @@ public class SplashCtrl {
         leaderboard.setVisible(false);
         playerCounterLabel.setVisible(false);
         playerCounter.setVisible(false);
+        adminPanelButton.setDisable(true);
+        adminPanelButton.setVisible(false);
     }
 
     /**
@@ -89,6 +91,8 @@ public class SplashCtrl {
         playerCounter.setVisible(false);
         playerCounterLabel.setVisible(true);
         playerCounter.setVisible(true);
+        adminPanelButton.setDisable(false);
+        adminPanelButton.setVisible(true);
 
     }
 
