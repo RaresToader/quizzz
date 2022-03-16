@@ -86,5 +86,20 @@ public class QuizzQuestion {
         return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
     }
 
+    public String getMostExpensive() {
+        Activity highest = this.firstChoice;
+        Activity second = this.secondChoice;
+        Activity third = this.thirdChoice;
+
+        if (second.getConsumption_in_wh() > highest.getConsumption_in_wh()) {
+            highest = second;
+        }
+
+        if (third.getConsumption_in_wh() > highest.getConsumption_in_wh()) {
+            highest = third;
+        }
+
+        return highest.getTitle();
+    }
 
 }

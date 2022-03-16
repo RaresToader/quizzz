@@ -35,7 +35,7 @@ public class ActivityController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Activity> getActivityById(@PathVariable long id) {
+    public ResponseEntity<Activity> getActivityById(@PathVariable String id) {
         if (this.activityRepository.findById(id).isEmpty())
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(this.activityRepository.findById(id).get());
@@ -57,7 +57,7 @@ public class ActivityController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Activity> deleteActivityById(@PathVariable Long id) {
+    public ResponseEntity<Activity> deleteActivityById(@PathVariable String id) {
         if (activityRepository.findById(id).isEmpty())
             return ResponseEntity.badRequest().build();
         activityRepository.deleteById(id);
@@ -67,9 +67,9 @@ public class ActivityController {
     @PutMapping("/modify")
     public ResponseEntity<Activity> modifyActivity(@RequestBody Activity activity) {
 
-        if (activity == null || activityRepository.findById(activity.getRealID()).isEmpty() || activity.getTitle() == null || activity.getSource() == null)
+        if (activity == null || activityRepository.findById(activity.getId()).isEmpty() || activity.getTitle() == null || activity.getSource() == null)
             return ResponseEntity.badRequest().build();
-        Activity toBeModified = activityRepository.getById(activity.getRealID());
+        Activity toBeModified = activityRepository.getById(activity.getId());
         toBeModified.setConsumption_in_wh(activity.getConsumption_in_wh());
         toBeModified.setSource(activity.getSource());
         toBeModified.setTitle(activity.getTitle());

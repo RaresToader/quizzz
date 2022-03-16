@@ -29,7 +29,7 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public List<Activity> findAllById(Iterable<Long> longs) {
+    public List<Activity> findAllById(Iterable<String> strings) {
         return null;
     }
 
@@ -59,7 +59,7 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public void deleteAllByIdInBatch(Iterable<Long> longs) {
+    public void deleteAllByIdInBatch(Iterable<String> strings) {
 
     }
 
@@ -69,18 +69,18 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public Activity getOne(Long aLong) {
+    public Activity getOne(String string) {
         return null;
     }
 
     @Override
-    public Activity getById(Long id) {
+    public Activity getById(String id) {
         calledMethods.add("getById");
         return find(id).get();
     }
 
-    private Optional<Activity> find(Long id) {
-        return activities.stream().filter(q -> q.getRealID() == id).findFirst();
+    private Optional<Activity> find(String id) {
+        return activities.stream().filter(q -> q.getId().equals(id)).findFirst();
     }
 
     @Override
@@ -106,15 +106,15 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public Optional<Activity> findById(Long aLong) {
+    public Optional<Activity> findById(String string) {
         calledMethods.add("findById");
-        return find(aLong);
+        return find(string);
     }
 
     @Override
-    public boolean existsById(Long aLong) {
+    public boolean existsById(String string) {
         calledMethods.add("existsById");
-        return find(aLong).isPresent();
+        return find(string).isPresent();
     }
 
     @Override
@@ -123,9 +123,9 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public void deleteById(Long aLong) {
+    public void deleteById(String id) {
         calledMethods.add("deleteById");
-        activities.stream().filter(x -> x.getRealID() != aLong).toList();
+        activities.stream().filter(x -> !(x.getId().equals(id))).toList();
     }
 
     @Override
@@ -134,7 +134,7 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public void deleteAllById(Iterable<? extends Long> longs) {
+    public void deleteAllById(Iterable<? extends String> strings) {
 
     }
 

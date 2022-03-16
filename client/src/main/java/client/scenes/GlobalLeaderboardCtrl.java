@@ -23,6 +23,8 @@ public class GlobalLeaderboardCtrl {
     private TableColumn<Player,String> nameColumn;
     @FXML
     private TableColumn<Player,Long> scoreColumn;
+    @FXML
+    private Button playAgain;
 
     @Inject
     public GlobalLeaderboardCtrl(MainCtrl mainCtrl,ServerUtils serverUtils) {
@@ -40,5 +42,13 @@ public class GlobalLeaderboardCtrl {
         ObservableList<Player> players = FXCollections.observableArrayList();
         players.addAll(serverUtils.getAllPlayers());
         tableView.setItems(players);
+    }
+
+    public void newGame(){
+        mainCtrl.showSingleplayer();
+    }
+    public void buttonOnOrOff(boolean isFromSplash) {
+        this.playAgain.setVisible(!isFromSplash);
+        this.playAgain.setDisable(isFromSplash);
     }
 }
