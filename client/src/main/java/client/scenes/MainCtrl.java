@@ -98,7 +98,8 @@ public class MainCtrl {
         primaryStage.close();
     }
 
-    public void showGlobalLeaderboard() {
+    public void showGlobalLeaderboard(boolean isFromSplash) {
+        globalLeaderboardCtrl.buttonOnOrOff(isFromSplash);
         primaryStage.setTitle("Global Leaderboard");
         primaryStage.setScene(this.globalLeadScreen);
     }
@@ -127,6 +128,7 @@ public class MainCtrl {
     public void showSingleplayer() {
         primaryStage.setTitle("Singleplayer");
         primaryStage.setScene(this.questionScreen);
+        this.questionScreenCtrl.init();
         System.out.println(Utils.getCurrentQuestion()); //Get current question
     }
 }

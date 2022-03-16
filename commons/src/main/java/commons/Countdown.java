@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Countdown {
 
-    int currTime = 30;
+    int currTime = 20;
 
     Timer timer = new Timer();
 
