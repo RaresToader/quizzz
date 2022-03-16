@@ -44,7 +44,7 @@ public class EnterMenuCtrl {
         String nickname = username.getText();
         String serverAddr = server.getText();
         if (nickname != null && nickname.length() > 0 && Utils.isAlphaNumeric(nickname)) { //Invalid nickname
-            if (serverAddr == null || serverAddr.length() == 0) { //Invalid serverAddr
+            if (serverAddr == null || serverAddr.length() == 0 || !Utils.validateServer(serverAddr)) { //Invalid serverAddr
                 errorText.setText("Server address is invalid");
                 return;
             }
