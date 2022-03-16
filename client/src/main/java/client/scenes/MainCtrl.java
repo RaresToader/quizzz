@@ -82,7 +82,8 @@ public class MainCtrl {
         primaryStage.close();
     }
 
-    public void showGlobalLeaderboard() {
+    public void showGlobalLeaderboard(boolean isFromSplash) {
+        globalLeaderboardCtrl.buttonOnOrOff(isFromSplash);
         primaryStage.setTitle("Global Leaderboard");
         primaryStage.setScene(this.globalLeadScreen);
     }

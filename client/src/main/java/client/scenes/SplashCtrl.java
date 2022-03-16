@@ -90,7 +90,7 @@ public class SplashCtrl {
 
     public void leaderboardButton() {
         globalLeaderboardCtrl.initialize();
-        mainCtrl.showGlobalLeaderboard();
+        mainCtrl.showGlobalLeaderboard(true);
     }
 
     public void goToMultiplayerQueue() {

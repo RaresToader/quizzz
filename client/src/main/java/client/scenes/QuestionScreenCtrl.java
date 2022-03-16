@@ -25,7 +25,7 @@ import java.util.TimerTask;
 public class QuestionScreenCtrl {
 
     private final MainCtrl mainCtrl;
-    private final RandomSelection selection = new RandomSelection();
+    private RandomSelection selection;
     private final ServerUtils serverUtils;
     private QuizzQuestion currQuestion = new QuizzQuestion("Not assigned", null,null,null);
     private int questionNo = 0;
@@ -139,6 +139,7 @@ public class QuestionScreenCtrl {
      * Initialise a singerplayer game
      */
     public void init() {
+        selection= new RandomSelection();
         nextDisplay();
     }
 
@@ -208,7 +209,11 @@ public class QuestionScreenCtrl {
 
                             @Override
                             public void handle(ActionEvent event) {
-                                mainCtrl.showGlobalLeaderboard();
+
+                                mainCtrl.showGlobalLeaderboard(false);
+                                thirdChoice.setVisible(true);
+                                finalScreen.setDisable(true);
+                                finalScreen.setVisible(false);
                             }
                         }
                 )
