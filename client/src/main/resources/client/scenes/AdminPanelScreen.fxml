@@ -39,7 +39,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button id="quitButton" fx:id="quitButton" graphicTextGap="0.0" layoutX="18.0" layoutY="581.0" mnemonicParsing="false" onAction="#visibleConfirmQuitPopUp" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Quit" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <Button id="quitButton" fx:id="quitButton" graphicTextGap="0.0" layoutX="18.0" layoutY="581.0" mnemonicParsing="false" onAction="#visibleConfirmQuitPopUp" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Back" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -55,7 +55,7 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Button id="adminPanelButton" fx:id="adminPanelButton" alignment="CENTER" layoutX="866.0" layoutY="342.0" mnemonicParsing="false" onAction="#adminPanelButton" prefHeight="82.0" prefWidth="179.0" styleClass="standardButton" text="Admin Panel" textAlignment="CENTER" textFill="WHITE">
+      <Button id="leaderboardButton" fx:id="adminButton" alignment="CENTER" layoutX="866.0" layoutY="342.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="179.0" styleClass="standardButton" text="Admin Panel" textAlignment="CENTER" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -76,7 +76,7 @@
          <font>
             <Font size="36.0" />
          </font></Label>
-      <Label id="titleLabel" contentDisplay="RIGHT" graphicTextGap="40.0" layoutX="445.0" layoutY="56.0" prefHeight="118.0" prefWidth="514.0" styleClass="title" text="Quizzzz" textAlignment="CENTER" textFill="WHITE">
+      <Label id="titleLabel" contentDisplay="RIGHT" graphicTextGap="40.0" layoutX="445.0" layoutY="56.0" prefHeight="118.0" prefWidth="514.0" styleClass="title" text="Admin Panel" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="72.0" />
          </font>

@@ -38,6 +38,8 @@ public class MainCtrl {
     private Scene splashScreen;
     private GlobalLeaderboardCtrl globalLeaderboardCtrl;
     private Scene globalLeadScreen;
+    private AdminPanelCtrl adminPanelCtrl;
+    private Scene adminPanelScreen;
     private Scene queueScreen;
     private QueueCtrl queueCtrl;
     private QuestionScreenCtrl questionScreenCtrl;
@@ -45,7 +47,7 @@ public class MainCtrl {
     private static final String iconPath = "/photos/clientIcon.png";
 
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
-                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue) {
+                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue, Pair<AdminPanelCtrl, Parent> admin) {
 
         this.primaryStage = primaryStage;
         this.enterMenuCtrl = enterMenu.getKey();
@@ -59,6 +61,9 @@ public class MainCtrl {
 
         this.globalLeaderboardCtrl = globalLeaderboard.getKey();
         this.globalLeadScreen = new Scene(globalLeaderboard.getValue());
+
+        this.adminPanelCtrl = admin.getKey();
+        this.adminPanelScreen = new Scene(admin.getValue());
 
         this.questionScreenCtrl = questionScreen.getKey();
         this.questionScreen = new Scene(questionScreen.getValue());
@@ -96,5 +101,9 @@ public class MainCtrl {
         primaryStage.setTitle("Singleplayer");
         primaryStage.setScene(this.questionScreen);
         System.out.println(Utils.getCurrentQuestion()); //Get current question
+    }
+    public void showAdminPanel() {
+        primaryStage.setTitle("Admin Panel");
+        primaryStage.setScene(this.adminPanelScreen);
     }
 }
