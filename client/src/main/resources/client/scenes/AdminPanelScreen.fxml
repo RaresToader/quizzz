@@ -3,43 +3,12 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #191919;" stylesheets="client\src\main\resources\client\scenes\AdminPanelStylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminPanelCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #191919;" stylesheets="/client/scenes/AdminPanelStylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminPanelCtrl">
    <children>
-      <Button id="singleplayerButton" fx:id="single" alignment="CENTER" graphicTextGap="10.0" layoutX="400.0" layoutY="220.0" mnemonicParsing="false" onAction="#toSinglePlayer" prefHeight="132.0" prefWidth="427.0" styleClass="standardButton" text="Singleplayer" textAlignment="CENTER" textFill="WHITE">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-         <font>
-            <Font size="48.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="105.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <!--Image url="/photos/singleplayerPhoto.png" /-->
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button id="multiplayerButton" fx:id="multi" graphicTextGap="10.0" layoutX="400.0" layoutY="420.0" mnemonicParsing="false" onAction="#goToMultiplayerQueue" prefHeight="132.0" prefWidth="427.0" styleClass="standardButton" text="Multiplayer" textAlignment="CENTER" textFill="WHITE">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-         <font>
-            <Font size="48.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="102.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <!--Image url="/photos/multiPlayerphoto.png" /-->
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button id="quitButton" fx:id="quitButton" graphicTextGap="0.0" layoutX="18.0" layoutY="581.0" mnemonicParsing="false" onAction="#visibleConfirmQuitPopUp" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Back" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <Button id="quitButton" fx:id="backToSplashButton" graphicTextGap="0.0" layoutX="18.0" layoutY="581.0" mnemonicParsing="false" onAction="#goBackToSplash" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Back" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -47,46 +16,14 @@
             <Font size="48.0" />
          </font>
       </Button>
-      <Button id="leaderboardButton" fx:id="leaderboard" alignment="CENTER" layoutX="866.0" layoutY="240.0" mnemonicParsing="false" onAction="#leaderboardButton" prefHeight="82.0" prefWidth="179.0" styleClass="standardButton" text="Leaderboard" textAlignment="CENTER" textFill="WHITE">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
-      <Button id="leaderboardButton" fx:id="adminButton" alignment="CENTER" layoutX="866.0" layoutY="342.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="179.0" styleClass="standardButton" text="Admin Panel" textAlignment="CENTER" textFill="WHITE">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
-      <Label id="playerCounterLabel" fx:id="playerCounterLabel" layoutX="532.0" layoutY="575.0" prefHeight="38.0" prefWidth="445.0" styleClass="label" text="players currently online" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label id="playerCountNumber" fx:id="playerCounter" layoutX="495.0" layoutY="575.0" prefHeight="35.0" prefWidth="100.0" styleClass="label" text="x" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font></Label>
       <Label id="groupLabel" layoutX="1075.0" layoutY="644.0" text="\@Group 76" textFill="WHITE">
          <font>
             <Font size="36.0" />
          </font></Label>
-      <Label id="titleLabel" contentDisplay="RIGHT" graphicTextGap="40.0" layoutX="445.0" layoutY="56.0" prefHeight="118.0" prefWidth="514.0" styleClass="title" text="Admin Panel" textAlignment="CENTER" textFill="WHITE">
+      <Label id="titleLabel" contentDisplay="RIGHT" graphicTextGap="40.0" layoutX="328.0" layoutY="56.0" prefHeight="118.0" prefWidth="631.0" styleClass="title" text="Admin Panel" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="72.0" />
-         </font>
-         <graphic>
-            <ImageView id="zapp" fitHeight="118.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <!--Image url="/photos/zapp!.png" /-->
-               </image>
-            </ImageView>
-         </graphic></Label>
+         </font></Label>
       <AnchorPane fx:id="confirmQuitAnchor" disable="true" layoutX="358.0" layoutY="193.0" prefHeight="379.0" prefWidth="500.0" style="-fx-background-color: #191919;" visible="false">
          <children>
             <Label id="quitQuestionLabel" fx:id="quitQuestionLabel" layoutX="28.0" layoutY="72.0" prefHeight="38.0" prefWidth="445.0" styleClass="label" text="Do you really want to quit?" textFill="WHITE">
@@ -94,7 +31,7 @@
                   <Font size="39.0" />
                </font>
             </Label>
-            <Button id="confirmQuitButton" fx:id="confirmQuitButton" graphicTextGap="0.0" layoutX="41.0" layoutY="149.0" mnemonicParsing="false" onAction="#quit" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Quit" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+            <Button id="confirmQuitButton" fx:id="confirmQuitButton" graphicTextGap="0.0" layoutX="41.0" layoutY="149.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Quit" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
@@ -102,7 +39,7 @@
                   <Font size="40.0" />
                </font>
             </Button>
-            <Button id="quitButton" fx:id="cancelQuitButton" graphicTextGap="0.0" layoutX="277.0" layoutY="149.0" mnemonicParsing="false" onAction="#invisibleConfirmQuitPopUp" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Cancel" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+            <Button id="quitButton" fx:id="cancelQuitButton" graphicTextGap="0.0" layoutX="277.0" layoutY="149.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Cancel" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
