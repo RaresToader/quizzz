@@ -58,7 +58,6 @@ public class SplashCtrl {
 
     //Method to be inited after choosing this screen
     public void init() {
-        System.out.println("Initiated");
         activePlayersTimer = new Timer();
 
         activePlayersTimer.scheduleAtFixedRate(new TimerTask() {
