@@ -58,4 +58,21 @@ public class Utils {
                 .accept(APPLICATION_JSON) //
                 .get(Boolean.class);
     }
+
+    /**
+     * Invokes to /verification path and check whether provided serverAddress is valid address of QuizzGame
+     * @param serverAddr - provided serverAddr
+     * @return Boolean value whether serverAddr is correct or not
+     */
+    public static boolean validateServer(String serverAddr) {
+        String serverPath = "http://"+serverAddr;
+        String path       = "/verification";
+        int retNum = ClientBuilder.newClient(new ClientConfig()) //
+                .target(serverPath).path(path) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(Integer.class);
+
+        return retNum >= 100 && retNum <= 110;
+    }
 }
