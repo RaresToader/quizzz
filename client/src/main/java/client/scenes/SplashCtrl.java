@@ -14,12 +14,14 @@ public class SplashCtrl {
     private MainCtrl mainCtrl;
     private final ServerUtils serverUtils;
     private GlobalLeaderboardCtrl globalLeaderboardCtrl;
+    private AdminPanelCtrl adminPanelCtrl;
 
     @Inject
-    public SplashCtrl(MainCtrl mainCtrl,ServerUtils serverUtils,GlobalLeaderboardCtrl globalLeaderboardCtrl) {
+    public SplashCtrl(MainCtrl mainCtrl, ServerUtils serverUtils, GlobalLeaderboardCtrl globalLeaderboardCtrl, AdminPanelCtrl adminPanelCtrl) {
         this.mainCtrl = mainCtrl;
-        this.serverUtils=serverUtils;
+        this.serverUtils = serverUtils;
         this.globalLeaderboardCtrl = globalLeaderboardCtrl;
+        this.adminPanelCtrl = adminPanelCtrl;
 
     }
 
@@ -59,7 +61,7 @@ public class SplashCtrl {
      * are also made visible and enabled.
      */
 
-    public void visibleConfirmQuitPopUp(){
+    public void visibleConfirmQuitPopUp() {
         confirmQuitAnchor.setVisible(true);
         confirmQuitAnchor.setDisable(false);
         confirmQuitButton.setDisable(false);
@@ -79,7 +81,7 @@ public class SplashCtrl {
      * visibleConfirmQuitPopUp-method and the screen will be the same as it first was.
      */
 
-    public void invisibleConfirmQuitPopUp(){
+    public void invisibleConfirmQuitPopUp() {
         confirmQuitAnchor.setVisible(false);
         confirmQuitAnchor.setDisable(true);
         confirmQuitButton.setDisable(true);
@@ -115,7 +117,8 @@ public class SplashCtrl {
         mainCtrl.showGlobalLeaderboard(true);
     }
 
-    public void adminPanelButton(){
+    public void adminPanelButton() {
+        adminPanelCtrl.initialise();
         mainCtrl.showAdminPanel();
 
     }

@@ -83,6 +83,19 @@ public class ServerUtils {
     }
 
     /**
+     * Adds an activity to the database
+     *
+     * @param activity the activity to be added
+     * @return the added activity
+     */
+    public Activity addActivity(Activity activity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/add").request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(activity, APPLICATION_JSON), Activity.class);
+    }
+
+    /**
      * Retrieves a list of 60 Random Activities
      *
      * @return a list of 60 activities
@@ -125,6 +138,7 @@ public class ServerUtils {
 
     /**
      * Get the correct answer
+     *
      * @return a string
      */
     public String getCorrect() {
@@ -137,13 +151,15 @@ public class ServerUtils {
 
     /**
      * Gets the top 10 players according to score, in descending order
+     *
      * @return a list of the top 10 players
      */
-    public List<Player> getLeaderboardPlayers(){
+    public List<Player> getLeaderboardPlayers() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("/player/leaderboard").request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<List<Player>>(){});
+                .get(new GenericType<List<Player>>() {
+                });
     }
 
 }
