@@ -4,16 +4,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
 public class QuizzQuestion {
-
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public long id;
-
     private String question;
     private Activity firstChoice;
     private Activity secondChoice;
@@ -28,14 +21,6 @@ public class QuizzQuestion {
         this.firstChoice = firstChoice;
         this.secondChoice = secondChoice;
         this.thirdChoice = thirdChoice;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getQuestion() {
@@ -70,6 +55,21 @@ public class QuizzQuestion {
         this.thirdChoice = thirdChoice;
     }
 
+    public String getMostExpensive() {
+        Activity highest = this.firstChoice;
+        Activity second = this.secondChoice;
+        Activity third = this.thirdChoice;
+
+        if (second.getConsumption_in_wh() > highest.getConsumption_in_wh()) {
+            highest = second;
+        }
+
+        if (third.getConsumption_in_wh() > highest.getConsumption_in_wh()) {
+            highest = third;
+        }
+
+        return highest.getTitle();
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -86,20 +86,6 @@ public class QuizzQuestion {
         return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
     }
 
-    public String getMostExpensive() {
-        Activity highest = this.firstChoice;
-        Activity second = this.secondChoice;
-        Activity third = this.thirdChoice;
 
-        if (second.getConsumption_in_wh() > highest.getConsumption_in_wh()) {
-            highest = second;
-        }
-
-        if (third.getConsumption_in_wh() > highest.getConsumption_in_wh()) {
-            highest = third;
-        }
-
-        return highest.getTitle();
-    }
 
 }

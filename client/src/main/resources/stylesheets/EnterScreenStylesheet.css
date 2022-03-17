@@ -16,6 +16,5 @@
 }
 
 #errorText {
-    -fx-translate-x: -40pt;
     -fx-opacity: 0;
 }

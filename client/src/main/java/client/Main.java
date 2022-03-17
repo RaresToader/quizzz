@@ -41,8 +41,9 @@ public class Main extends Application {
         var queue = FXML.load(QueueCtrl.class, "client", "scenes", "QueueScreen.fxml");
         var globalLeaderboard = FXML.load(GlobalLeaderboardCtrl.class, "client", "scenes", "GlobalLeaderboard.fxml");
         var adminPanel = FXML.load(AdminPanelCtrl.class, "client", "scenes", "AdminPanelScreen.fxml");
+        var singleLobby = FXML.load(SingleplayerLobbyCtrl.class, "client", "scenes", "SingleplayerLobbyScreen.fxml");
         var questionScreen = FXML.load(QuestionScreenCtrl.class, "client", "scenes", "QuestionScreen.fxml");
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, enterMenu, splash, globalLeaderboard, questionScreen, queue, adminPanel);
+        mainCtrl.initialize(primaryStage, enterMenu, splash, globalLeaderboard, questionScreen, queue, singleLobby, adminPanel);
     }
 }
