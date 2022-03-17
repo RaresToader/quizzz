@@ -125,6 +125,7 @@ public class ServerUtils {
 
     /**
      * Get the correct answer
+     *
      * @return a string
      */
     public String getCorrect() {
@@ -137,13 +138,29 @@ public class ServerUtils {
 
     /**
      * Gets the top 10 players according to score, in descending order
+     *
      * @return a list of the top 10 players
      */
-    public List<Player> getLeaderboardPlayers(){
+    public List<Player> getLeaderboardPlayers() {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("/player/leaderboard").request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<List<Player>>(){});
+                .get(new GenericType<List<Player>>() {
+                });
     }
 
+    /**
+     * Updates a player in the database if his score is higher than the score already stored.
+     *
+     * @param id     the id of the player whose score is going to be updated.
+     * @param points the amount of points that are going to be added
+     * @return the updated player
+     */
+    public Player updatePlayerInRepo(String id, long points) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("/player/update/")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .put(Entity.entity(new Player(id, points), APPLICATION_JSON), Player.class);
+    }
 }
