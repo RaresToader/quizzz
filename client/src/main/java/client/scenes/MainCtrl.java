@@ -15,6 +15,7 @@
  */
 package client.scenes;
 
+import client.Session;
 import client.utils.Utils;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
@@ -33,13 +34,7 @@ import javafx.util.Pair;
 public class MainCtrl {
 
     private Stage primaryStage;
-    /*
-    private QuoteOverviewCtrl overviewCtrl;
-    private Scene overview;
 
-    private AddQuoteCtrl addCtrl;
-    private Scene add;
-    */
     private EnterMenuCtrl enterMenuCtrl;
     private Scene enterMenu;
     private SplashCtrl splashCtrl;
@@ -157,6 +152,7 @@ public class MainCtrl {
     }
 
     public void showSingleplayerLobby() {
+        sLobbyCtrl.playerNameLabel.setText(Session.getNickname());
         primaryStage.setTitle("Singleplayer Lobby");
         primaryStage.setScene(this.sLobbyScreen);
     }
