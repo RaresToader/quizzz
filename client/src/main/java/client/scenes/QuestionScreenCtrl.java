@@ -4,10 +4,7 @@ import client.Session;
 import client.utils.ServerUtils;
 import client.utils.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import commons.Player;
-import commons.Points;
-import commons.QuizzQuestion;
-import commons.QuizzQuestionServerParsed;
+import commons.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -128,18 +125,25 @@ public class QuestionScreenCtrl {
                     public void run() {
                         try {
                             QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion();
-                            QuizzQuestion newQuestion = quizzQuestionServerParsed.getQuestion();
-                            Session.setQuestionNum(quizzQuestionServerParsed.getQuestionNum());
-                            System.out.println(Session.getQuestionNum());
-                            if(!newQuestion.equals(currQuestion)) {
-                                currQuestion = newQuestion;
+                            System.out.println(quizzQuestionServerParsed);
+                            if(quizzQuestionServerParsed.equals(new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity(),new Activity(),new Activity()),-1,-1))){
+                                questionUpdateTimer.cancel();
+                                toEnd = true;
                             }
+                            else {
+                                QuizzQuestion newQuestion = quizzQuestionServerParsed.getQuestion();
+                                Session.setQuestionNum(quizzQuestionServerParsed.getQuestionNum());
+                                if(!newQuestion.equals(currQuestion)) {
+                                    currQuestion = newQuestion;
+                                    if(Session.getQuestionNum()==0){
+                                        setNewQuestion();
+                                    }
+                                }
+                            }
+                            System.out.println(Session.getQuestionNum());
+
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
-                        }
-
-                        if(Session.getQuestionNum() >= 9){
-                            questionUpdateTimer.cancel();
                         }
                     }
                 });
@@ -156,12 +160,8 @@ public class QuestionScreenCtrl {
             endOfGame();
             return;
         }
-        if(Session.getQuestionNum() == 9){
-            toEnd = true;
-        }
         setNewQuestion();
         restartTimer();
-
     }
 
     /**

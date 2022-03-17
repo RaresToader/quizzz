@@ -72,12 +72,12 @@ public class Session {
     }
 
     public QuizzQuestionServerParsed getCurrentQuestion() {
-        if (!this.started) return null;
+        if (!this.started) return new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity(),new Activity(),new Activity()),-1,-1);
 
         //If there have already been 20 questions, end the game
         if(currentQuestion >= questions.size()) {
             this.endGame();
-            return null;
+            return new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity(),new Activity(),new Activity()),-1,-1);
         }
 
         Date date = new Date();

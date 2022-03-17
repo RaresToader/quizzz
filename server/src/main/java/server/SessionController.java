@@ -1,5 +1,6 @@
 package server;
 
+import commons.Activity;
 import commons.Answer;
 import commons.QuizzQuestion;
 import commons.QuizzQuestionServerParsed;
@@ -38,7 +39,7 @@ public class SessionController {
         Session x = SessionContainer.getSession(sessionId);
 
         if(x.hasEnded()) {
-            return new QuizzQuestionServerParsed(new QuizzQuestion("0",null,null,null),-1,-1);
+            return new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity(),new Activity(),new Activity()),-1,-1);
         }
 
         if(!x.isStarted()) { //If game is not started
@@ -46,7 +47,7 @@ public class SessionController {
         }
 
         QuizzQuestionServerParsed retQ = x.getCurrentQuestion();
-        if (retQ == null) return new QuizzQuestionServerParsed(new QuizzQuestion("0", null, null, null),-1,-1); //DEBUG line
+        if (retQ .equals( new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity(),new Activity(),new Activity()),-1,-1))) return new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity(),new Activity(),new Activity()),-1,-1); //DEBUG line
         else return retQ;
     }
 
