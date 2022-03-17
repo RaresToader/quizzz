@@ -16,7 +16,6 @@
 package client.scenes;
 
 import client.Session;
-import client.utils.Utils;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
