@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
- import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.inject.Inject;
@@ -128,37 +128,38 @@ public class AdminPanelCtrl {
         String consumption_in_wh = consumption.getText();
         String imagePathing = imagePath.getText();
         String activitySource = source.getText();
-        if (!NumberUtils.isParsable(consumption_in_wh) || StringUtils.contains(consumption_in_wh, ".")) {
-            addButton();
-            consumption.clear();
-            consumption.setPromptText("Please enter a valid number!");
-        }
-        if (!Utils.isAlphaNumeric(ID) || ID.length()==0) {
-            addButton();
+        if (!Utils.isAlphaNumeric(ID) || ID.length() == 0) {
             id.clear();
             id.setPromptText("Please enter a valid id!");
-        }
-        if (!Utils.isAlphaNumeric(activityTitle) ||activityTitle.length()==0) {
-            addButton();
-            title.clear();
-            title.setPromptText("Please enter a valid title!");
-        }
-        if (!Utils.isAlphaNumeric(imagePathing) || imagePathing.length()==0) {
-            addButton();
-            imagePath.clear();
-            imagePath.setPromptText("Please enter a valid image path!");
-        }
-        if (!Utils.isAlphaNumeric(activitySource)|| activitySource.length()==0) {
-            addButton();
-            source.clear();
-            source.setPromptText("Please enter a valid source!");
+            return;
         }
         if (serverUtils.doesActivityExist(ID)) {
-            addButton();
             id.clear();
             id.setPromptText("ID already exists!");
+            return;
         }
-        serverUtils.addActivity(new Activity(ID, activityTitle, imagePathing, Long.parseLong(consumption_in_wh), activitySource));
+        if (!Utils.isAlphaNumeric(activityTitle) || activityTitle.length() == 0) {
+            title.clear();
+            title.setPromptText("Please enter a valid title!");
+            return;
+        }
+        if (!NumberUtils.isParsable(consumption_in_wh) || StringUtils.contains(consumption_in_wh, ".")) {
+            consumption.clear();
+            consumption.setPromptText("Please enter a valid number!");
+            return;
+        }
+        if (!Utils.isAlphaNumeric(imagePathing) || imagePathing.length() == 0) {
+            imagePath.clear();
+            imagePath.setPromptText("Please enter a valid image path!");
+            return;
+        }
+        if (!Utils.isAlphaNumeric(activitySource) || activitySource.length() == 0) {
+            source.clear();
+            source.setPromptText("Please enter a valid source!");
+            return;
+        }
+
+        serverUtils.addActivity(new Activity(ID, imagePathing,activityTitle, Long.parseLong(consumption_in_wh), activitySource));
         id.clear();
         title.clear();
         imagePath.clear();
