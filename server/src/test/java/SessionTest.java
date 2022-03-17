@@ -50,7 +50,7 @@ public class SessionTest {
         Date date = new Date();
         QuizzQuestionServerParsed testQ = new QuizzQuestionServerParsed(new QuizzQuestion("This is test question", new Activity("abc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab")), date.getTime(),0);
         x.startGame();
-        assertEquals(testQ, x.getCurrentQuestion());
+        assertEquals(testQ.getQuestion(), x.getCurrentQuestion().getQuestion());
     }
 
     @Test
