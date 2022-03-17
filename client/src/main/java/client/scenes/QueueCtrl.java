@@ -34,6 +34,9 @@ public class QueueCtrl {
         mainCtrl.showSplash();
     }
 
+    /**
+     * Runs the loading icon animation for each element. The animation is created in MainCtrl
+     */
     public void runLoadingAnimation() {
         mainCtrl.rotationAnimation1.play();
         mainCtrl.rotationAnimation2.play();

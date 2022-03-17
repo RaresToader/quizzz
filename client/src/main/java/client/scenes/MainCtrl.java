@@ -47,8 +47,10 @@ public class MainCtrl {
     private Scene globalLeadScreen;
     private AdminPanelCtrl adminPanelCtrl;
     private Scene adminPanelScreen;
-    private Scene queueScreen;
     private QueueCtrl queueCtrl;
+    private Scene queueScreen;
+    private SingleplayerLobbyCtrl sLobbyCtrl;
+    private Scene sLobbyScreen;
     private QuestionScreenCtrl questionScreenCtrl;
     private Scene questionScreen;
     private static final String iconPath = "/photos/clientIcon.png";
@@ -59,7 +61,7 @@ public class MainCtrl {
     public RotateTransition rotationAnimation4;
 
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
-                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue, Pair<AdminPanelCtrl, Parent> admin) {
+                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue, Pair<SingleplayerLobbyCtrl, Parent> singleLobbyScreen, Pair<AdminPanelCtrl, Parent> admin) {
 
         this.primaryStage = primaryStage;
         this.enterMenuCtrl = enterMenu.getKey();
@@ -77,6 +79,9 @@ public class MainCtrl {
         this.adminPanelCtrl = admin.getKey();
         this.adminPanelScreen = new Scene(admin.getValue());
 
+        this.sLobbyCtrl = singleLobbyScreen.getKey();
+        this.sLobbyScreen = new Scene(singleLobbyScreen.getValue());
+
         this.questionScreenCtrl = questionScreen.getKey();
         this.questionScreen = new Scene(questionScreen.getValue());
         //Set program icon
@@ -84,6 +89,8 @@ public class MainCtrl {
         showEnterMenu();
         primaryStage.show();
 
+        // Create the animations for each loading icon element in the queue screen
+        // This is placed here so that it is reset everytime the queue screen is opened
         this.rotationAnimation1 = createRotationAnimation(queueCtrl.loadingCircle1);
         this.rotationAnimation2 = createRotationAnimation(queueCtrl.loadingCircle2);
         this.rotationAnimation3 = createRotationAnimation(queueCtrl.loadingCircle3);
@@ -126,6 +133,13 @@ public class MainCtrl {
         queueCtrl.runLoadingAnimation();
     }
 
+    /**
+     * Generates the loading animation for the node provided
+     * Should only be used for the 4 loading icon elements in the queue screen
+     *
+     * @param node provided will create a loading animation for the queue screen
+     * @return rotationAnimation which is then applied to the node and is played once the queue screen is openened
+     */
     public RotateTransition createRotationAnimation(Node node) {
         //Create a pivot offset to allow the circles to rotate around the pivot position instead of themselves
         double x = queueCtrl.pivot.getLayoutX()-node.getLayoutX();
@@ -139,6 +153,11 @@ public class MainCtrl {
         rotationAnimation.setCycleCount(Timeline.INDEFINITE);
 
         return rotationAnimation;
+    }
+
+    public void showSingleplayerLobby() {
+        primaryStage.setTitle("Singleplayer Lobby");
+        primaryStage.setScene(this.sLobbyScreen);
     }
 
     public void showSingleplayer() {
