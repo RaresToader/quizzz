@@ -159,6 +159,11 @@ public class AdminPanelCtrl {
             id.setPromptText("ID already exists!");
         }
         serverUtils.addActivity(new Activity(ID, activityTitle, imagePathing, Long.parseLong(consumption_in_wh), activitySource));
+        id.clear();
+        title.clear();
+        imagePath.clear();
+        consumption.clear();
+        source.clear();
         showButtonsAndTable();
         addAnchorPlane.setVisible(false);
     }
