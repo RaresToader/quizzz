@@ -75,7 +75,7 @@ public class Session {
         if (!this.started) return null;
 
         //If there have already been 20 questions, end the game
-        if(currentQuestion >= 20) {
+        if(currentQuestion >= questions.size()) {
             this.endGame();
             return null;
         }
