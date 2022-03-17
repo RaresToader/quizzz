@@ -28,6 +28,7 @@ import java.util.TimerTask;
 public class QuestionScreenCtrl {
 
     private final MainCtrl mainCtrl;
+    private boolean toEnd = false;
     private final QuizzQuestion endGame = new QuizzQuestion("0",null,null,null);
     private final ServerUtils serverUtils;
     private QuizzQuestion currQuestion = new QuizzQuestion("Not assigned", null,null,null);
@@ -128,6 +129,7 @@ public class QuestionScreenCtrl {
                             QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion();
                             QuizzQuestion newQuestion = quizzQuestionServerParsed.getQuestion();
                             Session.setQuestionNum(quizzQuestionServerParsed.getQuestionNum());
+                            System.out.println(Session.getQuestionNum());
                             if(!newQuestion.equals(currQuestion)) {
                                 currQuestion = newQuestion;
                             }
@@ -135,7 +137,7 @@ public class QuestionScreenCtrl {
                             e.printStackTrace();
                         }
 
-                        if(questionNo > 20){
+                        if(Session.getQuestionNum() >= 9){
                             questionUpdateTimer.cancel();
                         }
                     }
@@ -149,9 +151,12 @@ public class QuestionScreenCtrl {
      * checks if the game is over and if not display the next question and restarts the timer.
      */
     public void nextDisplay() {
-        if(currQuestion.equals(endGame)){
+        if(toEnd){
             endOfGame();
             return;
+        }
+        if(Session.getQuestionNum() == 9){
+            toEnd = true;
         }
         setNewQuestion();
         restartTimer();
