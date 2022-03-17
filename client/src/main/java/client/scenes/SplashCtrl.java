@@ -149,8 +149,8 @@ public class SplashCtrl {
         mainCtrl.showQueue();
     }
 
-    public void toSinglePlayer() {
+    public void toSinglePlayerLobby() {
         activePlayersTimer.cancel();
-        mainCtrl.showSingleplayer();
+        mainCtrl.showSingleplayerLobby();
     }
 }
