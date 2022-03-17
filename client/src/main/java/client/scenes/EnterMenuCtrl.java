@@ -43,8 +43,12 @@ public class EnterMenuCtrl {
         String nickname = username.getText();
         String serverAddr = server.getText();
         if (nickname != null && nickname.length() > 0 && Utils.isAlphaNumeric(nickname)) { //Invalid nickname
+            if (nickname.length() > 8) { //Invalid nickname length
+                displayErrorText("Username is too long! (max 8 characters)");
+                return;
+            }
             if (serverAddr == null || serverAddr.length() == 0 || !Utils.validateServer(serverAddr)) { //Invalid serverAddr
-                errorText.setText("Server address is invalid");
+                displayErrorText("Server address is invalid!");
                 return;
             }
 
@@ -54,12 +58,17 @@ public class EnterMenuCtrl {
             mainCtrl.showSplash();
         }
         else {
-            errorText.setOpacity(1);
-            FadeTransition errorFade = new FadeTransition(Duration.seconds(4), errorText);
-            errorFade.setFromValue(1);
-            errorFade.setToValue(0);
-            errorFade.play();
+            displayErrorText("Provided username is invalid!");
         }
 
+    }
+
+    private void displayErrorText(String text) {
+        errorText.setText(text);
+        errorText.setOpacity(1);
+        FadeTransition errorFade = new FadeTransition(Duration.seconds(4), errorText);
+        errorFade.setFromValue(1);
+        errorFade.setToValue(0);
+        errorFade.play();
     }
 }

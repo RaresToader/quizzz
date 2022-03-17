@@ -44,7 +44,7 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </TextField>
-      <Label id="errorText" fx:id="errorText" layoutX="451.0" layoutY="610.0" prefHeight="117.0" prefWidth="900.0" text="Provided username is invalid!" textAlignment="CENTER" textFill="RED">
+      <Label id="errorText" fx:id="errorText" alignment="CENTER" layoutX="11.0" layoutY="617.0" prefHeight="83.0" prefWidth="1236.0" text=" " textAlignment="CENTER" textFill="RED">
          <font>
             <Font name="Monaco" size="56.0" />
          </font>
