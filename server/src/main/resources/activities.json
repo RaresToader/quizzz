@@ -7,6 +7,13 @@
     "source": "https://blog.arcadia.com/electricity-costs-10-key-household-products/"
   },
   {
+    "id": "zecondtesting",
+    "image_path": "zecondtesting",
+    "title": "zegondtesting",
+    "consumption_in_wh": 50000,
+    "source": "zegondtest"
+  },
+  {
     "id": "02-nft",
     "image_path": "02/nft.png",
     "title": "Creating an NFT",
