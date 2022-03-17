@@ -153,11 +153,10 @@ public class QuestionScreenCtrl {
      * checks if the game is over and if not display the next question and restarts the timer.
      */
     public void nextDisplay() {
-        if(!selection.hasNext()){
+        if(false){
             endOfGame();
             return;
         }
-        currQuestion= selection.next();
         setNewQuestion();
         restartTimer();
 
