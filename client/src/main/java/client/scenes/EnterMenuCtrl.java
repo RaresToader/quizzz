@@ -60,6 +60,7 @@ public class EnterMenuCtrl {
         else {
             displayErrorText("Provided username is invalid!");
         }
+
     }
 
     private void displayErrorText(String text) {
