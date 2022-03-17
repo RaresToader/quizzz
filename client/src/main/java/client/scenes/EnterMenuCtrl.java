@@ -43,7 +43,7 @@ public class EnterMenuCtrl {
         String nickname = username.getText();
         String serverAddr = server.getText();
         if (nickname != null && nickname.length() > 0 && Utils.isAlphaNumeric(nickname)) { //Invalid nickname
-            if (nickname.length() > 8) {
+            if (nickname.length() > 8) { //Invalid nickname length
                 displayErrorText("Username is too long! (max 8 characters)");
                 return;
             }
