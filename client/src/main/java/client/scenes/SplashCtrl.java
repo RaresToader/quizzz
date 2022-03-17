@@ -134,7 +134,7 @@ public class SplashCtrl {
     }
 
     public void leaderboardButton() {
-        globalLeaderboardCtrl.initialize();
+        globalLeaderboardCtrl.init();
         activePlayersTimer.cancel();
         mainCtrl.showGlobalLeaderboard(true);
     }

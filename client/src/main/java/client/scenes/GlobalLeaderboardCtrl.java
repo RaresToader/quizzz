@@ -36,11 +36,11 @@ public class GlobalLeaderboardCtrl {
         mainCtrl.showSplash();
     }
 
-    public void initialize() {
+    public void init() {
         nameColumn.setCellValueFactory(new PropertyValueFactory("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory("score"));
         ObservableList<Player> players = FXCollections.observableArrayList();
-        players.addAll(serverUtils.getAllPlayers());
+        players.addAll(serverUtils.getLeaderboardPlayers());
         tableView.setItems(players);
     }
 

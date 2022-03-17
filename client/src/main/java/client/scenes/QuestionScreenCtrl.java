@@ -4,6 +4,7 @@ import client.Session;
 import client.utils.ServerUtils;
 import client.utils.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import commons.Player;
 import commons.Points;
 import commons.QuizzQuestion;
 import commons.QuizzQuestionServerParsed;
@@ -375,6 +376,10 @@ public class QuestionScreenCtrl {
      */
     public void endOfGame(){
         questionTimer.pause();
+        Player player = serverUtils.getPlayer(Session.getNickname());
+        if(player.getScore()<totalPoints){
+            serverUtils.updatePlayerInRepo(Session.getNickname(),totalPoints);
+        }
         firstBox.setVisible(false);
         //secondBox.setVisible(false);
         thirdBox.setVisible(false);
