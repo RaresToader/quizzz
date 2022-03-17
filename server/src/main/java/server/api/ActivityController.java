@@ -25,6 +25,20 @@ public class ActivityController {
         return activityRepository.findAll();
     }
 
+    /**
+     * Checks if an activity with the same id already exists
+     *
+     * @param id the id
+     * @return a boolean, true if an activity with that id already exists, false otherwise
+     */
+    @GetMapping("/exists/{id}")
+    public ResponseEntity<Boolean> exists(@PathVariable String id) {
+        if (id == null || activityRepository.findById(id).isEmpty()) {
+            return ResponseEntity.ok(false);
+        }
+        return ResponseEntity.ok(true);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Activity> addActivity(@RequestBody Activity toBeAdded) {
         if (toBeAdded == null || toBeAdded.getId() == null || toBeAdded.getSource() == null || toBeAdded.getTitle() == null) {

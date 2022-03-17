@@ -63,7 +63,7 @@
       </Button>
       <AnchorPane id="AddAnchorPane" fx:id="addAnchorPlane" layoutX="248.0" layoutY="174.0" prefHeight="420.0" prefWidth="915.0" visible="false">
          <children>
-            <TextField id="IDTextField" fx:id="username" layoutX="213.0" layoutY="30.0" prefHeight="53.0" prefWidth="329.0" promptText="ID" styleClass="inputText">
+            <TextField id="IDTextField" fx:id="id" layoutX="213.0" layoutY="30.0" prefHeight="53.0" prefWidth="329.0" promptText="ID" styleClass="inputText">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
@@ -71,7 +71,7 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <TextField id="TitleTextField" fx:id="username1" layoutX="212.0" layoutY="94.0" prefHeight="53.0" prefWidth="329.0" promptText="Title" styleClass="inputText">
+            <TextField id="TitleTextField" fx:id="title" layoutX="212.0" layoutY="94.0" prefHeight="53.0" prefWidth="329.0" promptText="Title" styleClass="inputText">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
@@ -79,7 +79,7 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <TextField id="ConsumptionTextField" fx:id="username2" layoutX="213.0" layoutY="158.0" prefHeight="53.0" prefWidth="329.0" promptText="Consumption" styleClass="inputText">
+            <TextField id="ConsumptionTextField" fx:id="consumption" layoutX="213.0" layoutY="158.0" prefHeight="53.0" prefWidth="329.0" promptText="Consumption" styleClass="inputText">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
@@ -87,7 +87,7 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <TextField id="ImageTextField" fx:id="username11" layoutX="213.0" layoutY="222.0" prefHeight="53.0" prefWidth="329.0" promptText="Image" styleClass="inputText">
+            <TextField id="ImageTextField" fx:id="imagePath" layoutX="213.0" layoutY="222.0" prefHeight="53.0" prefWidth="329.0" promptText="Image" styleClass="inputText">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
@@ -95,7 +95,7 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <TextField id="SourceTextField" fx:id="username111" layoutX="213.0" layoutY="287.0" prefHeight="53.0" prefWidth="329.0" promptText="Source" styleClass="inputText">
+            <TextField id="SourceTextField" fx:id="source" layoutX="213.0" layoutY="287.0" prefHeight="53.0" prefWidth="329.0" promptText="Source" styleClass="inputText">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
@@ -138,5 +138,13 @@
             </Button>
          </children>
       </AnchorPane>
+      <Button id="editButton" fx:id="loadActivities" graphicTextGap="0.0" layoutX="492.0" layoutY="581.0" mnemonicParsing="false" onAction="#setLoadActivities" prefHeight="57.0" prefWidth="140.0" styleClass="standardButton" text="Load" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -122,6 +122,21 @@ public class ServerUtils {
     }
 
     /**
+     * Checks if an activity already exists in the repository (with the same id)
+     *
+     * @param id the activity to be checked
+     * @return a boolean, true if an activity with the same id already exists in the repository,
+     * false otherwise
+     */
+    public Boolean doesActivityExist(String id) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/exists/" + id).request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<Boolean>() {
+                });
+    }
+
+    /**
      * Retrieves a list of 60 Random Activities
      *
      * @return a list of 60 activities
@@ -154,7 +169,7 @@ public class ServerUtils {
      * @param id the id of the activity
      * @return the activity from the repository
      */
-    public Activity getActivityById(long id) {
+    public Activity getActivityById(String id) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("activity/" + id).request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
