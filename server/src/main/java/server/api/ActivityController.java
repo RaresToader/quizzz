@@ -27,7 +27,7 @@ public class ActivityController {
 
     @PostMapping("/add")
     public ResponseEntity<Activity> addActivity(@RequestBody Activity toBeAdded) {
-        if (toBeAdded == null || toBeAdded.getSource() == null || toBeAdded.getTitle() == null) {
+        if (toBeAdded == null || toBeAdded.getId() == null || toBeAdded.getSource() == null || toBeAdded.getTitle() == null) {
             return ResponseEntity.badRequest().build();
         }
         Activity newActivity = activityRepository.save(toBeAdded);
@@ -67,7 +67,7 @@ public class ActivityController {
     @PutMapping("/modify")
     public ResponseEntity<Activity> modifyActivity(@RequestBody Activity activity) {
 
-        if (activity == null || activityRepository.findById(activity.getId()).isEmpty() || activity.getTitle() == null || activity.getSource() == null)
+        if (activity == null || activity.getId() == null || activityRepository.findById(activity.getId()).isEmpty() || activity.getTitle() == null || activity.getSource() == null)
             return ResponseEntity.badRequest().build();
         Activity toBeModified = activityRepository.getById(activity.getId());
         toBeModified.setConsumption_in_wh(activity.getConsumption_in_wh());
@@ -85,7 +85,7 @@ public class ActivityController {
         if (list.size() < 60)
             return ResponseEntity.badRequest().build();
         Collections.shuffle(list);
-        return ResponseEntity.ok(list.subList(0, 59));
+        return ResponseEntity.ok(list.subList(0, 60));
     }
 
 
