@@ -1,11 +1,12 @@
 package client.scenes;
 
+import client.Session;
 import client.utils.ServerUtils;
 import client.utils.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import commons.Points;
 import commons.QuizzQuestion;
-import commons.RandomSelection;
+import commons.QuizzQuestionServerParsed;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -27,11 +28,10 @@ import java.util.TimerTask;
 public class QuestionScreenCtrl {
 
     private final MainCtrl mainCtrl;
-    private RandomSelection selection;
+    private final QuizzQuestion endGame = new QuizzQuestion("0",null,null,null);
     private final ServerUtils serverUtils;
     private QuizzQuestion currQuestion = new QuizzQuestion("Not assigned", null,null,null);
     private int questionNo = 0;
-    private Points receivedPoints = new Points();
     private String chosenAnswer;
     private String correctAnswer;
     private int points;
@@ -115,6 +115,8 @@ public class QuestionScreenCtrl {
         //selection= new RandomSelection();
         //nextDisplay();
 
+        restartTimer();
+
         questionUpdateTimer = new Timer();
         questionUpdateTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -123,17 +125,11 @@ public class QuestionScreenCtrl {
                     @Override
                     public void run() {
                         try {
-                            QuizzQuestion newQuestion = Utils.getCurrentQuestion().getQuestion();
+                            QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion();
+                            QuizzQuestion newQuestion = quizzQuestionServerParsed.getQuestion();
+                            Session.setQuestionNum(quizzQuestionServerParsed.getQuestionNum());
                             if(!newQuestion.equals(currQuestion)) {
-                                questionNo += 1;
                                 currQuestion = newQuestion;
-
-                                question.setText(currQuestion.getQuestion());
-                                firstChoice.setText(currQuestion.getFirstChoice().getTitle());
-                                secondChoice.setText(currQuestion.getSecondChoice().getTitle());
-                                thirdChoice.setText(currQuestion.getThirdChoice().getTitle());
-
-                                correctAnswer = serverUtils.getCorrect();
                             }
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
@@ -153,7 +149,7 @@ public class QuestionScreenCtrl {
      * checks if the game is over and if not display the next question and restarts the timer.
      */
     public void nextDisplay() {
-        if(false){
+        if(currQuestion.equals(endGame)){
             endOfGame();
             return;
         }
@@ -166,6 +162,12 @@ public class QuestionScreenCtrl {
      * display the next question
      */
     public void setNewQuestion(){
+
+        question.setText(currQuestion.getQuestion());
+        firstActivity.setText(currQuestion.getFirstChoice().getTitle());
+        secondActivity.setText(currQuestion.getSecondChoice().getTitle());
+        thirdActivity.setText(currQuestion.getThirdChoice().getTitle());
+
         firstAnswer.setText("");
         secondAnswer.setText("");
         thirdAnswer.setText("");
@@ -176,11 +178,6 @@ public class QuestionScreenCtrl {
         firstBox.setStyle("-fx-background-color: #CED0CE");
         secondBox.setStyle("-fx-background-color: #CED0CE;");
         thirdBox.setStyle("-fx-background-color: #CED0CE;");
-
-        this.question.setText(currQuestion.getQuestion());
-        this.firstActivity.setText(currQuestion.getFirstChoice().getTitle());
-        this.secondActivity.setText(currQuestion.getSecondChoice().getTitle());
-        this.thirdActivity.setText(currQuestion.getThirdChoice().getTitle());
 
         firstChoice.setDisable(false);
         secondChoice.setDisable(false);
@@ -303,6 +300,8 @@ public class QuestionScreenCtrl {
      * @param chosenBox box of the answer that was chosen
      */
     public void check(Pane chosenBox)  {
+
+        Utils.submitAnswer(0);
 
         questionTimer.pause();
         points = timeLeft*25 + 500;

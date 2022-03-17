@@ -40,7 +40,25 @@ public class Session {
 
     private void generateTestQuestions() {
         QuizzQuestion q1 = new QuizzQuestion("This is test question", new Activity("abc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
+        QuizzQuestion q2 = new QuizzQuestion("This is test question2", new Activity("adfabc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
+        QuizzQuestion q3 = new QuizzQuestion("This is test question3", new Activity("a3bc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
+        QuizzQuestion q4 = new QuizzQuestion("This is test question4", new Activity("a2bc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
+        QuizzQuestion q5 = new QuizzQuestion("This is test question5", new Activity("a7bc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
+        QuizzQuestion q6 = new QuizzQuestion("This is test question76", new Activity("abc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
+        QuizzQuestion q7 = new QuizzQuestion("This is test question8", new Activity("abc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
+        QuizzQuestion q8= new QuizzQuestion("This is test question8", new Activity("abc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
+        QuizzQuestion q9 = new QuizzQuestion("This is test questio66n", new Activity("abc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
+        QuizzQuestion q10 = new QuizzQuestion("This is test question6", new Activity("abc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
         this.questions.add(q1);
+        this.questions.add(q2);
+        this.questions.add(q3);
+        this.questions.add(q4);
+        this.questions.add(q5);
+        this.questions.add(q6);
+        this.questions.add(q7);
+        this.questions.add(q8);
+        this.questions.add(q9);
+        this.questions.add(q10);
     }
 
     public boolean haveEveryoneAnswered() {
@@ -64,7 +82,7 @@ public class Session {
 
         Date date = new Date();
         //If everyone has answered that question OR this is first question OR time has passed then get new question
-        if(this.haveEveryoneAnswered() || questionStartedAt == -1 || date.getTime()-questionStartedAt >= 30000) {
+        if(this.haveEveryoneAnswered() || questionStartedAt == -1 || date.getTime()-questionStartedAt >= 20000) {
             this.currentQuestion++;
             this.questionStartedAt = date.getTime();
         }

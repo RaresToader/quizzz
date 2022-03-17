@@ -78,7 +78,7 @@ public class SessionController {
 
         Date date = new Date();
         //If question submitted 30 seconds or more after init of question
-        if(date.getTime() - x.getQuestionStartedAt() > 30000) {
+        if(date.getTime() - x.getQuestionStartedAt() > 20000) {
             return false;
         }
 
