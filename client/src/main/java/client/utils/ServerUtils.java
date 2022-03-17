@@ -96,6 +96,32 @@ public class ServerUtils {
     }
 
     /**
+     * Delete activity by its id
+     *
+     * @param id the id of an activity
+     * @return the deleted activity
+     */
+    public Activity deleteActivity(String id) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/delete/" + id).request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .delete(Activity.class);
+    }
+
+    /**
+     * Modifies an activity
+     *
+     * @param activity to be saved in the repository
+     * @return the modified activity
+     */
+    public Activity modifyActivity(Activity activity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/modify").request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .put(Entity.entity(activity, APPLICATION_JSON), Activity.class);
+    }
+
+    /**
      * Retrieves a list of 60 Random Activities
      *
      * @return a list of 60 activities
