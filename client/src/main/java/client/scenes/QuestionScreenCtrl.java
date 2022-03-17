@@ -2,11 +2,13 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import client.utils.Utils;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import commons.Points;
 import commons.QuizzQuestion;
 import commons.RandomSelection;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -50,34 +52,12 @@ public class QuestionScreenCtrl {
             )
     );
 
+    private Timer questionUpdateTimer;
+
     @Inject
     public QuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.serverUtils = server;
         this.mainCtrl = mainCtrl;
-
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run() {
-                        QuizzQuestion newQuestion = Utils.getCurrentQuestion().getQuestion();
-                        if(!newQuestion.equals(currQuestion)){
-                            questionNo += 1;
-                            currQuestion = newQuestion;
-
-                            question.setText(currQuestion.getQuestion());
-                            firstChoice.setText(currQuestion.getFirstChoice().getTitle());
-                            secondChoice.setText(currQuestion.getSecondChoice().getTitle());
-                            thirdChoice.setText(currQuestion.getThirdChoice().getTitle());
-
-                            correctAnswer = server.getCorrect();
-                        }
-
-                        if(questionNo > 20){
-                            timer.cancel();
-                        }
-                    }
-                }, 0, 1000
-        );
     }
 
     int progress = 0;
@@ -131,19 +111,48 @@ public class QuestionScreenCtrl {
      * Initialise a singerplayer game
      */
     public void init() {
-        selection= new RandomSelection();
-        nextDisplay();
+        //Commented out
+        //selection= new RandomSelection();
+        //nextDisplay();
 
+        questionUpdateTimer = new Timer();
+        questionUpdateTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            QuizzQuestion newQuestion = Utils.getCurrentQuestion().getQuestion();
+                            if(!newQuestion.equals(currQuestion)) {
+                                questionNo += 1;
+                                currQuestion = newQuestion;
+
+                                question.setText(currQuestion.getQuestion());
+                                firstChoice.setText(currQuestion.getFirstChoice().getTitle());
+                                secondChoice.setText(currQuestion.getSecondChoice().getTitle());
+                                thirdChoice.setText(currQuestion.getThirdChoice().getTitle());
+
+                                correctAnswer = serverUtils.getCorrect();
+                            }
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }
+
+                        if(questionNo > 20){
+                            questionUpdateTimer.cancel();
+                        }
+                    }
+                });
+
+            }
+        }, 0, 1000);
     }
 
     /**
      * checks if the game is over and if not display the next question and restarts the timer.
      */
     public void nextDisplay() {
-
-
-
-
         if(!selection.hasNext()){
             endOfGame();
             return;
@@ -158,7 +167,6 @@ public class QuestionScreenCtrl {
      * display the next question
      */
     public void setNewQuestion(){
-
         firstAnswer.setText("");
         secondAnswer.setText("");
         thirdAnswer.setText("");
