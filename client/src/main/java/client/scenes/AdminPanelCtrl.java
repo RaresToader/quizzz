@@ -6,9 +6,11 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 import javax.inject.Inject;
 import java.util.Timer;
@@ -31,6 +33,14 @@ public class AdminPanelCtrl {
     private TableColumn<Activity, String> sourceColumn;
     @FXML
     private TableColumn<Activity, String> titleColumn;
+    @FXML
+    private Button addButton;
+    @FXML
+    private Button editButton;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private AnchorPane addAnchorPlane;
 
     @Inject
     public AdminPanelCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
@@ -42,7 +52,6 @@ public class AdminPanelCtrl {
         refreshActivities.cancel();
         mainCtrl.showSplash();
     }
-
 
     public void initialise() {
         idColumn.setCellValueFactory(new PropertyValueFactory("id"));
@@ -61,5 +70,37 @@ public class AdminPanelCtrl {
             }
         }, 0, 5 * 1000);
 
+    }
+    public void hideButtonsAndTable(){
+        addButton.setVisible(false);
+        addButton.setDisable(true);
+        editButton.setVisible(false);
+        editButton.setDisable(true);
+        deleteButton.setVisible(false);
+        deleteButton.setDisable(true);
+        activitiesTable.setVisible(false);
+        activitiesTable.setDisable(true);
+
+    }
+    public void showButtonsAndTable(){
+        addButton.setVisible(true);
+        addButton.setDisable(false);
+        editButton.setVisible(true);
+        editButton.setDisable(false);
+        deleteButton.setVisible(true);
+        deleteButton.setDisable(false);
+        activitiesTable.setVisible(true);
+        activitiesTable.setDisable(false);
+
+    }
+
+    public void addButton(){
+        hideButtonsAndTable();
+        addAnchorPlane.setVisible(true);
+
+    }
+    public void okButton(){
+        showButtonsAndTable();
+        addAnchorPlane.setVisible(false);
     }
 }
