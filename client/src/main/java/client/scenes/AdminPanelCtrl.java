@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.Activity;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,11 +11,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javax.inject.Inject;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class AdminPanelCtrl {
 
     private final ServerUtils serverUtils;
     private final MainCtrl mainCtrl;
+    private Timer refreshActivities;
     @FXML
     private TableView<Activity> activitiesTable;
     @FXML
@@ -35,6 +39,7 @@ public class AdminPanelCtrl {
     }
 
     public void goBackToSplash() {
+        refreshActivities.cancel();
         mainCtrl.showSplash();
     }
 
@@ -48,5 +53,13 @@ public class AdminPanelCtrl {
         ObservableList<Activity> activities = FXCollections.observableArrayList();
         activities.addAll(serverUtils.getAllActivities());
         activitiesTable.setItems(activities);
+        refreshActivities = new Timer();
+        refreshActivities.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> activitiesTable.setItems(FXCollections.observableArrayList(serverUtils.getAllActivities())));
+            }
+        }, 0, 5 * 1000);
+
     }
 }
