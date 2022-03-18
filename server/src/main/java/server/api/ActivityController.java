@@ -1,10 +1,17 @@
 package server.api;
 
 import commons.Activity;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -135,5 +142,39 @@ public class ActivityController {
         return ResponseEntity.ok(list.subList(0, 59));
     }
 
+    /**
+     * Loads activity from activities.json file and retrieves them
+     */
+    @GetMapping("/load")
+    public ResponseEntity<List<Activity>> loadActivities() {
+        JSONParser parser = new JSONParser();
+        List<Activity> listOfActivities = new ArrayList<>();
+        /**
+         * Use relative path!
+         */
+        JSONArray array;
+        try {
+            array = (JSONArray) parser.parse(new InputStreamReader(ActivityController.class.getResourceAsStream("/activities.json")));
+            for (Object object : array) {
+                JSONObject helper = (JSONObject) object;
+                String id = (String) helper.get("id");
+                String image_path = (String) helper.get("image_path");
+                String title = (String) helper.get("title");
+                Long cost = (Long) helper.get("consumption_in_wh");
+                String source = (String) helper.get("source");
+                Activity activity = new Activity(id, image_path, title, cost, source);
+                listOfActivities.add(activity);
+                activityRepository.save(activity);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(listOfActivities);
+    }
 
 }

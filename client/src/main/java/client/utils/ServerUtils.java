@@ -163,4 +163,18 @@ public class ServerUtils {
                 .accept(APPLICATION_JSON)
                 .put(Entity.entity(new Player(id, points), APPLICATION_JSON), Player.class);
     }
+
+    /**
+     * Loads all activities from activities.json file
+     *
+     * @return the list of activities loaded from the activities.json file
+     */
+    public List<Activity> loadActivitiesInRepo() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("/activity/load")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Activity>>() {
+                });
+    }
 }
