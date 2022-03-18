@@ -1,10 +1,17 @@
 package server.api;
 
 import commons.Activity;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,14 +42,22 @@ public class ActivityController {
     }
 
     /**
-     * Add an activity
+     * Checks if an activity with the same id already exists
      *
-     * @param toBeAdded the activity that is to be added
-     * @return the added activity
+     * @param id the id
+     * @return a boolean, true if an activity with that id already exists, false otherwise
      */
+    @GetMapping("/exists/{id}")
+    public ResponseEntity<Boolean> exists(@PathVariable String id) {
+        if (id == null || activityRepository.findById(id).isEmpty()) {
+            return ResponseEntity.ok(false);
+        }
+        return ResponseEntity.ok(true);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Activity> addActivity(@RequestBody Activity toBeAdded) {
-        if (toBeAdded == null || toBeAdded.getSource() == null || toBeAdded.getTitle() == null) {
+        if (toBeAdded == null || toBeAdded.getId() == null || toBeAdded.getSource() == null || toBeAdded.getTitle() == null) {
             return ResponseEntity.badRequest().build();
         }
         Activity newActivity = activityRepository.save(toBeAdded);
@@ -111,12 +126,14 @@ public class ActivityController {
     @PutMapping("/modify")
     public ResponseEntity<Activity> modifyActivity(@RequestBody Activity activity) {
 
-        if (activity == null || activityRepository.findById(activity.getId()).isEmpty() || activity.getTitle() == null || activity.getSource() == null)
+        if (activity == null || activity.getId() == null || activityRepository.findById(activity.getId()).isEmpty() || activity.getTitle() == null || activity.getSource() == null)
             return ResponseEntity.badRequest().build();
         Activity toBeModified = activityRepository.getById(activity.getId());
         toBeModified.setConsumption_in_wh(activity.getConsumption_in_wh());
         toBeModified.setSource(activity.getSource());
         toBeModified.setTitle(activity.getTitle());
+        toBeModified.setImage_path(activity.getImage_path());
+        activityRepository.deleteById(activity.getId());
         Activity saved = activityRepository.save(toBeModified);
         return ResponseEntity.ok(saved);
     }
@@ -134,4 +151,40 @@ public class ActivityController {
         Collections.shuffle(list);
         return ResponseEntity.ok(list.subList(0, 60));
     }
+
+    /**
+     * Loads activity from activities.json file and retrieves them
+     */
+    @GetMapping("/load")
+    public ResponseEntity<List<Activity>> loadActivities() {
+        JSONParser parser = new JSONParser();
+        List<Activity> listOfActivities = new ArrayList<>();
+        /**
+         * Use relative path!
+         */
+        JSONArray array;
+        try {
+            array = (JSONArray) parser.parse(new InputStreamReader(ActivityController.class.getResourceAsStream("/activities.json")));
+            for (Object object : array) {
+                JSONObject helper = (JSONObject) object;
+                String id = (String) helper.get("id");
+                String image_path = (String) helper.get("image_path");
+                String title = (String) helper.get("title");
+                Long cost = (Long) helper.get("consumption_in_wh");
+                String source = (String) helper.get("source");
+                Activity activity = new Activity(id, image_path, title, cost, source);
+                listOfActivities.add(activity);
+                activityRepository.save(activity);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(listOfActivities);
+    }
+
 }

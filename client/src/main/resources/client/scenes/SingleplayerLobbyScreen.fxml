@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #191919;" stylesheets="/stylesheets/SingleplayerLobbyStylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SingleplayerLobbyCtrl">
    <children>
-      <Button fx:id="leaveButton" layoutX="25.0" layoutY="597.0" mnemonicParsing="false" onAction="#goBackToSplash" prefHeight="91.0" prefWidth="204.0" styleClass="standardButton" text="Leave" textFill="WHITE">
+      <Button fx:id="leaveButton" cancelButton="true" layoutX="25.0" layoutY="597.0" mnemonicParsing="false" onAction="#goBackToSplash" prefHeight="91.0" prefWidth="204.0" styleClass="standardButton" text="Leave" textFill="WHITE">
          <font>
             <Font size="44.0" />
          </font>
@@ -17,7 +17,9 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
-      <Button fx:id="startGameButton" layoutX="1054.0" layoutY="601.0" mnemonicParsing="false" onAction="#toSingleplayer" prefHeight="91.0" prefWidth="204.0" styleClass="standardButton" text="Start&#10;game" textAlignment="CENTER" textFill="WHITE">
+      <Button fx:id="startGameButton" alignment="CENTER" defaultButton="true" layoutX="1054.0" layoutY="601.0" mnemonicParsing="false" onAction="#toSingleplayer" prefHeight="91.0" prefWidth="204.0" styleClass="standardButton" text="Start&#10;game" textAlignment="CENTER" textFill="WHITE">
+      </Button>
+      <Button fx:id="leaderboardButton" layoutX="554.0" layoutY="435.0" mnemonicParsing="false" onAction="#leaderboardButton" prefHeight="82.0" prefWidth="179.0" styleClass="standardButton" text="Leaderboard" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
@@ -25,19 +27,11 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
-      <Button fx:id="viewLeaderboardButton" layoutX="538.0" layoutY="400.0" mnemonicParsing="false" onAction="#leaderboardButton" prefHeight="91.0" prefWidth="204.0" styleClass="standardButton" text="View&#10;leaderboard" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="32.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
-         </cursor>
-      </Button>
-      <Text fx:id="title" fill="WHITE" layoutX="319.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Singleplayer Lobby" wrappingWidth="915.4567260742188" />
-      <Text fx:id="label1" fill="WHITE" layoutX="327.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Play by yourself and place on the global leaderboard!" wrappingWidth="583.723388671875" />
-      <StackPane fx:id="PlayerNameLabel" layoutX="490.0" layoutY="264.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: CED0CE;">
+      <Text fx:id="title" fill="WHITE" layoutX="173.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Singleplayer Lobby" textAlignment="CENTER" wrappingWidth="915.4567260742188" />
+      <Text fx:id="label1" fill="WHITE" layoutX="130.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Play by yourself and place on the global leaderboard!" textAlignment="CENTER" wrappingWidth="1017.0566864013672" />
+      <StackPane fx:id="playerNameBackground" layoutX="490.0" layoutY="310.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" />
+            <Text fx:id="playerNameLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Player" textAlignment="CENTER" />
          </children>
       </StackPane>
    </children>

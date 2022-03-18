@@ -3,6 +3,7 @@ package client.scenes;
 import client.utils.ServerUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 
 import javax.inject.Inject;
 
@@ -19,11 +20,13 @@ public class SingleplayerLobbyCtrl {
     }
 
     @FXML
+    public Text playerNameLabel;
+    @FXML
     private Button leaveButton;
     @FXML
     private Button startGameButton;
     @FXML
-    private Button viewLeaderboardButton;
+    private Button leaderboardButton;
 
     public void leaderboardButton() {
         globalLeaderboardCtrl.init();

@@ -24,6 +24,12 @@
     -fx-border-insets: -4;
 }
 
+.standardPlayerLabel {
+    -fx-background-color: CED0CE;
+    -fx-background-radius: 22;
+    -fx-font-size: 30pt;
+}
+
 .label {
     -fx-font-size: 24pt;
 }
