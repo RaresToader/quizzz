@@ -33,7 +33,6 @@ import javafx.util.Pair;
 public class MainCtrl {
 
     private Stage primaryStage;
-
     private EnterMenuCtrl enterMenuCtrl;
     private Scene enterMenu;
     private SplashCtrl splashCtrl;
@@ -137,10 +136,11 @@ public class MainCtrl {
      */
     public RotateTransition createRotationAnimation(Node node) {
         //Create a pivot offset to allow the circles to rotate around the pivot position instead of themselves
-        double x = queueCtrl.pivot.getLayoutX()-node.getLayoutX();
-        double y = queueCtrl.pivot.getLayoutY()-node.getLayoutY();
-        node.getTransforms().add(new Translate(-x,-y));
-        node.setTranslateX(x); node.setTranslateY(y);
+        double x = queueCtrl.pivot.getLayoutX() - node.getLayoutX();
+        double y = queueCtrl.pivot.getLayoutY() - node.getLayoutY();
+        node.getTransforms().add(new Translate(-x, -y));
+        node.setTranslateX(x);
+        node.setTranslateY(y);
 
         //Create the animation for the given Node
         RotateTransition rotationAnimation = new RotateTransition(Duration.seconds(3), node);
@@ -161,6 +161,7 @@ public class MainCtrl {
         primaryStage.setScene(this.questionScreen);
         questionScreenCtrl.init();
     }
+
     public void showAdminPanel() {
         primaryStage.setTitle("Admin Panel");
         primaryStage.setScene(this.adminPanelScreen);
