@@ -29,7 +29,7 @@ public class SingleplayerLobbyCtrl {
     private Button leaderboardButton;
 
     public void leaderboardButton() {
-        globalLeaderboardCtrl.initialize();
+        globalLeaderboardCtrl.init();
         mainCtrl.showGlobalLeaderboard(true);
     }
 

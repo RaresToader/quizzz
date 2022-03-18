@@ -15,6 +15,7 @@ public class RandomSelection {
      * @param database the list of activities from the database
      */
     public RandomSelection(List<Activity> database) {
+        System.out.println(database.size());
         listOfQuestions = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             //Question is hardcoded right now

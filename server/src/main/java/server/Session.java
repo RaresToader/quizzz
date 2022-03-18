@@ -1,9 +1,6 @@
 package server;
 
-import commons.Activity;
-import commons.Answer;
-import commons.QuizzQuestion;
-import commons.QuizzQuestionServerParsed;
+import commons.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +8,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Session {
-
     private static final int playerLimit = 20; //To be determined
     private List<String> playerList;
     private boolean started;
@@ -23,8 +19,9 @@ public class Session {
     private int currentQuestion;
     private long questionStartedAt;
 
-    public Session(boolean gameType) {
+    public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1);
 
+    public Session(boolean gameType, List<Activity> activities) {
         this.playerList = new ArrayList<String>();
         this.started = false;
         this.ended = false;
@@ -34,13 +31,12 @@ public class Session {
         this.answers = new ArrayList<Answer>();
         this.currentQuestion = -1;
         this.questionStartedAt = -1;
-
-        this.generateTestQuestions(); //Temporary until we construct function that generates random question set
+        this.generateTestQuestions(activities);
     }
 
-    private void generateTestQuestions() {
-        QuizzQuestion q1 = new QuizzQuestion("This is test question", new Activity("abc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
-        this.questions.add(q1);
+    private void generateTestQuestions(List<Activity> activities) {
+        RandomSelection randS = new RandomSelection(activities);
+        questions             = randS.getListOfQuestions();
     }
 
     public boolean haveEveryoneAnswered() {
@@ -54,21 +50,20 @@ public class Session {
     }
 
     public QuizzQuestionServerParsed getCurrentQuestion() {
-        if (!this.started) return null;
-
-        //If there have already been 20 questions, end the game
-        if(currentQuestion >= 20) {
-            this.endGame();
-            return null;
-        }
+        if (!this.started) return Session.emptyQ;
 
         Date date = new Date();
         //If everyone has answered that question OR this is first question OR time has passed then get new question
-        if(this.haveEveryoneAnswered() || questionStartedAt == -1 || date.getTime()-questionStartedAt >= 30000) {
+        if(this.haveEveryoneAnswered() || questionStartedAt == -1 || date.getTime()-questionStartedAt > 20000) {
             this.currentQuestion++;
             this.questionStartedAt = date.getTime();
         }
 
+        //If there have already been 20 questions, end the game
+        if(currentQuestion >= questions.size()) {
+            this.endGame();
+            return Session.emptyQ;
+        }
 
         return new QuizzQuestionServerParsed(this.questions.get(currentQuestion),this.questionStartedAt,this.currentQuestion);
     }
@@ -169,7 +164,7 @@ public class Session {
     }
 
     public void endGame() {
-        this.started = false;
+        this.ended = true;
     }
 
     public List<String> getPlayerList() {

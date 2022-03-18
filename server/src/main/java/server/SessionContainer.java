@@ -1,5 +1,7 @@
 package server;
 
+import commons.Activity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +28,12 @@ public class SessionContainer {
      * @param author   - PLayer object of session initiator
      * @return Boolean value depending on whether session has been initiated
      */
-    public static boolean createSession(boolean gameType, String author) {
+    public static boolean createSession(boolean gameType, String author, List<Activity> activities) {
         SessionContainer.cleanup(); //Check for inactive sessions
 
-        Session newSess = new Session(gameType);
+        Session newSess = new Session(gameType,activities);
         newSess.addPlayer(author);
+
 
         if (sessionList.size() >= SessionContainer.maxSessions) return false;
 
@@ -56,7 +59,7 @@ public class SessionContainer {
         for (int i = 0; i < sessionList.size(); i++) {
             if (sessionList.get(i) == null) continue;
 
-            if (sessionList.get(i).isPlayerInSession(x)) {
+            if (sessionList.get(i).isPlayerInSession(x) && !sessionList.get(i).hasEnded()) {
                 return i;
             }
         }
