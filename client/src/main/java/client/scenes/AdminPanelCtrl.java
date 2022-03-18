@@ -1,7 +1,6 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
-import client.utils.Utils;
 import commons.Activity;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -57,6 +56,8 @@ public class AdminPanelCtrl {
     private TextField imagePath;
     @FXML
     private TextField source;
+    @FXML
+    private Button okButton;
 
     @Inject
     public AdminPanelCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
@@ -128,17 +129,17 @@ public class AdminPanelCtrl {
         String consumption_in_wh = consumption.getText();
         String imagePathing = imagePath.getText();
         String activitySource = source.getText();
-        if (!Utils.isAlphaNumeric(ID) || ID.length() == 0) {
+        if (ID.length() == 0) {
             id.clear();
             id.setPromptText("Please enter a valid id!");
             return;
         }
-        if (serverUtils.doesActivityExist(ID)) {
+        if (serverUtils.doesActivityExist(ID) && !id.isDisabled()) {
             id.clear();
             id.setPromptText("ID already exists!");
             return;
         }
-        if (!Utils.isAlphaNumeric(activityTitle) || activityTitle.length() == 0) {
+        if (activityTitle.length() == 0) {
             title.clear();
             title.setPromptText("Please enter a valid title!");
             return;
@@ -148,18 +149,22 @@ public class AdminPanelCtrl {
             consumption.setPromptText("Please enter a valid number!");
             return;
         }
-        if (!Utils.isAlphaNumeric(imagePathing) || imagePathing.length() == 0) {
+        if (imagePathing.length() == 0) {
             imagePath.clear();
             imagePath.setPromptText("Please enter a valid image path!");
             return;
         }
-        if (!Utils.isAlphaNumeric(activitySource) || activitySource.length() == 0) {
+        if (activitySource.length() == 0) {
             source.clear();
             source.setPromptText("Please enter a valid source!");
             return;
         }
-
-        serverUtils.addActivity(new Activity(ID, imagePathing,activityTitle, Long.parseLong(consumption_in_wh), activitySource));
+        if(!id.isDisabled())
+            serverUtils.addActivity(new Activity(ID, imagePathing, activityTitle, Long.parseLong(consumption_in_wh), activitySource));
+        else{
+            serverUtils.modifyActivity(new Activity(ID, imagePathing, activityTitle, Long.parseLong(consumption_in_wh), activitySource));
+            id.setDisable(false);
+        }
         id.clear();
         title.clear();
         imagePath.clear();
@@ -175,6 +180,34 @@ public class AdminPanelCtrl {
      */
     public void setLoadActivities() {
 
+    }
+
+    /**
+     * Deletes the activity selected
+     */
+    public void deleteActivitySelected(){
+        Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
+        if(activity==null)
+            return;
+        else
+            serverUtils.deleteActivity(activity.getId());
+    }
+
+    /**
+     * Modifies the selected activity
+     */
+    public void modifyActivity(){
+        Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
+        if(activity==null)
+            return;
+        hideButtonsAndTable();
+        addAnchorPlane.setVisible(true);
+        id.setText(activity.getId());
+        id.setDisable(true); // you cannot modify the id of the activity
+        title.setText(activity.getTitle());
+        consumption.setText(""+activity.getConsumption_in_wh());
+        imagePath.setText(activity.getImage_path());
+        source.setText(activity.getSource());
     }
 
 }
