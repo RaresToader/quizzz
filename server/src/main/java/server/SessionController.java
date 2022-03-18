@@ -2,16 +2,21 @@ package server;
 
 import commons.Activity;
 import commons.Answer;
-import commons.QuizzQuestion;
 import commons.QuizzQuestionServerParsed;
 import org.springframework.web.bind.annotation.*;
+import server.database.ActivityRepository;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class SessionController {
 
-    public SessionController() {
+    private final ActivityRepository activityRepository;
+
+    public SessionController(ActivityRepository activityRepository) {
+        this.activityRepository = activityRepository;
     }
 
     /**
@@ -31,7 +36,7 @@ public class SessionController {
     public QuizzQuestionServerParsed getCurrentQuestion(@PathVariable("nickname") String nickname) {
         int session = SessionContainer.findUserSession(nickname);
         if(session == -1) { //If not session provided for that user yet
-            SessionContainer.createSession(false,nickname); //TODO It is: provide that implementation for multiplayer too
+            SessionContainer.createSession(false,nickname,this.get60RandomActivities()); //TODO It is: provide that implementation for multiplayer too
         }
 
         int sessionId = SessionContainer.findUserSession(nickname);
@@ -39,16 +44,14 @@ public class SessionController {
         Session x = SessionContainer.getSession(sessionId);
 
         if(x.hasEnded()) {
-            return new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity(),new Activity(),new Activity()),-1,-1);
+            return Session.emptyQ;
         }
 
         if(!x.isStarted()) { //If game is not started
             x.startGame();
         }
 
-        QuizzQuestionServerParsed retQ = x.getCurrentQuestion();
-        if (retQ .equals( new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity(),new Activity(),new Activity()),-1,-1))) return new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity(),new Activity(),new Activity()),-1,-1); //DEBUG line
-        else return retQ;
+        return x.getCurrentQuestion();
     }
 
     /**
@@ -84,6 +87,14 @@ public class SessionController {
         }
 
         return x.addAnswer(new Answer(nickname,answer,questionNum));
+    }
+
+    public List<Activity> get60RandomActivities() {
+        List<Activity> list = this.activityRepository.findAll();
+        if (list.size() < 60)
+            return null;
+        Collections.shuffle(list);
+        return list.subList(0, 60);
     }
 
 }

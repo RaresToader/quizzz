@@ -132,8 +132,6 @@ public class ActivityController {
         if (list.size() < 60)
             return ResponseEntity.badRequest().build();
         Collections.shuffle(list);
-        return ResponseEntity.ok(list.subList(0, 59));
+        return ResponseEntity.ok(list.subList(0, 60));
     }
-
-
 }

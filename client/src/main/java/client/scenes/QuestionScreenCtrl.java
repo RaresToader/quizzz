@@ -27,10 +27,8 @@ public class QuestionScreenCtrl {
 
     private final MainCtrl mainCtrl;
     private boolean toEnd = false;
-    private final QuizzQuestion endGame = new QuizzQuestion("0",null,null,null);
     private final ServerUtils serverUtils;
     private QuizzQuestion currQuestion = new QuizzQuestion("Not assigned", null,null,null);
-    private int questionNo = 0;
     private String chosenAnswer;
     private String correctAnswer;
     private int points;
@@ -110,10 +108,6 @@ public class QuestionScreenCtrl {
      * Initialise a singerplayer game
      */
     public void init() {
-        //Commented out
-        //selection= new RandomSelection();
-        //nextDisplay();
-
         restartTimer();
 
         questionUpdateTimer = new Timer();
@@ -124,24 +118,24 @@ public class QuestionScreenCtrl {
                     @Override
                     public void run() {
                         try {
-                            QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion();
-                            System.out.println(quizzQuestionServerParsed);
-                            if(quizzQuestionServerParsed.equals(new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity(),new Activity(),new Activity()),-1,-1))){
+                            QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion(); //gathers current question
+                            //System.out.println(quizzQuestionServerParsed); //DEBUG LINE
+
+                            if(quizzQuestionServerParsed.equals(Session.emptyQ)) { //If gathered question is equal to empty Question
                                 questionUpdateTimer.cancel();
                                 toEnd = true;
-                            }
-                            else {
+                            } else {
                                 QuizzQuestion newQuestion = quizzQuestionServerParsed.getQuestion();
                                 Session.setQuestionNum(quizzQuestionServerParsed.getQuestionNum());
+
                                 if(!newQuestion.equals(currQuestion)) {
                                     currQuestion = newQuestion;
-                                    if(Session.getQuestionNum()==0){
+                                    if(Session.getQuestionNum() == 0) {
                                         setNewQuestion();
                                     }
                                 }
                             }
                             System.out.println(Session.getQuestionNum());
-
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
                         }
@@ -156,7 +150,7 @@ public class QuestionScreenCtrl {
      * checks if the game is over and if not display the next question and restarts the timer.
      */
     public void nextDisplay() {
-        if(toEnd){
+        if(toEnd) {
             endOfGame();
             return;
         }
