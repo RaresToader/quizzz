@@ -33,9 +33,23 @@ public class Player {
         this.score = score;
     }
 
+    /**
+     * Initial constructor
+     * @param username the username of the player
+     */
     public Player(String username) {
         this.username = username;
         this.score = 0;
+    }
+
+    /**
+     * Constructor to be used when retrieving and updating the score of the player
+     * @param username
+     * @param score
+     */
+    public Player(String username, long score) {
+        this.username = username;
+        this.score = score;
     }
 
     @Override

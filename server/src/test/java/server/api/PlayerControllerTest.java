@@ -292,8 +292,9 @@ public class PlayerControllerTest {
         systemUnderTest.deleteByObject(new Player("test"));
         assertTrue(repo.calledMethods.contains("deleteById"));
     }
+
     @Test
-    public void comparatorTest(){
+    public void comparatorTest() {
         Player p1 = new Player("a");
         p1.incrementScore(100);
         Player p2 = new Player("b");
@@ -305,6 +306,59 @@ public class PlayerControllerTest {
         list.add(p2);
         list.add(p3);
         list.sort(new PlayerComparator());
-        assertEquals(p1,list.get(2));
+        assertEquals(p1, list.get(2));
     }
+
+    @Test
+    public void cannotUpdateNullPlayer() {
+        var actual = systemUnderTest.updatePlayerScore(null);
+        assertEquals(actual.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    public void cannotUpdateNullUsername() {
+        var actual = systemUnderTest.updatePlayerScore(new Player(null));
+        assertEquals(actual.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    public void cannotUpdateNonexistentPlayer() {
+        var actual = systemUnderTest.updatePlayerScore(new Player("notfound"));
+        assertEquals(actual.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    public void updatePlayerTest1() {
+        Player test = new Player("test");
+        systemUnderTest.addPlayer(test);
+        var actual = systemUnderTest.updatePlayerScore(test);
+        assertEquals(actual.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    public void updatePlayerTest2() {
+        Player test = new Player("test");
+        systemUnderTest.addPlayer(test);
+        systemUnderTest.updatePlayerScore(test);
+        assertEquals(test, repo.getById("test"));
+    }
+
+    @Test
+    public void updatePlayerTest3() {
+        Player test = new Player("test");
+        systemUnderTest.addPlayer(test);
+        test = new Player("test", 100);
+        systemUnderTest.updatePlayerScore(test);
+        assertEquals(repo.getById("test"), test);
+    }
+
+    @Test
+    public void updatePlayerTest4() {
+        Player test = new Player("test", 10000);
+        systemUnderTest.addPlayer(test);
+        test = new Player("test", 5000);
+        systemUnderTest.updatePlayerScore(test);
+        assertEquals(new Player("test",10000), repo.getById("test"));
+    }
+
 }

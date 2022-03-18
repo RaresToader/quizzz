@@ -1,9 +1,11 @@
 package client.utils;
 
 import client.Session;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import commons.QuizzQuestionServerParsed;
 import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.core.GenericType;
 import org.glassfish.jersey.client.ClientConfig;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -36,13 +38,16 @@ public class Utils {
      * invokes to session/question/{nickname}
      * @return current question
      */
-    public static QuizzQuestionServerParsed getCurrentQuestion() {
+    public static QuizzQuestionServerParsed getCurrentQuestion() throws JsonProcessingException {
             String path = "session/question/" + Session.getNickname();
-            return ClientBuilder.newClient(new ClientConfig()) //
+            String result =  ClientBuilder.newClient(new ClientConfig()) //
                     .target(SERVER).path(path) //
                     .request(APPLICATION_JSON) //
                     .accept(APPLICATION_JSON) //
-                    .get(new GenericType<QuizzQuestionServerParsed>() {});
+                    .get(String.class);
+
+            ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //that allows to ignore getMostExpensive() method
+            return objectMapper.readValue(result, QuizzQuestionServerParsed.class);
     }
 
     /**
@@ -57,5 +62,22 @@ public class Utils {
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .get(Boolean.class);
+    }
+
+    /**
+     * Invokes to /verification path and check whether provided serverAddress is valid address of QuizzGame
+     * @param serverAddr - provided serverAddr
+     * @return Boolean value whether serverAddr is correct or not
+     */
+    public static boolean validateServer(String serverAddr) {
+        String serverPath = "http://"+serverAddr;
+        String path       = "/verification";
+        int retNum = ClientBuilder.newClient(new ClientConfig()) //
+                .target(serverPath).path(path) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(Integer.class);
+
+        return retNum >= 100 && retNum <= 110;
     }
 }

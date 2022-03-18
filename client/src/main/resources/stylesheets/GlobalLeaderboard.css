@@ -21,7 +21,7 @@
     -fx-text-background-color: black;
 
 }
-.table-row-cell: hover {
+.table-row-cell:hover {
     -fx-background-color: #93f9b911;
     -fx-text-background-color: white;
 }
