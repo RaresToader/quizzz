@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
@@ -40,12 +41,28 @@
                   <Label fx:id="secondAnswer" layoutX="11.0" layoutY="132.0" prefHeight="36.0" prefWidth="279.0" />
                   <AnchorPane fx:id="finalScreen" disable="true" layoutX="-419.0" layoutY="-45.0" prefHeight="375.0" prefWidth="1137.0" style="-fx-background-color: #CED0CE;" visible="false">
                      <children>
-                        <Label layoutX="-34.0" layoutY="-60.0" prefHeight="78.0" prefWidth="411.0" text="Congratulations!" translateX="400.0" translateY="110.0">
+                        <Label fx:id="congratulation" layoutX="-209.0" layoutY="-60.0" prefHeight="78.0" prefWidth="800.0" text="Congratulations!" translateX="400.0" translateY="110.0">
                            <font>
                               <Font size="48.0" />
                            </font>
                         </Label>
                         <Label fx:id="finalScore" prefHeight="44.0" prefWidth="344.0" translateX="400.0" translateY="185.0" />
+                        <Button fx:id="confirmButton" disable="true" layoutX="234.0" layoutY="195.0" mnemonicParsing="false" onAction="#confirmQuit" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="Yes" textFill="WHITE" visible="false">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="notConfirmButton" disable="true" layoutX="548.0" layoutY="195.0" mnemonicParsing="false" onAction="#closeConfirmPage" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="No" textFill="WHITE" visible="false">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </Button>
                      </children>
                   </AnchorPane>
                </children>
@@ -85,6 +102,14 @@
                   <Label fx:id="time" prefHeight="18.0" prefWidth="73.0" />
                </children>
             </TextFlow>
+            <Button fx:id="endButton" layoutX="84.0" layoutY="507.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="91.0" prefWidth="222.0" style="-fx-background-color: #f15025;" text="finish now" textFill="WHITE">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Button>
          </children>
       </Pane>
    </children>
