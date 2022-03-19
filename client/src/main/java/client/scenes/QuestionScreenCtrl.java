@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
@@ -28,7 +29,7 @@ public class QuestionScreenCtrl {
     private final MainCtrl mainCtrl;
     private boolean toEnd = false;
     private final ServerUtils serverUtils;
-    private QuizzQuestion currQuestion = new QuizzQuestion("Not assigned", null,null,null);
+    private QuizzQuestion currQuestion = new QuizzQuestion("Not assigned", null,null,null, 0);
     private String chosenAnswer;
     private String correctAnswer;
     private int points;
@@ -171,10 +172,19 @@ public class QuestionScreenCtrl {
      */
     public void setNewQuestion(){
 
-        question.setText(currQuestion.getQuestion());
-        firstActivity.setText(currQuestion.getFirstChoice().getTitle());
-        secondActivity.setText(currQuestion.getSecondChoice().getTitle());
-        thirdActivity.setText(currQuestion.getThirdChoice().getTitle());
+        if(currQuestion.getQuestionType() == 0) {
+            question.setText(currQuestion.getQuestion());
+            firstActivity.setText(currQuestion.getFirstChoice().getTitle());
+            secondActivity.setText(currQuestion.getSecondChoice().getTitle());
+            thirdActivity.setText(currQuestion.getThirdChoice().getTitle());
+        }
+
+        if(currQuestion.getQuestionType() == 1) {
+            question.setText(currQuestion.getQuestion());
+            firstActivity.setText(Long.toString(currQuestion.getFirstChoice().getConsumption_in_wh()));
+            secondActivity.setText(Long.toString(currQuestion.getSecondChoice().getConsumption_in_wh()));
+            thirdActivity.setText(Long.toString(currQuestion.getThirdChoice().getConsumption_in_wh()));
+        }
 
         firstAnswer.setText("");
         secondAnswer.setText("");
@@ -235,8 +245,12 @@ public class QuestionScreenCtrl {
      */
 
     public void chooseFirst() {
-        chosenAnswer = currQuestion.getFirstChoice().getTitle();
-
+        if(currQuestion.getQuestionType() == 0) {
+            chosenAnswer = currQuestion.getFirstChoice().getTitle();
+        }
+        if(currQuestion.getQuestionType() == 1) {
+            chosenAnswer = Long.toString(currQuestion.getFirstChoice().getConsumption_in_wh());
+        }
         //firstChoice.setStyle("-fx-background-color: black;");
         /*
             I think the checking part should be done by the server side.
@@ -259,8 +273,12 @@ public class QuestionScreenCtrl {
      * Works the same way as for the first button
      */
     public void chooseSecond() {
-        chosenAnswer = currQuestion.getSecondChoice().getTitle();
-        //secondChoice.setStyle("-fx-background-color: black;");
+        if(currQuestion.getQuestionType() == 0) {
+            chosenAnswer = currQuestion.getSecondChoice().getTitle();
+        }
+        if(currQuestion.getQuestionType() == 1) {
+            chosenAnswer = Long.toString(currQuestion.getSecondChoice().getConsumption_in_wh());
+        }        //secondChoice.setStyle("-fx-background-color: black;");
         //secondChoice.setOnAction(e -> clickedAgainResetSecond());
         /**
          * I think this should be done in the server side, and in a slightly different way.
@@ -284,7 +302,12 @@ public class QuestionScreenCtrl {
      * Works the same as for the previous buttons
      */
     public void chooseThird() {
-        chosenAnswer = currQuestion.getThirdChoice().getTitle();
+        if(currQuestion.getQuestionType() == 0) {
+            chosenAnswer = currQuestion.getThirdChoice().getTitle();
+        }
+        if(currQuestion.getQuestionType() == 1) {
+            chosenAnswer = Long.toString(currQuestion.getThirdChoice().getConsumption_in_wh());
+        }
 
         //thirdChoice.setStyle("-fx-background-color: black");
         //thirdChoice.setOnAction(e -> clickedAgainResetThird());
@@ -314,7 +337,7 @@ public class QuestionScreenCtrl {
         questionTimer.pause();
         points = timeLeft*25 + 500;
 
-        correctAnswer = currQuestion.getMostExpensive();
+        correctAnswer = currQuestion.getCorrectAnswer();
         boolean isRight = chosenAnswer.equals(correctAnswer);
         firstAnswer.setText("this consumes " + currQuestion.getFirstChoice().getConsumption_in_wh() + " watt per hour");
         secondAnswer.setText("this consumes " + currQuestion.getSecondChoice().getConsumption_in_wh() + " watt per hour");
@@ -335,15 +358,24 @@ public class QuestionScreenCtrl {
      * handles the display when the chosen answer was not the right answer.
      */
     public void wrongAnswer(){
-        if (correctAnswer.equals(currQuestion.getFirstChoice().getTitle())) {
+        String first = currQuestion.getFirstChoice().getTitle();
+        String second = currQuestion.getSecondChoice().getTitle();
+        String third = currQuestion.getThirdChoice().getTitle();
+
+        if (currQuestion.getQuestionType() == 1) {
+            first = Long.toString(currQuestion.getFirstChoice().getConsumption_in_wh());
+            second = Long.toString(currQuestion.getSecondChoice().getConsumption_in_wh());
+            third = Long.toString(currQuestion.getThirdChoice().getConsumption_in_wh());
+        }
+        if (correctAnswer.equals(first)) {
             firstBox.setStyle("-fx-background-color: green");
             secondBox.setStyle("-fx-background-color: red;");
             thirdBox.setStyle("-fx-background-color: red;");
-        } else if (correctAnswer.equals(currQuestion.getSecondChoice().getTitle())) {
+        } else if (correctAnswer.equals(second)) {
             firstBox.setStyle("-fx-background-color: red");
             secondBox.setStyle("-fx-background-color: green;");
             thirdBox.setStyle("-fx-background-color: red;");
-        } else if (correctAnswer.equals(currQuestion.getThirdChoice().getTitle())) {
+        } else if (correctAnswer.equals(third)) {
             firstBox.setStyle("-fx-background-color: red");
             secondBox.setStyle("-fx-background-color: red;");
             thirdBox.setStyle("-fx-background-color: green;");

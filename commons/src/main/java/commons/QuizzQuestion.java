@@ -11,16 +11,18 @@ public class QuizzQuestion {
     private Activity firstChoice;
     private Activity secondChoice;
     private Activity thirdChoice;
+    private int questionType;
 
     public QuizzQuestion() {
         //Object mapping
     }
 
-    public QuizzQuestion(String question, Activity firstChoice, Activity secondChoice, Activity thirdChoice) {
+    public QuizzQuestion(String question, Activity firstChoice, Activity secondChoice, Activity thirdChoice, int questionType) {
         this.question = question;
         this.firstChoice = firstChoice;
         this.secondChoice = secondChoice;
         this.thirdChoice = thirdChoice;
+        this.questionType = questionType;
     }
 
     public String getQuestion() {
@@ -53,6 +55,38 @@ public class QuizzQuestion {
 
     public void setThirdChoice(Activity thirdChoice) {
         this.thirdChoice = thirdChoice;
+    }
+
+    public int getQuestionType() {
+        return questionType;
+    }
+
+    public String getCorrectAnswer() {
+        String correct = "";
+        if(questionType == 0) {
+            correct = getMostExpensive();
+        }
+
+        if(questionType == 1) {
+            correct = getConsump();
+        }
+
+        return correct;
+    }
+
+    private String getConsump() {
+        String[] parts = this.question.split(": ");
+        String title = parts[1];
+
+        if(this.firstChoice.getTitle().equals(title)) {
+            return Long.toString(firstChoice.getConsumption_in_wh());
+        }
+
+        if(this.secondChoice.getTitle().equals(title)) {
+            return Long.toString(secondChoice.getConsumption_in_wh());
+        }
+
+        else return Long.toString(thirdChoice.getConsumption_in_wh());
     }
 
     public String getMostExpensive() {
