@@ -94,7 +94,7 @@
             <ProgressBar fx:id="bar" layoutX="75.0" layoutY="97.0" prefHeight="18.0" prefWidth="1080.0" progress="0.0" />
             <Label fx:id="question" layoutX="217.0" layoutY="13.0" prefHeight="93.0" prefWidth="927.0" text="What uses more energy?" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font size="55.0" />
+                  <Font name="Monaco" size="55.0" />
                </font>
             </Label>
             <TextFlow layoutX="955.0" layoutY="500.0" prefHeight="104.0" prefWidth="100.0" style="-fx-background-color: #CED0CE;">
