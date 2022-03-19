@@ -14,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -111,6 +113,12 @@ public class QuestionScreenCtrl {
     private Button notConfirmButton;
     @FXML
     private Button endButton;
+    @FXML
+    private ImageView firstOptionImage;
+    @FXML
+    private ImageView secondOptionImage;
+    @FXML
+    private ImageView thirdOptionImage;
 
     /**
      * Initialise a singerplayer game
@@ -173,9 +181,14 @@ public class QuestionScreenCtrl {
 
         question.setText(currQuestion.getQuestion());
         firstActivity.setText(currQuestion.getFirstChoice().getTitle());
+        String path = "/photos/"+currQuestion.getFirstChoice().getImage_path();
+        firstOptionImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path)));
         secondActivity.setText(currQuestion.getSecondChoice().getTitle());
+        path = "/photos/"+currQuestion.getSecondChoice().getImage_path();
+        secondOptionImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path)));
         thirdActivity.setText(currQuestion.getThirdChoice().getTitle());
-
+        path = "/photos/"+currQuestion.getThirdChoice().getImage_path();
+        thirdOptionImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path)));
         firstAnswer.setText("");
         secondAnswer.setText("");
         thirdAnswer.setText("");
