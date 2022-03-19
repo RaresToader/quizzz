@@ -99,17 +99,17 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Label fx:id="firstActivity" layoutX="86.0" layoutY="363.0" prefHeight="196.0" prefWidth="304.0" text="Activity 1" textFill="WHITE" wrapText="true">
+            <Label fx:id="firstActivity" layoutX="86.0" layoutY="455.0" prefHeight="36.0" prefWidth="279.0" text="Activity 1" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="secondActivity" layoutX="467.0" layoutY="366.0" prefHeight="196.0" prefWidth="304.0" text="Activity 2" textFill="#f5f5f5" wrapText="true">
+            <Label fx:id="secondActivity" layoutX="477.0" layoutY="455.0" prefHeight="36.0" prefWidth="287.0" text="Activity 2" textFill="#f5f5f5" wrapText="true">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="thirdActivity" layoutX="860.0" layoutY="364.0" prefHeight="196.0" prefWidth="304.0" text="Activity 3" textFill="WHITE" wrapText="true">
+            <Label fx:id="thirdActivity" layoutX="860.0" layoutY="456.0" prefHeight="36.0" prefWidth="295.0" text="Activity 3" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="22.0" />
                </font>
