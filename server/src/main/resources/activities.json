@@ -1,5 +1,19 @@
 [
   {
+    "id": "blabla",
+    "image_path": "bla",
+    "title": "bla",
+    "consumption_in_wh": 10000,
+    "source": "blabla"
+  },
+  {
+    "id": "bla2",
+    "image_path": "bla2",
+    "title": "bla2",
+    "consumption_in_wh": 5000,
+    "source": "bla2"
+  },
+  {
     "id": "02-electric_stove",
     "image_path": "02/electric_stove.png",
     "title": "Using an electric stove for 1 hour",

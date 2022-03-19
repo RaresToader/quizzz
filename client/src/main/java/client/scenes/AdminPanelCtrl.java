@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -159,9 +160,9 @@ public class AdminPanelCtrl {
             source.setPromptText("Please enter a valid source!");
             return;
         }
-        if(!id.isDisabled())
+        if (!id.isDisabled())
             serverUtils.addActivity(new Activity(ID, imagePathing, activityTitle, Long.parseLong(consumption_in_wh), activitySource));
-        else{
+        else {
             serverUtils.modifyActivity(new Activity(ID, imagePathing, activityTitle, Long.parseLong(consumption_in_wh), activitySource));
             id.setDisable(false);
         }
@@ -176,18 +177,18 @@ public class AdminPanelCtrl {
 
     /**
      * Method that loads again the activities from activities.json
-     * TODO
+     * They will be displayed again in the table due to to constant polling
      */
     public void setLoadActivities() {
-
+        serverUtils.loadActivitiesInRepo();
     }
 
     /**
      * Deletes the activity selected
      */
-    public void deleteActivitySelected(){
+    public void deleteActivitySelected() {
         Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
-        if(activity==null)
+        if (activity == null)
             return;
         else
             serverUtils.deleteActivity(activity.getId());
@@ -196,16 +197,16 @@ public class AdminPanelCtrl {
     /**
      * Modifies the selected activity
      */
-    public void modifyActivity(){
+    public void modifyActivity() {
         Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
-        if(activity==null)
+        if (activity == null)
             return;
         hideButtonsAndTable();
         addAnchorPlane.setVisible(true);
         id.setText(activity.getId());
         id.setDisable(true); // you cannot modify the id of the activity
         title.setText(activity.getTitle());
-        consumption.setText(""+activity.getConsumption_in_wh());
+        consumption.setText("" + activity.getConsumption_in_wh());
         imagePath.setText(activity.getImage_path());
         source.setText(activity.getSource());
     }
