@@ -1,0 +1,13 @@
+@import "MainStylesheet.css";
+
+#question {
+    -fx-font-size: 48pt;
+}
+
+#pointCounter {
+    -fx-font-size: 32pt;
+}
+
+.activityLabel {
+    -fx-font-size: 12pt;
+}

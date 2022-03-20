@@ -24,7 +24,7 @@ public class SingleplayerLobbyCtrl {
     @FXML
     private Button leaveButton;
     @FXML
-    private Button startGameButton;
+    public Button startGameButton;
     @FXML
     private Button leaderboardButton;
 
