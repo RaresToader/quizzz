@@ -17,7 +17,7 @@ class CorrectAnswerTest {
                  "path");
         Activity third = new Activity("Relaxing in the jacuzzi for 30 minutes", "test","https://www.directenergy.com/learning-center/how-much-electricity-does-a-hot-tub-use" ,1500l,
                  "path");
-        QuizzQuestion test = new QuizzQuestion("Which is the most expensive?", first, second, third, 0);
+        QuizzQuestion test = new QuizzQuestion("Which is the most expensive?", first, second, third);
 
         assertEquals("Using an air conditioner for 1 hour during summer",
                 new CorrectAnswer().getMostExpensive(test));

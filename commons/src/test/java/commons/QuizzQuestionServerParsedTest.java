@@ -15,8 +15,8 @@ public class QuizzQuestionServerParsedTest {
 
     @Test
     public void nonEmptyQuestionTest() {
-        QuizzQuestionServerParsed x = new QuizzQuestionServerParsed(new QuizzQuestion("0", null, null, null, 0),123,-1);
-        assertEquals(new QuizzQuestion("0", null, null, null, 0),x.getQuestion());
+        QuizzQuestionServerParsed x = new QuizzQuestionServerParsed(new QuizzQuestion("0", null, null, null),123,-1);
+        assertEquals(new QuizzQuestion("0", null, null, null),x.getQuestion());
         assertEquals(123,x.getStartTime());
         assertEquals(-1,x.getQuestionNum());
     }
@@ -24,8 +24,8 @@ public class QuizzQuestionServerParsedTest {
     @Test
     public void setQuestionTest() {
         QuizzQuestionServerParsed x = new QuizzQuestionServerParsed(null,0,-1);
-        x.setQuestion(new QuizzQuestion("0", null, null, null, 1));
-        assertEquals(new QuizzQuestion("0", null, null, null, 1),x.getQuestion());
+        x.setQuestion(new QuizzQuestion("0", null, null, null));
+        assertEquals(new QuizzQuestion("0", null, null, null),x.getQuestion());
     }
 
     @Test

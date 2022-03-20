@@ -3,19 +3,19 @@ package commons;
 import java.util.Objects;
 
 public class QuizzQuestionServerParsed {
-    private QuizzQuestion question;
+    private Question question;
     private long startTime;
     private int questionNum;
 
     public QuizzQuestionServerParsed() {}
 
-    public QuizzQuestionServerParsed(QuizzQuestion question, long startTime, int questionNum) {
+    public QuizzQuestionServerParsed(Question question, long startTime, int questionNum) {
         this.question = question;
         this.startTime = startTime;
         this.questionNum = questionNum;
     }
 
-    public QuizzQuestion getQuestion() {
+    public Question getQuestion() {
         return question;
     }
 

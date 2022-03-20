@@ -1,6 +1,6 @@
 import commons.Activity;
 import commons.Answer;
-import commons.QuizzQuestion;
+import commons.Question;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.Session;
@@ -64,7 +64,7 @@ public class SessionTest {
     public void getQuestionStartedTest() {
         Session x = new Session(false,sess.get60RandomActivities());
         Date date = new Date();
-        QuizzQuestion testQ = x.getQuestions().get(0);
+        Question testQ = x.getQuestions().get(0);
         x.startGame();
         assertEquals(testQ, x.getCurrentQuestion().getQuestion());
     }

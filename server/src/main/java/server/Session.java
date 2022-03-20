@@ -14,12 +14,12 @@ public class Session {
     private boolean ended;
     private String gameAdmin;
     private boolean gameType; //0 for singleplayer || 1 for multiplayer
-    private List<QuizzQuestion> questions;
+    private List<Question> questions;
     private List<Answer> answers;
     private int currentQuestion;
     private long questionStartedAt;
 
-    public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"), 0),-1,-1);
+    public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1);
 
     public Session(boolean gameType, List<Activity> activities) {
         this.playerList = new ArrayList<String>();
@@ -27,7 +27,7 @@ public class Session {
         this.ended = false;
         this.gameAdmin = null;
         this.gameType = gameType;
-        this.questions = new ArrayList<QuizzQuestion>();
+        this.questions = new ArrayList<Question>();
         this.answers = new ArrayList<Answer>();
         this.currentQuestion = -1;
         this.questionStartedAt = -1;
@@ -187,7 +187,7 @@ public class Session {
         return currentQuestion;
     }
 
-    public List<QuizzQuestion> getQuestions() {
+    public List<Question> getQuestions() {
         return this.questions;
     }
 
