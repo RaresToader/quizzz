@@ -161,7 +161,7 @@ public class MainCtrl {
     public void showSingleplayer() {
         primaryStage.setTitle("Singleplayer");
         primaryStage.setScene(this.questionScreen);
-        questionScreenCtrl.init(false); //False for singleplayer session
+        questionScreenCtrl.init();
     }
 
     public void showAdminPanel() {

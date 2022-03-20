@@ -45,7 +45,7 @@ public class SessionContollerTest {
     public void getCurrentQuestionTest() {
         SessionController sess = new SessionController(repo);
         Date date = new Date();
-        assertNotEquals(Session.emptyQ,sess.getCurrentQuestion("test", false));
+        assertNotEquals(Session.emptyQ,sess.getCurrentQuestion("test"));
     }
 
     @Test

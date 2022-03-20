@@ -38,8 +38,8 @@ public class Utils {
      * invokes to session/question/{nickname}
      * @return current question
      */
-    public static QuizzQuestionServerParsed getCurrentQuestion(boolean sessionType) throws JsonProcessingException {
-            String path = "session/question/" + Session.getNickname() + "/" + sessionType;
+    public static QuizzQuestionServerParsed getCurrentQuestion() throws JsonProcessingException {
+            String path = "session/question/" + Session.getNickname();
             String result =  ClientBuilder.newClient(new ClientConfig()) //
                     .target(SERVER).path(path) //
                     .request(APPLICATION_JSON) //
