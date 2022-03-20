@@ -29,6 +29,7 @@ public class QuestionScreenCtrl {
     private QuizzQuestion currQuestion = new QuizzQuestion("Not assigned", null,null,null);
     private String chosenAnswer;
     private String correctAnswer;
+    public boolean sessionType;
     private int points;
     private int totalPoints;
     private Timeline questionTimer = new Timeline(
@@ -92,11 +93,20 @@ public class QuestionScreenCtrl {
     private Label time;
     @FXML
     private Label pointCounter;
+    @FXML
+    private Label congratulation;
+    @FXML
+    private Button confirmButton;
+    @FXML
+    private Button notConfirmButton;
+    @FXML
+    private Button endButton;
 
     /**
      * Initialise a singleplayer game
      */
-    public void init() {
+    public void init(boolean sessionType) {
+        this.sessionType = sessionType;
         restartTimer();
 
         questionUpdateTimer = new Timer();
@@ -370,6 +380,49 @@ public class QuestionScreenCtrl {
         );
         timer.setCycleCount(1);
         timer.play();
+    }
+
+    public void confirmPage(){
+        finalScreen.setVisible(true);
+        finalScreen.setDisable(false);
+        bar.setVisible(false);
+        firstBox.setVisible(false);
+        firstBox.setDisable(true);
+        thirdBox.setVisible(false);
+        thirdBox.setDisable(true);
+        congratulation.setText("Are you sure?");
+        finalScreen.setVisible(true);
+        finalScreen.setDisable(false);
+        confirmButton.setDisable(false);
+        confirmButton.setVisible(true);
+        notConfirmButton.setDisable(false);
+        notConfirmButton.setVisible(true);
+    }
+    public void closeConfirmPage(){
+        finalScreen.setVisible(false);
+        finalScreen.setDisable(true);
+        bar.setVisible(true);
+        firstBox.setVisible(true);
+        firstBox.setDisable(false);
+        thirdBox.setVisible(true);
+        thirdBox.setDisable(false);
+        congratulation.setText("Well done!");
+        finalScreen.setVisible(false);
+        finalScreen.setDisable(true);
+        confirmButton.setDisable(true);
+        confirmButton.setVisible(false);
+        notConfirmButton.setDisable(true);
+        notConfirmButton.setVisible(false);
+    }
+    public void confirmQuit(){
+
+        congratulation.setText("you interrupted the game");
+        confirmButton.setVisible(false);
+        notConfirmButton.setVisible(false);
+        confirmButton.setDisable(true);
+        notConfirmButton.setDisable(true);
+
+        endOfGame();
     }
     /**
      * Gets the answer chosen by the player
