@@ -1,0 +1,52 @@
+@import "MainStylesheet.css";
+
+#quitButton {
+    -fx-translate-y: 20pt;
+}
+
+#groupLabel {
+    -fx-translate-y: 15pt;
+    -fx-translate-x: 20pt;
+}
+
+#leaderboardButton {
+    -fx-font-size: 20pt;
+}
+#editButton {
+    -fx-font-size: 20pt;
+}
+#addButton {
+    -fx-font-size: 20pt;
+}
+#deleteButton {
+    -fx-font-size: 20pt;
+}
+#IDText {
+    -fx-font-size: 12pt;
+}
+#TitleText {
+    -fx-font-size: 12pt;
+}
+#ConsumptionText {
+    -fx-font-size: 12pt;
+}
+#ImageText {
+    -fx-font-size: 12pt;
+}
+#SourceText {
+    -fx-font-size: 12pt;
+}
+
+
+#playerCountNumber {
+    -fx-translate-x: -70pt;
+}
+
+#playerCounterLabel {
+    -fx-translate-x: -70pt;
+}
+
+#titleLabel {
+    -fx-translate-x: -50pt;
+    -fx-translate-y: -20pt;
+}

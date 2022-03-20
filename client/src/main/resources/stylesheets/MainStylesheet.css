@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+
+.root{
+    -fx-font-family: "Fugaz One", cursive;
+}
+
+.standardButton {
+    -fx-background-color: #f15025;
+    -fx-font-size: 38pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: hand;
+}
+
+.standardButton:hover{
+    -fx-background-color: #c3330c;
+    -fx-border-color: white;
+    -fx-border-radius: 24;
+    -fx-border-width: 4;
+    -fx-border-insets: -4;
+}
+
+.standardPlayerLabel {
+    -fx-background-color: CED0CE;
+    -fx-background-radius: 22;
+    -fx-font-size: 30pt;
+}
+
+.label {
+    -fx-font-size: 24pt;
+}
+
+.title {
+    -fx-font-size: 72pt;
+}

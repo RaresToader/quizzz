@@ -1,43 +1,42 @@
 package server;
 
-import commons.Activity;
-import commons.Answer;
-import commons.QuizzQuestion;
+import commons.*;
 
-import java.time.Duration;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 public class Session {
-
     private static final int playerLimit = 20; //To be determined
     private List<String> playerList;
     private boolean started;
+    private boolean ended;
     private String gameAdmin;
     private boolean gameType; //0 for singleplayer || 1 for multiplayer
     private List<QuizzQuestion> questions;
     private List<Answer> answers;
     private int currentQuestion;
-    private LocalDate questionStartedAt;
+    private long questionStartedAt;
 
-    public Session(boolean gameType) {
+    public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1);
+
+    public Session(boolean gameType, List<Activity> activities) {
         this.playerList = new ArrayList<String>();
         this.started = false;
+        this.ended = false;
         this.gameAdmin = null;
         this.gameType = gameType;
         this.questions = new ArrayList<QuizzQuestion>();
         this.answers = new ArrayList<Answer>();
         this.currentQuestion = -1;
-        this.questionStartedAt = LocalDate.of(2030, 1, 1);
-
-        this.generateTestQuestions(); //Temporary until we construct function that generates random question set
+        this.questionStartedAt = -1;
+        this.generateTestQuestions(activities);
     }
 
-    private void generateTestQuestions() {
-        QuizzQuestion q1 = new QuizzQuestion("This is test question", new Activity("abc", "abc", "abc", 10L, "abc"), new Activity("bac", "bac", "bac", 10L, "bac"), new Activity("cab", "cab", "cab", 10l, "cab"));
-        this.questions.add(q1);
+    private void generateTestQuestions(List<Activity> activities) {
+        RandomSelection randS = new RandomSelection(activities);
+        questions             = randS.getListOfQuestions();
     }
 
     public boolean haveEveryoneAnswered() {
@@ -50,17 +49,23 @@ public class Session {
         return answersNum == playerNum;
     }
 
-    public QuizzQuestion getCurrentQuestion() {
-        if (!this.started) return null;
+    public QuizzQuestionServerParsed getCurrentQuestion() {
+        if (!this.started) return Session.emptyQ;
 
+        Date date = new Date();
         //If everyone has answered that question OR this is first question OR time has passed then get new question
-        if (this.haveEveryoneAnswered() || questionStartedAt.getYear() == 2030 || Duration.between(questionStartedAt.atStartOfDay(), LocalDate.now().atStartOfDay()).toSeconds() > 20) {
+        if(this.haveEveryoneAnswered() || questionStartedAt == -1 || date.getTime()-questionStartedAt > 20000) {
             this.currentQuestion++;
-            this.questionStartedAt = LocalDate.now();
+            this.questionStartedAt = date.getTime();
         }
 
+        //If there have already been 20 questions, end the game
+        if(currentQuestion >= questions.size()) {
+            this.endGame();
+            return Session.emptyQ;
+        }
 
-        return this.questions.get(currentQuestion);
+        return new QuizzQuestionServerParsed(this.questions.get(currentQuestion),this.questionStartedAt,this.currentQuestion);
     }
 
     /**
@@ -98,23 +103,25 @@ public class Session {
      * Adds player answer
      *
      * @param x - Answer object
+     * @return boolean value whether operation of addition was successful
      */
-    public void addAnswer(Answer x) {
-        if (x == null) return; //If null object
+    public boolean addAnswer(Answer x) {
+        if(x == null) return false; //If null object
 
         //Is player who submits an answer member of the session
         //If answer is submitted to other question than current
-        if (!this.isPlayerInSession(x.getNickname()) || currentQuestion != x.getQuestionNum()) return;
+        if(!this.isPlayerInSession(x.getNickname()) || currentQuestion != x.getQuestionNum()) return false;
 
 
         //If answer has already been submitted
-        for (Answer ans : this.answers) {
-            if (ans.getQuestionNum() == x.getQuestionNum() && ans.getNickname().equals(x.getNickname())) {
-                return;
+        for(Answer ans : this.answers) {
+            if(ans.getQuestionNum() == x.getQuestionNum() && ans.getNickname().equals(x.getNickname())) {
+                return false;
             }
         }
 
         this.answers.add(x);
+        return true;
     }
 
     /**
@@ -144,6 +151,10 @@ public class Session {
         return this.playerList.contains(x);
     }
 
+    public boolean hasEnded() {
+        return ended;
+    }
+
     public int getPlayerNum() {
         return this.playerList.size();
     }
@@ -153,7 +164,7 @@ public class Session {
     }
 
     public void endGame() {
-        this.started = false;
+        this.ended = true;
     }
 
     public List<String> getPlayerList() {
@@ -172,12 +183,20 @@ public class Session {
         return gameType;
     }
 
+    public int getCurrentQuestionNum() {
+        return currentQuestion;
+    }
+
     public List<QuizzQuestion> getQuestions() {
         return this.questions;
     }
 
     public List<Answer> getAnswers() {
         return this.answers;
+    }
+
+    public long getQuestionStartedAt() {
+        return this.questionStartedAt;
     }
 
     @Override

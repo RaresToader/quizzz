@@ -23,6 +23,8 @@ public class GlobalLeaderboardCtrl {
     private TableColumn<Player,String> nameColumn;
     @FXML
     private TableColumn<Player,Long> scoreColumn;
+    @FXML
+    private Button playAgain;
 
     @Inject
     public GlobalLeaderboardCtrl(MainCtrl mainCtrl,ServerUtils serverUtils) {
@@ -34,14 +36,19 @@ public class GlobalLeaderboardCtrl {
         mainCtrl.showSplash();
     }
 
-    public void initialize() {
+    public void init() {
         nameColumn.setCellValueFactory(new PropertyValueFactory("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory("score"));
         ObservableList<Player> players = FXCollections.observableArrayList();
-        serverUtils.addPlayer("jon");
-        serverUtils.addPlayer("Rares");
-        System.out.println(serverUtils.getAllPlayers());
-        players.addAll(serverUtils.getAllPlayers());
+        players.addAll(serverUtils.getLeaderboardPlayers());
         tableView.setItems(players);
+    }
+
+    public void newGame(){
+        mainCtrl.showSingleplayer();
+    }
+    public void buttonOnOrOff(boolean isFromSplash) {
+        this.playAgain.setVisible(!isFromSplash);
+        this.playAgain.setDisable(isFromSplash);
     }
 }

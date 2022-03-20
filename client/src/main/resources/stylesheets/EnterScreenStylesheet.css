@@ -1,0 +1,20 @@
+@import "MainStylesheet.css";
+
+.inputText {
+    -fx-background-color: #ffffff;
+    -fx-font-size: 28pt;
+    -fx-line-spacing: -16;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: text;
+    -fx-border-color: #474747;
+    -fx-border-radius: 22;
+    -fx-border-width: 6;
+    -fx-border-insets: -6;
+}
+
+#errorText {
+    -fx-opacity: 0;
+}

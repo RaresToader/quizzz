@@ -83,6 +83,60 @@ public class ServerUtils {
     }
 
     /**
+     * Adds an activity to the database
+     *
+     * @param activity the activity to be added
+     * @return the added activity
+     */
+    public Activity addActivity(Activity activity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/add").request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .post(Entity.entity(activity, APPLICATION_JSON), Activity.class);
+    }
+
+    /**
+     * Delete activity by its id
+     *
+     * @param id the id of an activity
+     * @return the deleted activity
+     */
+    public Activity deleteActivity(String id) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/delete/" + id).request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .delete(Activity.class);
+    }
+
+    /**
+     * Modifies an activity
+     *
+     * @param activity to be saved in the repository
+     * @return the modified activity
+     */
+    public Activity modifyActivity(Activity activity) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/modify").request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .put(Entity.entity(activity, APPLICATION_JSON), Activity.class);
+    }
+
+    /**
+     * Checks if an activity already exists in the repository (with the same id)
+     *
+     * @param id the activity to be checked
+     * @return a boolean, true if an activity with the same id already exists in the repository,
+     * false otherwise
+     */
+    public Boolean doesActivityExist(String id) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("activity/exists/" + id).request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<Boolean>() {
+                });
+    }
+
+    /**
      * Retrieves a list of 60 Random Activities
      *
      * @return a list of 60 activities
@@ -115,7 +169,7 @@ public class ServerUtils {
      * @param id the id of the activity
      * @return the activity from the repository
      */
-    public Activity getActivityById(long id) {
+    public Activity getActivityById(String id) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path("activity/" + id).request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
@@ -123,6 +177,11 @@ public class ServerUtils {
                 });
     }
 
+    /**
+     * Get the correct answer
+     *
+     * @return a string
+     */
     public String getCorrect() {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path("/correct/mostExpensive").request(APPLICATION_JSON)
@@ -131,4 +190,45 @@ public class ServerUtils {
                 });
     }
 
+    /**
+     * Gets the top 10 players according to score, in descending order
+     *
+     * @return a list of the top 10 players
+     */
+    public List<Player> getLeaderboardPlayers() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("/player/leaderboard").request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Player>>() {
+                });
+    }
+
+    /**
+     * Updates a player in the database if his score is higher than the score already stored.
+     *
+     * @param id     the id of the player whose score is going to be updated.
+     * @param points the amount of points that are going to be added
+     * @return the updated player
+     */
+    public Player updatePlayerInRepo(String id, long points) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("/player/update/")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .put(Entity.entity(new Player(id, points), APPLICATION_JSON), Player.class);
+    }
+
+    /**
+     * Loads all activities from activities.json file
+     *
+     * @return the list of activities loaded from the activities.json file
+     */
+    public List<Activity> loadActivitiesInRepo() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("/activity/load")
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Activity>>() {
+                });
+    }
 }

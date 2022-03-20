@@ -1,0 +1,14 @@
+@import "MainStylesheet.css";
+
+#leaderboardButton {
+    -fx-font-size: 20pt;
+}
+
+#startGameButton {
+    -fx-font-size: 32pt;
+    -fx-line-spacing: -32;
+    -fx-padding: -12;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+}
