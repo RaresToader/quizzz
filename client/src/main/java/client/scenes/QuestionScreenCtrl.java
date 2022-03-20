@@ -29,6 +29,7 @@ public class QuestionScreenCtrl {
     private QuizzQuestion currQuestion = new QuizzQuestion("Not assigned", null,null,null);
     private String chosenAnswer;
     private String correctAnswer;
+    private boolean sessionType;
     private int points;
     private int totalPoints;
     private Timeline questionTimer = new Timeline(
@@ -93,38 +94,54 @@ public class QuestionScreenCtrl {
     @FXML
     private Label pointCounter;
 
+    @FXML
+    private Label congratulation;
+    @FXML
+    private Button confirmButton;
+    @FXML
+    private Button notConfirmButton;
+    @FXML
+    private Button endButton;
+
     /**
      * Initialise a singleplayer game
      */
-    public void init() {
+    public void init(boolean sessionType) {
+        this.sessionType = sessionType;
+
+        congratulation.setVisible(false);
         restartTimer();
 
         questionUpdateTimer = new Timer();
         questionUpdateTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(() -> {
-                    try {
-                        QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion(); //gathers current question
-                        //System.out.println(quizzQuestionServerParsed); //DEBUG LINE
 
-                        if(quizzQuestionServerParsed.equals(Session.emptyQ)) { //If gathered question is equal to empty Question
-                            questionUpdateTimer.cancel();
-                            toEnd = true;
-                        } else {
-                            QuizzQuestion newQuestion = quizzQuestionServerParsed.getQuestion();
-                            Session.setQuestionNum(quizzQuestionServerParsed.getQuestionNum());
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion(sessionType); //gathers current question
+                            //System.out.println(quizzQuestionServerParsed); //DEBUG LINE
 
-                            if(!newQuestion.equals(currQuestion)) {
-                                currQuestion = newQuestion;
-                                if(Session.getQuestionNum() == 0) {
-                                    setNewQuestion();
+                            if(quizzQuestionServerParsed.equals(Session.emptyQ)) { //If gathered question is equal to empty Question
+                                questionUpdateTimer.cancel();
+                                toEnd = true;
+                            } else {
+                                QuizzQuestion newQuestion = quizzQuestionServerParsed.getQuestion();
+                                Session.setQuestionNum(quizzQuestionServerParsed.getQuestionNum());
+
+                                if(!newQuestion.equals(currQuestion)) {
+                                    currQuestion = newQuestion;
+                                    if (Session.getQuestionNum() == 0) {
+                                        setNewQuestion();
+                                    }
                                 }
                             }
+//                            System.out.println(Session.getQuestionNum()); //DEBUG LINE
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
                         }
-                        System.out.println(Session.getQuestionNum());
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
                     }
                 });
 
@@ -365,12 +382,67 @@ public class QuestionScreenCtrl {
                             thirdActivity.setVisible(true);
                             totalPoints = 0;
                             pointCounter.setText("current points: " + totalPoints);
+
+                            confirmButton.setDisable(true);
+                            confirmButton.setVisible(false);
+                            notConfirmButton.setDisable(true);
+                            notConfirmButton.setVisible(false);
+
+                            question.setText(currQuestion.getQuestion());
                         }
                 )
         );
         timer.setCycleCount(1);
         timer.play();
     }
+
+
+
+    public void confirmPage(){
+        timeBarFill.setVisible(false);
+        timeBarBackground.setVisible(false);
+        time.setVisible(false);
+        firstActivity.setVisible(false);
+        firstActivity.setDisable(true);
+        secondActivity.setVisible(false);
+        secondActivity.setDisable(true);
+        thirdActivity.setVisible(false);
+        thirdActivity.setDisable(true);
+        congratulation.setVisible(true);
+        congratulation.setText("Are you sure?");
+        confirmButton.setDisable(false);
+        confirmButton.setVisible(true);
+        notConfirmButton.setDisable(false);
+        notConfirmButton.setVisible(true);
+    }
+    public void closeConfirmPage(){
+        timeBarFill.setVisible(true);
+        timeBarBackground.setVisible(true);
+        time.setVisible(true);
+        firstActivity.setVisible(true);
+        firstActivity.setDisable(false);
+        secondActivity.setVisible(true);
+        secondActivity.setDisable(false);
+        thirdActivity.setVisible(true);
+        thirdActivity.setDisable(false);
+        congratulation.setVisible(false);
+        congratulation.setText("Well done!");
+        confirmButton.setDisable(true);
+        confirmButton.setVisible(false);
+        notConfirmButton.setDisable(true);
+        notConfirmButton.setVisible(false);
+    }
+    public void confirmQuit(){
+        congratulation.setVisible(true);
+        congratulation.setText("You interrupted the game");
+        confirmButton.setVisible(false);
+        notConfirmButton.setVisible(false);
+        confirmButton.setDisable(true);
+        notConfirmButton.setDisable(true);
+
+        endOfGame();
+    }
+
     /**
      * Gets the answer chosen by the player
      */

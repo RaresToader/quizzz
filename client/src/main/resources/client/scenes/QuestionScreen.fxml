@@ -11,6 +11,21 @@
    <children>
       <Pane layoutX="28.0" layoutY="28.0" prefHeight="664.0" prefWidth="1224.0" style="-fx-background-color: #474747;" styleClass="screenDividerBackground">
          <children>
+            <Label fx:id="congratulation" layoutX="-209.0" layoutY="-60.0" prefHeight="78.0" prefWidth="800.0" text="Congratulations!" translateX="400.0" translateY="110.0" visible="false">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+            <Button fx:id="confirmButton" disable="true" layoutX="234.0" layoutY="195.0" mnemonicParsing="false" onAction="#confirmQuit" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="Yes" textFill="WHITE" visible="false">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <Button fx:id="notConfirmButton" disable="true" layoutX="548.0" layoutY="195.0" mnemonicParsing="false" onAction="#closeConfirmPage" prefHeight="91.0" prefWidth="204.0" style="-fx-background-color: #f15025;" text="No" textFill="WHITE" visible="false">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
             <Label id="pointCounter" fx:id="pointCounter" layoutX="412.0" layoutY="565.0" prefHeight="64.0" prefWidth="763.0" styleClass="label" text="Current points: 0" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="42.0" />
@@ -26,6 +41,11 @@
                   <Font size="18.0" />
                </font>
             </Label>
+            <Button fx:id="endButton" layoutX="60.0" layoutY="577.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="59.0" prefWidth="222.0" style="-fx-background-color: #f15025;" text="finish now" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
             <Rectangle fx:id="timeBarBackground" arcHeight="5.0" arcWidth="5.0" fill="#ced0ce" height="28.0" layoutX="223.0" layoutY="108.0" stroke="BLACK" strokeType="INSIDE" styleClass="timeBarBackground" width="960.0" />
             <Rectangle fx:id="timeBarFill" arcHeight="5.0" arcWidth="5.0" fill="#f15025" height="28.0" layoutX="223.0" layoutY="108.0" stroke="BLACK" strokeType="INSIDE" styleClass="timeBarFill" width="960.0" />
             <Button fx:id="firstActivity" alignment="TOP_CENTER" contentDisplay="BOTTOM" graphicTextGap="2.0" layoutX="10.0" layoutY="170.0" mnemonicParsing="false" onAction="#chooseFirst" prefHeight="380.0" prefWidth="380.0" styleClass="answerButton" text="Activity 1" textAlignment="CENTER" wrapText="true">
