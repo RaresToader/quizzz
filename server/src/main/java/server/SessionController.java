@@ -32,11 +32,11 @@ public class SessionController {
      *
      * @param nickname - nickname of the user creating the request
      */
-    @GetMapping("/session/question/{nickname}")
-    public QuizzQuestionServerParsed getCurrentQuestion(@PathVariable("nickname") String nickname) {
+    @GetMapping("/session/question/{nickname}/{sessionType}")
+    public QuizzQuestionServerParsed getCurrentQuestion(@PathVariable("nickname") String nickname, @PathVariable("sessionType") boolean sessionType) {
         int session = SessionContainer.findUserSession(nickname);
         if(session == -1) { //If not session provided for that user yet
-            SessionContainer.createSession(false,nickname,this.get60RandomActivities()); //TODO It is: provide that implementation for multiplayer too
+            SessionContainer.createSession(sessionType,nickname,this.get60RandomActivities()); //TODO It is: provide that implementation for multiplayer too
         }
 
         int sessionId = SessionContainer.findUserSession(nickname);
