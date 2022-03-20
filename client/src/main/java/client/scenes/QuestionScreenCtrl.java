@@ -31,6 +31,7 @@ public class QuestionScreenCtrl {
     private QuizzQuestion currQuestion = new QuizzQuestion("Not assigned", null,null,null);
     private String chosenAnswer;
     private String correctAnswer;
+    public boolean sessionType;
     private int points;
     private int totalPoints;
     private Timeline questionTimer = new Timeline(
@@ -115,7 +116,8 @@ public class QuestionScreenCtrl {
     /**
      * Initialise a singerplayer game
      */
-    public void init() {
+    public void init(boolean sessionType) {
+        this.sessionType = sessionType;
         restartTimer();
 
         questionUpdateTimer = new Timer();
@@ -126,7 +128,7 @@ public class QuestionScreenCtrl {
                     @Override
                     public void run() {
                         try {
-                            QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion(); //gathers current question
+                            QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion(sessionType); //gathers current question
                             //System.out.println(quizzQuestionServerParsed); //DEBUG LINE
 
                             if(quizzQuestionServerParsed.equals(Session.emptyQ)) { //If gathered question is equal to empty Question
@@ -143,7 +145,7 @@ public class QuestionScreenCtrl {
                                     }
                                 }
                             }
-                            System.out.println(Session.getQuestionNum());
+                            //System.out.println(Session.getQuestionNum()); //DEBUG LINE
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
                         }
