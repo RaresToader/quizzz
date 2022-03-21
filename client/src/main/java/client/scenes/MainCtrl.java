@@ -153,6 +153,7 @@ public class MainCtrl {
 
     public void showSingleplayerLobby() {
         sLobbyCtrl.playerNameLabel.setText(Session.getNickname());
+        sLobbyCtrl.startGameButton.requestFocus();
         primaryStage.setTitle("Singleplayer Lobby");
         primaryStage.setScene(this.sLobbyScreen);
     }

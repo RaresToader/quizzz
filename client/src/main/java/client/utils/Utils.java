@@ -39,7 +39,7 @@ public class Utils {
      * @return current question
      */
     public static QuizzQuestionServerParsed getCurrentQuestion(boolean sessionType) throws JsonProcessingException {
-            String path = "session/question/" + Session.getNickname() + "/" + sessionType;
+        String path = "session/question/" + Session.getNickname() + "/" + sessionType;
             String result =  ClientBuilder.newClient(new ClientConfig()) //
                     .target(SERVER).path(path) //
                     .request(APPLICATION_JSON) //
