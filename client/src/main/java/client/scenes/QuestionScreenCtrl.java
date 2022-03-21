@@ -95,6 +95,12 @@ public class QuestionScreenCtrl {
     private Button notConfirmButton;
     @FXML
     private Button endButton;
+    @FXML
+    private ImageView firstOptionImage;
+    @FXML
+    private ImageView secondOptionImage;
+    @FXML
+    private ImageView thirdOptionImage;
 
     /**
      * Initialise a singleplayer game
@@ -163,9 +169,14 @@ public class QuestionScreenCtrl {
 
         question.setText(progress + ". " + currQuestion.getQuestion());
         firstActivity.setText(currQuestion.getFirstChoice().getTitle());
+        String path = "/photos/"+currQuestion.getFirstChoice().getImage_path();
+        firstOptionImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path)));
         secondActivity.setText(currQuestion.getSecondChoice().getTitle());
+        path = "/photos/"+currQuestion.getSecondChoice().getImage_path();
+        secondOptionImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path)));
         thirdActivity.setText(currQuestion.getThirdChoice().getTitle());
-
+        path = "/photos/"+currQuestion.getThirdChoice().getImage_path();
+        thirdOptionImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path)));
         firstAnswer.setText("");
         secondAnswer.setText("");
         thirdAnswer.setText("");
