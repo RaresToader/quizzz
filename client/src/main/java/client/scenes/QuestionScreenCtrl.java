@@ -6,6 +6,7 @@ import client.utils.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import commons.*;
 import javafx.animation.KeyFrame;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -49,21 +50,13 @@ public class QuestionScreenCtrl {
     );
     public int timeLeft;
     private Timer questionUpdateTimer;
-    private TimerTask timeBarTimerTask;
-    private Timer timeBarTimer;
+
+    private ScaleTransition timeBarAnimation;
 
     @Inject
     public QuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.serverUtils = server;
         this.mainCtrl = mainCtrl;
-
-        this.timeBarTimerTask = new TimerTask() {
-            @Override
-            public void run() {
-                timeBarFill.setWidth(timeBarFill.getWidth() - 0.48);
-
-            }
-        };
     }
 
     int progress = 0;
@@ -207,21 +200,10 @@ public class QuestionScreenCtrl {
         questionTimer.setCycleCount(20);
         questionTimer.play();
 
-        timeBarFill.setWidth(timeBarBackground.getWidth());
-        timeBarTimerTask = new TimerTask() {
-            @Override
-            public void run() {
-                timeBarFill.setWidth(timeBarFill.getWidth() - 0.48);
-
-            }
-        };
-
-        if (timeBarTimer != null) {
-            timeBarTimer.cancel();
-            timeBarTimer.purge();
-        }
-        timeBarTimer = new Timer();
-        timeBarTimer.scheduleAtFixedRate(timeBarTimerTask, 0, 10L);
+        timeBarAnimation = new ScaleTransition(Duration.seconds(20), timeBarFill);
+        timeBarAnimation.setFromX(1);
+        timeBarAnimation.setToX(0);
+        timeBarAnimation.playFromStart();
     }
 
     /**
@@ -229,7 +211,7 @@ public class QuestionScreenCtrl {
      */
     public void timeRanOut(){
         question.setText("Time ran out!");
-        //wrongAnswer();
+        wrongAnswer();
         transition();
 
     }
@@ -314,6 +296,7 @@ public class QuestionScreenCtrl {
      * handles the display when the chosen answer was not the right answer.
      */
     public void wrongAnswer(){
+        System.out.println("HERE");
         if (correctAnswer.equals(currQuestion.getFirstChoice().getTitle())) {
             firstActivity.setStyle("-fx-background-color: green;");
             secondActivity.setStyle("-fx-background-color: red;");
@@ -342,7 +325,7 @@ public class QuestionScreenCtrl {
         thirdActivity.setDisable(true);
         thirdAnswer.setOpacity(1);
 
-        timeBarTimer.cancel();
+        timeBarAnimation.pause();
 
         Timeline timer = new Timeline(
                 new KeyFrame(Duration.seconds(3),
@@ -358,8 +341,7 @@ public class QuestionScreenCtrl {
      */
     public void endOfGame(){
         questionTimer.pause();
-        timeBarTimer.cancel();
-        timeBarTimer.purge();
+        timeBarAnimation.stop();
         Player player = serverUtils.getPlayer(Session.getNickname());
         if(player.getScore()<totalPoints){
             serverUtils.updatePlayerInRepo(Session.getNickname(),totalPoints);
@@ -380,6 +362,9 @@ public class QuestionScreenCtrl {
                             firstActivity.setVisible(true);
                             secondActivity.setVisible(true);
                             thirdActivity.setVisible(true);
+                            time.setVisible(true);
+                            timeBarBackground.setVisible(true);
+                            timeBarFill.setVisible(true);
                             totalPoints = 0;
                             pointCounter.setText("current points: " + totalPoints);
 
