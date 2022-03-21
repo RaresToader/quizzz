@@ -153,6 +153,7 @@ public class MainCtrl {
 
     public void showSingleplayerLobby() {
         sLobbyCtrl.playerNameLabel.setText(Session.getNickname());
+        sLobbyCtrl.startGameButton.requestFocus();
         primaryStage.setTitle("Singleplayer Lobby");
         primaryStage.setScene(this.sLobbyScreen);
     }
@@ -160,7 +161,7 @@ public class MainCtrl {
     public void showSingleplayer() {
         primaryStage.setTitle("Singleplayer");
         primaryStage.setScene(this.questionScreen);
-        questionScreenCtrl.init();
+        questionScreenCtrl.init(false); //False for singleplayer session
     }
 
     public void showAdminPanel() {

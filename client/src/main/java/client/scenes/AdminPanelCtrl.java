@@ -65,10 +65,20 @@ public class AdminPanelCtrl {
         this.serverUtils = serverUtils;
     }
 
-    public void goBackToSplash() {
-        refreshActivities.cancel();
-        mainCtrl.showSplash();
+    public void backButton() {
+        if (addAnchorPlane.isVisible()) {
+            showButtonsAndTable();
+        }
+        else{
+            showButtonsAndTable();
+            refreshActivities.cancel();
+            mainCtrl.showSplash();
+        }
     }
+
+    /**
+     * This method initializes all the Activities in the table on the admin panel screen.
+     */
 
     public void initialise() {
         idColumn.setCellValueFactory(new PropertyValueFactory("id"));
@@ -89,6 +99,11 @@ public class AdminPanelCtrl {
 
     }
 
+    /**
+     * This method hides the buttons and the table with all the activities
+     * and shows the field in which you can add a new activity.
+     */
+
     public void hideButtonsAndTable() {
         addButton.setVisible(false);
         addButton.setDisable(true);
@@ -100,8 +115,15 @@ public class AdminPanelCtrl {
         deleteButton.setDisable(true);
         activitiesTable.setVisible(false);
         activitiesTable.setDisable(true);
+        addAnchorPlane.setVisible(true);
+        addAnchorPlane.setDisable(false);
 
     }
+
+    /**
+     * This method does the opposite of the method above:
+     * It switches the 'Admin-Panel-screen' back to the beginning state.
+     */
 
     public void showButtonsAndTable() {
         addButton.setVisible(true);
@@ -114,6 +136,8 @@ public class AdminPanelCtrl {
         deleteButton.setDisable(false);
         activitiesTable.setVisible(true);
         activitiesTable.setDisable(false);
+        addAnchorPlane.setVisible(false);
+        addAnchorPlane.setDisable(true);
 
     }
 
