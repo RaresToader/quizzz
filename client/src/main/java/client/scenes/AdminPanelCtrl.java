@@ -65,7 +65,7 @@ public class AdminPanelCtrl {
         this.serverUtils = serverUtils;
     }
 
-    public void goBackToSplash() {
+    public void backButton() {
         if (addAnchorPlane.isVisible()) {
             showButtonsAndTable();
         }
