@@ -5,7 +5,6 @@ import client.utils.ServerUtils;
 import client.utils.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import commons.*;
-import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
@@ -98,8 +97,6 @@ public class QuestionScreenCtrl {
     private Button confirmButton;
     @FXML
     private Button notConfirmButton;
-    @FXML
-    private Button endButton;
     @FXML
     private ImageView firstAnswerImage;
     @FXML
@@ -350,9 +347,9 @@ public class QuestionScreenCtrl {
 
         transitionTimerAnimation = new ScaleTransition(Duration.seconds(2), transitionTimer);
         transitionTimerAnimation.setFromX(1);
-        transitionTimerAnimation.setToX(0.75);
+        transitionTimerAnimation.setToX(0.8);
         transitionTimerAnimation.setFromY(1);
-        transitionTimerAnimation.setToY(0.75);
+        transitionTimerAnimation.setToY(0.8);
         transitionTimerAnimation.setAutoReverse(true);
         transitionTimerAnimation.setCycleCount(20);
         transitionTimerAnimation.play();
@@ -364,7 +361,7 @@ public class QuestionScreenCtrl {
         Timeline timer = new Timeline(
                 new KeyFrame(Duration.seconds(1),
                         event -> {
-                            System.out.println("transitionTimeLeft = " + transitionTimeLeft);
+//                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
                     if (transitionTimeLeft == 0) {
                         transitionTimerAnimation.stop();
                         transitionTimer.setOpacity(1);
