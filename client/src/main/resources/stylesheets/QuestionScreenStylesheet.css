@@ -1,7 +1,7 @@
 @import "MainStylesheet.css";
 
 #question {
-    -fx-font-size: 48pt;
+    -fx-font-size: 42pt;
 }
 
 #pointCounter {

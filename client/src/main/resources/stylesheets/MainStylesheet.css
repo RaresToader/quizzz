@@ -75,7 +75,7 @@
     -fx-background-color: #ced0ce;
     -fx-font-size: 20pt;
     -fx-line-spacing: -16;
-    -fx-padding: 10;
+    -fx-padding: 8;
     -fx-indent: 0;
     -fx-end-margin: 0;
     -fx-start-margin: 0;
@@ -87,7 +87,7 @@
     -fx-background-color: #ced0ce;
     -fx-font-size: 20pt;
     -fx-line-spacing: -16;
-    -fx-padding: 10;
+    -fx-padding: 8;
     -fx-indent: 0;
     -fx-end-margin: 0;
     -fx-start-margin: 0;
@@ -100,7 +100,7 @@
 .answerButton:hover {
     -fx-background-color: #ced0ce;
     -fx-border-color: #f15025;
-    -fx-border-radius: 24;
-    -fx-border-width: 4;
-    -fx-border-insets: -4;
+    -fx-border-radius: 26;
+    -fx-border-width: 6;
+    -fx-border-insets: -6;
 }
