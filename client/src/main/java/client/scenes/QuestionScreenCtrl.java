@@ -391,7 +391,14 @@ public class QuestionScreenCtrl {
         Player player = serverUtils.getPlayer(Session.getNickname());
         if(player.getScore()<totalPoints){
             serverUtils.updatePlayerInRepo(Session.getNickname(),totalPoints);
+            transitionTimer.setText("Congratulations! You improved your score!");
         }
+        else {
+            transitionTimer.setText("You had a higher score before! Try again!");
+        }
+        firstAnswer.setStyle("-fx-background-color: #ced0ce;");
+        secondAnswer.setStyle("-fx-background-color: #ced0ce;");
+        thirdAnswer.setStyle("-fx-background-color: #ced0ce;");
         firstAnswer.setVisible(false);
         secondAnswer.setVisible(false);
         thirdAnswer.setVisible(false);
@@ -401,6 +408,7 @@ public class QuestionScreenCtrl {
         time.setVisible(false);
         timeBarBackground.setVisible(false);
         timeBarFill.setVisible(false);
+        transitionTimer.setVisible(true);
         question.setText("Game Over!");
         pointCounter.setText("You scored " + totalPoints + "!"); //once score implemented, display here
         Timeline timer = new Timeline(
@@ -420,6 +428,7 @@ public class QuestionScreenCtrl {
                             time.setVisible(true);
                             timeBarBackground.setVisible(true);
                             timeBarFill.setVisible(true);
+                            transitionTimer.setVisible(true);
                             totalPoints = 0;
                             pointCounter.setText("current points: " + totalPoints);
 
