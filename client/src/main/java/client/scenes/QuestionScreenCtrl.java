@@ -6,6 +6,7 @@ import client.utils.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import commons.*;
 import javafx.animation.KeyFrame;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,9 +14,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
@@ -31,25 +32,30 @@ public class QuestionScreenCtrl {
     private Question currQuestion = new QuizzQuestion("Not assigned", null,null,null);
     private String chosenAnswer;
     private String correctAnswer;
+    private boolean sessionType;
     private int points;
     private int totalPoints;
     private Timeline questionTimer = new Timeline(
             new KeyFrame(Duration.seconds(1),
-                    new EventHandler<ActionEvent>() {
+                    new EventHandler<>() {
 
                         @Override
                         public void handle(ActionEvent event) {
-                            timeLeft-=1;
-                            time.setText(Integer.toString(timeLeft));
-                            if(timeLeft == 0){
+                            timeLeft -= 1;
+                            time.setText(timeLeft + " seconds");
+                            if (timeLeft == 0) {
                                 timeRanOut();
                             }
                         }
                     }
             )
     );
-
+    public int timeLeft;
+    public int transitionTimeLeft;
     private Timer questionUpdateTimer;
+
+    private ScaleTransition timeBarAnimation;
+    private ScaleTransition transitionTimerAnimation;
 
     @Inject
     public QuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -58,75 +64,65 @@ public class QuestionScreenCtrl {
     }
 
     int progress = 0;
-    int timeLeft;
-
-    @FXML
-    private Button firstChoice;
-
-    @FXML
-    private Button secondChoice;
-
-    @FXML
-    private Button thirdChoice;
 
     @FXML
     private Label question;
 
     @FXML
-    private Label firstActivity;
+    private Button firstAnswer;
     @FXML
-    private Label secondActivity;
+    private Button secondAnswer;
     @FXML
-    private Label thirdActivity;
+    private Button thirdAnswer;
 
     @FXML
-    private Label firstAnswer;
+    private Label firstAnswerLabel;
     @FXML
-    private Label secondAnswer;
+    private Label secondAnswerLabel;
     @FXML
-    private Label thirdAnswer;
+    private Label thirdAnswerLabel;
 
     @FXML
-    private Pane firstBox;
+    private Rectangle timeBarBackground;
     @FXML
-    private Pane secondBox;
-    @FXML
-    private Pane thirdBox;
-
-    @FXML
-    private AnchorPane finalScreen;
-    @FXML
-    private Label finalScore;
-    @FXML
-    private ProgressBar bar;
+    private Rectangle timeBarFill;
     @FXML
     private Label time;
     @FXML
     private Label pointCounter;
+
     @FXML
-    private Label congratulation;
+    private Label transitionTimer;
     @FXML
     private Button confirmButton;
     @FXML
     private Button notConfirmButton;
     @FXML
-    private Button endButton;
+    private ImageView firstAnswerImage;
+    @FXML
+    private ImageView secondAnswerImage;
+    @FXML
+    private ImageView thirdAnswerImage;
 
     /**
-     * Initialise a singerplayer game
+     * Initialise a singleplayer game
      */
-    public void init() {
+    public void init(boolean sessionType) {
+        this.sessionType = sessionType;
+
         restartTimer();
+        transitionTimer.setVisible(false);
 
         questionUpdateTimer = new Timer();
         questionUpdateTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion(); //gathers current question
+                            QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion(sessionType); //gathers current question
                             //System.out.println(quizzQuestionServerParsed); //DEBUG LINE
 
                             if(quizzQuestionServerParsed.equals(Session.emptyQ)) { //If gathered question is equal to empty Question
@@ -138,12 +134,12 @@ public class QuestionScreenCtrl {
 
                                 if(!newQuestion.equals(currQuestion)) {
                                     currQuestion = newQuestion;
-                                    if(Session.getQuestionNum() == 0) {
+                                    if (Session.getQuestionNum() == 0) {
                                         setNewQuestion();
                                     }
                                 }
                             }
-                            System.out.println(Session.getQuestionNum());
+//                            System.out.println(Session.getQuestionNum()); //DEBUG LINE
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
                         }
@@ -173,32 +169,39 @@ public class QuestionScreenCtrl {
 
         if(currQuestion instanceof QuizzQuestion) {
             question.setText(currQuestion.getQuestion());
-            firstActivity.setText(((QuizzQuestion) currQuestion).getFirstChoice().getTitle());
-            secondActivity.setText(((QuizzQuestion) currQuestion).getSecondChoice().getTitle());
-            thirdActivity.setText(((QuizzQuestion) currQuestion).getThirdChoice().getTitle());
+            firstAnswer.setText(((QuizzQuestion) currQuestion).getFirstChoice().getTitle());
+            String path = "/photos/"+((QuizzQuestion) currQuestion).getFirstChoice().getImage_path();
+            firstAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+            secondAnswer.setText(((QuizzQuestion) currQuestion).getSecondChoice().getTitle());
+            path = "/photos/"+((QuizzQuestion) currQuestion).getSecondChoice().getImage_path();
+            secondAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+            thirdAnswer.setText(((QuizzQuestion) currQuestion).getThirdChoice().getTitle());
+            path = "/photos/"+((QuizzQuestion) currQuestion).getThirdChoice().getImage_path();
+            thirdAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+
         }
 
         if(currQuestion instanceof ConsumpQuestion) {
             question.setText(currQuestion.getQuestion());
-            firstActivity.setText(Long.toString(((ConsumpQuestion) currQuestion).getFirst()));
-            secondActivity.setText(Long.toString(((ConsumpQuestion) currQuestion).getSecond()));
-            thirdActivity.setText(Long.toString(((ConsumpQuestion) currQuestion).getThird()));
+            firstAnswer.setText(Long.toString(((ConsumpQuestion) currQuestion).getFirst()));
+            secondAnswer.setText(Long.toString(((ConsumpQuestion) currQuestion).getSecond()));
+            thirdAnswer.setText(Long.toString(((ConsumpQuestion) currQuestion).getThird()));
         }
 
-        firstAnswer.setText("");
-        secondAnswer.setText("");
-        thirdAnswer.setText("");
+        firstAnswerLabel.setText("");
+        secondAnswerLabel.setText("");
+        thirdAnswerLabel.setText("");
 
         progress+=1;
-        bar.setProgress(progress*0.05);
 
-        firstBox.setStyle("-fx-background-color: #CED0CE");
-        secondBox.setStyle("-fx-background-color: #CED0CE;");
-        thirdBox.setStyle("-fx-background-color: #CED0CE;");
 
-        firstChoice.setDisable(false);
-        secondChoice.setDisable(false);
-        thirdChoice.setDisable(false);
+        firstAnswer.setStyle("-fx-background-color: #CED0CE;");
+        secondAnswer.setStyle("-fx-background-color: #CED0CE;");
+        thirdAnswer.setStyle("-fx-background-color: #CED0CE;");
+
+        firstAnswer.setDisable(false);
+        secondAnswer.setDisable(false);
+        thirdAnswer.setDisable(false);
     }
 
     /**
@@ -206,25 +209,26 @@ public class QuestionScreenCtrl {
      */
     public void restartTimer(){
         timeLeft = 20;
-        time.setText(Integer.toString(timeLeft));
+        time.setText(timeLeft + " seconds");
         questionTimer.pause();
         questionTimer = new Timeline(
                 new KeyFrame(Duration.seconds(1),
-                        new EventHandler<ActionEvent>() {
-
-                            @Override
-                            public void handle(ActionEvent event) {
-                                timeLeft-=1;
-                                time.setText(Integer.toString(timeLeft));
-                                if(timeLeft == 0){
-                                    timeRanOut();
-                                }
+                        event -> {
+                            timeLeft-=1;
+                            time.setText(timeLeft + " seconds");
+                            if(timeLeft == 0){
+                                timeRanOut();
                             }
                         }
                 )
         );
         questionTimer.setCycleCount(20);
         questionTimer.play();
+
+        timeBarAnimation = new ScaleTransition(Duration.seconds(20), timeBarFill);
+        timeBarAnimation.setFromX(1);
+        timeBarAnimation.setToX(0);
+        timeBarAnimation.playFromStart();
     }
 
     /**
@@ -256,16 +260,8 @@ public class QuestionScreenCtrl {
             setBackground(firstChoice, secondChoice, thirdChoice);
          */
         //firstChoice.setOnAction(event -> clickedAgainResetFirst());
-        check(firstBox);
+        check(firstAnswer);
 
-    }
-
-    public void clickedAgainResetFirst() {
-
-        firstChoice.setStyle("-fx-background-color: #474747#474747");
-        thirdChoice.setDisable(false);
-        secondChoice.setDisable(false);
-        firstChoice.setOnAction(e -> chooseFirst());
     }
 
     /**
@@ -283,19 +279,9 @@ public class QuestionScreenCtrl {
          * I think this should be done in the server side, and in a slightly different way.
          */
         // setBackground(secondChoice, firstChoice, thirdChoice);
-        check(secondBox);
+        check(secondAnswer);
     }
 
-    /**
-     * Works the same way as for the first button
-     */
-    public void clickedAgainResetSecond() {
-
-        secondChoice.setStyle("-fx-background-color: #474747#474747");
-        thirdChoice.setDisable(false);
-        firstChoice.setDisable(false);
-        secondChoice.setOnAction(e -> chooseSecond());
-    }
 
     /**
      * Works the same as for the previous buttons
@@ -314,14 +300,7 @@ public class QuestionScreenCtrl {
          * I think this should be checked by the server
          */
         //setBackground(thirdChoice, firstChoice, secondChoice);
-        check(thirdBox);
-    }
-
-    public void clickedAgainResetThird() {
-        firstChoice.setDisable(false);
-        secondChoice.setDisable(false);
-        //thirdChoice.setStyle("-fx-background-color: #474747#474747");
-        //thirdChoice.setOnAction(e -> chooseThird());
+        check(thirdAnswer);
     }
 
     /**
@@ -329,7 +308,7 @@ public class QuestionScreenCtrl {
      * choice.
      * @param chosenBox box of the answer that was chosen
      */
-    public void check(Pane chosenBox)  {
+    public void check(Button chosenBox)  {
 
         Utils.submitAnswer(0);
 
@@ -338,19 +317,18 @@ public class QuestionScreenCtrl {
 
         if(currQuestion instanceof QuizzQuestion) {
             correctAnswer = ((QuizzQuestion) currQuestion).getMostExpensive();
-            firstAnswer.setText("this consumes " + ((QuizzQuestion) currQuestion).getFirstChoice().getConsumption_in_wh() + " watt per hour");
-            secondAnswer.setText("this consumes " + ((QuizzQuestion) currQuestion).getSecondChoice().getConsumption_in_wh() + " watt per hour");
-            thirdAnswer.setText("this consumes " + ((QuizzQuestion) currQuestion).getThirdChoice().getConsumption_in_wh() + " watt per hour");
+            firstAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getFirstChoice().getConsumption_in_wh() + " watt per hour");
+            secondAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getSecondChoice().getConsumption_in_wh() + " watt per hour");
+            thirdAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getThirdChoice().getConsumption_in_wh() + " watt per hour");
         }
         else if(currQuestion instanceof ConsumpQuestion) {
             correctAnswer = ((ConsumpQuestion) currQuestion).getConsump();
         }
-        boolean isRight = chosenAnswer.equals(correctAnswer);
         if (chosenAnswer.equals(correctAnswer)) {
             question.setText("Yeah, that's right!");
             chosenBox.setStyle("-fx-background-color: green;");
             totalPoints += points;
-            pointCounter.setText(Integer.toString(totalPoints));
+            pointCounter.setText("current points: " + totalPoints);
         } else {
             question.setText("That's wrong!");
             wrongAnswer();
@@ -372,17 +350,17 @@ public class QuestionScreenCtrl {
             third = Long.toString(((ConsumpQuestion) currQuestion).getThird());
         }
         if (correctAnswer.equals(first)) {
-            firstBox.setStyle("-fx-background-color: green");
-            secondBox.setStyle("-fx-background-color: red;");
-            thirdBox.setStyle("-fx-background-color: red;");
+            firstAnswer.setStyle("-fx-background-color: green");
+            secondAnswer.setStyle("-fx-background-color: red;");
+            thirdAnswer.setStyle("-fx-background-color: red;");
         } else if (correctAnswer.equals(second)) {
-            firstBox.setStyle("-fx-background-color: red");
-            secondBox.setStyle("-fx-background-color: green;");
-            thirdBox.setStyle("-fx-background-color: red;");
+            firstAnswer.setStyle("-fx-background-color: red");
+            secondAnswer.setStyle("-fx-background-color: green;");
+            thirdAnswer.setStyle("-fx-background-color: red;");
         } else if (correctAnswer.equals(third)) {
-            firstBox.setStyle("-fx-background-color: red");
-            secondBox.setStyle("-fx-background-color: red;");
-            thirdBox.setStyle("-fx-background-color: green;");
+            firstAnswer.setStyle("-fx-background-color: red");
+            secondAnswer.setStyle("-fx-background-color: red;");
+            thirdAnswer.setStyle("-fx-background-color: green;");
         }
     }
 
@@ -390,22 +368,55 @@ public class QuestionScreenCtrl {
      * handles the transition between two questions.
      */
     public void transition(){
-        firstChoice.setDisable(true);
-        secondChoice.setDisable(true);
-        thirdChoice.setDisable(true);
+        firstAnswer.setDisable(true);
+        firstAnswerLabel.setOpacity(1);
+
+        secondAnswer.setDisable(true);
+        secondAnswerLabel.setOpacity(1);
+
+        thirdAnswer.setDisable(true);
+        thirdAnswerLabel.setOpacity(1);
+
+        timeBarAnimation.pause();
+
+        transitionTimeLeft = 5;
+        transitionTimer.setVisible(true);
+        transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
+
+        transitionTimerAnimation = new ScaleTransition(Duration.seconds(2), transitionTimer);
+        transitionTimerAnimation.setFromX(1);
+        transitionTimerAnimation.setToX(0.8);
+        transitionTimerAnimation.setFromY(1);
+        transitionTimerAnimation.setToY(0.8);
+        transitionTimerAnimation.setAutoReverse(true);
+        transitionTimerAnimation.setCycleCount(20);
+        transitionTimerAnimation.play();
+
+        timeBarFill.setVisible(false);
+        timeBarBackground.setVisible(false);
+        time.setVisible(false);
 
         Timeline timer = new Timeline(
-                new KeyFrame(Duration.seconds(3),
-                        new EventHandler<ActionEvent>() {
-
-                            @Override
-                            public void handle(ActionEvent event) {
-                                nextDisplay();
-                            }
-                        }
+                new KeyFrame(Duration.seconds(1),
+                        event -> {
+//                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
+                    if (transitionTimeLeft == 0) {
+                        transitionTimerAnimation.stop();
+                        transitionTimer.setOpacity(1);
+                        transitionTimer.setVisible(false);
+                        timeBarFill.setVisible(true);
+                        timeBarBackground.setVisible(true);
+                        time.setVisible(true);
+                        nextDisplay();
+                    }
+                    else {
+                        transitionTimeLeft -= 1;
+                        transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
+                    }
+                }
                 )
         );
-        timer.setCycleCount(1);
+        timer.setCycleCount(6);
         timer.play();
     }
 
@@ -414,43 +425,57 @@ public class QuestionScreenCtrl {
      */
     public void endOfGame(){
         questionTimer.pause();
+        timeBarAnimation.stop();
         Player player = serverUtils.getPlayer(Session.getNickname());
         if(player.getScore()<totalPoints){
             serverUtils.updatePlayerInRepo(Session.getNickname(),totalPoints);
+            transitionTimer.setText("Congratulations! You improved your score!");
         }
-        firstBox.setVisible(false);
-        thirdBox.setVisible(false);
-        thirdChoice.setVisible(false);
-        bar.setVisible(false);
-        this.question.setText("game over!");
-        this.finalScreen.setDisable(false);
-        this.finalScreen.setVisible(true);
-        this.finalScore.setText("You scored " + totalPoints + "!"); //once score implemented, display here
+        else {
+            transitionTimer.setText("You had a higher score before! Try again!");
+        }
+        firstAnswer.setStyle("-fx-background-color: #ced0ce;");
+        secondAnswer.setStyle("-fx-background-color: #ced0ce;");
+        thirdAnswer.setStyle("-fx-background-color: #ced0ce;");
+        firstAnswer.setVisible(false);
+        secondAnswer.setVisible(false);
+        thirdAnswer.setVisible(false);
+        firstAnswerLabel.setVisible(false);
+        secondAnswerLabel.setVisible(false);
+        thirdAnswerLabel.setVisible(false);
+        time.setVisible(false);
+        timeBarBackground.setVisible(false);
+        timeBarFill.setVisible(false);
+        transitionTimer.setVisible(true);
+        question.setText("Game Over!");
+        pointCounter.setText("You scored " + totalPoints + "!"); //once score implemented, display here
         Timeline timer = new Timeline(
                 new KeyFrame(Duration.seconds(5),
-                        new EventHandler<ActionEvent>() {
+                        event -> {
 
-                            @Override
-                            public void handle(ActionEvent event) {
+                            mainCtrl.showGlobalLeaderboard(false);
+                            firstAnswer.setVisible(true);
+                            secondAnswer.setVisible(true);
+                            thirdAnswer.setVisible(true);
+                            firstAnswer.setDisable(false);
+                            secondAnswer.setDisable(false);
+                            thirdAnswer.setDisable(false);
+                            firstAnswerLabel.setVisible(true);
+                            secondAnswerLabel.setVisible(true);
+                            thirdAnswerLabel.setVisible(true);
+                            time.setVisible(true);
+                            timeBarBackground.setVisible(true);
+                            timeBarFill.setVisible(true);
+                            transitionTimer.setVisible(true);
+                            totalPoints = 0;
+                            pointCounter.setText("current points: " + totalPoints);
 
-                                mainCtrl.showGlobalLeaderboard(false);
-                                firstBox.setVisible(true);
-                                firstBox.setDisable(false);
-                                thirdBox.setVisible(true);
-                                thirdChoice.setVisible(true);
-                                thirdBox.setDisable(false);
-                                finalScreen.setDisable(true);
-                                finalScreen.setVisible(false);
-                                totalPoints = 0;
-                                finalScore.setText("");
-                                pointCounter.setText(String.valueOf(totalPoints));
-                                confirmButton.setDisable(true);
-                                confirmButton.setVisible(false);
-                                notConfirmButton.setDisable(true);
-                                notConfirmButton.setVisible(false);
-                                question.setText(currQuestion.getQuestion());
+                            confirmButton.setDisable(true);
+                            confirmButton.setVisible(false);
+                            notConfirmButton.setDisable(true);
+                            notConfirmButton.setVisible(false);
 
-                            }
+                            question.setText(currQuestion.getQuestion());
                         }
                 )
         );
@@ -458,41 +483,50 @@ public class QuestionScreenCtrl {
         timer.play();
     }
 
+
+
     public void confirmPage(){
-        finalScreen.setVisible(true);
-        finalScreen.setDisable(false);
-        bar.setVisible(false);
-        firstBox.setVisible(false);
-        firstBox.setDisable(true);
-        thirdBox.setVisible(false);
-        thirdBox.setDisable(true);
-        congratulation.setText("Are you sure?");
-        finalScreen.setVisible(true);
-        finalScreen.setDisable(false);
+        timeBarFill.setVisible(false);
+        timeBarBackground.setVisible(false);
+        time.setVisible(false);
+        firstAnswer.setVisible(false);
+        firstAnswer.setDisable(true);
+        secondAnswer.setVisible(false);
+        secondAnswer.setDisable(true);
+        thirdAnswer.setVisible(false);
+        thirdAnswer.setDisable(true);
+        firstAnswerLabel.setVisible(false);
+        secondAnswerLabel.setVisible(false);
+        thirdAnswerLabel.setVisible(false);
+        transitionTimer.setVisible(true);
+        transitionTimer.setText("Are you sure?");
         confirmButton.setDisable(false);
         confirmButton.setVisible(true);
         notConfirmButton.setDisable(false);
         notConfirmButton.setVisible(true);
     }
     public void closeConfirmPage(){
-        finalScreen.setVisible(false);
-        finalScreen.setDisable(true);
-        bar.setVisible(true);
-        firstBox.setVisible(true);
-        firstBox.setDisable(false);
-        thirdBox.setVisible(true);
-        thirdBox.setDisable(false);
-        congratulation.setText("Well done!");
-        finalScreen.setVisible(false);
-        finalScreen.setDisable(true);
+        timeBarFill.setVisible(true);
+        timeBarBackground.setVisible(true);
+        time.setVisible(true);
+        firstAnswer.setVisible(true);
+        firstAnswer.setDisable(false);
+        secondAnswer.setVisible(true);
+        secondAnswer.setDisable(false);
+        thirdAnswer.setVisible(true);
+        thirdAnswer.setDisable(false);
+        firstAnswerLabel.setVisible(true);
+        secondAnswerLabel.setVisible(true);
+        thirdAnswerLabel.setVisible(true);
+        transitionTimer.setText("");
         confirmButton.setDisable(true);
         confirmButton.setVisible(false);
         notConfirmButton.setDisable(true);
         notConfirmButton.setVisible(false);
     }
     public void confirmQuit(){
-
-        congratulation.setText("you interrupted the game");
+        transitionTimer.setVisible(true);
+        transitionTimer.setText("You interrupted the game");
         confirmButton.setVisible(false);
         notConfirmButton.setVisible(false);
         confirmButton.setDisable(true);
@@ -500,6 +534,7 @@ public class QuestionScreenCtrl {
 
         endOfGame();
     }
+
     /**
      * Gets the answer chosen by the player
      */

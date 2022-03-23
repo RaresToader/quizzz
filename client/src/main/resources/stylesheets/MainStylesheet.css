@@ -37,3 +37,70 @@
 .title {
     -fx-font-size: 72pt;
 }
+
+.screenDividerBackground {
+    -fx-background-color: #474747;
+    -fx-font-size: 38pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+}
+
+.timeBarFill {
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-arc-height: 30;
+    -fx-arc-width: 30;
+    -fx-stroke-width: 0;
+}
+
+.timeBarBackground {
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-arc-height: 30;
+    -fx-arc-width: 30;
+    -fx-stroke-width: 0;
+}
+
+.answerButton {
+    -fx-background-color: #ced0ce;
+    -fx-font-size: 20pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 8;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: hand;
+}
+
+.answerButton:disabled {
+    -fx-background-color: #ced0ce;
+    -fx-font-size: 20pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 8;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: hand;
+
+    -fx-opacity: 1;
+}
+
+.answerButton:hover {
+    -fx-background-color: #ced0ce;
+    -fx-border-color: #f15025;
+    -fx-border-radius: 26;
+    -fx-border-width: 6;
+    -fx-border-insets: -6;
+}
