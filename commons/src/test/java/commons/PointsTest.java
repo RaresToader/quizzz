@@ -18,6 +18,6 @@ public class PointsTest {
     @Test
     public void getPointsTestAnswered() {
         Points p = new Points();
-        assertEquals(333,p.getPoints(true));
+        assertEquals(820,p.getPoints(true));
     }
 }

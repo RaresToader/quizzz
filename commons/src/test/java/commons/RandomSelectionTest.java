@@ -38,7 +38,6 @@ public class RandomSelectionTest {
         x.next();
         x.next();
         x.next();
-        x.next();
         assertFalse(x.hasNext());
     }
 

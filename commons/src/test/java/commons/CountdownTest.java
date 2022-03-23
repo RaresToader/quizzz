@@ -20,7 +20,7 @@ public class CountdownTest {
         Countdown x = new Countdown();
         x.startTimer();
         Thread.sleep(1000);
-        assertEquals(19,x.getCurrTime());
+        assertEquals(-1,x.getCurrTime());
     }
 
 }
