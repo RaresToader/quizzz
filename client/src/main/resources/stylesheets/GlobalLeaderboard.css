@@ -16,7 +16,11 @@
 
 .chart {
     -fx-font-family: "Fugaz One", cursive;
-    -fx-text-background-color: white;
+    -fx-text-background-color: black;
+    -fx-background-color: #808080;
+    -fx-control-inner-background: #000000;
+    -fx-font-size: 20;
+    -fx-background-radius: 50;
 }
 
 .table-view .table-cell {
