@@ -194,6 +194,51 @@ public class SessionTest {
     }
 
     @Test
+    public void addJokerPlayerNotInSessionTest() {
+        Session x = new Session(false,sess.get60RandomActivities()); //Create session
+        x.addPlayer("test"); //Add player
+        x.startGame(); //Start it
+        x.getCurrentQuestion(); //Move question counter to 0
+
+        x.addJoker(0,"test2",0);
+        assertEquals(new ArrayList<>(),x.getJokersForCurrentQuestion("test"));
+    }
+
+    @Test
+    public void addJokerPlayerNotCurrentQuestionTest() {
+        Session x = new Session(false,sess.get60RandomActivities()); //Create session
+        x.addPlayer("test"); //Add player
+        x.startGame(); //Start it
+        x.getCurrentQuestion(); //Move question counter to 0
+
+        x.addJoker(0,"test",5);
+        assertEquals(new ArrayList<>(),x.getJokersForCurrentQuestion("test2"));
+    }
+
+    @Test
+    public void addDuplicateAnswerTest() {
+        Session x = new Session(false,sess.get60RandomActivities()); //Create session
+        x.addPlayer("test");
+        x.startGame();
+        x.getCurrentQuestion();
+
+        assertTrue(x.addAnswer(new Answer("test",0,0)));
+        assertFalse(x.addAnswer(new Answer("test",0,0)));
+    }
+
+    @Test
+    public void endGameEventTest() {
+        Session x = new Session(false,sess.get60RandomActivities()); //Create session
+        x.addPlayer("test");
+        x.startGame();
+        x.getCurrentQuestion();
+        x.setCurrentQuestionNum(25);
+        assertEquals(25,x.getCurrentQuestionNum());
+        assertEquals(Session.emptyQ,x.getCurrentQuestion());
+        assertTrue(x.hasEnded());
+    }
+
+    @Test
     public void emptySessionToString() {
         Session x = new Session(false,sess.get60RandomActivities());
         String expected = "Session{" +
@@ -238,7 +283,7 @@ public class SessionTest {
     }
 
     @Test
-    public void equalsSameTest() {
+    public void equalsSameDiffInstanceTest() {
         List<Activity> activities = sess.get60RandomActivities();
         Session x = new Session(false,activities);
         Session y = new Session(false,activities);
@@ -251,6 +296,12 @@ public class SessionTest {
         Session x = new Session(false,activities);
         Session y = new Session(true,activities);
         assertFalse(x.equals(y));
+    }
+
+    @Test
+    public void equalsSameInstanceTest() {
+        Session x = new Session(false,sess.get60RandomActivities());
+        assertTrue(x.equals(x));
     }
 
 

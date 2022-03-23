@@ -201,6 +201,13 @@ public class Session {
         this.ended = true;
     }
 
+    /**
+     * Setter for currentQuestionNumber ONLY FOR TESTING PURPOSES
+     */
+    public void setCurrentQuestionNum(int currentQuestion) {
+        this.currentQuestion = currentQuestion;
+    }
+
     public List<String> getPlayerList() {
         return playerList;
     }
@@ -262,8 +269,4 @@ public class Session {
         return started == session.started && ended == session.ended && gameType == session.gameType && currentQuestion == session.currentQuestion && questionStartedAt == session.questionStartedAt && Objects.equals(playerList, session.playerList) && Objects.equals(gameAdmin, session.gameAdmin) && Objects.equals(questions, session.questions) && Objects.equals(answers, session.answers) && Objects.equals(usedJokers, session.usedJokers);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(playerList, started, ended, gameAdmin, gameType, questions, answers, usedJokers, currentQuestion, questionStartedAt);
-    }
 }
