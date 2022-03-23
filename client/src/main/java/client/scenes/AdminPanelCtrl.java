@@ -134,7 +134,6 @@ public class AdminPanelCtrl {
      * This method does the opposite of the method above:
      * It switches the 'Admin-Panel-screen' back to the beginning state.
      */
-
     public void showButtonsAndTable() {
         addButton.setVisible(true);
         addButton.setDisable(false);
@@ -151,12 +150,19 @@ public class AdminPanelCtrl {
 
     }
 
+    /**
+     * Pops the add-button anchor-up
+     */
     public void addButton() {
         hideButtonsAndTable();
         addAnchorPlane.setVisible(true);
 
     }
 
+    /**
+     * Adds or updates the activity with all the filled in elements after okButton is clicked.
+     * Then sets the admin-panel screen back to normal state
+     */
     public void okButton() {
         String ID = id.getText();
         String activityTitle = title.getText();
@@ -235,7 +241,9 @@ public class AdminPanelCtrl {
         imagePath.setText(activity.getImage_path());
         source.setText(activity.getSource());
     }
-
+    /**
+     * Shows and enables every element of the confirmDelete-pop-up.
+     */
     public void showConfirmDelete(){
         confirmDeleteAnchor.setDisable(false);
         confirmDeleteAnchor.setVisible(true);
@@ -245,6 +253,9 @@ public class AdminPanelCtrl {
         confirmDeleteButton.setVisible(true);
     }
 
+    /**
+     * Hides and disables every element of the confirmDelete-pop-up.
+     */
     public void hideConfirmDelete(){
         confirmDeleteAnchor.setDisable(true);
         confirmDeleteAnchor.setVisible(false);
@@ -254,6 +265,9 @@ public class AdminPanelCtrl {
         confirmDeleteButton.setVisible(false);
     }
 
+    /**
+     * Checks if there is an Activity selected and if so pop's up the confirmDelete 'Pop-up'
+     */
     public void delete(){
         Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
         if(activity == null) {
@@ -269,6 +283,9 @@ public class AdminPanelCtrl {
         }
     }
 
+    /**
+     * Deletes Activity from Activity-Bank after the confirmDeleteButton is clicked.
+     */
     public void confirmDelete(){
         Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
         serverUtils.deleteActivity(activity.getId());
@@ -279,6 +296,9 @@ public class AdminPanelCtrl {
         activitiesTable.getSelectionModel().clearSelection();
     }
 
+    /**
+     * Cancels deleted and set admin screen back to normal state. After cancelDeleteButton is clicked.
+     */
     public void cancelDelete(){
         activitiesTable.getSelectionModel().clearSelection();
         hideConfirmDelete();
