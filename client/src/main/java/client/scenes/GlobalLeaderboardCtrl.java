@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javax.inject.Inject;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class GlobalLeaderboardCtrl {
 
@@ -54,12 +55,13 @@ public class GlobalLeaderboardCtrl {
     public void init() {
         nameColumn.setCellValueFactory(new PropertyValueFactory("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory("score"));
-        ObservableList<Player> players = FXCollections.observableArrayList();
-        players.addAll(serverUtils.getLeaderboardPlayers());
-        tableView.setItems(players);
+        AtomicReference<ObservableList<Player>> players = new AtomicReference<>(FXCollections.observableArrayList());
+        players.get().addAll(serverUtils.getLeaderboardPlayers());
+        tableView.setItems(players.get());
         barChart.setTitle("Score barchart");
+        barChart.getData().clear();
         XYChart.Series series1 = new XYChart.Series();
-        for (Player player : players) {
+        for (Player player : players.get()) {
             series1.getData().add(new XYChart.Data(player.getUsername(), player.getScore()));
         }
         barChart.getData().addAll(series1);
@@ -69,6 +71,22 @@ public class GlobalLeaderboardCtrl {
             public void run() {
                 Platform.runLater(() -> {
                     tableView.setItems(FXCollections.observableArrayList(serverUtils.getLeaderboardPlayers()));
+
+                    XYChart.Series series2nd = new XYChart.Series();
+                    ObservableList<Player> players2nd = FXCollections.observableArrayList();
+                    players2nd.addAll(serverUtils.getLeaderboardPlayers());
+                    for (Player player : players2nd) {
+                        series2nd.getData().add(new XYChart.Data(player.getUsername(), player.getScore()));
+                    }
+                    /**
+                     * Only update barchart if there have been updates
+                     * because updates on the barchart are animated
+                     */
+                    if (!players2nd.equals(players.get())) {
+                        barChart.getData().clear();
+                        barChart.getData().addAll(series2nd);
+                        players.set(players2nd);
+                    }
                 });
             }
         }, 0, 5 * 1000);
