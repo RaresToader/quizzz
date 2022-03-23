@@ -90,12 +90,12 @@ public class Utils {
      * @param nickname - provided nickname of the requesting client
      * @return List<Players> that contains all the players in the session
      */
-    public static List<Player> getCurrentSessionPlayers(String nickname) {
+    public static List<String> getCurrentSessionPlayers(String nickname) {
         String path = "session/playersinsession/" + nickname;
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path(path).request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<List<Player>>() {
+                .get(new GenericType<List<String>>() {
                 });
     }
 }
