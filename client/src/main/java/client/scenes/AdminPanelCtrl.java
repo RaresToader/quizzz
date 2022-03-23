@@ -83,6 +83,7 @@ public class AdminPanelCtrl {
             refreshActivities.cancel();
             mainCtrl.showSplash();
         }
+        activitiesTable.getSelectionModel().clearSelection();
     }
 
     /**
@@ -205,6 +206,7 @@ public class AdminPanelCtrl {
         source.clear();
         showButtonsAndTable();
         addAnchorPlane.setVisible(false);
+        activitiesTable.getSelectionModel().clearSelection();
     }
 
     /**
@@ -212,6 +214,7 @@ public class AdminPanelCtrl {
      * They will be displayed again in the table due to constant polling
      */
     public void setLoadActivities() {
+        activitiesTable.getSelectionModel().clearSelection();
         serverUtils.loadActivitiesInRepo();
     }
 
