@@ -63,6 +63,8 @@ public class AdminPanelCtrl {
     private AnchorPane confirmDeleteAnchor;
     @FXML
     private Label deleteNameLabel;
+    @FXML
+    private Button backButton;
 
     @Inject
     public AdminPanelCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
@@ -73,8 +75,10 @@ public class AdminPanelCtrl {
     public void backButton() {
         if (addAnchorPlane.isVisible()) {
             showButtonsAndTable();
+            hideConfirmDelete();
         }
         else{
+            hideConfirmDelete();
             showButtonsAndTable();
             refreshActivities.cancel();
             mainCtrl.showSplash();
@@ -228,6 +232,7 @@ public class AdminPanelCtrl {
         imagePath.setText(activity.getImage_path());
         source.setText(activity.getSource());
     }
+
     public void showConfirmDelete(){
         confirmDeleteAnchor.setDisable(false);
         confirmDeleteAnchor.setVisible(true);
@@ -236,6 +241,7 @@ public class AdminPanelCtrl {
         cancelDeleteButton.setDisable(false);
         confirmDeleteButton.setVisible(true);
     }
+
     public void hideConfirmDelete(){
         confirmDeleteAnchor.setDisable(true);
         confirmDeleteAnchor.setVisible(false);
@@ -253,6 +259,8 @@ public class AdminPanelCtrl {
         else{
             showConfirmDelete();
             hideButtonsAndTable();
+            backButton.setVisible(false);
+            backButton.setDisable(true);
             String ID = activitiesTable.getSelectionModel().getSelectedItem().getId();
             deleteNameLabel.setText(ID);
         }
@@ -263,7 +271,17 @@ public class AdminPanelCtrl {
 //        serverUtils.deleteActivity(activity.getId());
         hideConfirmDelete();
         showButtonsAndTable();
+        backButton.setVisible(true);
+        backButton.setDisable(false);
+        activitiesTable.getSelectionModel().clearSelection();
+    }
 
+    public void cancelDelete(){
+        activitiesTable.getSelectionModel().clearSelection();
+        hideConfirmDelete();
+        showButtonsAndTable();
+        backButton.setVisible(true);
+        backButton.setDisable(false);
     }
 
 

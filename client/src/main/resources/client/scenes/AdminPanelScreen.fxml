@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #191919;" stylesheets="/stylesheets/AdminPanelStylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminPanelCtrl">
    <children>
-      <Button id="quitButton" fx:id="backToSplashButton" graphicTextGap="0.0" layoutX="18.0" layoutY="581.0" mnemonicParsing="false" onAction="#backButton" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Back" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <Button id="quitButton" fx:id="backButton" graphicTextGap="0.0" layoutX="18.0" layoutY="581.0" mnemonicParsing="false" onAction="#backButton" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Back" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -153,7 +153,7 @@
                   <Font size="39.0" />
                </font>
             </Label>
-            <Button id="confirmDeleteButton" fx:id="confirmDeleteButton" graphicTextGap="0.0" layoutX="274.0" layoutY="149.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Delete" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+            <Button id="confirmDeleteButton" fx:id="confirmDeleteButton" graphicTextGap="0.0" layoutX="274.0" layoutY="149.0" mnemonicParsing="false" onAction="#confirmDelete" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Delete" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
@@ -161,7 +161,7 @@
                   <Font size="40.0" />
                </font>
             </Button>
-            <Button id="quitButton" fx:id="cancelDeleteButton" graphicTextGap="0.0" layoutX="494.0" layoutY="149.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Cancel" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+            <Button id="quitButton" fx:id="cancelDeleteButton" graphicTextGap="0.0" layoutX="494.0" layoutY="149.0" mnemonicParsing="false" onAction="#cancelDelete" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Cancel" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
