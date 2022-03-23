@@ -4,9 +4,13 @@ import client.Session;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import commons.Player;
 import commons.QuizzQuestionServerParsed;
 import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.GenericType;
 import org.glassfish.jersey.client.ClientConfig;
+
+import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -79,5 +83,13 @@ public class Utils {
                 .get(Integer.class);
 
         return retNum >= 100 && retNum <= 110;
+    }
+
+    public static List<Player> getCurrentSessionPlayers() {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("session/playersinsession").request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Player>>() {
+                });
     }
 }

@@ -6,6 +6,7 @@ import commons.QuizzQuestionServerParsed;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +53,20 @@ public class SessionController {
         }
 
         return x.getCurrentQuestion();
+    }
+
+    @GetMapping("/session/playersinsession/{nickname}")
+    public List<String> getCurrentSessionPlayers(@PathVariable("nickname") String nickname) {
+        List<String> playerList = new ArrayList<String>();
+        int sessionId = SessionContainer.findUserSession(nickname);
+        if(sessionId == -1) { //if there is no session yet, the player is the only one in the session.
+            playerList.add(nickname);
+        }
+        else {
+            Session session = SessionContainer.getSession(sessionId);
+            playerList = session.getPlayerList();
+        }
+        return playerList;
     }
 
     /**
