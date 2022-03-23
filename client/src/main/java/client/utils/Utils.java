@@ -4,6 +4,7 @@ import client.Session;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import commons.Joker;
 import commons.QuizzQuestionServerParsed;
 import jakarta.ws.rs.client.ClientBuilder;
 import org.glassfish.jersey.client.ClientConfig;
@@ -57,6 +58,21 @@ public class Utils {
      */
     public static boolean submitAnswer(int answer) {
         String path = "session/answer/" + Session.getNickname() + "/" + answer + "/" + Session.getQuestionNum();
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path(path) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(Boolean.class);
+    }
+
+    /**
+     * Invokes to /session/addjoker/{nickname}/{jokertype}/{question} and submits joker for given session
+     * @param x - Joker to be sent
+     * @return Boolean value whether operation of addition was successful
+     */
+    public static boolean addJoker(Joker x) {
+        if(x == null) return false;
+        String path = "/session/addjoker/"+Session.getNickname()+"/"+x.getJokerType()+"/"+x.getQuestionNum();
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path(path) //
                 .request(APPLICATION_JSON) //

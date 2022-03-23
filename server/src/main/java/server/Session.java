@@ -16,20 +16,22 @@ public class Session {
     private boolean gameType; //0 for singleplayer || 1 for multiplayer
     private List<QuizzQuestion> questions;
     private List<Answer> answers;
+    private List<Joker> usedJokers;
     private int currentQuestion;
     private long questionStartedAt;
 
-    public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1);
+    public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1, new ArrayList<Joker>());
 
     public Session(boolean gameType, List<Activity> activities) {
-        this.playerList = new ArrayList<String>();
-        this.started = false;
-        this.ended = false;
-        this.gameAdmin = null;
-        this.gameType = gameType;
-        this.questions = new ArrayList<QuizzQuestion>();
-        this.answers = new ArrayList<Answer>();
-        this.currentQuestion = -1;
+        this.playerList        = new ArrayList<String>();
+        this.started           = false;
+        this.ended             = false;
+        this.gameAdmin         = null;
+        this.gameType          = gameType;
+        this.questions         = new ArrayList<QuizzQuestion>();
+        this.answers           = new ArrayList<Answer>();
+        this.usedJokers        = new ArrayList<Joker>();
+        this.currentQuestion   = -1;
         this.questionStartedAt = -1;
         this.generateTestQuestions(activities);
     }
@@ -65,7 +67,9 @@ public class Session {
             return Session.emptyQ;
         }
 
-        return new QuizzQuestionServerParsed(this.questions.get(currentQuestion),this.questionStartedAt,this.currentQuestion);
+        List<Joker> jokers = this.getJokersForCurrentQuestion("test");
+
+        return new QuizzQuestionServerParsed(this.questions.get(currentQuestion),this.questionStartedAt,this.currentQuestion,jokers);
     }
 
     /**
@@ -125,6 +129,20 @@ public class Session {
     }
 
     /**
+     * Adds joker to current session
+     * @param jokerType - type of joker used
+     * @param username - user applying joker
+     * @param questionNum - question that joker applies to
+     * @return Boolean value indicating whether operation was successful
+     */
+    public boolean addJoker(int jokerType, String username, int questionNum) {
+        if(!this.isPlayerInSession(username) || questionNum != this.currentQuestion) return false;
+
+        this.usedJokers.add(new Joker(username,jokerType,questionNum));
+        return true;
+    }
+
+    /**
      * @param p - Player to be removed from game
      * @return Boolean value depending on whether deletion operation was successful
      */
@@ -139,6 +157,22 @@ public class Session {
         }
 
         return true;
+    }
+
+    /**
+     * Returns all jokers that apply to current question and weren't applied by that user
+     * @param username - User that requests joker list
+     * @return List of jokers for given question
+     */
+    public List<Joker> getJokersForCurrentQuestion(String username) {
+        List<Joker> retList = new ArrayList<Joker>();
+        for(Joker x : usedJokers) {
+            if(x.getQuestionNum() != this.currentQuestion || x.getUsedBy().equals(username)) continue;
+
+            retList.add(x);
+        }
+
+        return retList;
     }
 
     /**
@@ -199,13 +233,24 @@ public class Session {
         return this.questionStartedAt;
     }
 
+    public List<Joker> getUsedJokers() {
+        return this.usedJokers;
+    }
+
+
     @Override
     public String toString() {
         return "Session{" +
                 "playerList=" + playerList +
                 ", started=" + started +
-                ", gameAdmin=" + gameAdmin +
+                ", ended=" + ended +
+                ", gameAdmin='" + gameAdmin + '\'' +
                 ", gameType=" + gameType +
+                ", questions=" + questions +
+                ", answers=" + answers +
+                ", usedJokers=" + usedJokers +
+                ", currentQuestion=" + currentQuestion +
+                ", questionStartedAt=" + questionStartedAt +
                 '}';
     }
 
@@ -214,6 +259,11 @@ public class Session {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Session session = (Session) o;
-        return started == session.started && gameType == session.gameType && Objects.equals(playerList, session.playerList) && Objects.equals(gameAdmin, session.gameAdmin);
+        return started == session.started && ended == session.ended && gameType == session.gameType && currentQuestion == session.currentQuestion && questionStartedAt == session.questionStartedAt && Objects.equals(playerList, session.playerList) && Objects.equals(gameAdmin, session.gameAdmin) && Objects.equals(questions, session.questions) && Objects.equals(answers, session.answers) && Objects.equals(usedJokers, session.usedJokers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerList, started, ended, gameAdmin, gameType, questions, answers, usedJokers, currentQuestion, questionStartedAt);
     }
 }

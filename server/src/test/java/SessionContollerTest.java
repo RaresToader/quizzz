@@ -90,4 +90,39 @@ public class SessionContollerTest {
         x.getCurrentQuestion();
         assertTrue(sess.submitAnswer("test",2,0));
     }
+
+    @Test
+    public void addJokerNoSessionTest() {
+        SessionController sess = new SessionController(repo);
+        assertFalse(sess.addJoker("test",0,0));
+    }
+
+    @Test
+    public void addJokerNoStartedTest() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        assertFalse(sess.addJoker("test",0,-1));
+    }
+
+    @Test
+    public void addJokerWrongQuestionNumTest() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.getCurrentQuestion();
+        assertFalse(sess.addJoker("test",0,5));
+    }
+
+
+    @Test
+    public void addJokerTest() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.getCurrentQuestion();
+        assertTrue(sess.addJoker("test",0,0));
+    }
 }
