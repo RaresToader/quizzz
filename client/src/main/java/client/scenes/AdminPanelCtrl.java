@@ -271,7 +271,7 @@ public class AdminPanelCtrl {
 
     public void confirmDelete(){
         Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
-//        serverUtils.deleteActivity(activity.getId());
+        serverUtils.deleteActivity(activity.getId());
         hideConfirmDelete();
         showButtonsAndTable();
         backButton.setVisible(true);
