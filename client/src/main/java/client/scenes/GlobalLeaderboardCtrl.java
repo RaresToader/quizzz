@@ -58,20 +58,17 @@ public class GlobalLeaderboardCtrl {
         players.addAll(serverUtils.getLeaderboardPlayers());
         tableView.setItems(players);
         barChart.setTitle("Score barchart");
-        //playerAxis.setStyle("");
         XYChart.Series series1 = new XYChart.Series();
         for (Player player : players) {
             series1.getData().add(new XYChart.Data(player.getUsername(), player.getScore()));
         }
         barChart.getData().addAll(series1);
-
         refreshLeaderboardAndBarChart = new Timer();
         refreshLeaderboardAndBarChart.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    players.addAll(serverUtils.getLeaderboardPlayers());
-                    tableView.setItems(players);
+                    tableView.setItems(FXCollections.observableArrayList(serverUtils.getLeaderboardPlayers()));
                 });
             }
         }, 0, 5 * 1000);
