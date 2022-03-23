@@ -14,15 +14,27 @@
 
 }
 
-.chart {
+.chart{
     -fx-font-family: "Fugaz One", cursive;
-    -fx-text-background-color: black;
+    -fx-text-background-color: black ;
     -fx-background-color: #808080;
     -fx-control-inner-background: #000000;
     -fx-font-size: 20;
     -fx-background-radius: 50;
 }
-
+.axis-label{
+    -fx-text-background-color: black;
+    -fx-font-family: "Fugaz One", cursive;
+    -fx-font-size: 30;
+}
+.chart-plot-background {
+    -fx-background-color: #808080;
+}
+.axis{
+    -fx-text-background-color: black;
+    -fx-font-family: "Fugaz One", cursive;
+    -fx-font-size: 25;
+}
 .table-view .table-cell {
     -fx-background-color: #808080;
     -fx-font-size: 20;

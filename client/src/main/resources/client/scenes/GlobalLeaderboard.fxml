@@ -33,7 +33,7 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <TableView fx:id="tableView" layoutX="248.0" layoutY="144.0" prefHeight="509.0" prefWidth="391.0" stylesheets="/stylesheets/GlobalLeaderboard.css">
+      <TableView fx:id="tableView" layoutX="248.0" layoutY="120.0" prefHeight="509.0" prefWidth="391.0" stylesheets="/stylesheets/GlobalLeaderboard.css">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="207.93753051757812" text="Player" />
           <TableColumn fx:id="scoreColumn" prefWidth="182.0625" sortType="DESCENDING" text="Score" />
@@ -42,7 +42,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
          </padding>
       </TableView>
-      <Label fx:id="name" layoutX="427.0" layoutY="44.0" prefHeight="91.0" prefWidth="418.0" stylesheets="/stylesheets/GlobalLeaderboard.css" text="Leaderboard" textAlignment="RIGHT" textFill="WHITE">
+      <Label fx:id="name" layoutX="427.0" layoutY="10.0" prefHeight="91.0" prefWidth="418.0" stylesheets="/stylesheets/GlobalLeaderboard.css" text="Leaderboard" textAlignment="RIGHT" textFill="WHITE">
          <font>
             <Font size="74.0" />
          </font>
@@ -55,12 +55,12 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
-      <BarChart fx:id="barChart" barGap="2.0" layoutX="667.0" layoutY="132.0" legendVisible="false" prefHeight="474.0" prefWidth="598.0">
+      <BarChart fx:id="barChart" barGap="2.0" layoutX="667.0" layoutY="120.0" legendVisible="false" prefHeight="474.0" prefWidth="598.0">
         <xAxis>
-          <CategoryAxis fx:id="playerAxis" label="Players" side="BOTTOM" tickLabelFill="WHITE" />
+          <CategoryAxis fx:id="playerAxis" label="Players" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="scoreAxis" label="Score" side="LEFT" tickLabelFill="WHITE" />
+          <NumberAxis fx:id="scoreAxis" label="Score" side="LEFT" />
         </yAxis>
       </BarChart>
    </children>
