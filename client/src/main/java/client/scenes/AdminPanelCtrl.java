@@ -211,16 +211,6 @@ public class AdminPanelCtrl {
         serverUtils.loadActivitiesInRepo();
     }
 
-    /**
-     * Deletes the activity selected
-     */
-    public void deleteActivitySelected() {
-        Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
-        if (activity == null)
-            return;
-        else
-            serverUtils.deleteActivity(activity.getId());
-    }
 
     /**
      * Modifies the selected activity
@@ -238,5 +228,44 @@ public class AdminPanelCtrl {
         imagePath.setText(activity.getImage_path());
         source.setText(activity.getSource());
     }
+    public void showConfirmDelete(){
+        confirmDeleteAnchor.setDisable(false);
+        confirmDeleteAnchor.setVisible(true);
+        confirmDeleteButton.setDisable(false);
+        confirmDeleteButton.setVisible(true);
+        cancelDeleteButton.setDisable(false);
+        confirmDeleteButton.setVisible(true);
+    }
+    public void hideConfirmDelete(){
+        confirmDeleteAnchor.setDisable(true);
+        confirmDeleteAnchor.setVisible(false);
+        confirmDeleteButton.setDisable(true);
+        confirmDeleteButton.setVisible(false);
+        cancelDeleteButton.setDisable(true);
+        confirmDeleteButton.setVisible(false);
+    }
+
+    public void delete(){
+        Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
+        if(activity == null) {
+           return;
+        }
+        else{
+            showConfirmDelete();
+            hideButtonsAndTable();
+            String ID = activitiesTable.getSelectionModel().getSelectedItem().getId();
+            deleteNameLabel.setText(ID);
+        }
+    }
+
+    public void confirmDelete(){
+        Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
+//        serverUtils.deleteActivity(activity.getId());
+        hideConfirmDelete();
+        showButtonsAndTable();
+
+    }
+
+
 
 }

@@ -45,7 +45,7 @@
             <Font size="29.0" />
          </font>
       </Button>
-      <Button id="deleteButton" fx:id="deleteButton" graphicTextGap="0.0" layoutX="808.0" layoutY="581.0" mnemonicParsing="false" onAction="#deleteActivitySelected" prefHeight="57.0" prefWidth="140.0" styleClass="standardButton" text="Delete" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+      <Button id="deleteButton" fx:id="deleteButton" graphicTextGap="0.0" layoutX="808.0" layoutY="581.0" mnemonicParsing="false" onAction="#delete" prefHeight="57.0" prefWidth="140.0" styleClass="standardButton" text="Delete" textFill="WHITE" textOverrun="CLIP" wrapText="true">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -146,7 +146,7 @@
             <Font size="29.0" />
          </font>
       </Button>
-      <AnchorPane id="confirmQuitAnchor" fx:id="confirmDeleteAnchor" disable="true" layoutX="136.0" layoutY="152.0" prefHeight="420.0" prefWidth="987.0" style="-fx-background-color: #191919;">
+      <AnchorPane id="confirmQuitAnchor" fx:id="confirmDeleteAnchor" disable="true" layoutX="136.0" layoutY="152.0" prefHeight="420.0" prefWidth="987.0" style="-fx-background-color: #191919;" visible="false">
          <children>
             <Label id="quitQuestionLabel" fx:id="quitQuestionLabel" layoutX="235.0" layoutY="81.0" prefHeight="48.0" prefWidth="468.0" styleClass="label" text="Do you really want to delete: " textFill="WHITE">
                <font>
