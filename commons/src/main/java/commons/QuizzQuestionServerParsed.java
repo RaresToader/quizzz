@@ -27,7 +27,7 @@ public class QuizzQuestionServerParsed {
         return questionNum;
     }
 
-    public void setQuestion(QuizzQuestion question) {
+    public void setQuestion(Question question) {
         this.question = question;
     }
 

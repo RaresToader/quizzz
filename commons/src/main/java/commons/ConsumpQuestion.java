@@ -16,11 +16,6 @@ public class ConsumpQuestion extends Question {
         this.third = third;
     }
 
-    @Override
-    public String getQuestion() {
-        return question;
-    }
-
     public Activity getFirstChoice() {
         return activity;
     }
