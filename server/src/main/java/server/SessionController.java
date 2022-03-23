@@ -55,6 +55,11 @@ public class SessionController {
         return x.getCurrentQuestion();
     }
 
+    /**
+     * Controller for getting the list of players in the session the user is in
+     * @param nickname - user asking for the list of players
+     * @return List<String> containing all the players in that session
+     */
     @GetMapping("/session/playersinsession/{nickname}")
     public List<String> getCurrentSessionPlayers(@PathVariable("nickname") String nickname) {
         List<String> playerList = new ArrayList<String>();
@@ -74,7 +79,7 @@ public class SessionController {
      * @param nickname - user submitting the answer
      * @param answer - answer submitted
      * @param questionNum - number of question the answer is submitted to
-     * @return boolean value depeneding on whether the operation was successful
+     * @return boolean value depending on whether the operation was successful
      */
     @GetMapping("/session/answer/{nickname}/{answer}/{questionNum}")
     public boolean submitAnswer(@PathVariable("nickname") String nickname, @PathVariable("answer") int answer, @PathVariable("questionNum") int questionNum) {
