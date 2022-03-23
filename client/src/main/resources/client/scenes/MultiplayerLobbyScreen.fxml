@@ -11,12 +11,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #191919;" stylesheets="/stylesheets/MultiplayerLobbyStylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" layoutX="545.0" layoutY="9.0" text="Lobby" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="545.0" layoutY="9.0" text="Lobby" textAlignment="CENTER" textFill="WHITE" styleClass="title">
          <font>
             <Font size="72.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="346.0" layoutY="132.0" text="Waiting for leader to start the game..." textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="346.0" layoutY="132.0" text="Waiting for leader to start the game..." textAlignment="CENTER" textFill="WHITE" styleClass="label">
          <font>
             <Font size="36.0" />
          </font>
@@ -28,9 +28,14 @@
             <Image url="@../../photos/crown.png" />
          </image></ImageView>
       <Button fx:id="emoteButton" layoutX="1206.0" layoutY="18.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="emote" />
-      <StackPane fx:id="playerNameBackground" layoutX="490.0" layoutY="310.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
+      <StackPane fx:id="playerNameBackground2" layoutX="487.0" layoutY="310.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
          <children>
-            <Text fx:id="playerNameLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Player" textAlignment="CENTER" />
+            <Text fx:id="playerNameLabel2" strokeType="OUTSIDE" strokeWidth="0.0" text="Player" textAlignment="CENTER" />
+         </children>
+      </StackPane>
+      <StackPane fx:id="playerNameBackground1" layoutX="490.0" layoutY="452.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
+         <children>
+            <Text fx:id="playerNameLabel1" strokeType="OUTSIDE" strokeWidth="0.0" text="Player" textAlignment="CENTER" />
          </children>
       </StackPane>
    </children>
