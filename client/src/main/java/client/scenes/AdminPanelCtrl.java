@@ -6,10 +6,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import org.apache.commons.lang3.StringUtils;
@@ -58,6 +55,14 @@ public class AdminPanelCtrl {
     private TextField source;
     @FXML
     private Button okButton;
+    @FXML
+    private Button confirmDeleteButton;
+    @FXML
+    private Button cancelDeleteButton;
+    @FXML
+    private AnchorPane confirmDeleteAnchor;
+    @FXML
+    private Label deleteNameLabel;
 
     @Inject
     public AdminPanelCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
@@ -200,7 +205,7 @@ public class AdminPanelCtrl {
 
     /**
      * Method that loads again the activities from activities.json
-     * They will be displayed again in the table due to to constant polling
+     * They will be displayed again in the table due to constant polling
      */
     public void setLoadActivities() {
         serverUtils.loadActivitiesInRepo();
