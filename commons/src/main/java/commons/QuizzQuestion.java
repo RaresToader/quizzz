@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
 public class QuizzQuestion extends Question {
+    private String question;
     private Activity firstChoice;
     private Activity secondChoice;
     private Activity thirdChoice;
