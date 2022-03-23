@@ -6,10 +6,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import org.apache.commons.lang3.StringUtils;
@@ -58,6 +55,16 @@ public class AdminPanelCtrl {
     private TextField source;
     @FXML
     private Button okButton;
+    @FXML
+    private Button confirmDeleteButton;
+    @FXML
+    private Button cancelDeleteButton;
+    @FXML
+    private AnchorPane confirmDeleteAnchor;
+    @FXML
+    private Label deleteNameLabel;
+    @FXML
+    private Button backButton;
 
     @Inject
     public AdminPanelCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
@@ -68,12 +75,15 @@ public class AdminPanelCtrl {
     public void backButton() {
         if (addAnchorPlane.isVisible()) {
             showButtonsAndTable();
+            hideConfirmDelete();
         }
         else{
+            hideConfirmDelete();
             showButtonsAndTable();
             refreshActivities.cancel();
             mainCtrl.showSplash();
         }
+        activitiesTable.getSelectionModel().clearSelection();
     }
 
     /**
@@ -124,7 +134,6 @@ public class AdminPanelCtrl {
      * This method does the opposite of the method above:
      * It switches the 'Admin-Panel-screen' back to the beginning state.
      */
-
     public void showButtonsAndTable() {
         addButton.setVisible(true);
         addButton.setDisable(false);
@@ -141,12 +150,19 @@ public class AdminPanelCtrl {
 
     }
 
+    /**
+     * Pops the add-button anchor-up
+     */
     public void addButton() {
         hideButtonsAndTable();
         addAnchorPlane.setVisible(true);
 
     }
 
+    /**
+     * Adds or updates the activity with all the filled in elements after okButton is clicked.
+     * Then sets the admin-panel screen back to normal state
+     */
     public void okButton() {
         String ID = id.getText();
         String activityTitle = title.getText();
@@ -196,26 +212,18 @@ public class AdminPanelCtrl {
         source.clear();
         showButtonsAndTable();
         addAnchorPlane.setVisible(false);
+        activitiesTable.getSelectionModel().clearSelection();
     }
 
     /**
      * Method that loads again the activities from activities.json
-     * They will be displayed again in the table due to to constant polling
+     * They will be displayed again in the table due to constant polling
      */
     public void setLoadActivities() {
+        activitiesTable.getSelectionModel().clearSelection();
         serverUtils.loadActivitiesInRepo();
     }
 
-    /**
-     * Deletes the activity selected
-     */
-    public void deleteActivitySelected() {
-        Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
-        if (activity == null)
-            return;
-        else
-            serverUtils.deleteActivity(activity.getId());
-    }
 
     /**
      * Modifies the selected activity
@@ -233,5 +241,72 @@ public class AdminPanelCtrl {
         imagePath.setText(activity.getImage_path());
         source.setText(activity.getSource());
     }
+    /**
+     * Shows and enables every element of the confirmDelete-pop-up.
+     */
+    public void showConfirmDelete(){
+        confirmDeleteAnchor.setDisable(false);
+        confirmDeleteAnchor.setVisible(true);
+        confirmDeleteButton.setDisable(false);
+        confirmDeleteButton.setVisible(true);
+        cancelDeleteButton.setDisable(false);
+        confirmDeleteButton.setVisible(true);
+    }
+
+    /**
+     * Hides and disables every element of the confirmDelete-pop-up.
+     */
+    public void hideConfirmDelete(){
+        confirmDeleteAnchor.setDisable(true);
+        confirmDeleteAnchor.setVisible(false);
+        confirmDeleteButton.setDisable(true);
+        confirmDeleteButton.setVisible(false);
+        cancelDeleteButton.setDisable(true);
+        confirmDeleteButton.setVisible(false);
+    }
+
+    /**
+     * Checks if there is an Activity selected and if so pop's up the confirmDelete 'Pop-up'
+     */
+    public void delete(){
+        Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
+        if(activity == null) {
+           return;
+        }
+        else{
+            showConfirmDelete();
+            hideButtonsAndTable();
+            backButton.setVisible(false);
+            backButton.setDisable(true);
+            String ID = activitiesTable.getSelectionModel().getSelectedItem().getId();
+            deleteNameLabel.setText(ID);
+        }
+    }
+
+    /**
+     * Deletes Activity from Activity-Bank after the confirmDeleteButton is clicked.
+     */
+    public void confirmDelete(){
+        Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
+        serverUtils.deleteActivity(activity.getId());
+        hideConfirmDelete();
+        showButtonsAndTable();
+        backButton.setVisible(true);
+        backButton.setDisable(false);
+        activitiesTable.getSelectionModel().clearSelection();
+    }
+
+    /**
+     * Cancels deleted and set admin screen back to normal state. After cancelDeleteButton is clicked.
+     */
+    public void cancelDelete(){
+        activitiesTable.getSelectionModel().clearSelection();
+        hideConfirmDelete();
+        showButtonsAndTable();
+        backButton.setVisible(true);
+        backButton.setDisable(false);
+    }
+
+
 
 }
