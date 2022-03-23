@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import commons.Player;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,30 +14,35 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 import javax.inject.Inject;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GlobalLeaderboardCtrl {
 
     private final ServerUtils serverUtils;
     private final MainCtrl mainCtrl;
+    private Timer refreshLeaderboardAndBarChart;
     @FXML
     private Button goBack;
     @FXML
     private TableView<Player> tableView;
     @FXML
-    private TableColumn<Player,String> nameColumn;
+    private TableColumn<Player, String> nameColumn;
     @FXML
-    private TableColumn<Player,Long> scoreColumn;
+    private TableColumn<Player, Long> scoreColumn;
     @FXML
     private Button playAgain;
     @FXML
-    private BarChart<String,Long> barChart;
+    private BarChart<String, Long> barChart;
     @FXML
     private CategoryAxis playerAxis;
     @FXML
     private NumberAxis scoreAxis;
+
     @Inject
-    public GlobalLeaderboardCtrl(MainCtrl mainCtrl,ServerUtils serverUtils) {
+    public GlobalLeaderboardCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
         this.mainCtrl = mainCtrl;
         this.serverUtils = serverUtils;
     }
@@ -54,49 +60,27 @@ public class GlobalLeaderboardCtrl {
         barChart.setTitle("Score barchart");
         //playerAxis.setStyle("");
         XYChart.Series series1 = new XYChart.Series();
-        for(Player player : players){
-            series1.getData().add(new XYChart.Data(player.getUsername(),player.getScore()));
+        for (Player player : players) {
+            series1.getData().add(new XYChart.Data(player.getUsername(), player.getScore()));
         }
         barChart.getData().addAll(series1);
+
+        refreshLeaderboardAndBarChart = new Timer();
+        refreshLeaderboardAndBarChart.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    players.addAll(serverUtils.getLeaderboardPlayers());
+                    tableView.setItems(players);
+                });
+            }
+        }, 0, 5 * 1000);
     }
-    /*
-  stage.setTitle("Bar Chart Sample");
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String,Number> bc =
-            new BarChart<String,Number>(xAxis,yAxis);
-        bc.setTitle("Country Summary");
-        xAxis.setLabel("Country");
-        yAxis.setLabel("Value");
 
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("2003");
-        series1.getData().add(new XYChart.Data(austria, 25601.34));
-        series1.getData().add(new XYChart.Data(brazil, 20148.82));
-        series1.getData().add(new XYChart.Data(france, 10000));
-        series1.getData().add(new XYChart.Data(italy, 35407.15));
-        series1.getData().add(new XYChart.Data(usa, 12000));
-
-        XYChart.Series series2 = new XYChart.Series();
-        series2.setName("2004");
-        series2.getData().add(new XYChart.Data(austria, 57401.85));
-        series2.getData().add(new XYChart.Data(brazil, 41941.19));
-        series2.getData().add(new XYChart.Data(france, 45263.37));
-        series2.getData().add(new XYChart.Data(italy, 117320.16));
-        series2.getData().add(new XYChart.Data(usa, 14845.27));
-
-        XYChart.Series series3 = new XYChart.Series();
-        series3.setName("2005");
-        series3.getData().add(new XYChart.Data(austria, 45000.65));
-        series3.getData().add(new XYChart.Data(brazil, 44835.76));
-        series3.getData().add(new XYChart.Data(france, 18722.18));
-        series3.getData().add(new XYChart.Data(italy, 17557.31));
-        series3.getData().add(new XYChart.Data(usa, 92633.68));
-
-     */
-    public void newGame(){
+    public void newGame() {
         mainCtrl.showSingleplayer();
     }
+
     public void buttonOnOrOff(boolean isFromSplash) {
         this.playAgain.setVisible(!isFromSplash);
         this.playAgain.setDisable(isFromSplash);
