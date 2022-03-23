@@ -5,6 +5,9 @@ import commons.Player;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,7 +28,12 @@ public class GlobalLeaderboardCtrl {
     private TableColumn<Player,Long> scoreColumn;
     @FXML
     private Button playAgain;
-
+    @FXML
+    private BarChart<String,Long> barChart;
+    @FXML
+    private CategoryAxis playerAxis;
+    @FXML
+    private NumberAxis scoreAxis;
     @Inject
     public GlobalLeaderboardCtrl(MainCtrl mainCtrl,ServerUtils serverUtils) {
         this.mainCtrl = mainCtrl;
@@ -42,6 +50,7 @@ public class GlobalLeaderboardCtrl {
         ObservableList<Player> players = FXCollections.observableArrayList();
         players.addAll(serverUtils.getLeaderboardPlayers());
         tableView.setItems(players);
+        barChart.
     }
 
     public void newGame(){
