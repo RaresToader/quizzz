@@ -47,6 +47,7 @@ public class MainCtrl {
     private Scene sLobbyScreen;
     private QuestionScreenCtrl questionScreenCtrl;
     private Scene questionScreen;
+    private Scene consumpScreen;
     private static final String iconPath = "/photos/clientIcon.png";
 
     public RotateTransition rotationAnimation1;
@@ -55,7 +56,8 @@ public class MainCtrl {
     public RotateTransition rotationAnimation4;
 
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
-                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue, Pair<SingleplayerLobbyCtrl, Parent> singleLobbyScreen, Pair<AdminPanelCtrl, Parent> admin) {
+                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue, Pair<SingleplayerLobbyCtrl, Parent> singleLobbyScreen, Pair<AdminPanelCtrl, Parent> admin,
+                           Pair<QuestionScreenCtrl, Parent> consumpScreen) {
 
         this.primaryStage = primaryStage;
         this.enterMenuCtrl = enterMenu.getKey();
@@ -78,6 +80,7 @@ public class MainCtrl {
 
         this.questionScreenCtrl = questionScreen.getKey();
         this.questionScreen = new Scene(questionScreen.getValue());
+        this.consumpScreen = new Scene(consumpScreen.getValue());
         //Set program icon
         this.primaryStage.getIcons().add(new Image(MainCtrl.class.getResourceAsStream(iconPath)));
         showEnterMenu();
@@ -162,6 +165,10 @@ public class MainCtrl {
         primaryStage.setTitle("Singleplayer");
         primaryStage.setScene(this.questionScreen);
         questionScreenCtrl.init(false); //False for singleplayer session
+    }
+
+    public void showConsumpScreen() {
+        primaryStage.setScene(this.consumpScreen);
     }
 
     public void showAdminPanel() {

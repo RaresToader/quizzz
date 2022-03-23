@@ -35,15 +35,15 @@ public class RandomSelection {
                 long last = random.nextInt((int) (higher - lower + 1));
                 int version = random.nextInt(3);
                 if(version == 1) {
-                    listOfQuestions.add(new ConsumpQuestion("How much does this cost: " + database.get(3 * i).getTitle(), database.get(3 * i), correct, next, last));
+                    listOfQuestions.add(new ConsumpQuestion("How much energy does this cost?" , database.get(3 * i), correct, next, last));
                 }
 
                 else if(version == 2) {
-                    listOfQuestions.add(new ConsumpQuestion("How much does this cost: " + database.get(3 * i).getTitle(), database.get(3 * i), next , correct, last));
+                    listOfQuestions.add(new ConsumpQuestion("How much energy does this cost?" , database.get(3 * i), next , correct, last));
                 }
 
                 else {
-                    listOfQuestions.add(new ConsumpQuestion("How much does this cost: " + database.get(3 * i).getTitle(), database.get(3 * i), next, last, correct));
+                    listOfQuestions.add(new ConsumpQuestion("How much energy does this cost?" , database.get(3 * i), next, last, correct));
                 }
             }
         }

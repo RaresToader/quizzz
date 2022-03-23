@@ -16,7 +16,7 @@ public class ConsumpQuestion extends Question {
         this.third = third;
     }
 
-    public Activity getFirstChoice() {
+    public Activity getActivity() {
         return activity;
     }
 

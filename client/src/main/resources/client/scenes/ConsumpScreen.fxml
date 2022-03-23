@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #191919;" stylesheets="/stylesheets/QuestionScreenStylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.QuestionScreenCtrl">
+   <children>
+      <Pane layoutX="28.0" layoutY="28.0" prefHeight="664.0" prefWidth="1224.0" style="-fx-background-color: #474747;" styleClass="screenDividerBackground">
+         <children>
+            <Label fx:id="transitionTimer" alignment="CENTER" layoutX="-172.0" layoutY="-27.0" prefHeight="78.0" prefWidth="800.0" text="0 seconds until next question" textAlignment="CENTER" textFill="#f15025" translateX="400.0" translateY="110.0" visible="false" />
+            <Label id="pointCounter" fx:id="pointCounter" layoutX="412.0" layoutY="565.0" prefHeight="64.0" prefWidth="763.0" styleClass="label" text="Current points: 0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Label>
+            <Label id="question" fx:id="question" alignment="CENTER" layoutX="68.0" layoutY="-6.0" prefHeight="93.0" prefWidth="1085.0" styleClass="title" text="N. (Question)" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Monaco" size="55.0" />
+               </font>
+            </Label>
+            <Label fx:id="time" alignment="CENTER_RIGHT" layoutX="-45.0" layoutY="84.0" prefHeight="70.0" prefWidth="240.0" text="0 seconds" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="endButton" layoutX="60.0" layoutY="577.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="59.0" prefWidth="222.0" style="-fx-background-color: #f15025;" text="finish now" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Rectangle fx:id="timeBarBackground" arcHeight="5.0" arcWidth="5.0" fill="#ced0ce" height="28.0" layoutX="223.0" layoutY="108.0" stroke="BLACK" strokeType="INSIDE" styleClass="timeBarBackground" width="960.0" />
+            <Rectangle fx:id="timeBarFill" arcHeight="5.0" arcWidth="5.0" fill="#f15025" height="28.0" layoutX="223.0" layoutY="108.0" stroke="BLACK" strokeType="INSIDE" styleClass="timeBarFill" width="960.0" />
+            <Button fx:id="activity" alignment="TOP_CENTER" contentDisplay="BOTTOM" graphicTextGap="5.0" layoutX="223.0" layoutY="170.0" mnemonicParsing="false" onAction="#chooseFirst" prefHeight="370.0" prefWidth="380.0" styleClass="answerButton" text="Activity " textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="activityImage" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Button>
+            <Button fx:id="firstAnswer" layoutX="680.0" layoutY="220.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="342.0" text="Button" />
+            <Button fx:id="secondAnswer" layoutX="680.0" layoutY="320.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="342.0" text="Button" />
+            <Button fx:id="thirdAnswer" layoutX="680.0" layoutY="420.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="342.0" text="Button" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

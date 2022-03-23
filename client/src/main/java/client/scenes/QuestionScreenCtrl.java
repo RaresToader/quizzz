@@ -69,6 +69,12 @@ public class QuestionScreenCtrl {
     private Label question;
 
     @FXML
+    private Button activity;
+
+    @FXML
+    private ImageView activityImage;
+
+    @FXML
     private Button firstAnswer;
     @FXML
     private Button secondAnswer;
@@ -182,7 +188,11 @@ public class QuestionScreenCtrl {
         }
 
         if(currQuestion instanceof ConsumpQuestion) {
+            mainCtrl.showConsumpScreen();
             question.setText(currQuestion.getQuestion());
+            activity.setText(((ConsumpQuestion) currQuestion).getActivity().getTitle());
+            String path = "/photos/"+((ConsumpQuestion) currQuestion).getActivity().getImage_path();
+            activityImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
             firstAnswer.setText(Long.toString(((ConsumpQuestion) currQuestion).getFirst()));
             secondAnswer.setText(Long.toString(((ConsumpQuestion) currQuestion).getSecond()));
             thirdAnswer.setText(Long.toString(((ConsumpQuestion) currQuestion).getThird()));
