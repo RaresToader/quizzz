@@ -40,4 +40,30 @@ public class JokerTest {
         x.setUsedBy("test123");
         assertEquals("test123",x.getUsedBy());
     }
+
+    @Test
+    public void equalsSameInstanceTest() {
+        Joker x = new Joker("testUser",1,2);
+        assertTrue(x.equals(x));
+    }
+
+    @Test
+    public void equalsNull() {
+        Joker x = new Joker("testUser",1,2);
+        assertFalse(x.equals(null));
+    }
+
+    @Test
+    public void equalsSame() {
+        Joker x = new Joker("testUser",1,2);
+        Joker y = new Joker("testUser",1,2);
+        assertTrue(x.equals(y));
+    }
+
+    @Test
+    public void equalsNotSame() {
+        Joker x = new Joker("testUser",1,2);
+        Joker y = new Joker("testUser",3,2);
+        assertFalse(x.equals(y));
+    }
 }

@@ -52,4 +52,42 @@ public class QuizzQuestionServerParsedTest {
         x.setJokerList(new ArrayList<Joker>());
         assertEquals(0,x.getJokerList().size());
     }
+
+    @Test
+    public void toStringTest() {
+        QuizzQuestionServerParsed x = new QuizzQuestionServerParsed(null,123,-1,null);
+        String expected = "QuizzQuestionServerParsed{" +
+                "question=" + x.getQuestion() +
+                ", startTime=" + x.getStartTime() +
+                ", questionNum=" + x.getQuestionNum() +
+                ", jokerList=" + x.getJokerList() +
+                '}';
+        assertEquals(expected,x.toString());
+    }
+
+    @Test
+    public void equalsNullTest() {
+        QuizzQuestionServerParsed x = new QuizzQuestionServerParsed(null,123,-1,null);
+        assertFalse(x.equals(null));
+    }
+
+    @Test
+    public void sameInstanceEqualsTest() {
+        QuizzQuestionServerParsed x = new QuizzQuestionServerParsed(null,123,-1,null);
+        assertTrue(x.equals(x));
+    }
+
+    @Test
+    public void diffEqualsTest() {
+        QuizzQuestionServerParsed x = new QuizzQuestionServerParsed(null,123,-1,null);
+        QuizzQuestionServerParsed y = new QuizzQuestionServerParsed(null,1253,-1,null);
+        assertFalse(x.equals(y));
+    }
+
+    @Test
+    public void sameEqualsTest() {
+        QuizzQuestionServerParsed x = new QuizzQuestionServerParsed(null,123,-1,null);
+        QuizzQuestionServerParsed y = new QuizzQuestionServerParsed(null,123,-1,null);
+        assertTrue(x.equals(y));
+    }
 }
