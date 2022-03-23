@@ -20,7 +20,7 @@ public class RandomSelection {
         System.out.println(database.size());
         listOfQuestions = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            int type = random.nextInt(2);
+            int type = random.nextInt(3);
 
             if(type == 0) {
                 listOfQuestions.add(new QuizzQuestion("What activity costs more?", database.get(3 * i),
@@ -45,6 +45,10 @@ public class RandomSelection {
                 else {
                     listOfQuestions.add(new ConsumpQuestion("How much does this cost: " + database.get(3 * i).getTitle(), database.get(3 * i), next, last, correct));
                 }
+            }
+
+            if(type == 2) {
+                listOfQuestions.add(new GuessQuestion("Guess the energy consumption of: " + database.get(3 * i).getTitle(), database.get(3 * i)));
             }
         }
     }
