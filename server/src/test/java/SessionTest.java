@@ -20,7 +20,7 @@ public class SessionTest {
     public void setup() {
         repo = new TestActivityRepository();
         for(int i=0; i<60; i++) {
-            Activity toBeAdded = new Activity("test"+i, "test","10", 10L       ,"test");
+            Activity toBeAdded = new Activity("test"+i, "test","10", 10L,"test");
             repo.save(toBeAdded);
         }
         sess = new SessionController(repo);
@@ -310,6 +310,47 @@ public class SessionTest {
         x.setQuestionStartedAt(Long.valueOf(0));
         assertEquals(Long.valueOf(0),x.getQuestionStartedAt());
     }
+    @Test
+    public void addEmojiTest(){
+        Session x = new Session(true,sess.get60RandomActivities());
+        Emoji emoji1 = new Emoji("user1","emoji1");
+        Emoji emoji2 = new Emoji("user2", "emoij2");
+        List<Emoji> emojiList = new ArrayList<Emoji>();
+        emojiList.add(emoji1);
+        emojiList.add(emoji2);
+        x.addEmoij(emoji1);
+        x.addEmoij(emoji2);
+        assertEquals(emojiList,x.getEmojiList());
+    }
 
+    @Test
+    public void getEmojiListTest(){
+        Session x = new Session(true,sess.get60RandomActivities());
+        Emoji emoji1 = new Emoji("user1","emoji1");
+        Emoji emoji2 = new Emoji("user2", "emoij2");
+        List<Emoji> emojiList = new ArrayList<Emoji>();
+        emojiList.add(emoji1);
+        emojiList.add(emoji2);
+        x.addEmoij(emoji1);
+        x.addEmoij(emoji2);
+        assertEquals(emojiList,x.getEmojiList());
+    }
 
+    @Test
+    public void getActiveEmojiListTest(){
+        Session x = new Session(true,sess.get60RandomActivities());
+        Emoji emoji1 = new Emoji("user1","emoji1");
+        Emoji emoji2 = new Emoji("user2", "emoij2");
+        List<Emoji> emojiList = new ArrayList<Emoji>();
+        emojiList.add(emoji1);
+        emojiList.add(emoji2);
+        x.addEmoij(emoji1);
+        x.addEmoij(emoji2);
+        assertEquals(emojiList,x.getActiveEmoijList());
+        emoji2.setStartTimeEmoji(emoji2.getStartTimeEmoji() - 5500);
+        List<Emoji> emojiList2 = new ArrayList<Emoji>();
+        emojiList2.add(emoji1);
+        assertEquals(emojiList2,x.getActiveEmoijList());
+        assertEquals(emojiList2,x.getEmojiList());
+    }
 }

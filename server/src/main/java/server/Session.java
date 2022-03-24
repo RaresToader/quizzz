@@ -220,13 +220,12 @@ public class Session {
         Date date = new Date();
         int emojiListLength = emojiList.size();
         for (int i = 0; i < emojiListLength; i++){
-            if(emojiList.get(i).getStartTimeEmoji() > (date.getTime() - 5000 )){ //emoji's
+            if(emojiList.get(i).getStartTimeEmoji() > (date.getTime() - 5000 )){ //emoji's have an expiry time of 5 seconds
                 activeEmojiList.add(emojiList.get(i));
             }
         }
         this.emojiList = activeEmojiList;
         return activeEmojiList;
-
     }
 
     /**
@@ -277,6 +276,9 @@ public class Session {
 
     public List<Joker> getUsedJokers() {
         return this.usedJokers;
+    }
+    public List<Emoji> getEmojiList(){
+        return this.emojiList;
     }
 
 

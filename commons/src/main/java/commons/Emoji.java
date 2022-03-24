@@ -20,15 +20,23 @@ public class Emoji {
     }
 
     public String getUserApplying() {
-        return userApplying;
+        return this.userApplying;
     }
 
     public String getEmojiType() {
-        return emojiType;
+        return this.emojiType;
     }
 
     public long getStartTimeEmoji(){
-        return startTimeEmoji;
+        return this.startTimeEmoji;
+    }
+
+    /**
+     * Set's the start time of the emoji (for test purposes)
+     * @param startTimeEmoji - the start time of the emoji.
+     */
+    public void setStartTimeEmoji(long startTimeEmoji){
+        this.startTimeEmoji = startTimeEmoji;
     }
 
 }
