@@ -221,10 +221,14 @@ public class ActivityControllerTest {
 
     @Test
     public void modifyTest5() {
+        var actual = systemUnderTest.modifyActivity(new Activity("test", null, "test", 0L, "test"));
+        assertEquals(actual.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+    @Test
+    public void modifyTestNonExistentActivity() {
         var actual = systemUnderTest.modifyActivity(new Activity("test", "test", "test", 0L, "test"));
         assertEquals(actual.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
-
     @Test
     public void modifyTest6() {
         Activity test = new Activity("test", "test", "test", 100L, "test");
