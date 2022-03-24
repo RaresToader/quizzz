@@ -21,6 +21,13 @@
 #deleteButton {
     -fx-font-size: 20pt;
 }
+#confirmDeleteButton{
+    -fx-translate-y: 20pt;
+}
+
+#cancelDeleteButton{
+    -fx-translate-y: 20pt;
+}
 #IDText {
     -fx-font-size: 12pt;
 }

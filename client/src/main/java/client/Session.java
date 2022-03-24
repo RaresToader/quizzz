@@ -2,8 +2,11 @@ package client;
 
 
 import commons.Activity;
+import commons.Joker;
 import commons.QuizzQuestion;
 import commons.QuizzQuestionServerParsed;
+
+import java.util.ArrayList;
 
 public class Session {
 
@@ -11,7 +14,7 @@ public class Session {
     private static String serverAddr;
     private static long questionNum;
 
-    public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1);
+    public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1, new ArrayList<Joker>());
 
 
     public static String getNickname() {

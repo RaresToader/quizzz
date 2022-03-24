@@ -41,4 +41,42 @@ public class AnswerTest {
         assertEquals(5,x.getQuestionNum());
     }
 
+    @Test
+    public void toStringTest() {
+        Answer x = new Answer("test",1,2);
+        String expected = "Answer{" +
+                "nickname='" + x.getNickname() + '\'' +
+                ", answer=" + x.getAnswer() +
+                ", questionNum=" + x.getQuestionNum() +
+                '}';
+
+        assertEquals(expected,x.toString());
+    }
+
+    @Test
+    public void equalsNullTest() {
+        Answer x = new Answer("test",1,2);
+        assertFalse(x.equals(null));
+    }
+
+    @Test
+    public void sameInstanceEqualsTest() {
+        Answer x = new Answer("test",1,2);
+        assertTrue(x.equals(x));
+    }
+
+    @Test
+    public void diffEqualsTest() {
+        Answer x = new Answer("test",1,2);
+        Answer y = new Answer("test3",1,2);
+        assertFalse(x.equals(y));
+    }
+
+    @Test
+    public void sameEqualsTest() {
+        Answer x = new Answer("test",1,2);
+        Answer y = new Answer("test",1,2);
+        assertTrue(x.equals(y));
+    }
+
 }

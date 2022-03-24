@@ -3,10 +3,13 @@ package client.utils;
 import client.Session;
 import commons.*;
 import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.GenericType;
 import org.glassfish.jersey.client.ClientConfig;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -128,6 +131,21 @@ public class Utils {
     }
 
     /**
+     * Invokes to /session/addjoker/{nickname}/{jokertype}/{question} and submits joker for given session
+     * @param x - Joker to be sent
+     * @return Boolean value whether operation of addition was successful
+     */
+    public static boolean addJoker(Joker x) {
+        if(x == null) return false;
+        String path = "/session/addjoker/"+Session.getNickname()+"/"+x.getJokerType()+"/"+x.getQuestionNum();
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path(path) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(Boolean.class);
+    }
+
+    /**
      * Invokes to /verification path and check whether provided serverAddress is valid address of QuizzGame
      *
      * @param serverAddr - provided serverAddr
@@ -143,5 +161,19 @@ public class Utils {
                 .get(Integer.class);
 
         return retNum >= 100 && retNum <= 110;
+    }
+
+    /**
+     * Invokes to /session/playersinsession/{nickname} and get all the players in the session
+     * @param nickname - provided nickname of the requesting client
+     * @return List<Players> that contains all the players in the session
+     */
+    public static List<String> getCurrentSessionPlayers(String nickname) {
+        String path = "session/playersinsession/" + nickname;
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path(path).request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<String>>() {
+                });
     }
 }
