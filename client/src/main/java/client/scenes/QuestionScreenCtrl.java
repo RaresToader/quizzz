@@ -3,7 +3,6 @@ package client.scenes;
 import client.Session;
 import client.utils.ServerUtils;
 import client.utils.Utils;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import commons.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
@@ -20,7 +19,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
-import java.text.ParseException;
 import java.util.Timer;
 import java.util.TimerTask;
 
