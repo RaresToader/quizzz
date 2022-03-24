@@ -44,10 +44,6 @@ public class SessionController {
         //System.out.println("For "+nickname+" it is "+sessionId); //DEBUG LINE
         Session x = SessionContainer.getSession(sessionId);
 
-        if(x.hasEnded()) {
-            return Session.emptyQ;
-        }
-
         if(!x.isStarted()) { //If game is not started
             x.startGame();
         }

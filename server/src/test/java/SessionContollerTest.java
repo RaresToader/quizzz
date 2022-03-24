@@ -177,4 +177,19 @@ public class SessionContollerTest {
         x.getCurrentQuestion();
         assertTrue(sess.addJoker("test",0,0));
     }
+
+    @Test
+    public void leaveSessionNotFoundTest() {
+        SessionController sess = new SessionController(repo);
+        assertFalse(sess.leaveSession("test"));
+    }
+
+    @Test
+    public void leaveSessionWithEnding() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test", sess.get60RandomActivities());
+        Session x = SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        assertTrue(sess.leaveSession("test"));
+        assertTrue(x.hasEnded());
+    }
 }
