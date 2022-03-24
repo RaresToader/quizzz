@@ -1,4 +1,5 @@
 import commons.Activity;
+import commons.Answer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.Session;
@@ -8,6 +9,7 @@ import server.api.TestActivityRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -72,6 +74,25 @@ public class SessionContollerTest {
         assertEquals(list,sess.getPlayersInSession("test"));
         session.removePlayer("test2");
         assertNotEquals(list,sess.getPlayersInSession("test"));
+    }
+    @Test
+    public void getCurrentLeaderboardTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test",sess.get60RandomActivities());
+        List<String> list = new ArrayList<String>();
+        list.add("test");
+        int sessionId = SessionContainer.findUserSession("test");
+        Session session = SessionContainer.getSession(sessionId);
+        session.addPlayer("test1");
+        session.addPlayer("test2");
+        session.addPlayer("test3");
+        list.add("test1");
+        list.add("test2");
+        list.add("test3");
+        HashMap<String,Integer> expected = new HashMap<>();
+        expected.put("test1",10);
+        session.addAnswer(new Answer("test1",10,-1));
+        assertEquals(new ArrayList<>(expected.entrySet()),session.getCurrentLeaderboard());
     }
 
     @Test
