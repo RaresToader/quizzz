@@ -309,8 +309,6 @@ public class QuestionScreenCtrl {
      */
     public void check(Button chosenBox)  {
 
-        Utils.submitAnswer(0);
-
         questionTimer.pause();
         points = timeLeft*25 + 500;
 
@@ -367,6 +365,7 @@ public class QuestionScreenCtrl {
      * handles the transition between two questions.
      */
     public void transition(){
+        Utils.submitAnswer(totalPoints);
         firstAnswer.setDisable(true);
         firstAnswerLabel.setOpacity(1);
 

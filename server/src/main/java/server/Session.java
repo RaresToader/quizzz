@@ -2,14 +2,12 @@ package server;
 
 import commons.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Session {
     private static final int playerLimit = 20; //To be determined
     private List<String> playerList;
+    private HashMap<String,Integer> currentScores;
     private boolean started;
     private boolean ended;
     private String gameAdmin;
@@ -24,6 +22,7 @@ public class Session {
 
     public Session(boolean gameType, List<Activity> activities) {
         this.playerList        = new ArrayList<String>();
+        this.currentScores     = new HashMap<>();
         this.started           = false;
         this.ended             = false;
         this.gameAdmin         = null;
@@ -124,6 +123,7 @@ public class Session {
             }
         }
 
+        this.currentScores.put(x.getNickname(),x.getAnswer());
         this.answers.add(x);
         return true;
     }
@@ -251,6 +251,13 @@ public class Session {
         return this.usedJokers;
     }
 
+    public HashMap<String, Integer> getCurrentScores() {
+        return currentScores;
+    }
+
+    public ArrayList<Map.Entry<String,Integer>> getCurrentLeaderboard() {
+        return new ArrayList<Map.Entry<String,Integer>>(currentScores.entrySet());
+    }
 
     @Override
     public String toString() {
