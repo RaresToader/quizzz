@@ -28,4 +28,5 @@ public class CorrectAnswer {
 
         return highest.getTitle();
     }
+
 }

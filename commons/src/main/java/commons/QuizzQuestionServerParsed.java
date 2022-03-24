@@ -4,21 +4,23 @@ import java.util.List;
 import java.util.Objects;
 
 public class QuizzQuestionServerParsed {
-    private QuizzQuestion question;
+    private Question question;
     private long startTime;
-    private int questionNum;
+    private long questionNum;
     private List<Joker> jokerList;
 
-    public QuizzQuestionServerParsed() {}
 
-    public QuizzQuestionServerParsed(QuizzQuestion question, long startTime, int questionNum, List<Joker> jokerList) {
-        this.question    = question;
-        this.startTime   = startTime;
+    public QuizzQuestionServerParsed(Question question, long startTime, long questionNum,List<Joker> jokerList) {
+        this.question = question;
+        this.startTime = startTime;
         this.questionNum = questionNum;
         this.jokerList   = jokerList;
     }
+    public QuizzQuestionServerParsed() {}
 
-    public QuizzQuestion getQuestion() {
+   
+
+    public Question getQuestion() {
         return question;
     }
 
@@ -26,23 +28,22 @@ public class QuizzQuestionServerParsed {
         return startTime;
     }
 
-    public int getQuestionNum() {
+    public long getQuestionNum() {
         return questionNum;
     }
 
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
     public List<Joker> getJokerList() {
         return jokerList;
-    }
-
-    public void setQuestion(QuizzQuestion question) {
-        this.question = question;
     }
 
     public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
-    public void setQuestionNum(int questionNum) {
+    public void setQuestionNum(long questionNum) {
         this.questionNum = questionNum;
     }
 

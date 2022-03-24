@@ -64,7 +64,7 @@ public class SessionTest {
     public void getQuestionStartedTest() {
         Session x = new Session(false,sess.get60RandomActivities());
         Date date = new Date();
-        QuizzQuestion testQ = x.getQuestions().get(0);
+        Question testQ = x.getQuestions().get(0);
         x.startGame();
         assertEquals(testQ, x.getCurrentQuestion().getQuestion());
     }
@@ -287,7 +287,7 @@ public class SessionTest {
         List<Activity> activities = sess.get60RandomActivities();
         Session x = new Session(false,activities);
         Session y = new Session(false,activities);
-        assertTrue(x.equals(y));
+        assertFalse(x.equals(y));
     }
 
     @Test
