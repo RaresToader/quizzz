@@ -1,8 +1,6 @@
 package client.utils;
 
 import client.Session;
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import commons.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import org.glassfish.jersey.client.ClientConfig;
