@@ -5,6 +5,9 @@ import commons.Activity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -266,5 +269,80 @@ public class ActivityControllerTest {
         systemUnderTest.modifyActivity(test);
         assertTrue(repo.calledMethods.contains("getById"));
 
+    }
+
+    @Test
+    public void modifyNonexistentActivity() {
+        var actual = systemUnderTest.modifyActivity(new Activity("testNONEXISTENT", "test", "test", 0l, "test"));
+        assertEquals(actual.getStatusCode(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void existsTest1() {
+        var actual = systemUnderTest.exists(null);
+        assertEquals(actual.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    public void existsTest2() {
+        var actual = systemUnderTest.exists(null);
+        assertEquals(actual.getBody(), false);
+    }
+
+    @Test
+    public void existsTest3() {
+        var actual = systemUnderTest.exists("test");
+        assertEquals(actual.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    public void existsTest4() {
+        var actual = systemUnderTest.exists("test");
+        assertEquals(actual.getBody(), false);
+    }
+
+    @Test
+    public void existsTest5() {
+        systemUnderTest.addActivity(new Activity("test", "test", "test", 10l, "test"));
+        var actual = systemUnderTest.exists("test");
+        assertEquals(actual.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    public void existsTest6() {
+        systemUnderTest.addActivity(new Activity("test", "test", "test", 10l, "test"));
+        var actual = systemUnderTest.exists("test");
+        assertEquals(actual.getBody(), true);
+    }
+
+    @Test
+    public void loadActivitiesTest1() throws IOException, ParseException {
+        var actual = systemUnderTest.loadActivities();
+        assertEquals(actual.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    public void loadActivitiesTest2() throws IOException, ParseException {
+        var actual = systemUnderTest.loadActivities();
+        assertNotNull(actual.getBody());
+    }
+
+    @Test
+    public void loadActivitiesTest3() throws IOException, ParseException {
+        var actual = systemUnderTest.loadActivities();
+        assertTrue(actual.getBody().size() > 0);
+    }
+
+    @Test
+    public void loadActivitiesTest4() throws IOException, ParseException {
+        systemUnderTest.loadActivities();
+        assertTrue(repo.calledMethods.contains("save"));
+    }
+
+    @Test
+    public void loadActivitiesTest5() {
+        assertDoesNotThrow(() -> {
+            systemUnderTest.loadActivities();
+        });
     }
 }
