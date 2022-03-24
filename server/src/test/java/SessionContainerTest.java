@@ -148,4 +148,14 @@ public class SessionContainerTest {
         sessionList.set(0,x);
         assertEquals(sessionList,SessionContainer.getSessionList());
     }
+    @Test
+    public void validUsernameTest() {
+        List<Session> sessionList = new ArrayList<>();
+        sessionList.add(null);
+        List<Activity> activities = sess.get60RandomActivities();
+        SessionContainer.setSessionList(sessionList);
+        assertTrue(SessionContainer.createSession(false,"test",activities));
+        assertTrue(SessionContainer.isUsernameValid("test2"));
+        assertFalse(SessionContainer.isUsernameValid("test"));
+    }
 }

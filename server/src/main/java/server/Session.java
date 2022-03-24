@@ -223,6 +223,8 @@ public class Session {
         return started;
     }
 
+    public boolean isEnded() { return ended; }
+
     public String getGameAdmin() {
         return gameAdmin;
     }
