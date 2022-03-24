@@ -40,6 +40,7 @@ public class SingleplayerLobbyCtrl {
     }
 
     public void toSingleplayer() {
+        startGameButton.setDisable(true);
         transitionTimeLeft = 5;
         label1.setText("Starting in " + transitionTimeLeft + "!");
         Timeline timerForStart = new Timeline(
