@@ -24,7 +24,8 @@ public class InsteadOfQuestion extends Question {
      * @param thirdChoice    the third alternative activity
      */
     public InsteadOfQuestion(Activity promptActivity, Activity firstChoice, Activity secondChoice, Activity thirdChoice) {
-        super("Instead of..., you could do instead...");
+        super();
+        this.question = "Instead of..., you could do instead...";
         this.promptActivity = promptActivity;
         this.firstChoice = firstChoice;
         this.secondChoice = secondChoice;
