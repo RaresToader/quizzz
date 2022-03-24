@@ -2,6 +2,7 @@ package server;
 
 import commons.Activity;
 import commons.Answer;
+import commons.Emoji;
 import commons.QuizzQuestionServerParsed;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
@@ -68,6 +69,21 @@ public class SessionController {
             playerList = session.getPlayerList();
         }
         return playerList;
+    }
+
+    /**
+     * Sets the chosen emoji in the list with emoji's of the session the player is in
+     * @param nickname - nickname of the user who chose the emoji
+     * @param emojiType - type of emoji the user chose.
+     */
+    @GetMapping("/session/setEmoji/{nickname}/{emojitype}")
+    public void setEmoji(@PathVariable("nickname") String nickname, @PathVariable("emojitype") String emojiType){
+        int sessionId = SessionContainer.findUserSession(nickname);
+        if (sessionId != -1){
+            Session session = SessionContainer.getSession(sessionId);
+            Emoji emoji = new Emoji(nickname,emojiType);
+            session.addEmoij(emoji);
+        }
     }
 
     /**
