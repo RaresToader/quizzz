@@ -31,19 +31,19 @@ public class RandomSelection {
                 long correct = database.get(3 * i).getConsumption_in_wh();
                 double lower = correct * 0.9;
                 double higher = correct * 1.1;
-                long next = random.nextInt((int) (higher - lower + 1));
-                long last = random.nextInt((int) (higher - lower + 1));
+                long next = (long) (random.nextInt((int) (higher - lower)) + lower);
+                long last = (long) (random.nextInt((int) (higher - lower)) + lower);
                 int version = random.nextInt(3);
+                if(version == 0) {
+                    listOfQuestions.add(new ConsumpQuestion("How much energy does this cost?" , database.get(3 * i), correct, next, last));
+                }
+
                 if(version == 1) {
-                    listOfQuestions.add(new ConsumpQuestion("How much does this cost: " + database.get(3 * i).getTitle(), database.get(3 * i), correct, next, last));
+                    listOfQuestions.add(new ConsumpQuestion("How much energy does this cost?" , database.get(3 * i), next , correct, last));
                 }
 
-                else if(version == 2) {
-                    listOfQuestions.add(new ConsumpQuestion("How much does this cost: " + database.get(3 * i).getTitle(), database.get(3 * i), next , correct, last));
-                }
-
-                else {
-                    listOfQuestions.add(new ConsumpQuestion("How much does this cost: " + database.get(3 * i).getTitle(), database.get(3 * i), next, last, correct));
+                if(version == 2) {
+                    listOfQuestions.add(new ConsumpQuestion("How much energy does this cost?" , database.get(3 * i), next, last, correct));
                 }
             }
         }
