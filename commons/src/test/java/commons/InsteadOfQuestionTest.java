@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InsteadOfQuestionTest {
-    private Activity test = new Activity("test", "test", "test", 0L, "test");
-    private Activity test2 = new Activity("test2", "test2", "test2", 0L, "test2");
-    private Activity test3 = new Activity("test3", "test3", "test3", 0L, "test3");
-    private Activity test4 = new Activity("test4", "test4", "test4", 0L, "test4");
+    private final Activity test = new Activity("test", "test", "test", 0L, "test");
+    private final Activity test2 = new Activity("test2", "test2", "test2", 0L, "test2");
+    private final Activity test3 = new Activity("test3", "test3", "test3", 0L, "test3");
+    private final Activity test4 = new Activity("test4", "test4", "test4", 0L, "test4");
 
     @Test
     public void defaultConstructorTest() {
