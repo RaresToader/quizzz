@@ -136,6 +136,7 @@ public class MainCtrl {
     }
 
     public void showMultiplayerLobby() {
+        mLobbyCtrl.init();
         primaryStage.setTitle("Multiplayer Lobby");
         primaryStage.setScene(mLobbyScreen);
     }

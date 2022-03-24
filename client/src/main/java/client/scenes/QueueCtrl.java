@@ -1,10 +1,8 @@
 package client.scenes;
 
 import javafx.animation.KeyFrame;
-import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -15,9 +13,6 @@ public class QueueCtrl {
 
     private int transitionTimeLeft;
     private Timeline transitionTimer;
-
-    @FXML
-    private Button goBack;
 
     @FXML
     public Circle loadingCircle1;

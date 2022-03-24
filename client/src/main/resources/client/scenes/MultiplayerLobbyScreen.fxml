@@ -2,16 +2,17 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.image.Image?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #191919;" stylesheets="/stylesheets/MultiplayerLobbyStylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiplayerLobbyCtrl">
    <children>
-      <Label alignment="CENTER" layoutX="545.0" layoutY="9.0" styleClass="title" text="Lobby" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="546.0" layoutY="3.0" styleClass="title" text="Lobby" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="72.0" />
          </font>
@@ -23,11 +24,21 @@
       </Label>
       <Button fx:id="leaveButton" layoutX="24.0" layoutY="605.0" mnemonicParsing="false" onAction="#goBackToSplash" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Leave" textFill="WHITE" />
       <Button fx:id="startButton" layoutX="1090.0" layoutY="605.0" mnemonicParsing="false" onAction="#startGame" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Start&#10;game" textFill="WHITE" />
-      <ImageView fx:id="leaderCrown" fitHeight="100.0" fitWidth="100.0" layoutX="15.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="leaderCrown" fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../photos/crown.png" />
+            <Image url="/photos/crown.png" />
          </image></ImageView>
-      <Button fx:id="emoteButton" layoutX="1206.0" layoutY="18.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardButton" text="emote" textFill="WHITE" />
+      <Pane fx:id="emoteBox" layoutX="1080.0" prefHeight="149.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="emoteMenu" layoutX="136.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteMenu" text="emote" textFill="WHITE" />
+            <Button fx:id="emoteButton1" disable="true" layoutX="136.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="1" visible="false" />
+            <Button fx:id="emoteButton2" disable="true" layoutX="75.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="2" visible="false" />
+            <Button fx:id="emoteButton3" disable="true" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="3" visible="false" />
+            <Button fx:id="emoteButton4" disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="4" visible="false" />
+            <Button fx:id="emoteButton5" disable="true" layoutX="75.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="5" visible="false" />
+            <Button fx:id="emoteButton6" disable="true" layoutX="136.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="6" visible="false" />
+         </children>
+      </Pane>
       <StackPane fx:id="playerNameBackground2" layoutX="487.0" layoutY="310.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
          <children>
             <Text fx:id="playerNameLabel2" strokeType="OUTSIDE" strokeWidth="0.0" text="Player" textAlignment="CENTER" />
