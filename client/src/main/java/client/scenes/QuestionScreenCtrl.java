@@ -20,6 +20,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
+import java.text.ParseException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -140,7 +141,7 @@ public class QuestionScreenCtrl {
                                 }
                             }
 //                            System.out.println(Session.getQuestionNum()); //DEBUG LINE
-                        } catch (JsonProcessingException e) {
+                        } catch (org.json.simple.parser.ParseException e) {
                             e.printStackTrace();
                         }
                     }

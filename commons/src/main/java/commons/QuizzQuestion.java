@@ -12,9 +12,9 @@ public class QuizzQuestion extends Question {
     private Activity secondChoice;
     private Activity thirdChoice;
 
-//    public QuizzQuestion() {
+    public QuizzQuestion() {
 //        //Object mapping
-//    }
+    }
 
     public QuizzQuestion(String question, Activity firstChoice, Activity secondChoice, Activity thirdChoice) {
         super(question);

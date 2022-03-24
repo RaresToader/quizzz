@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.Session;
 import client.utils.Utils;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import client.utils.ServerUtils;
 import javafx.util.Duration;
+import jdk.jshell.execution.Util;
+import org.json.simple.parser.ParseException;
 
 import javax.inject.Inject;
 
@@ -60,7 +63,11 @@ public class EnterMenuCtrl {
         else {
             displayErrorText("Provided username is invalid!");
         }
-
+        try {
+            System.out.println(Utils.getCurrentQuestion(false));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void displayErrorText(String text) {

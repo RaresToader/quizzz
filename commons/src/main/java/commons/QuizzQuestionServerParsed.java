@@ -5,11 +5,11 @@ import java.util.Objects;
 public class QuizzQuestionServerParsed {
     private Question question;
     private long startTime;
-    private int questionNum;
+    private long questionNum;
 
     public QuizzQuestionServerParsed() {}
 
-    public QuizzQuestionServerParsed(Question question, long startTime, int questionNum) {
+    public QuizzQuestionServerParsed(Question question, long startTime, long questionNum) {
         this.question = question;
         this.startTime = startTime;
         this.questionNum = questionNum;
@@ -23,7 +23,7 @@ public class QuizzQuestionServerParsed {
         return startTime;
     }
 
-    public int getQuestionNum() {
+    public long getQuestionNum() {
         return questionNum;
     }
 
