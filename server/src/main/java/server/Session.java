@@ -14,7 +14,7 @@ public class Session {
     private boolean ended;
     private String gameAdmin;
     private boolean gameType; //0 for singleplayer || 1 for multiplayer
-    private List<QuizzQuestion> questions;
+    private List<Question> questions;
     private List<Answer> answers;
     private List<Joker> usedJokers;
     private int currentQuestion;
@@ -28,7 +28,7 @@ public class Session {
         this.ended             = false;
         this.gameAdmin         = null;
         this.gameType          = gameType;
-        this.questions         = new ArrayList<QuizzQuestion>();
+        this.questions         = new ArrayList<Question>();
         this.answers           = new ArrayList<Answer>();
         this.usedJokers        = new ArrayList<Joker>();
         this.currentQuestion   = -1;
@@ -235,7 +235,7 @@ public class Session {
         return currentQuestion;
     }
 
-    public List<QuizzQuestion> getQuestions() {
+    public List<Question> getQuestions() {
         return this.questions;
     }
 
