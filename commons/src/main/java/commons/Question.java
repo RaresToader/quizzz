@@ -21,9 +21,11 @@ public abstract class Question {
     public Question(String question) {
         this.question = question;
     }
-    public Question(){
-        // no args constructor, for object mapping
+
+    public Question() {
+
     }
+
     public String getQuestion() {
         return question;
     }
