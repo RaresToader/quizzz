@@ -1,30 +1,56 @@
 @import "MainStylesheet.css";
 
-.table-view{
+.table-view {
     -fx-font-family: "Fugaz One", cursive;
-    -fx-background-color:#808080;
-    -fx-background-radius:50;
-     -fx-control-inner-background: #000000;
+    -fx-background-color: #808080;
+    -fx-background-radius: 50;
+    -fx-control-inner-background: #000000;
 }
-.table-view .column-header{
-    -fx-background-color:#808080;
-    -fx-font-size:25;
-    -fx-text-align:center;
+
+.table-view .column-header {
+    -fx-background-color: #808080;
+    -fx-font-size: 25;
+    -fx-text-align: center;
 
 }
-.table-view .table-cell{
-    -fx-background-color:#808080;
-        -fx-font-size:20;
-        -fx-text-align:center;
+
+.chart{
+    -fx-font-family: "Fugaz One", cursive;
+    -fx-text-background-color: black ;
+    -fx-background-color: #808080;
+    -fx-control-inner-background: #000000;
+    -fx-font-size: 20;
+    -fx-background-radius: 50;
 }
-.table-row-cell{
+.axis-label{
+    -fx-text-background-color: black;
+    -fx-font-family: "Fugaz One", cursive;
+    -fx-font-size: 30;
+}
+.chart-plot-background {
+    -fx-background-color: #808080;
+}
+.axis{
+    -fx-text-background-color: black;
+    -fx-font-family: "Fugaz One", cursive;
+    -fx-font-size: 25;
+}
+.table-view .table-cell {
+    -fx-background-color: #808080;
+    -fx-font-size: 20;
+    -fx-text-align: center;
+}
+
+.table-row-cell {
     -fx-text-background-color: black;
 
 }
+
 .table-row-cell:hover {
     -fx-background-color: #93f9b911;
     -fx-text-background-color: white;
 }
+
 .table-view .scroll-bar * {
     -fx-min-width: 0;
     -fx-pref-width: 0;
@@ -33,42 +59,47 @@
     -fx-pref-height: 0;
     -fx-max-height: 0;
 }
-#goBack{
+
+#goBack {
     -fx-font-family: "Fugaz One", cursive;
     -fx-background-color: #f15025;
-        -fx-font-size: 34pt;
-        -fx-line-spacing: -16;
-        -fx-padding: 0;
-        -fx-indent: 0;
-        -fx-end-margin: 0;
-        -fx-start-margin: 0;
-        -fx-background-radius: 22;
-        -fx-cursor: hand;
+    -fx-font-size: 34pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: hand;
 }
-#playAgain{
+
+#playAgain {
     -fx-font-family: "Fugaz One", cursive;
     -fx-background-color: #f15025;
-        -fx-font-size: 34pt;
-        -fx-line-spacing: -16;
-        -fx-padding: 0;
-        -fx-indent: 0;
-        -fx-end-margin: 0;
-        -fx-start-margin: 0;
-        -fx-background-radius: 22;
-        -fx-cursor: hand;
+    -fx-font-size: 34pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: hand;
 }
-#name{
+
+#name {
     -fx-font-family: "Fugaz One", cursive;
-    -fx-font-size:65;
+    -fx-font-size: 65;
 }
-#goBack:hover{
+
+#goBack:hover {
     -fx-background-color: #c3330c;
     -fx-border-color: white;
     -fx-border-radius: 24;
     -fx-border-width: 4;
     -fx-border-insets: -4;
 }
-#playAgain:hover{
+
+#playAgain:hover {
     -fx-background-color: #c3330c;
     -fx-border-color: white;
     -fx-border-radius: 24;

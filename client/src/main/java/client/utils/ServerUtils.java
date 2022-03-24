@@ -191,9 +191,9 @@ public class ServerUtils {
     }
 
     /**
-     * Gets the top 10 players according to score, in descending order
+     * Gets the top 20 players according to score, in descending order
      *
-     * @return a list of the top 10 players
+     * @return a list of the top 20 players
      */
     public List<Player> getLeaderboardPlayers() {
         return ClientBuilder.newClient(new ClientConfig())
