@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -61,10 +62,10 @@ public class Utils {
         String type = (String) question.get("type");
         if (type.equals("QuizzQuestion")) {
             finalQuestion = parseQuizzQuestion(question);
-            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"));
+            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"),new ArrayList<>());
         } else if (type.equals("ConsumpQuestion")) {
             finalQuestion = parseConsumpQuestion(question);
-            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"));
+            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"),new ArrayList<>());
         } else {
             throw new IllegalArgumentException("Wrong question");
         }

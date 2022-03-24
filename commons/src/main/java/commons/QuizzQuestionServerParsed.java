@@ -8,7 +8,7 @@ public class QuizzQuestionServerParsed {
     private long startTime;
     private long questionNum;
     private List<Joker> jokerList;
-    public QuizzQuestionServerParsed() {}
+
 
     public QuizzQuestionServerParsed(Question question, long startTime, long questionNum,List<Joker> jokerList) {
         this.question = question;
@@ -33,6 +33,8 @@ public class QuizzQuestionServerParsed {
     }
 
     public void setQuestion(Question question) {
+        this.question = question;
+    }
     public List<Joker> getJokerList() {
         return jokerList;
     }
