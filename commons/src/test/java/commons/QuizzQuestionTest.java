@@ -22,7 +22,7 @@ public class QuizzQuestionTest {
 
     @Test
     public void setQuestionTest() {
-        QuizzQuestion x = new QuizzQuestion();
+        QuizzQuestion x = new QuizzQuestion("a", new Activity("a", "a", "1", 10l, "a"), new Activity("a", "a", "1", 10l, "a"), new Activity("a", "a", "1", 10l, "a"));
         x.setQuestion("abc");
         assertEquals("abc",x.getQuestion());
     }

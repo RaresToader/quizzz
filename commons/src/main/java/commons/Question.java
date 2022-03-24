@@ -26,6 +26,10 @@ public abstract class Question {
 
     }
 
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
     public String getQuestion() {
         return question;
     }
