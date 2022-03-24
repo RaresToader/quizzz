@@ -70,17 +70,18 @@ public class Activity {
         this.image_path = image_path;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Activity)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Activity activity = (Activity) o;
-        return getConsumption_in_wh() == activity.getConsumption_in_wh() && getId().equals(activity.getId()) && getTitle().equals(activity.getTitle()) && getSource().equals(activity.getSource()) && getImage_path().equals(activity.getImage_path());
+        return Objects.equals(id, activity.id) && Objects.equals(title, activity.title) && Objects.equals(consumption_in_wh, activity.consumption_in_wh) && Objects.equals(source, activity.source) && Objects.equals(image_path, activity.image_path);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getConsumption_in_wh(), getSource(), getImage_path());
+        return Objects.hash(id, title, consumption_in_wh, source, image_path);
     }
 
     @Override

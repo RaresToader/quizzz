@@ -4,14 +4,15 @@ import java.util.Objects;
 
 public class ConsumpQuestion extends Question {
 
+    private String question;
     private Activity activity;
-    long first;
-    long second;
-    long third;
+    private long first;
+    private long second;
+    private long third;
 
-    // Constructor for the "How much does it take" question type
     public ConsumpQuestion(String question, Activity activity, long first, long second, long third) {
-        super(question);
+        super();
+        this.question = question;
         this.activity = activity;
         this.first = first;
         this.second = second;
@@ -41,14 +42,14 @@ public class ConsumpQuestion extends Question {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ConsumpQuestion)) return false;
         ConsumpQuestion that = (ConsumpQuestion) o;
-        return first == that.first && second == that.second && third == that.third && Objects.equals(question, that.question) && Objects.equals(activity, that.activity);
+        return getFirst() == that.getFirst() && getSecond() == that.getSecond() && getThird() == that.getThird() && Objects.equals(getQuestion(), that.getQuestion()) && Objects.equals(getActivity(), that.getActivity());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(question, activity, first, second, third);
+        return Objects.hash(getQuestion(), getActivity(), getFirst(), getSecond(), getThird());
     }
 
     @Override

@@ -1,36 +1,36 @@
 package commons;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+/**
+ * Those annotations help us distinguish between subtypes
+ * source: https://www.baeldung.com/jackson-inheritance
+ */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(QuizzQuestion.class),
+        @JsonSubTypes.Type(ConsumpQuestion.class)
+})
 public abstract class Question {
 
-    String question;
+    private String question;
 
     public Question(String question) {
         this.question = question;
     }
 
+    public Question() {
+
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
     public String getQuestion() {
         return question;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Question question1 = (Question) o;
-        return Objects.equals(question, question1.question);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(question);
-    }
-
-    @Override
-    public String toString() {
-        return "Question{" +
-                "question='" + question + '\'' +
-                '}';
     }
 }
