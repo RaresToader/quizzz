@@ -6,7 +6,9 @@ import server.SessionContainer;
 import server.SessionController;
 import server.api.TestActivityRepository;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,6 +41,26 @@ public class SessionContollerTest {
             SessionContainer.createSession(false,username,sess.get60RandomActivities());
         }
         assertEquals(singlePlayerSessCount, sess.getActivePlayers());
+    }
+
+    @Test
+    public void getPlayersInSessionTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test",sess.get60RandomActivities());
+        List<String> list = new ArrayList<String>();
+        list.add("test");
+        assertEquals(list,sess.getPlayersInSession("test"));
+        int sessionId = SessionContainer.findUserSession("test");
+        Session session = SessionContainer.getSession(sessionId);
+        session.addPlayer("test1");
+        session.addPlayer("test2");
+        session.addPlayer("test3");
+        list.add("test1");
+        list.add("test2");
+        list.add("test3");
+        assertEquals(list,sess.getPlayersInSession("test"));
+        session.removePlayer("test2");
+        assertNotEquals(list,sess.getPlayersInSession("test"));
     }
 
     @Test
@@ -89,5 +111,40 @@ public class SessionContollerTest {
         x.startGame();
         x.getCurrentQuestion();
         assertTrue(sess.submitAnswer("test",2,0));
+    }
+
+    @Test
+    public void addJokerNoSessionTest() {
+        SessionController sess = new SessionController(repo);
+        assertFalse(sess.addJoker("test",0,0));
+    }
+
+    @Test
+    public void addJokerNoStartedTest() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        assertFalse(sess.addJoker("test",0,-1));
+    }
+
+    @Test
+    public void addJokerWrongQuestionNumTest() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.getCurrentQuestion();
+        assertFalse(sess.addJoker("test",0,5));
+    }
+
+
+    @Test
+    public void addJokerTest() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.getCurrentQuestion();
+        assertTrue(sess.addJoker("test",0,0));
     }
 }

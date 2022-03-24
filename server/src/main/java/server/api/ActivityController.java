@@ -1,6 +1,6 @@
 package server.api;
 
-import commons.Activity;
+import commons.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

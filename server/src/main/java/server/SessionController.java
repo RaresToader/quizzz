@@ -6,6 +6,7 @@ import commons.QuizzQuestionServerParsed;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -55,11 +56,30 @@ public class SessionController {
     }
 
     /**
+     * Controller for getting the list of players in the session the user is in
+     * @param nickname - user asking for the list of players
+     * @return List<String> containing all the players in that session
+     */
+    @GetMapping("/session/playersinsession/{nickname}")
+    public List<String> getPlayersInSession(@PathVariable("nickname") String nickname) {
+        List<String> playerList = new ArrayList<String>();
+        int sessionId = SessionContainer.findUserSession(nickname);
+        if(sessionId == -1) { //if there is no session yet, the player is the only one in the session.
+            playerList.add(nickname);
+        }
+        else {
+            Session session = SessionContainer.getSession(sessionId);
+            playerList = session.getPlayerList();
+        }
+        return playerList;
+    }
+
+    /**
      * Controller for submitting answer to current question
      * @param nickname - user submitting the answer
      * @param answer - answer submitted
      * @param questionNum - number of question the answer is submitted to
-     * @return boolean value depeneding on whether the operation was successful
+     * @return boolean value depending on whether the operation was successful
      */
     @GetMapping("/session/answer/{nickname}/{answer}/{questionNum}")
     public boolean submitAnswer(@PathVariable("nickname") String nickname, @PathVariable("answer") int answer, @PathVariable("questionNum") int questionNum) {
@@ -89,6 +109,36 @@ public class SessionController {
         return x.addAnswer(new Answer(nickname,answer,questionNum));
     }
 
+    /**
+     * Adds joker to given session
+     * @param jokerType - type of joker used
+     * @param nickname - user applying joker
+     * @param questionNum - question that joker applies to
+     * @return Boolean value indicating whether operation was successful
+     */
+    @GetMapping("/session/addjoker/{nickname}/{jokertype}/{question}")
+    public boolean addJoker(@PathVariable("nickname") String nickname, @PathVariable("jokertype") int jokerType, @PathVariable("question") int questionNum) {
+        int session = SessionContainer.findUserSession(nickname);
+
+        //User not in the session
+        if(session == -1) {
+            return false;
+        }
+
+        Session x = SessionContainer.getSession(session);
+        if(!x.isStarted() || x.hasEnded() || questionNum != x.getCurrentQuestionNum() || questionNum == -1) {
+            return false;
+        }
+
+        //TODO when we know values of jokerType we need to add validation for those too
+        return x.addJoker(jokerType,nickname,questionNum);
+    }
+
+
+    /**
+     * Produces list of 60 random activities from activityBank
+     * @return List<Activity> of size 60
+     */
     public List<Activity> get60RandomActivities() {
         List<Activity> list = this.activityRepository.findAll();
         if (list.size() < 60)

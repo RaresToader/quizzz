@@ -30,6 +30,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
+import java.util.Objects;
+
 public class MainCtrl {
 
     private Stage primaryStage;
@@ -82,7 +84,7 @@ public class MainCtrl {
         this.questionScreen = new Scene(questionScreen.getValue());
         this.consumpScreen = new Scene(consumpScreen.getValue());
         //Set program icon
-        this.primaryStage.getIcons().add(new Image(MainCtrl.class.getResourceAsStream(iconPath)));
+        this.primaryStage.getIcons().add(new Image(Objects.requireNonNull(MainCtrl.class.getResourceAsStream(iconPath))));
         showEnterMenu();
         primaryStage.show();
 

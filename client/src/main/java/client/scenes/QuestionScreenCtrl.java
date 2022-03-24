@@ -3,7 +3,6 @@ package client.scenes;
 import client.Session;
 import client.utils.ServerUtils;
 import client.utils.Utils;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import commons.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
@@ -146,7 +145,7 @@ public class QuestionScreenCtrl {
                                 }
                             }
 //                            System.out.println(Session.getQuestionNum()); //DEBUG LINE
-                        } catch (JsonProcessingException e) {
+                        } catch (org.json.simple.parser.ParseException e) {
                             e.printStackTrace();
                         }
                     }
