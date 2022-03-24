@@ -1,6 +1,7 @@
 package commons;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Emoji {
     private String userApplying;
@@ -39,4 +40,34 @@ public class Emoji {
         this.startTimeEmoji = startTimeEmoji;
     }
 
+    /**
+     * checks if to emoji  are equal (same time/user/emojiType)
+     * @param o - Object that might be equal to a specific emoji
+     * @return boolean - that concludes if the emoji is equal
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Emoji emoji = (Emoji) o;
+        return getStartTimeEmoji() == emoji.getStartTimeEmoji() && Objects.equals(getUserApplying(), emoji.getUserApplying()) && Objects.equals(getEmojiType(), emoji.getEmojiType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUserApplying(), getEmojiType(), getStartTimeEmoji());
+    }
+
+    /**
+     * Makes a string with all the information of the emoji
+     * @return String with info about the an emoji
+     */
+    @Override
+    public String toString() {
+        return "Emoji{" +
+                "userApplying='" + userApplying + '\'' +
+                ", emojiType='" + emojiType + '\'' +
+                ", startTimeEmoji=" + startTimeEmoji +
+                '}';
+    }
 }

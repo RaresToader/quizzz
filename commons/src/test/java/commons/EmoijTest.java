@@ -2,6 +2,8 @@ package commons;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EmoijTest {
@@ -28,85 +30,84 @@ public class EmoijTest {
         Emoji emoji = new Emoji("user","type");
         assertEquals("user",emoji.getUserApplying());
     }
-
-    /**
-     * IMPLEMENT MORE TESTS:
-     */
     @Test
-    public void getScoreTest() {
-        Player player = new Player("name");
-        player.incrementScore(100);
-        assertEquals(100, player.getScore());
+    public void getEmojiTypeTest(){
+        Emoji emoji = new Emoji("user","type");
+        assertEquals("type", emoji.getEmojiType());
     }
 
     @Test
-    public void incrementScoreTest() {
-        Player player = new Player("name");
-        player.incrementScore(100);
-        player.incrementScore(300);
-        assertEquals(400, player.getScore());
+    public void setStartTimeEmojiTest() {
+        Emoji emoji = new Emoji("user","type");
+        Date date = new Date();
+        emoji.setStartTimeEmoji(date.getTime());
+        assertTrue(date.getTime() + 50 > emoji.getStartTimeEmoji());
+        assertTrue(date.getTime() - 50 < emoji.getStartTimeEmoji());
+    }
+    @Test
+    public void getStartTimeEmojiTest(){
+        Emoji emoji = new Emoji("user","type");
+        assertNotNull(emoji.getStartTimeEmoji());
+        Date date = new Date();
+        assertTrue(date.getTime() + 50 > emoji.getStartTimeEmoji());
+        assertTrue(date.getTime() - 50 < emoji.getStartTimeEmoji());
     }
 
     @Test
     public void equalsTest1() {
-        Player playerOne = new Player("name");
-        Player playerTwo = new Player("name");
-        assertEquals(playerOne, playerTwo);
+        Emoji emoji1 = new Emoji("user","type");
+        Emoji emoji2 = new Emoji("user","type");
+        assertEquals(emoji1, emoji2);
     }
 
     @Test
     public void equalsTest2() {
-        Player playerOne = new Player("name");
-        Player playerTwo = new Player("nameTwo");
-        assertNotEquals(playerOne, playerTwo);
+        Emoji emoji1 = new Emoji("user","type");
+        Emoji emoji2 = new Emoji("user2","type");
+        assertNotEquals(emoji1, emoji2);
     }
 
     @Test
     public void equalsTest3() {
-        Player playerOne = new Player("name");
-        Player playerTwo = new Player("name");
-        playerOne.incrementScore(100);
-        assertNotEquals(playerOne, playerTwo);
+        Emoji emoji1 = new Emoji("user","type");
+        Emoji emoji2 = new Emoji("user","type2");
+        assertNotEquals(emoji1, emoji2);
     }
 
     @Test
     public void equalsTest4() {
-        Player playerOne = new Player("name");
-        assertNotEquals(playerOne, null);
+        Emoji emoji = new Emoji("user","type");
+        assertNotEquals(emoji, null);
     }
 
     @Test
     public void equalsTest5() {
-        Player playerOne = new Player("name");
-        assertEquals(playerOne, playerOne);
+        Emoji emoji = new Emoji("user","type");
+        assertEquals(emoji,emoji);
+    }
+    @Test
+    public void equalsTest6() {
+        Emoji emoji1 = new Emoji("user","type");
+        Emoji emoji2 = new Emoji("user","type2");
+        assertNotEquals(emoji1,emoji2);
     }
 
     @Test
     public void hashCodeTest() {
-        Player playerOne = new Player("name");
-        Player playerTwo = new Player("name");
-        assertTrue(playerOne.hashCode() == playerTwo.hashCode());
+        Emoji emoji1 = new Emoji("user","type");
+        Emoji emoji2 = new Emoji("user","type");
+        assertTrue(emoji1.hashCode() == emoji2.hashCode());
     }
 
     @Test
     public void toStringTest() {
-        Player player = new Player("name");
-        String toString = "Player{username=" + "'name', score=" + 0 + "}";
-        assertEquals(toString, player.toString());
+        Emoji emoji = new Emoji("user","type");
+        String toString = "Emoji{" +
+                "userApplying='" + emoji.getUserApplying() + '\'' +
+                ", emojiType='" + emoji.getEmojiType() + '\'' +
+                ", startTimeEmoji=" + emoji.getStartTimeEmoji() +
+                '}';
+        assertEquals(toString, emoji.toString());
     }
-    @Test
-    public void secondConstructorTest(){
-        Player player = new Player("name",1000);
-        assertNotNull(player);
-    }
-    @Test
-    public void secondConstructorTest2(){
-        Player player = new Player("name",1000);
-        assertEquals(player.getScore(),1000);
-    }
-    @Test
-    public void secondConstructorTest3(){
-        Player player = new Player("name",1000);
-        assertEquals(player.getUsername(),"name");
-    }
+
 }
