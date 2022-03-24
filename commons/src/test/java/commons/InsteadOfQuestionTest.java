@@ -78,5 +78,27 @@ class InsteadOfQuestionTest {
         InsteadOfQuestion question2 = new InsteadOfQuestion(test, test2, test3, test4);
         assertEquals(question, question2);
     }
-
+    @Test
+    public void testEqualsTest4() {
+        InsteadOfQuestion question = new InsteadOfQuestion(test, test2, test3, test4);
+        assertNotEquals(question, "test");
+    }
+    @Test
+    public void testEqualsTest5() {
+        InsteadOfQuestion question = new InsteadOfQuestion(test, test2, test3, test4);
+        InsteadOfQuestion question2 = new InsteadOfQuestion(test, test, test3, test4);
+        assertNotEquals(question2, question);
+    }
+    @Test
+    public void testEqualsTest6() {
+        InsteadOfQuestion question = new InsteadOfQuestion(test, test2, test3, test4);
+        InsteadOfQuestion question2 = new InsteadOfQuestion(test, test2, test, test4);
+        assertNotEquals(question2, question);
+    }
+    @Test
+    public void testEqualsTest7() {
+        InsteadOfQuestion question = new InsteadOfQuestion(test, test2, test3, test4);
+        InsteadOfQuestion question2 = new InsteadOfQuestion(test, test2, test3, test2);
+        assertNotEquals(question2, question);
+    }
 }

@@ -104,6 +104,6 @@ public class InsteadOfQuestion extends Question {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof InsteadOfQuestion that)) return false;
-        return getQuestion().equals(that.getQuestion()) && getPromptActivity().equals(that.getPromptActivity()) && getFirstChoice().equals(that.getFirstChoice()) && getSecondChoice().equals(that.getSecondChoice()) && getThirdChoice().equals(that.getThirdChoice());
+        return getPromptActivity().equals(that.getPromptActivity()) && getFirstChoice().equals(that.getFirstChoice()) && getSecondChoice().equals(that.getSecondChoice()) && getThirdChoice().equals(that.getThirdChoice());
     }
 }
