@@ -304,5 +304,12 @@ public class SessionTest {
         assertTrue(x.equals(x));
     }
 
+    @Test
+    public void setQuestionStartedAtTest() {
+        Session x = new Session(false,sess.get60RandomActivities());
+        x.setQuestionStartedAt(Long.valueOf(0));
+        assertEquals(Long.valueOf(0),x.getQuestionStartedAt());
+    }
+
 
 }

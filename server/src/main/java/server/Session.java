@@ -52,7 +52,7 @@ public class Session {
     }
 
     public QuizzQuestionServerParsed getCurrentQuestion() {
-        if (!this.started) return Session.emptyQ;
+        if (!this.started || this.ended) return Session.emptyQ;
 
         Date date = new Date();
         //If everyone has answered that question OR this is first question OR time has passed then get new question
@@ -206,6 +206,13 @@ public class Session {
      */
     public void setCurrentQuestionNum(int currentQuestion) {
         this.currentQuestion = currentQuestion;
+    }
+
+    /**
+     * Setter for questionStartedAt ONLY FOR TESTING PURPOSES
+     */
+    public void setQuestionStartedAt(Long questionStartedAt) {
+        this.questionStartedAt = questionStartedAt;
     }
 
     public List<String> getPlayerList() {

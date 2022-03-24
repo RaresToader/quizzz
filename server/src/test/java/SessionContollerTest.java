@@ -33,6 +33,17 @@ public class SessionContollerTest {
     }
 
     @Test
+    public void get60RandomActivitiesLessThan60Test() {
+        TestActivityRepository emptyRepo = new TestActivityRepository();
+        for(int i=0; i<59; i++) {
+            Activity toBeAdded = new Activity("test"+i, "test","10", 10L       ,"test");
+            emptyRepo.save(toBeAdded);
+        }
+        SessionController sess = new SessionController(emptyRepo);
+        assertNull(sess.get60RandomActivities());
+    }
+
+    @Test
     public void getActivePlayersTest() {
         SessionController sess = new SessionController(repo);
         int singlePlayerSessCount = 55;
@@ -61,6 +72,14 @@ public class SessionContollerTest {
         assertEquals(list,sess.getPlayersInSession("test"));
         session.removePlayer("test2");
         assertNotEquals(list,sess.getPlayersInSession("test"));
+    }
+
+    @Test
+    public void getPlayersInSessionNotFoundTest() {
+        SessionController sess = new SessionController(repo);
+        List<String> list = new ArrayList<String>();
+        list.add("test");
+        assertEquals(list,sess.getPlayersInSession("test"));
     }
 
     @Test
@@ -111,6 +130,17 @@ public class SessionContollerTest {
         x.startGame();
         x.getCurrentQuestion();
         assertTrue(sess.submitAnswer("test",2,0));
+    }
+
+    @Test
+    public void submitAnswerTimedOutTest() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.getCurrentQuestion();
+        x.setQuestionStartedAt(Long.valueOf(0));
+        assertFalse(sess.submitAnswer("test",2,0));
     }
 
     @Test

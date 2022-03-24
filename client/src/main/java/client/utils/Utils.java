@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import commons.Joker;
 import commons.QuizzQuestionServerParsed;
+import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.GenericType;
 import org.glassfish.jersey.client.ClientConfig;
@@ -80,6 +81,19 @@ public class Utils {
                 .target(SERVER).path(path) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
+                .get(Boolean.class);
+    }
+
+    /**
+     * Invokes to /session/leavesession/{nickname} and informs server that player wants to leave given session
+     * @return Boolean value whether operation of removal was successful
+     */
+    public static boolean leaveSession() {
+        String path = "session/leavesession/"+Session.getNickname();
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path(path) //
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
                 .get(Boolean.class);
     }
 
