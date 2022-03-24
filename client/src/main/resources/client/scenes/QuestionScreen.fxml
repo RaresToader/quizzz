@@ -72,6 +72,17 @@
             <Label fx:id="firstAnswerLabel" alignment="CENTER" layoutX="19.0" layoutY="525.0" prefHeight="60.0" prefWidth="364.0" styleClass="activityLabel" textAlignment="CENTER" textFill="WHITE" />
             <Label fx:id="secondAnswerLabel" alignment="CENTER" layoutX="430.0" layoutY="525.0" prefHeight="60.0" prefWidth="364.0" styleClass="activityLabel" textAlignment="CENTER" textFill="WHITE" />
             <Label fx:id="thirdAnswerLabel" alignment="CENTER" layoutX="833.0" layoutY="525.0" prefHeight="60.0" prefWidth="364.0" styleClass="activityLabel" textAlignment="CENTER" textFill="WHITE" />
+            <Button fx:id="firstConsump" layoutX="680.0" layoutY="220.0" mnemonicParsing="false" onAction="#chooseFirst" prefHeight="70.0" prefWidth="342.0" styleClass="answerButton" text="Button" />
+            <Button fx:id="secondConsump" layoutX="680.0" layoutY="320.0" mnemonicParsing="false" onAction="#chooseSecond" prefHeight="70.0" prefWidth="342.0" styleClass="answerButton" text="Button" />
+            <Button fx:id="thirdConsump" layoutX="680.0" layoutY="420.0" mnemonicParsing="false" onAction="#chooseThird" prefHeight="70.0" prefWidth="342.0" styleClass="answerButton" text="Button" />
+            <Button fx:id="activity" alignment="TOP_CENTER" contentDisplay="BOTTOM" graphicTextGap="5.0" layoutX="223.0" layoutY="170.0" mnemonicParsing="false" prefHeight="370.0" prefWidth="380.0" styleClass="activityButton" text="Activity" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="activityImage" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Button>
          </children>
       </Pane>
    </children>
