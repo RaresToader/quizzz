@@ -156,17 +156,17 @@ public class PlayerController {
     }
 
     /**
-     * Retrieves the top 50 players
+     * Retrieves the top 20 players
      *
-     * @return a list of 50 players
+     * @return a list of 20 players
      */
     @GetMapping("/leaderboard")
     public ResponseEntity<List<Player>> getLeaderboardPlayers() {
         List<Player> allPlayers = this.playerRepo.findAll();
         allPlayers.sort(new PlayerComparator());
-        if (allPlayers.size() < 50)
+        if (allPlayers.size() < 20)
             return ResponseEntity.ok(allPlayers);
         else
-            return ResponseEntity.ok(allPlayers.subList(0, 49));
+            return ResponseEntity.ok(allPlayers.subList(0, 19));
     }
 }

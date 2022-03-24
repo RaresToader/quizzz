@@ -79,6 +79,13 @@ public class PlayerTest {
     }
 
     @Test
+    public void hashCodeTest() {
+        Player playerOne = new Player("name");
+        Player playerTwo = new Player("name");
+        assertTrue(playerOne.hashCode() == playerTwo.hashCode());
+    }
+
+    @Test
     public void toStringTest() {
         Player player = new Player("name");
         String toString = "Player{username=" + "'name', score=" + 0 + "}";

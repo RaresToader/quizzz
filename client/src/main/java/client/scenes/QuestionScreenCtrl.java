@@ -3,7 +3,6 @@ package client.scenes;
 import client.Session;
 import client.utils.ServerUtils;
 import client.utils.Utils;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import commons.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
@@ -29,7 +28,7 @@ public class QuestionScreenCtrl {
     private final MainCtrl mainCtrl;
     private boolean toEnd = false;
     private final ServerUtils serverUtils;
-    private QuizzQuestion currQuestion = new QuizzQuestion("Not assigned", null,null,null);
+    private Question currQuestion = new QuizzQuestion("Not assigned", null,null,null);
     private String chosenAnswer;
     private String correctAnswer;
     private boolean sessionType;
@@ -129,7 +128,7 @@ public class QuestionScreenCtrl {
                                 questionUpdateTimer.cancel();
                                 toEnd = true;
                             } else {
-                                QuizzQuestion newQuestion = quizzQuestionServerParsed.getQuestion();
+                                Question newQuestion = quizzQuestionServerParsed.getQuestion();
                                 Session.setQuestionNum(quizzQuestionServerParsed.getQuestionNum());
 
                                 if(!newQuestion.equals(currQuestion)) {
@@ -140,7 +139,7 @@ public class QuestionScreenCtrl {
                                 }
                             }
 //                            System.out.println(Session.getQuestionNum()); //DEBUG LINE
-                        } catch (JsonProcessingException e) {
+                        } catch (org.json.simple.parser.ParseException e) {
                             e.printStackTrace();
                         }
                     }
@@ -167,21 +166,33 @@ public class QuestionScreenCtrl {
      */
     public void setNewQuestion(){
 
-        progress+=1;
+        if(currQuestion instanceof QuizzQuestion) {
+            question.setText(currQuestion.getQuestion());
+            firstAnswer.setText(((QuizzQuestion) currQuestion).getFirstChoice().getTitle());
+            String path = "/photos/"+((QuizzQuestion) currQuestion).getFirstChoice().getImage_path();
+            firstAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+            secondAnswer.setText(((QuizzQuestion) currQuestion).getSecondChoice().getTitle());
+            path = "/photos/"+((QuizzQuestion) currQuestion).getSecondChoice().getImage_path();
+            secondAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+            thirdAnswer.setText(((QuizzQuestion) currQuestion).getThirdChoice().getTitle());
+            path = "/photos/"+((QuizzQuestion) currQuestion).getThirdChoice().getImage_path();
+            thirdAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
 
-        question.setText(progress + ". " + currQuestion.getQuestion());
-        firstAnswer.setText(currQuestion.getFirstChoice().getTitle());
-        String path = "/photos/"+currQuestion.getFirstChoice().getImage_path();
-        firstAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
-        secondAnswer.setText(currQuestion.getSecondChoice().getTitle());
-        path = "/photos/"+currQuestion.getSecondChoice().getImage_path();
-        secondAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
-        thirdAnswer.setText(currQuestion.getThirdChoice().getTitle());
-        path = "/photos/"+currQuestion.getThirdChoice().getImage_path();
-        thirdAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+        }
+
+        if(currQuestion instanceof ConsumpQuestion) {
+            question.setText(currQuestion.getQuestion());
+            firstAnswer.setText(Long.toString(((ConsumpQuestion) currQuestion).getFirst()));
+            secondAnswer.setText(Long.toString(((ConsumpQuestion) currQuestion).getSecond()));
+            thirdAnswer.setText(Long.toString(((ConsumpQuestion) currQuestion).getThird()));
+        }
+
         firstAnswerLabel.setText("");
         secondAnswerLabel.setText("");
         thirdAnswerLabel.setText("");
+
+        progress+=1;
+
 
         firstAnswer.setStyle("-fx-background-color: #CED0CE;");
         secondAnswer.setStyle("-fx-background-color: #CED0CE;");
@@ -234,9 +245,14 @@ public class QuestionScreenCtrl {
      * After clicking a button again, reset its status and
      * make the other buttons clickable again
      */
-    public void chooseFirst() {
-        chosenAnswer = currQuestion.getFirstChoice().getTitle();
 
+    public void chooseFirst() {
+        if(currQuestion instanceof QuizzQuestion) {
+            chosenAnswer = ((QuizzQuestion) currQuestion).getFirstChoice().getTitle();
+        }
+        if(currQuestion instanceof ConsumpQuestion) {
+            chosenAnswer = Long.toString(((ConsumpQuestion) currQuestion).getFirst());
+        }
         //firstChoice.setStyle("-fx-background-color: black;");
         /*
             I think the checking part should be done by the server side.
@@ -251,8 +267,12 @@ public class QuestionScreenCtrl {
      * Works the same way as for the first button
      */
     public void chooseSecond() {
-        chosenAnswer = currQuestion.getSecondChoice().getTitle();
-        //secondChoice.setStyle("-fx-background-color: black;");
+        if(currQuestion instanceof QuizzQuestion) {
+            chosenAnswer = ((QuizzQuestion) currQuestion).getSecondChoice().getTitle();
+        }
+        if(currQuestion instanceof ConsumpQuestion) {
+            chosenAnswer = Long.toString(((ConsumpQuestion) currQuestion).getSecond());
+        }        //secondChoice.setStyle("-fx-background-color: black;");
         //secondChoice.setOnAction(e -> clickedAgainResetSecond());
         /**
          * I think this should be done in the server side, and in a slightly different way.
@@ -266,7 +286,12 @@ public class QuestionScreenCtrl {
      * Works the same as for the previous buttons
      */
     public void chooseThird() {
-        chosenAnswer = currQuestion.getThirdChoice().getTitle();
+        if(currQuestion instanceof QuizzQuestion) {
+            chosenAnswer = ((QuizzQuestion) currQuestion).getThirdChoice().getTitle();
+        }
+        if(currQuestion instanceof ConsumpQuestion) {
+            chosenAnswer = Long.toString(((ConsumpQuestion) currQuestion).getThird());
+        }
 
         //thirdChoice.setStyle("-fx-background-color: black");
         //thirdChoice.setOnAction(e -> clickedAgainResetThird());
@@ -289,10 +314,15 @@ public class QuestionScreenCtrl {
         questionTimer.pause();
         points = timeLeft*25 + 500;
 
-        correctAnswer = currQuestion.getMostExpensive();
-        firstAnswerLabel.setText("this consumes " + currQuestion.getFirstChoice().getConsumption_in_wh() + " watt per hour");
-        secondAnswerLabel.setText("this consumes " + currQuestion.getSecondChoice().getConsumption_in_wh() + " watt per hour");
-        thirdAnswerLabel.setText("this consumes " + currQuestion.getThirdChoice().getConsumption_in_wh() + " watt per hour");
+        if(currQuestion instanceof QuizzQuestion) {
+            correctAnswer = ((QuizzQuestion) currQuestion).getMostExpensive();
+            firstAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getFirstChoice().getConsumption_in_wh() + " watt per hour");
+            secondAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getSecondChoice().getConsumption_in_wh() + " watt per hour");
+            thirdAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getThirdChoice().getConsumption_in_wh() + " watt per hour");
+        }
+        else if(currQuestion instanceof ConsumpQuestion) {
+            correctAnswer = ((ConsumpQuestion) currQuestion).getConsump();
+        }
         if (chosenAnswer.equals(correctAnswer)) {
             question.setText("Yeah, that's right!");
             chosenBox.setStyle("-fx-background-color: green;");
@@ -309,18 +339,25 @@ public class QuestionScreenCtrl {
      * handles the display when the chosen answer was not the right answer.
      */
     public void wrongAnswer(){
-        correctAnswer = currQuestion.getMostExpensive();
+        String first = ((QuizzQuestion) currQuestion).getFirstChoice().getTitle();
+        String second = ((QuizzQuestion) currQuestion).getSecondChoice().getTitle();
+        String third = ((QuizzQuestion) currQuestion).getThirdChoice().getTitle();
 
-        if (correctAnswer.equals(currQuestion.getFirstChoice().getTitle())) {
-            firstAnswer.setStyle("-fx-background-color: green;");
+        if (currQuestion instanceof ConsumpQuestion) {
+            first = Long.toString(((ConsumpQuestion) currQuestion).getFirst());
+            second = Long.toString(((ConsumpQuestion) currQuestion).getSecond());
+            third = Long.toString(((ConsumpQuestion) currQuestion).getThird());
+        }
+        if (correctAnswer.equals(first)) {
+            firstAnswer.setStyle("-fx-background-color: green");
             secondAnswer.setStyle("-fx-background-color: red;");
             thirdAnswer.setStyle("-fx-background-color: red;");
-        } else if (correctAnswer.equals(currQuestion.getSecondChoice().getTitle())) {
-            firstAnswer.setStyle("-fx-background-color: red;");
+        } else if (correctAnswer.equals(second)) {
+            firstAnswer.setStyle("-fx-background-color: red");
             secondAnswer.setStyle("-fx-background-color: green;");
             thirdAnswer.setStyle("-fx-background-color: red;");
-        } else if (correctAnswer.equals(currQuestion.getThirdChoice().getTitle())) {
-            firstAnswer.setStyle("-fx-background-color: red;");
+        } else if (correctAnswer.equals(third)) {
+            firstAnswer.setStyle("-fx-background-color: red");
             secondAnswer.setStyle("-fx-background-color: red;");
             thirdAnswer.setStyle("-fx-background-color: green;");
         }
@@ -341,7 +378,7 @@ public class QuestionScreenCtrl {
 
         timeBarAnimation.pause();
 
-        transitionTimeLeft = 5;
+        transitionTimeLeft = 0;
         transitionTimer.setVisible(true);
         transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
 
@@ -378,7 +415,7 @@ public class QuestionScreenCtrl {
                 }
                 )
         );
-        timer.setCycleCount(6);
+        timer.setCycleCount(1);
         timer.play();
     }
 
@@ -389,7 +426,7 @@ public class QuestionScreenCtrl {
         questionTimer.pause();
         timeBarAnimation.stop();
         Player player = serverUtils.getPlayer(Session.getNickname());
-        if(player.getScore()<totalPoints){
+        if(player.getScore()<totalPoints) {
             serverUtils.updatePlayerInRepo(Session.getNickname(),totalPoints);
             transitionTimer.setText("Congratulations! You improved your score!");
         }

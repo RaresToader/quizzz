@@ -1,13 +1,13 @@
 package client.scenes;
 
 import client.Session;
+import client.utils.ServerUtils;
 import client.utils.Utils;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import client.utils.ServerUtils;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
@@ -60,7 +60,6 @@ public class EnterMenuCtrl {
         else {
             displayErrorText("Provided username is invalid!");
         }
-
     }
 
     private void displayErrorText(String text) {

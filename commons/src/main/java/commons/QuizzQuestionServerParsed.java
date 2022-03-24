@@ -1,21 +1,26 @@
 package commons;
 
+import java.util.List;
 import java.util.Objects;
 
 public class QuizzQuestionServerParsed {
-    private QuizzQuestion question;
+    private Question question;
     private long startTime;
-    private int questionNum;
+    private long questionNum;
+    private List<Joker> jokerList;
 
-    public QuizzQuestionServerParsed() {}
 
-    public QuizzQuestionServerParsed(QuizzQuestion question, long startTime, int questionNum) {
+    public QuizzQuestionServerParsed(Question question, long startTime, long questionNum,List<Joker> jokerList) {
         this.question = question;
         this.startTime = startTime;
         this.questionNum = questionNum;
+        this.jokerList   = jokerList;
     }
+    public QuizzQuestionServerParsed() {}
 
-    public QuizzQuestion getQuestion() {
+   
+
+    public Question getQuestion() {
         return question;
     }
 
@@ -23,21 +28,29 @@ public class QuizzQuestionServerParsed {
         return startTime;
     }
 
-    public int getQuestionNum() {
+    public long getQuestionNum() {
         return questionNum;
     }
 
-    public void setQuestion(QuizzQuestion question) {
+    public void setQuestion(Question question) {
         this.question = question;
+    }
+    public List<Joker> getJokerList() {
+        return jokerList;
     }
 
     public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
-    public void setQuestionNum(int questionNum) {
+    public void setQuestionNum(long questionNum) {
         this.questionNum = questionNum;
     }
+
+    public void setJokerList(List<Joker> jokerList) {
+        this.jokerList = jokerList;
+    }
+
 
     @Override
     public String toString() {
@@ -45,6 +58,7 @@ public class QuizzQuestionServerParsed {
                 "question=" + question +
                 ", startTime=" + startTime +
                 ", questionNum=" + questionNum +
+                ", jokerList=" + jokerList +
                 '}';
     }
 
@@ -53,7 +67,6 @@ public class QuizzQuestionServerParsed {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         QuizzQuestionServerParsed that = (QuizzQuestionServerParsed) o;
-        return questionNum == that.questionNum && Objects.equals(question, that.question) && Objects.equals(startTime, that.startTime);
+        return startTime == that.startTime && questionNum == that.questionNum && Objects.equals(question, that.question) && Objects.equals(jokerList, that.jokerList);
     }
-
 }
