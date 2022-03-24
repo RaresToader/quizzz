@@ -378,7 +378,7 @@ public class QuestionScreenCtrl {
 
         timeBarAnimation.pause();
 
-        transitionTimeLeft = 5;
+        transitionTimeLeft = 0;
         transitionTimer.setVisible(true);
         transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
 
@@ -415,7 +415,7 @@ public class QuestionScreenCtrl {
                 }
                 )
         );
-        timer.setCycleCount(6);
+        timer.setCycleCount(1);
         timer.play();
     }
 
