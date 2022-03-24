@@ -83,6 +83,17 @@
     -fx-cursor: hand;
 }
 
+.activityButton {
+    -fx-background-color: #ced0ce;
+    -fx-font-size: 20pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 8;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+}
+
 .answerButton:disabled {
     -fx-background-color: #ced0ce;
     -fx-font-size: 20pt;

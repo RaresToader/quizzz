@@ -3,7 +3,6 @@ package commons;
 import java.util.Objects;
 
 public class ConsumpQuestion extends Question {
-
     private String question;
     private Activity activity;
     private long first;
@@ -17,6 +16,10 @@ public class ConsumpQuestion extends Question {
         this.first = first;
         this.second = second;
         this.third = third;
+    }
+
+    public String getQuestion() {
+        return question;
     }
 
     public Activity getActivity() {

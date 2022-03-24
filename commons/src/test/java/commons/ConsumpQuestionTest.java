@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ConsumpQuestionTest {
 
-    ConsumpQuestion c = new ConsumpQuestion("How much does it take: Using an electric stove for 1 hour",
+    ConsumpQuestion c = new ConsumpQuestion("How much energy does it take?",
             new Activity("02-electric_stove", "02/electric_stove.png" ,"Using an electric stove for 1 hour", 1200L,
             "https://blog.arcadia.com/electricity-costs-10-key-household-products/"), 1200L, 2000L, 300L);
 
@@ -41,7 +41,7 @@ class ConsumpQuestionTest {
 
     @Test
     public void testEquals() {
-        ConsumpQuestion q = new ConsumpQuestion("How much does it take: Using an electric stove for 1 hour",
+        ConsumpQuestion q = new ConsumpQuestion("How much energy does it take?",
                 new Activity("02-electric_stove", "02/electric_stove.png" ,"Using an electric stove for 1 hour", 1200L,
                         "https://blog.arcadia.com/electricity-costs-10-key-household-products/"), 1200L, 2000L, 300L);
         assertTrue(c.equals(q));
@@ -49,7 +49,7 @@ class ConsumpQuestionTest {
 
     @Test
     public void testNotEquals() {
-        ConsumpQuestion q = new ConsumpQuestion("How much does it take: Using an electric stove for 1 hour",
+        ConsumpQuestion q = new ConsumpQuestion("How much energy does it take?",
                 new Activity("02-electric_stove", "02/electric_stove.png", "Using an electric stove for 1 hour", 1500L,
                         "https://blog.arcadia.com/electricity-costs-10-key-household-products/"), 1200L, 2000L, 300L);
         assertFalse(c.equals(q));
@@ -58,7 +58,7 @@ class ConsumpQuestionTest {
     @Test
     public void testToString() {
         String expected = "ConsumpQuestion{" +
-                "question='" + "How much does it take: Using an electric stove for 1 hour" + '\'' +
+                "question='" + "How much energy does it take?" + '\'' +
                 ", activity=" + "Activity{" +
                 "id='" + "02-electric_stove" + '\'' +
                 ", title='" + "Using an electric stove for 1 hour" + '\'' +
