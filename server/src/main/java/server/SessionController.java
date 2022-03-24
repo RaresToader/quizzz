@@ -109,6 +109,36 @@ public class SessionController {
         return x.addAnswer(new Answer(nickname,answer,questionNum));
     }
 
+    /**
+     * Adds joker to given session
+     * @param jokerType - type of joker used
+     * @param nickname - user applying joker
+     * @param questionNum - question that joker applies to
+     * @return Boolean value indicating whether operation was successful
+     */
+    @GetMapping("/session/addjoker/{nickname}/{jokertype}/{question}")
+    public boolean addJoker(@PathVariable("nickname") String nickname, @PathVariable("jokertype") int jokerType, @PathVariable("question") int questionNum) {
+        int session = SessionContainer.findUserSession(nickname);
+
+        //User not in the session
+        if(session == -1) {
+            return false;
+        }
+
+        Session x = SessionContainer.getSession(session);
+        if(!x.isStarted() || x.hasEnded() || questionNum != x.getCurrentQuestionNum() || questionNum == -1) {
+            return false;
+        }
+
+        //TODO when we know values of jokerType we need to add validation for those too
+        return x.addJoker(jokerType,nickname,questionNum);
+    }
+
+
+    /**
+     * Produces list of 60 random activities from activityBank
+     * @return List<Activity> of size 60
+     */
     public List<Activity> get60RandomActivities() {
         List<Activity> list = this.activityRepository.findAll();
         if (list.size() < 60)
