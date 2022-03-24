@@ -19,6 +19,7 @@ public class Session {
     private List<Joker> usedJokers;
     private int currentQuestion;
     private long questionStartedAt;
+    private List<Emoji> emojiList;
 
     public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1, new ArrayList<Joker>());
 
@@ -33,6 +34,7 @@ public class Session {
         this.usedJokers        = new ArrayList<Joker>();
         this.currentQuestion   = -1;
         this.questionStartedAt = -1;
+        this.emojiList         = new ArrayList<Emoji>();
         this.generateTestQuestions(activities);
     }
 
@@ -199,6 +201,32 @@ public class Session {
 
     public void endGame() {
         this.ended = true;
+    }
+
+    /**
+     * Adds an Emoij to the list of emoijs in the session.
+     * @param emoij - The information about the added emoij (with username and emoijType)
+     */
+    public void addEmoij(Emoji emoij){
+        this.emojiList.add(emoij);
+    }
+
+    /**
+     * Check if there are expired emoji's in the session emoij-list en get the list with active emoijs
+     * @return List<Emoij> that contains all the 'active' emoji's.
+     */
+    public List<Emoji> getActiveEmoijList(){
+        List<Emoji> activeEmojiList = new ArrayList<Emoji>();
+        Date date = new Date();
+        int emojiListLength = emojiList.size();
+        for (int i = 0; i < emojiListLength; i++){
+            if(emojiList.get(i).getStartTimeEmoji() > (date.getTime() - 5000 )){ //emoji's
+                activeEmojiList.add(emojiList.get(i));
+            }
+        }
+        this.emojiList = activeEmojiList;
+        return activeEmojiList;
+
     }
 
     /**
