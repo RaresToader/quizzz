@@ -147,6 +147,19 @@ public class Utils {
     }
 
     /**
+     * Invokes to /session/leavesession/{nickname} and informs server that player wants to leave given session
+     * @return Boolean value whether operation of removal was successful
+     */
+    public static boolean leaveSession() {
+        String path = "session/leavesession/"+Session.getNickname();
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path(path) //
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(Boolean.class);
+    }
+
+    /**
      * Invokes to /verification path and check whether provided serverAddress is valid address of QuizzGame
      *
      * @param serverAddr - provided serverAddr

@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
+import client.utils.Utils;
 import commons.Player;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -49,6 +50,7 @@ public class GlobalLeaderboardCtrl {
     }
 
     public void goBackToSplash() {
+        Utils.leaveSession(); //Leave from ended session
         mainCtrl.showSplash();
     }
 
@@ -92,7 +94,8 @@ public class GlobalLeaderboardCtrl {
         }, 0, 5 * 1000);
     }
 
-    public void newGame() {
+    public void newGame(){
+        Utils.leaveSession(); //Leave from ended session
         mainCtrl.showSingleplayer();
     }
 

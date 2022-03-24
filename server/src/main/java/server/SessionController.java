@@ -44,10 +44,6 @@ public class SessionController {
         //System.out.println("For "+nickname+" it is "+sessionId); //DEBUG LINE
         Session x = SessionContainer.getSession(sessionId);
 
-        if(x.hasEnded()) {
-            return Session.emptyQ;
-        }
-
         if(!x.isStarted()) { //If game is not started
             x.startGame();
         }
@@ -101,7 +97,7 @@ public class SessionController {
         }
 
         Date date = new Date();
-        //If question submitted 30 seconds or more after init of question
+        //If question submitted 20 seconds or more after init of question
         if(date.getTime() - x.getQuestionStartedAt() > 20000) {
             return false;
         }
@@ -132,6 +128,28 @@ public class SessionController {
 
         //TODO when we know values of jokerType we need to add validation for those too
         return x.addJoker(jokerType,nickname,questionNum);
+    }
+
+    /**
+     * Controller for leaving session
+     * @param nickname - user who wants to leave current session
+     * @return Boolean value whether operation was successful
+     */
+    @GetMapping("/session/leavesession/{nickname}")
+    public boolean leaveSession(@PathVariable("nickname") String nickname) {
+        int session = SessionContainer.findUserSession(nickname);
+
+        //User not in the session
+        if(session == -1) {
+            return false;
+        }
+
+        Session x = SessionContainer.getSession(session);
+        if(!x.hasEnded() && x.getPlayerList().size() == 1) { //End game if that was the last player
+            x.endGame();
+        }
+
+        return x.removePlayer(nickname);
     }
 
 
