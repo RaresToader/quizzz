@@ -20,7 +20,9 @@ public class QuizzQuestion extends Question {
         this.secondChoice = secondChoice;
         this.thirdChoice = thirdChoice;
     }
-
+    public QuizzQuestion(){
+        
+    }
     public void setQuestion(String question) {
         this.question = question;
     }
