@@ -417,9 +417,7 @@ public class QuestionScreenCtrl {
      * handles the transition between two questions.
      */
     public void transition(){
-
         Utils.submitAnswer(totalPoints);
-
         if(currQuestion instanceof QuizzQuestion) {
             firstAnswer.setDisable(true);
             firstAnswerLabel.setOpacity(1);
@@ -430,7 +428,6 @@ public class QuestionScreenCtrl {
             thirdAnswer.setDisable(true);
             thirdAnswerLabel.setOpacity(1);
         }
-
         if(currQuestion instanceof ConsumpQuestion) {
             firstConsump.setDisable(true);
             secondConsump.setDisable(true);
