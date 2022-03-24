@@ -45,6 +45,8 @@ public class MainCtrl {
     private Scene adminPanelScreen;
     private QueueCtrl queueCtrl;
     private Scene queueScreen;
+    private MultiplayerLobbyCtrl mLobbyCtrl;
+    private Scene mLobbyScreen;
     private SingleplayerLobbyCtrl sLobbyCtrl;
     private Scene sLobbyScreen;
     private QuestionScreenCtrl questionScreenCtrl;
@@ -57,7 +59,7 @@ public class MainCtrl {
     public RotateTransition rotationAnimation4;
 
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
-                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue, Pair<SingleplayerLobbyCtrl, Parent> singleLobbyScreen, Pair<AdminPanelCtrl, Parent> admin) {
+                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue, Pair<SingleplayerLobbyCtrl, Parent> singleLobbyScreen, Pair<AdminPanelCtrl, Parent> admin, Pair<MultiplayerLobbyCtrl, Parent> multiLobbyScreen) {
 
         this.primaryStage = primaryStage;
         this.enterMenuCtrl = enterMenu.getKey();
@@ -68,6 +70,9 @@ public class MainCtrl {
 
         this.queueCtrl = queue.getKey();
         this.queueScreen = new Scene(queue.getValue());
+
+        this.mLobbyCtrl = multiLobbyScreen.getKey();
+        this.mLobbyScreen = new Scene(multiLobbyScreen.getValue());
 
         this.globalLeaderboardCtrl = globalLeaderboard.getKey();
         this.globalLeadScreen = new Scene(globalLeaderboard.getValue());
@@ -126,8 +131,13 @@ public class MainCtrl {
 
     public void showQueue() {
         primaryStage.setTitle("Multiplayer queue");
-        primaryStage.setScene((this.queueScreen));
+        primaryStage.setScene(this.queueScreen);
         queueCtrl.runLoadingAnimation();
+    }
+
+    public void showMultiplayerLobby() {
+        primaryStage.setTitle("Multiplayer Lobby");
+        primaryStage.setScene(mLobbyScreen);
     }
 
     /**
