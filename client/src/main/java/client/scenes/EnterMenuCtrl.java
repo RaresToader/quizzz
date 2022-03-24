@@ -57,7 +57,9 @@ public class EnterMenuCtrl {
             Session.setServerAddr(serverAddr);
             mainCtrl.showSplash();
         }
-
+        else {
+            displayErrorText("Provided username is invalid!");
+        }
     }
 
     private void displayErrorText(String text) {
