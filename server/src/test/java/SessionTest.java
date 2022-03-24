@@ -287,7 +287,7 @@ public class SessionTest {
         List<Activity> activities = sess.get60RandomActivities();
         Session x = new Session(false,activities);
         Session y = new Session(false,activities);
-        assertTrue(x.equals(y));
+        assertFalse(x.equals(y));
     }
 
     @Test
