@@ -87,6 +87,25 @@ public class SessionController {
     }
 
     /**
+     * Gets a list with the active emoji's in the session
+     * @param nickname - nickname of the user who asks for the emoji's
+     * @return List<Emoji> - list with all emoji's which contain also the name of the user and the emoji-types
+     */
+    @GetMapping("/session/getActiveSessionEmojis/{nickname}")
+    public List<Emoji> getActiveSessionEmojis(@PathVariable("nickname") String nickname){
+        List<Emoji> list = new ArrayList<Emoji>();
+        int sessionId = SessionContainer.findUserSession(nickname);
+        if (sessionId == -1){
+            return list;
+        }
+        else{
+            Session session = SessionContainer.getSession(sessionId);
+            list = session.getActiveEmoijList();
+            return list;
+        }
+    }
+
+    /**
      * Controller for submitting answer to current question
      * @param nickname - user submitting the answer
      * @param answer - answer submitted

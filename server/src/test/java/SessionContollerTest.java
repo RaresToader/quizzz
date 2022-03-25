@@ -97,10 +97,11 @@ public class SessionContollerTest {
         list.add(emoji1);
         sess.setEmoji("test1", "emoji1");
         assertEquals(list,session.getActiveEmoijList());
-        sess.setEmoji("test2", "emoji2");
-        ;
-
-
+        sess.setEmoji("test1", "emoji3");
+        list.remove(emoji1);
+        Emoji emoji3 = new Emoji("test1","emoji3");
+        list.add(emoji3);
+        assertEquals(list,session.getActiveEmoijList());
     }
 
     @Test
