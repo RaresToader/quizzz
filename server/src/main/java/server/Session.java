@@ -17,6 +17,7 @@ public class Session {
     private List<Joker> usedJokers;
     private int currentQuestion;
     private long questionStartedAt;
+    private List<Emoji> emojiList;
 
     public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1, new ArrayList<Joker>());
 
@@ -32,6 +33,7 @@ public class Session {
         this.usedJokers        = new ArrayList<Joker>();
         this.currentQuestion   = -1;
         this.questionStartedAt = -1;
+        this.emojiList         = new ArrayList<Emoji>();
         this.generateTestQuestions(activities);
     }
 
@@ -202,6 +204,39 @@ public class Session {
     }
 
     /**
+     * Adds an Emoij to the list of emoijs in the session.
+     * @param emoij - The information about the added emoij (with username and emoijType)
+     */
+    public void addEmoij(Emoji emoij){
+        this.emojiList.add(emoij);
+    }
+
+    /**
+     * Check if there are expired emoji's in the session emoij-list and only gives the newest emoji of the players and get the list with active emoji's
+     * @return List<Emoji> that contains all the 'active' emoji's.
+     */
+    public List<Emoji> getActiveEmoijList(){
+        List<Emoji> activeEmojiList = new ArrayList<Emoji>();
+        Date date = new Date();
+        int emojiListLength = emojiList.size();
+        for (int i = 0; i < emojiListLength; i++){
+            if(emojiList.get(i).getStartTimeEmoji() > (date.getTime() - 5000 )){ //emoji's have an expiry time of 5 seconds
+                for (int a = 0; a < activeEmojiList.size(); a++){
+                    if(emojiList.get(i).getUserApplying() == activeEmojiList.get(a).getUserApplying() &&
+                    emojiList.get(i).getStartTimeEmoji() >= activeEmojiList.get(a).getStartTimeEmoji()){
+                        activeEmojiList.remove(a);
+
+                    }
+                }
+                activeEmojiList.add(emojiList.get(i));
+            }
+
+        }
+        this.emojiList = activeEmojiList;
+        return activeEmojiList;
+    }
+
+    /**
      * Setter for currentQuestionNumber ONLY FOR TESTING PURPOSES
      */
     public void setCurrentQuestionNum(int currentQuestion) {
@@ -251,6 +286,9 @@ public class Session {
 
     public List<Joker> getUsedJokers() {
         return this.usedJokers;
+    }
+    public List<Emoji> getEmojiList(){
+        return this.emojiList;
     }
 
     public HashMap<String, Integer> getCurrentScores() {
