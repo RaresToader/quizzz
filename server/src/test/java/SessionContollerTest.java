@@ -213,4 +213,15 @@ public class SessionContollerTest {
         assertTrue(sess.leaveSession("test"));
         assertTrue(x.hasEnded());
     }
+    @Test
+    public void validUsernameTest() {
+        SessionController sess = new SessionController(repo);
+        List<Session> sessionList = new ArrayList<>();
+        sessionList.add(null);
+        List<Activity> activities = sess.get60RandomActivities();
+        SessionContainer.setSessionList(sessionList);
+        assertTrue(SessionContainer.createSession(false,"test",activities));
+        assertTrue(sess.isUsernameValid("test2"));
+        assertFalse(sess.isUsernameValid("test"));
+    }
 }

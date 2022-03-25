@@ -132,5 +132,14 @@ public class SessionContainer {
         return sessionList;
     }
 
+    public static boolean isUsernameValid(String username) {
+        for(Session x: sessionList) {
+            if(!x.isEnded() && x.getPlayerList().contains(username)){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 }

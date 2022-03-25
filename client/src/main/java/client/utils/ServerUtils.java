@@ -151,6 +151,20 @@ public class ServerUtils {
     }
 
     /**
+     * checks if the chosen username is valid or not
+     * @param username
+     * @return
+     */
+    public static boolean isUsernameValid(String username) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("session/validusername/" + username)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<Boolean>() {
+                });
+    }
+
+    /**
      * Retrives a list of all activities
      *
      * @return the list of all activities, from the activity repository

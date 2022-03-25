@@ -25,6 +25,10 @@ public class SessionController {
         return SessionContainer.getNumOfActivePlayers();
     }
 
+    @GetMapping("/session/validusername/{username}")
+    public boolean isUsernameValid(@PathVariable("username") String username) {
+        return SessionContainer.isUsernameValid(username);
+    }
     /**
      * Controller for getting current question
      *
