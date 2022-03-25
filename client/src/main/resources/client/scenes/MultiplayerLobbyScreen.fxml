@@ -31,12 +31,12 @@
       <Pane fx:id="emoteBox" layoutX="1080.0" prefHeight="149.0" prefWidth="200.0">
          <children>
             <Button fx:id="emoteMenu" layoutX="136.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteMenu" text="emote" textFill="WHITE" />
-            <Button fx:id="emoteButton1" disable="true" layoutX="136.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="1" visible="false" />
-            <Button fx:id="emoteButton2" disable="true" layoutX="75.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="2" visible="false" />
-            <Button fx:id="emoteButton3" disable="true" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="3" visible="false" />
-            <Button fx:id="emoteButton4" disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="4" visible="false" />
-            <Button fx:id="emoteButton5" disable="true" layoutX="75.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="5" visible="false" />
-            <Button fx:id="emoteButton6" disable="true" layoutX="136.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="6" visible="false" />
+            <Button fx:id="emoteButtonSmile" disable="true" layoutX="136.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="1" visible="false" />
+            <Button fx:id="emoteButtonSad" disable="true" layoutX="75.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="2" visible="false" />
+            <Button fx:id="emoteButtonAngry" disable="true" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="3" visible="false" />
+            <Button fx:id="emoteButtonSurprise" disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="4" visible="false" />
+            <Button fx:id="emoteButtonCelebrate" disable="true" layoutX="75.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="5" visible="false" />
+            <Button fx:id="emoteButtonSunglasses" disable="true" layoutX="136.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="6" visible="false" />
          </children>
       </Pane>
       <StackPane fx:id="playerNameBackground2" layoutX="487.0" layoutY="310.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">

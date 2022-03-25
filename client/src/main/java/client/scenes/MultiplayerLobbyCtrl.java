@@ -16,17 +16,17 @@ public class MultiplayerLobbyCtrl {
     @FXML
     private Button emoteMenu;
     @FXML
-    private Button emoteButton1;
+    private Button emoteButtonSmile;
     @FXML
-    private Button emoteButton2;
+    private Button emoteButtonSad;
     @FXML
-    private Button emoteButton3;
+    private Button emoteButtonAngry;
     @FXML
-    private Button emoteButton4;
+    private Button emoteButtonSurprise;
     @FXML
-    private Button emoteButton5;
+    private Button emoteButtonCelebrate;
     @FXML
-    private Button emoteButton6;
+    private Button emoteButtonSunglasses;
 
     @Inject
     public MultiplayerLobbyCtrl(MainCtrl mainCtrl) {
@@ -72,12 +72,12 @@ public class MultiplayerLobbyCtrl {
             }
         });
 
-        emoteButton1.setOnAction(e -> sendEmote(1));
-        emoteButton2.setOnAction(e -> sendEmote(2));
-        emoteButton3.setOnAction(e -> sendEmote(3));
-        emoteButton4.setOnAction(e -> sendEmote(4));
-        emoteButton5.setOnAction(e -> sendEmote(5));
-        emoteButton6.setOnAction(e -> sendEmote(6));
+        emoteButtonSmile.setOnAction(e -> sendEmote("smile"));
+        emoteButtonSad.setOnAction(e -> sendEmote("sad"));
+        emoteButtonAngry.setOnAction(e -> sendEmote("angry"));
+        emoteButtonSurprise.setOnAction(e -> sendEmote("surprise"));
+        emoteButtonCelebrate.setOnAction(e -> sendEmote("celebrate"));
+        emoteButtonSunglasses.setOnAction(e -> sendEmote("sunglasses"));
     }
 
     /**
@@ -89,28 +89,28 @@ public class MultiplayerLobbyCtrl {
     private void showEmotes(boolean enable) {
         emoteMenu.setVisible(!enable);
 
-        emoteButton1.setDisable(!enable);
-        emoteButton1.setVisible(enable);
-        emoteButton2.setDisable(!enable);
-        emoteButton2.setVisible(enable);
-        emoteButton3.setDisable(!enable);
-        emoteButton3.setVisible(enable);
-        emoteButton4.setDisable(!enable);
-        emoteButton4.setVisible(enable);
-        emoteButton5.setDisable(!enable);
-        emoteButton5.setVisible(enable);
-        emoteButton6.setDisable(!enable);
-        emoteButton6.setVisible(enable);
+        emoteButtonSmile.setDisable(!enable);
+        emoteButtonSmile.setVisible(enable);
+        emoteButtonSad.setDisable(!enable);
+        emoteButtonSad.setVisible(enable);
+        emoteButtonAngry.setDisable(!enable);
+        emoteButtonAngry.setVisible(enable);
+        emoteButtonSurprise.setDisable(!enable);
+        emoteButtonSurprise.setVisible(enable);
+        emoteButtonCelebrate.setDisable(!enable);
+        emoteButtonCelebrate.setVisible(enable);
+        emoteButtonSunglasses.setDisable(!enable);
+        emoteButtonSunglasses.setVisible(enable);
     }
 
     /**
      * Once the player clicks an emote button, this method is called
      * It then sends the emote to the other players in the session
      *
-     * @param emoteNumber identifies which emote button was clicked and what emote to send
+     * @param emoteType identifies which emote button was clicked and what emote to send
      */
-    private void sendEmote(int emoteNumber) {
-        System.out.println("emote button pressed: " + emoteNumber); //DEBUG LINE
+    private void sendEmote(String emoteType) {
+        System.out.println("emote button pressed: " + emoteType); //DEBUG LINE
         //TODO
     }
 }
