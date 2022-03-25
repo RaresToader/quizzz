@@ -52,6 +52,12 @@ public class EnterMenuCtrl {
                 return;
             }
 
+            if (!serverUtils.isUsernameValid(nickname)) {
+                displayErrorText("This username is currently in use!");
+                return;
+            }
+
+
             Session.setNickname(nickname);
             this.serverUtils.addPlayer(nickname);
             Session.setServerAddr(serverAddr);
