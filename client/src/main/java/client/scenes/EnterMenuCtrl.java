@@ -65,7 +65,7 @@ public class EnterMenuCtrl {
             Session.setServerAddr(serverAddr);
             mainCtrl.showSplash();
 
-            if (Utils.getCurrentSessionPlayers(Session.getNickname()).size() == 1) {
+            if (Utils.getCurrentSessionPlayers(Session.getNickname()).size() <= 1) {
                 mLobbyCtrl.setLeader(true);
             }
         }

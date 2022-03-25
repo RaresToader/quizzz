@@ -20,13 +20,14 @@ public class MultiplayerLobbyCtrl {
     private boolean isLeader;
     private Timer playerUpdateTimer;
     private Pair<StackPane, Text> ownPlayerTag;
-    private HashMap<Pair<StackPane, Text>, String> playerTags;
+    private LinkedHashMap<Pair<StackPane, Text>, String> playerTags;
 
     @Inject
     public MultiplayerLobbyCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
 
-        this.playerTags = new HashMap<>();
+        this.playerTags = new LinkedHashMap<>();
+        this.ownPlayerTag = null;
     }
 
     @FXML
@@ -115,6 +116,9 @@ public class MultiplayerLobbyCtrl {
     }
 
     public void startGameButtonPressed() {
+        startButton.setDisable(true);
+        startButton.setVisible(false);
+
         //TODO
         // SEND START OF GAME TO OTHER PLAYERS AND SWITCH ALL PLAYERS TO QUESTION SCREEN
         // ALSO LOCK THE LOBBY, NO MORE PLAYERS CAN JOIN
@@ -141,6 +145,8 @@ public class MultiplayerLobbyCtrl {
                 playerUpdate();
 
                 receiveEmotes();
+
+                System.out.println("isleader: " + isLeader);
 
 //                    if (!isLeader) {
 //                        //TODO
@@ -208,12 +214,17 @@ public class MultiplayerLobbyCtrl {
      */
     private void sendEmote(String emoteType) {
         System.out.println("emote button pressed: " + emoteType); //DEBUG LINE
-        Utils.setEmoji(Session.getNickname(), emoteType);
+        System.out.println(Utils.setEmoji(Session.getNickname(), emoteType));
     }
 
     private void receiveEmotes() {
-        // Loop through all active emojis and display the according to the user that sent it
-        for (Emoji emoji : Utils.getActiveSessionEmojis(Session.getNickname())) {
+        List<Emoji> activeEmojiList = Utils.getActiveSessionEmojis(Session.getNickname());
+        System.out.println("\nEMOJI LIST: " + activeEmojiList + "\n");
+
+        // Loop through all active emojis and display them according to the user that sent it
+        for (Emoji emoji : activeEmojiList) {
+            System.out.println("\nActive emoji: " + emoji.getEmojiType() + "\n");
+
             String userApplying = emoji.getUserApplying();
             StackPane playerLabel = null;
 
@@ -236,7 +247,7 @@ public class MultiplayerLobbyCtrl {
         List<String> playerList = Utils.getCurrentSessionPlayers(Session.getNickname());
 
         System.out.println("Player list: " + playerList);
-        
+
         for (Pair<StackPane, Text> tag : playerTags.keySet()) {
             if (!playerList.contains(playerTags.get(tag))) { // If player is no longer in the session's player list
                 playerTags.replace(tag, null);
@@ -272,7 +283,7 @@ public class MultiplayerLobbyCtrl {
         // Start the game locally
     }
 
-    public void setLeader(boolean isLeader) {
-        this.isLeader = isLeader;
+    public void setLeader(boolean leader) {
+        this.isLeader = leader;
     }
 }
