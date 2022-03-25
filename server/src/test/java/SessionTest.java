@@ -309,17 +309,18 @@ public class SessionTest {
         assertEquals(Long.valueOf(0),x.getQuestionStartedAt());
     }
     @Test
-    public void addEmojiTest(){
-        Session x = new Session(true,sess.get60RandomActivities());
-        Emoji emoji1 = new Emoji("user1","emoji1");
+    public void addEmojiTest() {
+        Session x = new Session(true, sess.get60RandomActivities());
+        Emoji emoji1 = new Emoji("user1", "emoji1");
         Emoji emoji2 = new Emoji("user2", "emoij2");
         List<Emoji> emojiList = new ArrayList<Emoji>();
         emojiList.add(emoji1);
         emojiList.add(emoji2);
         x.addEmoij(emoji1);
         x.addEmoij(emoji2);
-        assertEquals(emojiList,x.getEmojiList());
-
+        assertEquals(emojiList, x.getEmojiList());
+    }
+    @Test
     public void getCurrentLeaderboardTest() {
         Session x = new Session(false,sess.get60RandomActivities());
         x.addPlayer("test");
