@@ -103,6 +103,26 @@ public class SessionContollerTest {
         list.add(emoji3);
         assertEquals(list,session.getActiveEmoijList());
     }
+    @Test
+    public void getActiveSessionEmojisTest(){
+        List<Emoji> list = new ArrayList<>();
+        SessionController sess = new SessionController(repo);
+        assertEquals(list,sess.getActiveSessionEmojis("test"));
+        SessionContainer.createSession(true,"test",sess.get60RandomActivities());
+        int sessionId = SessionContainer.findUserSession("test");
+        Session session = SessionContainer.getSession(sessionId);
+        session.addPlayer("test1");
+        session.addPlayer("test2");
+        session.addPlayer("test3");
+        Emoji emoji1 = new Emoji("test1","emoji1");
+        Emoji emoji2 = new Emoji("test2","emoji2");
+        list.add(emoji1);
+        session.addEmoij(emoji1);
+        assertEquals(list,sess.getActiveSessionEmojis("test"));
+        list.add(emoji2);
+        session.addEmoij(emoji2);
+        assertEquals(list,sess.getActiveSessionEmojis("test"));
+    }
 
     @Test
     public void getCurrentQuestionTest() {
