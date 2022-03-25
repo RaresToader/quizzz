@@ -538,7 +538,7 @@ public class QuestionScreenCtrl {
                 }
                 )
         );
-        timer.setCycleCount(1);
+        timer.setCycleCount(6);
         timer.play();
     }
 
