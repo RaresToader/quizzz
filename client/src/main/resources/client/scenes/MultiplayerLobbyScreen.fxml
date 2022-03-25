@@ -2,22 +2,22 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.image.Image?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #191919;" stylesheets="/stylesheets/MultiplayerLobbyStylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiplayerLobbyCtrl">
    <children>
-      <Label alignment="CENTER" layoutX="546.0" layoutY="3.0" styleClass="title" text="Lobby" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="532.0" layoutY="-10.0" styleClass="title" text="Lobby" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="72.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="346.0" layoutY="132.0" styleClass="label" text="Waiting for leader to start the game..." textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="346.0" layoutY="119.0" styleClass="label" text="Waiting for leader to start the game..." textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="36.0" />
          </font>
@@ -26,17 +26,58 @@
       <Button fx:id="startButton" layoutX="1090.0" layoutY="605.0" mnemonicParsing="false" onAction="#startGameButtonPressed" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Start&#10;game" textFill="WHITE" />
       <ImageView fx:id="leaderCrown" fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/photos/crown.png" />
          </image></ImageView>
       <Pane fx:id="emoteBox" layoutX="1080.0" prefHeight="149.0" prefWidth="200.0">
          <children>
-            <Button fx:id="emoteMenu" layoutX="136.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteMenu" text="emote" textFill="WHITE" />
-            <Button fx:id="emoteButtonSmile" disable="true" layoutX="136.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="1" visible="false" />
-            <Button fx:id="emoteButtonSad" disable="true" layoutX="75.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="2" visible="false" />
-            <Button fx:id="emoteButtonAngry" disable="true" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="3" visible="false" />
-            <Button fx:id="emoteButtonSurprise" disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="4" visible="false" />
-            <Button fx:id="emoteButtonCelebrate" disable="true" layoutX="75.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="5" visible="false" />
-            <Button fx:id="emoteButtonSunglasses" disable="true" layoutX="136.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="6" visible="false" />
+            <Button fx:id="emoteMenu" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="136.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteMenu" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="/photos/emoteBubble.png" />
+                     </image></ImageView>
+               </graphic></Button>
+            <Button fx:id="emoteButtonSmile" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="136.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" visible="false">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="/photos/emoteSmile.png" />
+                     </image></ImageView>
+               </graphic></Button>
+            <Button fx:id="emoteButtonSad" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="75.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" visible="false">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="/photos/emoteSad.png" />
+                     </image></ImageView>
+               </graphic></Button>
+            <Button fx:id="emoteButtonAngry" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" visible="false">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="/photos/emoteAngry.png" />
+                     </image></ImageView>
+               </graphic></Button>
+            <Button fx:id="emoteButtonSurprise" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" visible="false">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="/photos/emoteSurprise.png" />
+                     </image></ImageView>
+               </graphic></Button>
+            <Button fx:id="emoteButtonCelebrate" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="75.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" visible="false">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="/photos/emoteCelebrate.png" />
+                     </image></ImageView>
+               </graphic></Button>
+            <Button fx:id="emoteButtonSunglasses" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="136.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" visible="false">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="/photos/emoteSunglasses.png" />
+                     </image></ImageView>
+               </graphic></Button>
          </children>
       </Pane>
       <StackPane fx:id="playerNameBackground1" layoutX="207.0" layoutY="224.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
