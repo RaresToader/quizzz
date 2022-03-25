@@ -7,10 +7,7 @@ import commons.QuizzQuestionServerParsed;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class SessionController {
@@ -29,6 +26,10 @@ public class SessionController {
         return SessionContainer.getNumOfActivePlayers();
     }
 
+    @GetMapping("/session/validusername/{username}")
+    public boolean isUsernameValid(@PathVariable("username") String username) {
+        return SessionContainer.isUsernameValid(username);
+    }
     /**
      * Controller for getting current question
      *
@@ -69,6 +70,20 @@ public class SessionController {
             playerList = session.getPlayerList();
         }
         return playerList;
+    }
+
+    @GetMapping("/session/currentleaderboard/{nickname}")
+    public List<Map.Entry<String,Integer>> getCurrentLeaderboard(@PathVariable("nickname") String nickname) {
+        List<Map.Entry<String,Integer>> currentLeaderboard = new ArrayList<>();
+        int sessionId = SessionContainer.findUserSession(nickname);
+        if(sessionId == -1) { //if there is no session
+            return new ArrayList<>();
+        }
+        else {
+            Session session = SessionContainer.getSession(sessionId);
+            currentLeaderboard = session.getCurrentLeaderboard();
+        }
+        return currentLeaderboard;
     }
 
     /**
@@ -131,9 +146,7 @@ public class SessionController {
             return false;
         }
         //Provided answer is not in correct format
-        if(answer<0 || answer > 3) {
-            return false;
-        }
+
 
         Date date = new Date();
         //If question submitted 20 seconds or more after init of question

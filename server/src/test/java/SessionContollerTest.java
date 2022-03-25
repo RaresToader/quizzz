@@ -1,5 +1,6 @@
 import commons.Activity;
 import commons.Emoji;
+import commons.Answer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.Session;
@@ -9,6 +10,7 @@ import server.api.TestActivityRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -73,6 +75,25 @@ public class SessionContollerTest {
         assertEquals(list,sess.getPlayersInSession("test"));
         session.removePlayer("test2");
         assertNotEquals(list,sess.getPlayersInSession("test"));
+    }
+    @Test
+    public void getCurrentLeaderboardTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test",sess.get60RandomActivities());
+        List<String> list = new ArrayList<String>();
+        list.add("test");
+        int sessionId = SessionContainer.findUserSession("test");
+        Session session = SessionContainer.getSession(sessionId);
+        session.addPlayer("test1");
+        session.addPlayer("test2");
+        session.addPlayer("test3");
+        list.add("test1");
+        list.add("test2");
+        list.add("test3");
+        HashMap<String,Integer> expected = new HashMap<>();
+        expected.put("test1",10);
+        session.addAnswer(new Answer("test1",10,-1));
+        assertEquals(new ArrayList<>(expected.entrySet()),session.getCurrentLeaderboard());
     }
 
     @Test
@@ -145,7 +166,7 @@ public class SessionContollerTest {
         Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
         x.startGame();
         x.getCurrentQuestion();
-        assertFalse(sess.submitAnswer("test",4,0));
+        assertFalse(sess.submitAnswer("test",10,5));
     }
 
     @Test
@@ -234,5 +255,16 @@ public class SessionContollerTest {
         Session x = SessionContainer.getSession(SessionContainer.findUserSession("test"));
         assertTrue(sess.leaveSession("test"));
         assertTrue(x.hasEnded());
+    }
+    @Test
+    public void validUsernameTest() {
+        SessionController sess = new SessionController(repo);
+        List<Session> sessionList = new ArrayList<>();
+        sessionList.add(null);
+        List<Activity> activities = sess.get60RandomActivities();
+        SessionContainer.setSessionList(sessionList);
+        assertTrue(SessionContainer.createSession(false,"test",activities));
+        assertTrue(sess.isUsernameValid("test2"));
+        assertFalse(sess.isUsernameValid("test"));
     }
 }

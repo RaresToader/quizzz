@@ -12,7 +12,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(QuizzQuestion.class),
-        @JsonSubTypes.Type(ConsumpQuestion.class)
+        @JsonSubTypes.Type(ConsumpQuestion.class),
+        @JsonSubTypes.Type(InsteadOfQuestion.class)
 })
 public abstract class Question {
 
