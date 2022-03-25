@@ -51,8 +51,10 @@ public class QuizzQuestion extends Question {
         this.thirdChoice = thirdChoice;
     }
 
-
-
+    /**
+     *  Calculates the correct answer to the question by seeing which of the three activities has
+     *  the highest consumption
+     */
     public String getMostExpensive() {
         Activity highest = this.firstChoice;
         Activity second = this.secondChoice;
