@@ -35,7 +35,7 @@ public class QueueCtrl {
             return;
         }
         else {
-            transitionTimeLeft = 5;
+            transitionTimeLeft = 0;
             transitionTimer = new Timeline(
                     new KeyFrame(Duration.seconds(1),
                             event -> {

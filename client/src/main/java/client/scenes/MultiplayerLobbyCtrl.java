@@ -124,6 +124,9 @@ public class MultiplayerLobbyCtrl {
         // ALSO LOCK THE LOBBY, NO MORE PLAYERS CAN JOIN
     }
 
+    /**
+     * Initialise all player tags and display their names
+     */
     private void initialisePlayers() {
 
         playerTags.put(new Pair<>(playerNameBackground1, playerNameLabel1), null);
@@ -217,6 +220,9 @@ public class MultiplayerLobbyCtrl {
         System.out.println(Utils.setEmoji(Session.getNickname(), emoteType));
     }
 
+    /**
+     * Receive any emotes sent by other players and display them next to the corresponding player tag
+     */
     private void receiveEmotes() {
         List<Emoji> activeEmojiList = Utils.getActiveSessionEmojis(Session.getNickname());
         System.out.println("\nEMOJI LIST: " + activeEmojiList + "\n");
@@ -243,6 +249,10 @@ public class MultiplayerLobbyCtrl {
         }
     }
 
+    /**
+     * Constantly called method to update any changes in the players in the lobby
+     * Their player tags, emotes and who the lobby leader is
+     */
     private void playerUpdate() {
         List<String> playerList = Utils.getCurrentSessionPlayers(Session.getNickname());
 
@@ -285,5 +295,9 @@ public class MultiplayerLobbyCtrl {
 
     public void setLeader(boolean leader) {
         this.isLeader = leader;
+    }
+
+    public boolean getLeader() {
+        return this.isLeader;
     }
 }
