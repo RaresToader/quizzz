@@ -75,19 +75,20 @@ public class SessionController {
      * Sets the chosen emoji in the list with emoji's of the session the player is in
      * @param nickname - nickname of the user who chose the emoji
      * @param emojiType - type of emoji the user chose.
+     * @return boolean value whether operation was successful
      */
     @GetMapping("/session/setEmoji/{nickname}/{emojitype}")
     public boolean setEmoji(@PathVariable("nickname") String nickname, @PathVariable("emojitype") String emojiType){
-        boolean x = false;
+        boolean successful = false;
         int sessionId = SessionContainer.findUserSession(nickname);
         if (sessionId != -1){
             Session session = SessionContainer.getSession(sessionId);
             Emoji emoji = new Emoji(nickname,emojiType);
             session.addEmoij(emoji);
-            x = true;
+            successful = true;
         }
-        return x;
-    }
+        return successful;
+
 
     /**
      * Gets a list with the active emoji's in the session
