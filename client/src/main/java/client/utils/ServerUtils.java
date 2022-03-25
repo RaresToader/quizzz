@@ -66,7 +66,7 @@ public class ServerUtils {
      */
     public boolean checkIfServerMatches(String otherServer) {
 
-        return this.SERVER.equals(otherServer);
+        return SERVER.equals(otherServer);
     }
 
     /**
