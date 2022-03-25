@@ -23,7 +23,7 @@
          </font>
       </Label>
       <Button fx:id="leaveButton" layoutX="24.0" layoutY="605.0" mnemonicParsing="false" onAction="#goBackToSplash" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Leave" textFill="WHITE" />
-      <Button fx:id="startButton" layoutX="1090.0" layoutY="605.0" mnemonicParsing="false" onAction="#startGame" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Start&#10;game" textFill="WHITE" />
+      <Button fx:id="startButton" layoutX="1090.0" layoutY="605.0" mnemonicParsing="false" onAction="#startGameButtonPressed" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Start&#10;game" textFill="WHITE" />
       <ImageView fx:id="leaderCrown" fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="/photos/crown.png" />
@@ -39,14 +39,54 @@
             <Button fx:id="emoteButtonSunglasses" disable="true" layoutX="136.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" text="6" visible="false" />
          </children>
       </Pane>
-      <StackPane fx:id="playerNameBackground2" layoutX="487.0" layoutY="310.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
+      <StackPane fx:id="playerNameBackground1" layoutX="207.0" layoutY="224.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
          <children>
-            <Text fx:id="playerNameLabel2" strokeType="OUTSIDE" strokeWidth="0.0" text="Player" textAlignment="CENTER" />
+            <Text fx:id="playerNameLabel1" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" />
          </children>
       </StackPane>
-      <StackPane fx:id="playerNameBackground1" layoutX="490.0" layoutY="452.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
+      <StackPane fx:id="playerNameBackground2" layoutX="207.0" layoutY="304.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
          <children>
-            <Text fx:id="playerNameLabel1" strokeType="OUTSIDE" strokeWidth="0.0" text="Player" textAlignment="CENTER" />
+            <Text fx:id="playerNameLabel2" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" />
+         </children>
+      </StackPane>
+      <StackPane fx:id="playerNameBackground3" layoutX="209.0" layoutY="386.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
+         <children>
+            <Text fx:id="playerNameLabel3" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" />
+         </children>
+      </StackPane>
+      <StackPane fx:id="playerNameBackground4" layoutX="209.0" layoutY="471.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
+         <children>
+            <Text fx:id="playerNameLabel4" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" />
+         </children>
+      </StackPane>
+      <StackPane fx:id="playerNameBackground5" layoutX="209.0" layoutY="573.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
+         <children>
+            <Text fx:id="playerNameLabel5" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" />
+         </children>
+      </StackPane>
+      <StackPane fx:id="playerNameBackground6" layoutX="719.0" layoutY="214.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
+         <children>
+            <Text fx:id="playerNameLabel6" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" />
+         </children>
+      </StackPane>
+      <StackPane fx:id="playerNameBackground7" layoutX="720.0" layoutY="302.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
+         <children>
+            <Text fx:id="playerNameLabel7" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" />
+         </children>
+      </StackPane>
+      <StackPane fx:id="playerNameBackground8" layoutX="717.0" layoutY="385.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
+         <children>
+            <Text fx:id="playerNameLabel8" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" />
+         </children>
+      </StackPane>
+      <StackPane fx:id="playerNameBackground9" layoutX="719.0" layoutY="470.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
+         <children>
+            <Text fx:id="playerNameLabel9" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" />
+         </children>
+      </StackPane>
+      <StackPane fx:id="playerNameBackground10" layoutX="715.0" layoutY="570.0" prefHeight="61.0" prefWidth="306.0" styleClass="standardPlayerLabel">
+         <children>
+            <Text fx:id="playerNameLabel10" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" />
          </children>
       </StackPane>
    </children>
