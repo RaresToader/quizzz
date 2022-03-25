@@ -39,6 +39,8 @@ public class Utils {
                 .accept(APPLICATION_JSON) //
                 .get(String.class);
     }
+
+
     public static List<Map.Entry<String,Integer>> getCurrentLeaderBoard(String nickname) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path("session/currentleaderboard/" + nickname) //
@@ -74,7 +76,10 @@ public class Utils {
             return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"),new ArrayList<>());
         } else if (type.equals("ConsumpQuestion")) {
             finalQuestion = parseConsumpQuestion(question);
-            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"),new ArrayList<>());
+            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), new ArrayList<>());
+        } else if (type.equals("GuessQuestion")) {
+            finalQuestion = parseGuessQuestion(question);
+            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), new ArrayList<>());
         } else {
             throw new IllegalArgumentException("Wrong question");
         }
@@ -123,6 +128,18 @@ public class Utils {
         Long second = (Long) question.get("second");
         Long third = (Long) question.get("third");
         return new ConsumpQuestion(questionPrompt, activity, first, second, third);
+    }
+
+    /**
+     * Parses a GuessQuestion from a JSONObject
+     *
+     * @param question the question to be parsed
+     * @return a GuessQuestion
+     */
+    public static GuessQuestion parseGuessQuestion(JSONObject question) {
+        String questionPrompt = (String) question.get("question");
+        Activity activity = parseActivity((JSONObject) question.get("activity"));
+        return new GuessQuestion(questionPrompt, activity);
     }
 
     /**

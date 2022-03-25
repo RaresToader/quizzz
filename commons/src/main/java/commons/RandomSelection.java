@@ -20,19 +20,29 @@ public class RandomSelection {
         System.out.println(database.size());
         listOfQuestions = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            int type = random.nextInt(2);
+            int type = random.nextInt(3);
 
+            /**
+             * If the type is 0, create a question of type "QuizzQuestion"
+             */
             if(type == 0) {
                 listOfQuestions.add(new QuizzQuestion("What activity costs more?", database.get(3 * i),
                         database.get(3 * i + 1), database.get(3 * i + 2)));
             }
 
-            if(type == 1) {
+            /**
+             * If the type is 1, create a question of type "ConsumpQuestion", with the correct answer put in a random
+             * slot and the other two options randomly generated close to the correct answer,
+             * rounded to a multiple of 5
+             */
+            else if(type == 1) {
                 long correct = database.get(3 * i).getConsumption_in_wh();
-                double lower = correct * 0.9;
-                double higher = correct * 1.1;
-                long next = (long) (random.nextInt((int) (higher - lower)) + lower);
-                long last = (long) (random.nextInt((int) (higher - lower)) + lower);
+                double lower = correct * 0.7;
+                double higher = correct * 1.3;
+                long temp = (long) (random.nextInt((int) (higher - lower)) + lower);
+                long next = temp - (temp % 5);
+                long temp2 = (long) (random.nextInt((int) (higher - lower)) + lower);
+                long last = temp2 - (temp2 % 5);
                 int version = random.nextInt(3);
                 if(version == 0) {
                     listOfQuestions.add(new ConsumpQuestion("How much energy does this cost?" , database.get(3 * i), correct, next, last));
@@ -45,6 +55,13 @@ public class RandomSelection {
                 if(version == 2) {
                     listOfQuestions.add(new ConsumpQuestion("How much energy does this cost?" , database.get(3 * i), next, last, correct));
                 }
+            }
+
+            /**
+             * If the type is 0, create a question of type "GuessQuestion"
+             */
+            else {
+                listOfQuestions.add(new GuessQuestion("Guess the cost of the activity", database.get(3 * i)));
             }
         }
     }
