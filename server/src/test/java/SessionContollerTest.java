@@ -85,6 +85,7 @@ public class SessionContollerTest {
     @Test
     public void setEmojiTest(){
         SessionController sess = new SessionController(repo);
+        assertFalse(sess.setEmoji("user","emoji"));
         SessionContainer.createSession(true,"test",sess.get60RandomActivities());
         int sessionId = SessionContainer.findUserSession("test");
         Session session = SessionContainer.getSession(sessionId);
@@ -95,9 +96,9 @@ public class SessionContollerTest {
         Emoji emoji1 = new Emoji("test1","emoji1");
         Emoji emoji2 = new Emoji("test2","emoji2");
         list.add(emoji1);
-        sess.setEmoji("test1", "emoji1");
+        assertTrue(sess.setEmoji("test1", "emoji1"));
         assertEquals(list,session.getActiveEmoijList());
-        sess.setEmoji("test1", "emoji3");
+        assertTrue(sess.setEmoji("test1", "emoji3"));
         list.remove(emoji1);
         Emoji emoji3 = new Emoji("test1","emoji3");
         list.add(emoji3);

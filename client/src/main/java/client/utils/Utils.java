@@ -190,4 +190,34 @@ public class Utils {
                 .get(new GenericType<List<String>>() {
                 });
     }
+    /**
+     * Invokes to session/setEmoji/{nickname}/{emojiType} and adds the emoji of the user to the session
+     * @param nickname - provided nickname of the requesting client
+     * @param emojiType - the type of emoji that is clicked by the user
+     * @return Boolean value whether operation was successful
+     */
+    public static boolean setEmoji(String nickname, String emojiType){
+        String path = "session/setEmoji/" + nickname + "/" + emojiType;
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path(path) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(Boolean.class);
+    }
+    /**
+     * Invokes to session/getactivesessionemojis/{nickname} and get a list with the active session emojis
+     * @param nickname - provided nickname of the requesting client
+     * @return List<Emoji> that contains all active emojis in the session (1/user)
+     */
+    public static List<Emoji> getActiveSessionEmojis(String nickname) {
+        String path = "session/getactivesessionemojis/" + nickname;
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path(path)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<List<Emoji>>(){
+                });
+    }
+
+
 }

@@ -77,13 +77,16 @@ public class SessionController {
      * @param emojiType - type of emoji the user chose.
      */
     @GetMapping("/session/setEmoji/{nickname}/{emojitype}")
-    public void setEmoji(@PathVariable("nickname") String nickname, @PathVariable("emojitype") String emojiType){
+    public boolean setEmoji(@PathVariable("nickname") String nickname, @PathVariable("emojitype") String emojiType){
+        boolean x = false;
         int sessionId = SessionContainer.findUserSession(nickname);
         if (sessionId != -1){
             Session session = SessionContainer.getSession(sessionId);
             Emoji emoji = new Emoji(nickname,emojiType);
             session.addEmoij(emoji);
+            x = true;
         }
+        return x;
     }
 
     /**
@@ -91,7 +94,7 @@ public class SessionController {
      * @param nickname - nickname of the user who asks for the emoji's
      * @return List<Emoji> - list with all emoji's which contain also the name of the user and the emoji-types
      */
-    @GetMapping("/session/getActiveSessionEmojis/{nickname}")
+    @GetMapping("/session/getactivesessionemojis/{nickname}")
     public List<Emoji> getActiveSessionEmojis(@PathVariable("nickname") String nickname){
         List<Emoji> list = new ArrayList<Emoji>();
         int sessionId = SessionContainer.findUserSession(nickname);
