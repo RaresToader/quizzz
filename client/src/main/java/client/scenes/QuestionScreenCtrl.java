@@ -22,6 +22,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -202,7 +203,7 @@ public class QuestionScreenCtrl {
             question.setText(progress + ". " + ((ConsumpQuestion) currQuestion).getQuestion());
             activity.setText(((ConsumpQuestion) currQuestion).getActivity().getTitle());
             String path = "/photos/"+((ConsumpQuestion) currQuestion).getActivity().getImage_path();
-            activityImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
             firstConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getFirst()));
             secondConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getSecond()));
             thirdConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getThird()));
@@ -224,13 +225,26 @@ public class QuestionScreenCtrl {
             firstConsump.setText(((InsteadOfQuestion) currQuestion).getFirstChoice().getTitle());
             secondConsump.setText(((InsteadOfQuestion) currQuestion).getSecondChoice().getTitle());
             thirdConsump.setText(((InsteadOfQuestion) currQuestion).getThirdChoice().getTitle());
+
+            firstConsump.setStyle("-fx-background-color: #CED0CE;");
+            secondConsump.setStyle("-fx-background-color: #CED0CE;");
+            thirdConsump.setStyle("-fx-background-color: #CED0CE;");
+
+            firstConsump.setDisable(false);
+            secondConsump.setDisable(false);
+            thirdConsump.setDisable(false);
+
+            firstConsump.setStyle("-fx-font-size: 10pt;");
+            secondConsump.setStyle("-fx-font-size: 10pt;");
+            thirdConsump.setStyle("-fx-font-size: 10pt;");
+
         }
         else {
             guessPage();
             question.setText(progress + ". " + ((GuessQuestion) currQuestion).getQuestion());
             activity.setText(((GuessQuestion) currQuestion).getActivity().getTitle());
             String path = "/photos/"+((GuessQuestion) currQuestion).getActivity().getImage_path();
-            activityImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
             guess.setText("");
             guess.setDisable(false);
             submit.setDisable(false);
@@ -253,13 +267,13 @@ public class QuestionScreenCtrl {
         question.setText(progress + ". " + currQuestion.getQuestion());
         firstAnswer.setText(((QuizzQuestion) currQuestion).getFirstChoice().getTitle());
         String path = "/photos/"+((QuizzQuestion) currQuestion).getFirstChoice().getImage_path();
-        firstAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+        firstAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
         secondAnswer.setText(((QuizzQuestion) currQuestion).getSecondChoice().getTitle());
         path = "/photos/"+((QuizzQuestion) currQuestion).getSecondChoice().getImage_path();
-        secondAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+        secondAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
         thirdAnswer.setText(((QuizzQuestion) currQuestion).getThirdChoice().getTitle());
         path = "/photos/"+((QuizzQuestion) currQuestion).getThirdChoice().getImage_path();
-        thirdAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+        thirdAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
 
         firstAnswer.setStyle("-fx-background-color: #CED0CE;");
         secondAnswer.setStyle("-fx-background-color: #CED0CE;");
