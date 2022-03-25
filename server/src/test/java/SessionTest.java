@@ -18,7 +18,7 @@ public class SessionTest {
     public void setup() {
         repo = new TestActivityRepository();
         for(int i=0; i<60; i++) {
-            Activity toBeAdded = new Activity("test"+i, "test","10", 10L       ,"test");
+            Activity toBeAdded = new Activity("test"+i, "test","10", 10L,"test");
             repo.save(toBeAdded);
         }
         sess = new SessionController(repo);
@@ -309,6 +309,18 @@ public class SessionTest {
         assertEquals(Long.valueOf(0),x.getQuestionStartedAt());
     }
     @Test
+    public void addEmojiTest() {
+        Session x = new Session(true, sess.get60RandomActivities());
+        Emoji emoji1 = new Emoji("user1", "emoji1");
+        Emoji emoji2 = new Emoji("user2", "emoij2");
+        List<Emoji> emojiList = new ArrayList<Emoji>();
+        emojiList.add(emoji1);
+        emojiList.add(emoji2);
+        x.addEmoij(emoji1);
+        x.addEmoij(emoji2);
+        assertEquals(emojiList, x.getEmojiList());
+    }
+    @Test
     public void getCurrentLeaderboardTest() {
         Session x = new Session(false,sess.get60RandomActivities());
         x.addPlayer("test");
@@ -318,5 +330,46 @@ public class SessionTest {
         assertEquals(new ArrayList<Map.Entry<String,Integer>>(expected.entrySet()),x.getCurrentLeaderboard());
     }
 
+    @Test
+    public void getEmojiListTest(){
+        Session x = new Session(true,sess.get60RandomActivities());
+        Emoji emoji1 = new Emoji("user1","emoji1");
+        Emoji emoji2 = new Emoji("user2", "emoij2");
+        List<Emoji> emojiList = new ArrayList<Emoji>();
+        emojiList.add(emoji1);
+        emojiList.add(emoji2);
+        x.addEmoij(emoji1);
+        x.addEmoij(emoji2);
+        assertEquals(emojiList,x.getEmojiList());
+    }
 
+    @Test
+    public void getActiveEmojiListTest(){
+        Session x = new Session(true,sess.get60RandomActivities());
+        Emoji emoji1 = new Emoji("user1","emoji1");
+        Emoji emoji2 = new Emoji("user2", "emoij2");
+        List<Emoji> emojiList = new ArrayList<Emoji>();
+        emojiList.add(emoji1);
+        emojiList.add(emoji2);
+        x.addEmoij(emoji1);
+        x.addEmoij(emoji2);
+        assertEquals(emojiList,x.getActiveEmoijList());
+        emoji2.setStartTimeEmoji(emoji2.getStartTimeEmoji() - 5500);
+        List<Emoji> emojiList2 = new ArrayList<Emoji>();
+        emojiList2.add(emoji1);
+        assertEquals(emojiList2,x.getActiveEmoijList());
+        assertEquals(emojiList2,x.getEmojiList());
+        Emoji emoji3 = new Emoji("user1","emoji3");
+        x.addEmoij(emoji3);
+        emoji1.setStartTimeEmoji(emoji1.getStartTimeEmoji() - 2000);
+        List<Emoji> emojiList3 = new ArrayList<Emoji>();
+        emojiList3.add(emoji3);
+        assertEquals(emojiList3,x.getActiveEmoijList());
+        Emoji emoji4 = new Emoji("user1", "emoij4");
+        emoji4.setStartTimeEmoji(emoji4.getStartTimeEmoji() + 1000);
+        x.addEmoij(emoji4);
+        emojiList3.remove(emoji3);
+        emojiList3.add(emoji4);
+        assertEquals(emojiList3,x.getActiveEmoijList());
+    }
 }

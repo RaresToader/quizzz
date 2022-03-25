@@ -2,6 +2,7 @@ package server;
 
 import commons.Activity;
 import commons.Answer;
+import commons.Emoji;
 import commons.QuizzQuestionServerParsed;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
@@ -83,6 +84,44 @@ public class SessionController {
             currentLeaderboard = session.getCurrentLeaderboard();
         }
         return currentLeaderboard;
+    }
+
+    /**
+     * Sets the chosen emoji in the list with emoji's of the session the player is in
+     * @param nickname - nickname of the user who chose the emoji
+     * @param emojiType - type of emoji the user chose.
+     * @return boolean value whether operation was successful
+     */
+    @GetMapping("/session/setEmoji/{nickname}/{emojitype}")
+    public boolean setEmoji(@PathVariable("nickname") String nickname, @PathVariable("emojitype") String emojiType){
+        boolean successful = false;
+        int sessionId = SessionContainer.findUserSession(nickname);
+        if (sessionId != -1){
+            Session session = SessionContainer.getSession(sessionId);
+            Emoji emoji = new Emoji(nickname,emojiType);
+            session.addEmoij(emoji);
+            successful = true;
+        }
+        return successful;
+    }
+
+    /**
+     * Gets a list with the active emoji's in the session
+     * @param nickname - nickname of the user who asks for the emoji's
+     * @return List<Emoji> - list with all emoji's which contain also the name of the user and the emoji-types
+     */
+    @GetMapping("/session/getactivesessionemojis/{nickname}")
+    public List<Emoji> getActiveSessionEmojis(@PathVariable("nickname") String nickname){
+        List<Emoji> list = new ArrayList<Emoji>();
+        int sessionId = SessionContainer.findUserSession(nickname);
+        if (sessionId == -1){
+            return list;
+        }
+        else{
+            Session session = SessionContainer.getSession(sessionId);
+            list = session.getActiveEmoijList();
+            return list;
+        }
     }
 
     /**
