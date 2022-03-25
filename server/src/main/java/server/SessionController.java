@@ -88,7 +88,7 @@ public class SessionController {
             successful = true;
         }
         return successful;
-
+    }
 
     /**
      * Gets a list with the active emoji's in the session
