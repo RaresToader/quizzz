@@ -23,7 +23,7 @@ public class RandomSelection {
         System.out.println(database.size());
         listOfQuestions = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            int type = random.nextInt(3);
+            int type = random.nextInt(4);
 
             /**
              * If the type is 0, create a question of type "QuizzQuestion"
@@ -31,6 +31,9 @@ public class RandomSelection {
             if (type == 0) {
                 listOfQuestions.add(new QuizzQuestion("What activity costs more?", database.get(3 * i),
                         database.get(3 * i + 1), database.get(3 * i + 2)));
+                database.remove(3*i);
+                database.remove(3*i+1);
+                database.remove(3*i+2);
             }
 
             /**
@@ -57,7 +60,9 @@ public class RandomSelection {
 
                 if (version == 2) {
                     listOfQuestions.add(new ConsumpQuestion("How much energy does this cost?", database.get(3 * i), next, last, correct));
+
                 }
+                database.remove(3*i);
             }
 
             /**
@@ -65,9 +70,14 @@ public class RandomSelection {
              */
             else if (type == 2) {
                 listOfQuestions.add(new GuessQuestion("Guess the cost of the activity", database.get(3 * i)));
+                database.remove(3*i);
             }
             else{
-                listOfQuestions.add(new GuessQuestion("Guess",database.get(3*i)));
+                listOfQuestions.add(new InsteadOfQuestion(database.get(3*i),database.get(3*i+1),database.get(3*i+2),database.get(3*i+3)));
+                database.remove(3*i);
+                database.remove(3*i+1);
+                database.remove(3*i+2);
+                database.remove(3*i+3);
             }
         }
     }

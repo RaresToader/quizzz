@@ -39,12 +39,13 @@ public class Utils {
                 .accept(APPLICATION_JSON) //
                 .get(String.class);
     }
-    public static List<Map.Entry<String,Integer>> getCurrentLeaderBoard(String nickname) {
+
+    public static List<Map.Entry<String, Integer>> getCurrentLeaderBoard(String nickname) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path("session/currentleaderboard/" + nickname) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
-                .get(new GenericType<List<Map.Entry<String,Integer>>>() {
+                .get(new GenericType<List<Map.Entry<String, Integer>>>() {
                 });
     }
 
@@ -71,12 +72,15 @@ public class Utils {
         String type = (String) question.get("type");
         if (type.equals("QuizzQuestion")) {
             finalQuestion = parseQuizzQuestion(question);
-            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"),new ArrayList<>());
+            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), new ArrayList<>());
         } else if (type.equals("ConsumpQuestion")) {
             finalQuestion = parseConsumpQuestion(question);
             return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), new ArrayList<>());
         } else if (type.equals("GuessQuestion")) {
             finalQuestion = parseGuessQuestion(question);
+            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), new ArrayList<>());
+        } else if (type.equals("InsteadOfQuestion")) {
+            finalQuestion = parseInsteadOfQuestion(question);
             return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), new ArrayList<>());
         } else {
             throw new IllegalArgumentException("Wrong question");
@@ -95,6 +99,20 @@ public class Utils {
         Activity secondChoice = parseActivity((JSONObject) question.get("secondChoice"));
         Activity thirdChoice = parseActivity((JSONObject) question.get("thirdChoice"));
         return new QuizzQuestion(questionPrompt, firstChoice, secondChoice, thirdChoice);
+    }
+
+    /**
+     * Parses a InsteadOfQuestion from a JSONObject
+     *
+     * @param question a jsonObject, representing the question
+     * @return a insteadOfQuestion
+     */
+    public static InsteadOfQuestion parseInsteadOfQuestion(JSONObject question) {
+        Activity prompt = parseActivity((JSONObject) question.get("promptActivity"));
+        Activity firstChoice = parseActivity((JSONObject) question.get("firstChoice"));
+        Activity secondChoice = parseActivity((JSONObject) question.get("secondChoice"));
+        Activity thirdChoice = parseActivity((JSONObject) question.get("thirdChoice"));
+        return new InsteadOfQuestion(prompt, firstChoice, secondChoice, thirdChoice);
     }
 
     /**
@@ -157,12 +175,13 @@ public class Utils {
 
     /**
      * Invokes to /session/addjoker/{nickname}/{jokertype}/{question} and submits joker for given session
+     *
      * @param x - Joker to be sent
      * @return Boolean value whether operation of addition was successful
      */
     public static boolean addJoker(Joker x) {
-        if(x == null) return false;
-        String path = "/session/addjoker/"+Session.getNickname()+"/"+x.getJokerType()+"/"+x.getQuestionNum();
+        if (x == null) return false;
+        String path = "/session/addjoker/" + Session.getNickname() + "/" + x.getJokerType() + "/" + x.getQuestionNum();
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path(path) //
                 .request(APPLICATION_JSON) //
@@ -172,10 +191,11 @@ public class Utils {
 
     /**
      * Invokes to /session/leavesession/{nickname} and informs server that player wants to leave given session
+     *
      * @return Boolean value whether operation of removal was successful
      */
     public static boolean leaveSession() {
-        String path = "session/leavesession/"+Session.getNickname();
+        String path = "session/leavesession/" + Session.getNickname();
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path(path) //
                 .request(APPLICATION_JSON)
@@ -203,6 +223,7 @@ public class Utils {
 
     /**
      * Invokes to /session/playersinsession/{nickname} and get all the players in the session
+     *
      * @param nickname - provided nickname of the requesting client
      * @return List<Players> that contains all the players in the session
      */
@@ -214,13 +235,15 @@ public class Utils {
                 .get(new GenericType<List<String>>() {
                 });
     }
+
     /**
      * Invokes to session/setEmoji/{nickname}/{emojiType} and adds the emoji of the user to the session
-     * @param nickname - provided nickname of the requesting client
+     *
+     * @param nickname  - provided nickname of the requesting client
      * @param emojiType - the type of emoji that is clicked by the user
      * @return Boolean value whether operation was successful
      */
-    public static boolean setEmoji(String nickname, String emojiType){
+    public static boolean setEmoji(String nickname, String emojiType) {
         String path = "session/setEmoji/" + nickname + "/" + emojiType;
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path(path) //
@@ -228,8 +251,10 @@ public class Utils {
                 .accept(APPLICATION_JSON) //
                 .get(Boolean.class);
     }
+
     /**
      * Invokes to session/getactivesessionemojis/{nickname} and get a list with the active session emojis
+     *
      * @param nickname - provided nickname of the requesting client
      * @return List<Emoji> that contains all active emojis in the session (1/user)
      */
@@ -239,7 +264,7 @@ public class Utils {
                 .target(SERVER).path(path)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<List<Emoji>>(){
+                .get(new GenericType<List<Emoji>>() {
                 });
     }
 

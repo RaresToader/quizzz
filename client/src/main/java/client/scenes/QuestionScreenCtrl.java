@@ -214,7 +214,18 @@ public class QuestionScreenCtrl {
             firstConsump.setDisable(false);
             secondConsump.setDisable(false);
             thirdConsump.setDisable(false);
-        }  else {
+        }
+        else if(currQuestion instanceof InsteadOfQuestion){
+            consumpPage();
+            question.setText(progress + ". " + ((InsteadOfQuestion) currQuestion).getQuestion());
+            activity.setText(((InsteadOfQuestion) currQuestion).getPromptActivity().getTitle());
+            String path = "/photos/"+((InsteadOfQuestion) currQuestion).getPromptActivity().getImage_path();
+            activityImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+            firstConsump.setText(((InsteadOfQuestion) currQuestion).getFirstChoice().getTitle());
+            secondConsump.setText(((InsteadOfQuestion) currQuestion).getSecondChoice().getTitle());
+            thirdConsump.setText(((InsteadOfQuestion) currQuestion).getThirdChoice().getTitle());
+        }
+        else {
             guessPage();
             question.setText(progress + ". " + ((GuessQuestion) currQuestion).getQuestion());
             activity.setText(((GuessQuestion) currQuestion).getActivity().getTitle());
