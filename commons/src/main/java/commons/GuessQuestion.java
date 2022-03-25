@@ -28,14 +28,13 @@ public class GuessQuestion extends Question {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         GuessQuestion that = (GuessQuestion) o;
-        return Objects.equals(activity, that.activity);
+        return Objects.equals(question, that.question) && Objects.equals(activity, that.activity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), activity);
+        return Objects.hash(question, activity);
     }
 
     @Override

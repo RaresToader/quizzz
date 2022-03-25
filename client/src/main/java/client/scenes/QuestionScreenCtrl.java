@@ -235,6 +235,9 @@ public class QuestionScreenCtrl {
 
     }
 
+    /**
+     * Sets a new question for the question type "QuizzQuestion"
+     */
     public void initQuizzQuestion() {
         question.setText(progress + ". " + currQuestion.getQuestion());
         firstAnswer.setText(((QuizzQuestion) currQuestion).getFirstChoice().getTitle());
@@ -256,6 +259,9 @@ public class QuestionScreenCtrl {
         thirdAnswer.setDisable(false);
     }
 
+    /**
+     * Makes it so that only numbers can be entered in the guess TextField
+     */
     public void guessOnlyNum() {
         guess.textProperty().addListener(new ChangeListener<String>() {
                                              @Override
@@ -309,7 +315,6 @@ public class QuestionScreenCtrl {
             guess.setStyle("-fx-background-color: red;");
         }
         transition();
-
     }
 
 
@@ -327,13 +332,6 @@ public class QuestionScreenCtrl {
             chosenAnswer = Long.toString(((ConsumpQuestion) currQuestion).getFirst());
             check(firstConsump);
         }
-        //firstChoice.setStyle("-fx-background-color: black;");
-        /*
-            I think the checking part should be done by the server side.
-            setBackground(firstChoice, secondChoice, thirdChoice);
-         */
-        //firstChoice.setOnAction(event -> clickedAgainResetFirst());
-
     }
 
     /**
@@ -347,12 +345,7 @@ public class QuestionScreenCtrl {
         if(currQuestion instanceof ConsumpQuestion) {
             chosenAnswer = Long.toString(((ConsumpQuestion) currQuestion).getSecond());
             check(secondConsump);
-        }        //secondChoice.setStyle("-fx-background-color: black;");
-        //secondChoice.setOnAction(e -> clickedAgainResetSecond());
-        /**
-         * I think this should be done in the server side, and in a slightly different way.
-         */
-        // setBackground(secondChoice, firstChoice, thirdChoice);
+        }
     }
 
 
@@ -369,14 +362,12 @@ public class QuestionScreenCtrl {
             check(thirdConsump);
         }
 
-        //thirdChoice.setStyle("-fx-background-color: black");
-        //thirdChoice.setOnAction(e -> clickedAgainResetThird());
-        /**
-         * I think this should be checked by the server
-         */
-        //setBackground(thirdChoice, firstChoice, secondChoice);
     }
 
+    /**
+     * When the user clicks on the submit button, this method calculates the points that should be
+     * received, shows whether the question was answered correctly and if not it shows the correct answer
+     */
     public void submitGuess() {
         if (currQuestion instanceof GuessQuestion) {
             Utils.submitAnswer(0);
@@ -612,6 +603,24 @@ public class QuestionScreenCtrl {
         timer.play();
     }
 
+    /**
+     * Makes everything that is shown on the "QuizzQuestion" screen invisible and unclickable
+     */
+    public void notQuizzPage() {
+        firstAnswer.setVisible(false);
+        firstAnswer.setDisable(true);
+        secondAnswer.setVisible(false);
+        secondAnswer.setDisable(true);
+        thirdAnswer.setVisible(false);
+        thirdAnswer.setDisable(true);
+        firstAnswerLabel.setVisible(false);
+        secondAnswerLabel.setVisible(false);
+        thirdAnswerLabel.setVisible(false);
+    }
+
+    /**
+     * Shows and sets to front everything that should be shown for the "QuizzQuestion" question type
+     */
     public void showQuizzPage() {
         notConsumpPage();
         notGuessPage();
@@ -635,18 +644,10 @@ public class QuestionScreenCtrl {
         thirdAnswerLabel.toFront();
     }
 
-    public void notQuizzPage() {
-        firstAnswer.setVisible(false);
-        firstAnswer.setDisable(true);
-        secondAnswer.setVisible(false);
-        secondAnswer.setDisable(true);
-        thirdAnswer.setVisible(false);
-        thirdAnswer.setDisable(true);
-        firstAnswerLabel.setVisible(false);
-        secondAnswerLabel.setVisible(false);
-        thirdAnswerLabel.setVisible(false);
-    }
 
+    /**
+     * Makes everything that is shown on the "ConsumpQuestion" screen invisible and unclickable
+     */
     public void notConsumpPage() {
         firstConsump.setVisible(false);
         firstConsump.setDisable(true);
@@ -658,6 +659,9 @@ public class QuestionScreenCtrl {
         activity.setVisible(false);
     }
 
+    /**
+     * Show, make clickable and set to front everything that should be shown for the "ConsumpQuestion" question type
+     */
     public void consumpPage() {
         notGuessPage();
         notQuizzPage();
@@ -676,6 +680,9 @@ public class QuestionScreenCtrl {
         activityImage.toFront();
     }
 
+    /**
+     * Makes everything that is shown on the "GuessQuestion" screen invisible and unclickable
+     */
     public void notGuessPage() {
         activity.setVisible(false);
         activityImage.setVisible(false);
@@ -685,6 +692,9 @@ public class QuestionScreenCtrl {
         guessLabel.setVisible(false);
     }
 
+    /**
+     * Show, make clickable and set to front everything that should be shown for the "GuessQuestion" question type
+     */
     public void guessPage() {
         notQuizzPage();
         notConsumpPage();
@@ -700,6 +710,9 @@ public class QuestionScreenCtrl {
         submit.toFront();
     }
 
+    /**
+     * When the "finish now" button is clicked, it asks whether you are sure you want to quit
+     */
     public void confirmPage(){
         notQuizzPage();
         notConsumpPage();
@@ -718,6 +731,10 @@ public class QuestionScreenCtrl {
         transitionTimer.toFront();
         notConfirmButton.toFront();
     }
+
+    /**
+     * Closes the confirm screen when the "no" button is clicked
+     */
     public void closeConfirmPage(){
         timeBarFill.setVisible(true);
         timeBarBackground.setVisible(true);
@@ -738,6 +755,10 @@ public class QuestionScreenCtrl {
         notConfirmButton.setDisable(true);
         notConfirmButton.setVisible(false);
     }
+
+    /**
+     * Ends the game when the "yes" button is clicked
+     */
     public void confirmQuit(){
         transitionTimer.setVisible(true);
         transitionTimer.setText("You interrupted the game");
