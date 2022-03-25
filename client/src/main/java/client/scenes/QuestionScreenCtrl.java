@@ -8,11 +8,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -81,6 +84,15 @@ public class QuestionScreenCtrl {
 
     @FXML
     private Button thirdConsump;
+
+    @FXML
+    private TextField guess;
+
+    @FXML
+    private Label guessLabel;
+
+    @FXML
+    private Button submit;
 
     @FXML
     private Button firstAnswer;
@@ -183,29 +195,9 @@ public class QuestionScreenCtrl {
         progress += 1;
 
         if(currQuestion instanceof QuizzQuestion) {
-            notConsumpPage();
             showQuizzPage();
-            question.setText(progress + ". " + currQuestion.getQuestion());
-            firstAnswer.setText(((QuizzQuestion) currQuestion).getFirstChoice().getTitle());
-            String path = "/photos/"+((QuizzQuestion) currQuestion).getFirstChoice().getImage_path();
-            firstAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
-            secondAnswer.setText(((QuizzQuestion) currQuestion).getSecondChoice().getTitle());
-            path = "/photos/"+((QuizzQuestion) currQuestion).getSecondChoice().getImage_path();
-            secondAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
-            thirdAnswer.setText(((QuizzQuestion) currQuestion).getThirdChoice().getTitle());
-            path = "/photos/"+((QuizzQuestion) currQuestion).getThirdChoice().getImage_path();
-            thirdAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
-
-            firstAnswer.setStyle("-fx-background-color: #CED0CE;");
-            secondAnswer.setStyle("-fx-background-color: #CED0CE;");
-            thirdAnswer.setStyle("-fx-background-color: #CED0CE;");
-
-            firstAnswer.setDisable(false);
-            secondAnswer.setDisable(false);
-            thirdAnswer.setDisable(false);
-        }
-
-        if(currQuestion instanceof ConsumpQuestion) {
+            initQuizzQuestion();
+        }  else if(currQuestion instanceof ConsumpQuestion) {
             consumpPage();
             question.setText(progress + ". " + ((ConsumpQuestion) currQuestion).getQuestion());
             activity.setText(((ConsumpQuestion) currQuestion).getActivity().getTitle());
@@ -222,13 +214,61 @@ public class QuestionScreenCtrl {
             firstConsump.setDisable(false);
             secondConsump.setDisable(false);
             thirdConsump.setDisable(false);
+        }  else {
+            guessPage();
+            question.setText(progress + ". " + ((GuessQuestion) currQuestion).getQuestion());
+            activity.setText(((GuessQuestion) currQuestion).getActivity().getTitle());
+            String path = "/photos/"+((GuessQuestion) currQuestion).getActivity().getImage_path();
+            activityImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+            guess.setText("");
+            guess.setDisable(false);
+            submit.setDisable(false);
+            guessOnlyNum();
+
+            guess.setStyle("-fx-background-color: #CED0CE;");
         }
 
+        guessLabel.setText("");
         firstAnswerLabel.setText("");
         secondAnswerLabel.setText("");
         thirdAnswerLabel.setText("");
 
     }
+
+    public void initQuizzQuestion() {
+        question.setText(progress + ". " + currQuestion.getQuestion());
+        firstAnswer.setText(((QuizzQuestion) currQuestion).getFirstChoice().getTitle());
+        String path = "/photos/"+((QuizzQuestion) currQuestion).getFirstChoice().getImage_path();
+        firstAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+        secondAnswer.setText(((QuizzQuestion) currQuestion).getSecondChoice().getTitle());
+        path = "/photos/"+((QuizzQuestion) currQuestion).getSecondChoice().getImage_path();
+        secondAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+        thirdAnswer.setText(((QuizzQuestion) currQuestion).getThirdChoice().getTitle());
+        path = "/photos/"+((QuizzQuestion) currQuestion).getThirdChoice().getImage_path();
+        thirdAnswerImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+
+        firstAnswer.setStyle("-fx-background-color: #CED0CE;");
+        secondAnswer.setStyle("-fx-background-color: #CED0CE;");
+        thirdAnswer.setStyle("-fx-background-color: #CED0CE;");
+
+        firstAnswer.setDisable(false);
+        secondAnswer.setDisable(false);
+        thirdAnswer.setDisable(false);
+    }
+
+    public void guessOnlyNum() {
+        guess.textProperty().addListener(new ChangeListener<String>() {
+                                             @Override
+                                             public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                                                 String newValue) {
+                                                 if (!newValue.matches("\\d*")) {
+                                                     guess.setText(newValue.replaceAll("[^\\d]", ""));
+                                                 }
+                                             }
+                                         });
+    }
+
+
 
     /**
      * restarts the timer
@@ -262,7 +302,12 @@ public class QuestionScreenCtrl {
      */
     public void timeRanOut(){
         question.setText("Time ran out!");
-        wrongAnswer();
+        if(currQuestion instanceof ConsumpQuestion || currQuestion instanceof QuizzQuestion) {
+            wrongAnswer();
+        }
+        else {
+            guess.setStyle("-fx-background-color: red;");
+        }
         transition();
 
     }
@@ -332,6 +377,35 @@ public class QuestionScreenCtrl {
         //setBackground(thirdChoice, firstChoice, secondChoice);
     }
 
+    public void submitGuess() {
+        if (currQuestion instanceof GuessQuestion) {
+            Utils.submitAnswer(0);
+            questionTimer.pause();
+            points = timeLeft * 25 + 500;
+
+            chosenAnswer = guess.getText();
+            correctAnswer = ((GuessQuestion) currQuestion).getCorrectGuess();
+            if (chosenAnswer.equals(correctAnswer)) {
+                question.setText("Yeah, that's right!");
+                guess.setStyle("-fx-background-color: green;");
+                points = points * 2;
+                totalPoints += points;
+                pointCounter.setText("current points: " + totalPoints);
+            } else if (Math.abs(Long.parseLong(correctAnswer) - Long.parseLong(chosenAnswer)) < Long.parseLong(correctAnswer) * 0.3) {
+                question.setText("Very close!");
+                guess.setStyle("-fx-background-color: orange;");
+                totalPoints += points;
+                pointCounter.setText("current points: " + totalPoints);
+                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " watt per hour");
+            } else {
+                question.setText("That's wrong!");
+                guess.setStyle("-fx-background-color: red;");
+                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " watt per hour");
+            }
+            transition();
+        }
+    }
+
     /**
      * checks if the answer chosen was the right one, and if so distributes the points. Display the wh for each
      * choice.
@@ -350,7 +424,7 @@ public class QuestionScreenCtrl {
             secondAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getSecondChoice().getConsumption_in_wh() + " watt per hour");
             thirdAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getThirdChoice().getConsumption_in_wh() + " watt per hour");
         }
-        else if(currQuestion instanceof ConsumpQuestion) {
+        if(currQuestion instanceof ConsumpQuestion) {
             correctAnswer = ((ConsumpQuestion) currQuestion).getConsump();
         }
         if (chosenAnswer.equals(correctAnswer)) {
@@ -422,22 +496,21 @@ public class QuestionScreenCtrl {
         if(currQuestion instanceof QuizzQuestion) {
             firstAnswer.setDisable(true);
             firstAnswerLabel.setOpacity(1);
-
             secondAnswer.setDisable(true);
             secondAnswerLabel.setOpacity(1);
-
             thirdAnswer.setDisable(true);
             thirdAnswerLabel.setOpacity(1);
         }
-
-        if(currQuestion instanceof ConsumpQuestion) {
+        else if(currQuestion instanceof ConsumpQuestion) {
             firstConsump.setDisable(true);
             secondConsump.setDisable(true);
             thirdConsump.setDisable(true);
+        } else {
+            guess.setDisable(true);
+            submit.setDisable(true);
         }
 
         timeBarAnimation.pause();
-
         transitionTimeLeft = 5;
         transitionTimer.setVisible(true);
         transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
@@ -493,6 +566,8 @@ public class QuestionScreenCtrl {
         else {
             transitionTimer.setText("You had a higher score before! Try again!");
         }
+        notQuizzPage();
+        notGuessPage();
         notConsumpPage();
         firstAnswer.setStyle("-fx-background-color: #ced0ce;");
         secondAnswer.setStyle("-fx-background-color: #ced0ce;");
@@ -524,8 +599,6 @@ public class QuestionScreenCtrl {
                             totalPoints = 0;
                             pointCounter.setText("current points: " + totalPoints);
 
-                            notConsumpPage();
-
                             confirmButton.setDisable(true);
                             confirmButton.setVisible(false);
                             notConfirmButton.setDisable(true);
@@ -540,6 +613,8 @@ public class QuestionScreenCtrl {
     }
 
     public void showQuizzPage() {
+        notConsumpPage();
+        notGuessPage();
         firstAnswer.setVisible(true);
         secondAnswer.setVisible(true);
         thirdAnswer.setVisible(true);
@@ -549,6 +624,27 @@ public class QuestionScreenCtrl {
         firstAnswerLabel.setVisible(true);
         secondAnswerLabel.setVisible(true);
         thirdAnswerLabel.setVisible(true);
+        firstAnswer.toFront();
+        secondAnswer.toFront();
+        thirdAnswer.toFront();
+        firstAnswerImage.toFront();
+        secondAnswerImage.toFront();
+        thirdAnswerImage.toFront();
+        firstAnswerLabel.toFront();
+        secondAnswerLabel.toFront();
+        thirdAnswerLabel.toFront();
+    }
+
+    public void notQuizzPage() {
+        firstAnswer.setVisible(false);
+        firstAnswer.setDisable(true);
+        secondAnswer.setVisible(false);
+        secondAnswer.setDisable(true);
+        thirdAnswer.setVisible(false);
+        thirdAnswer.setDisable(true);
+        firstAnswerLabel.setVisible(false);
+        secondAnswerLabel.setVisible(false);
+        thirdAnswerLabel.setVisible(false);
     }
 
     public void notConsumpPage() {
@@ -563,15 +659,8 @@ public class QuestionScreenCtrl {
     }
 
     public void consumpPage() {
-        firstAnswer.setVisible(false);
-        firstAnswer.setDisable(true);
-        secondAnswer.setVisible(false);
-        secondAnswer.setDisable(true);
-        thirdAnswer.setVisible(false);
-        thirdAnswer.setDisable(true);
-        firstAnswerLabel.setVisible(false);
-        secondAnswerLabel.setVisible(false);
-        thirdAnswerLabel.setVisible(false);
+        notGuessPage();
+        notQuizzPage();
         firstConsump.setVisible(true);
         firstConsump.setDisable(false);
         secondConsump.setVisible(true);
@@ -580,46 +669,68 @@ public class QuestionScreenCtrl {
         thirdConsump.setDisable(false);
         activityImage.setVisible(true);
         activity.setVisible(true);
+        firstConsump.toFront();
+        secondConsump.toFront();
+        thirdConsump.toFront();
+        activity.toFront();
+        activityImage.toFront();
+    }
+
+    public void notGuessPage() {
+        activity.setVisible(false);
+        activityImage.setVisible(false);
+        guess.setVisible(false);
+        submit.setVisible(false);
+        submit.setDisable(true);
+        guessLabel.setVisible(false);
+    }
+
+    public void guessPage() {
+        notQuizzPage();
+        notConsumpPage();
+        activity.setVisible(true);
+        activityImage.setVisible(true);
+        guess.setVisible(true);
+        guessLabel.setVisible(true);
+        submit.setVisible(true);
+        submit.setDisable(false);
+        activity.toFront();
+        activityImage.toFront();
+        guess.toFront();
+        submit.toFront();
     }
 
     public void confirmPage(){
+        notQuizzPage();
         notConsumpPage();
+        notGuessPage();
         timeBarFill.setVisible(false);
         timeBarBackground.setVisible(false);
         time.setVisible(false);
         firstAnswer.setVisible(false);
-        firstAnswer.setDisable(true);
-        secondAnswer.setVisible(false);
-        secondAnswer.setDisable(true);
-        thirdAnswer.setVisible(false);
-        thirdAnswer.setDisable(true);
-        firstAnswerLabel.setVisible(false);
-        secondAnswerLabel.setVisible(false);
-        thirdAnswerLabel.setVisible(false);
         transitionTimer.setVisible(true);
         transitionTimer.setText("Are you sure?");
         confirmButton.setDisable(false);
         confirmButton.setVisible(true);
         notConfirmButton.setDisable(false);
         notConfirmButton.setVisible(true);
+        confirmButton.toFront();
+        transitionTimer.toFront();
+        notConfirmButton.toFront();
     }
     public void closeConfirmPage(){
         timeBarFill.setVisible(true);
         timeBarBackground.setVisible(true);
         time.setVisible(true);
         if (currQuestion instanceof QuizzQuestion) {
-            firstAnswer.setVisible(true);
-            firstAnswer.setDisable(false);
-            secondAnswer.setVisible(true);
-            secondAnswer.setDisable(false);
-            thirdAnswer.setVisible(true);
-            thirdAnswer.setDisable(false);
-            firstAnswerLabel.setVisible(true);
-            secondAnswerLabel.setVisible(true);
-            thirdAnswerLabel.setVisible(true);
+            showQuizzPage();
         }
-        else {
+        if (currQuestion instanceof ConsumpQuestion) {
             consumpPage();
+        }
+
+        if (currQuestion instanceof GuessQuestion) {
+            guessPage();
         }
         transitionTimer.setText("");
         confirmButton.setDisable(true);

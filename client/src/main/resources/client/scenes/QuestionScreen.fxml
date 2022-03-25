@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -83,6 +84,17 @@
                   <ImageView fx:id="activityImage" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
+            <TextField fx:id="guess" alignment="CENTER" layoutX="680.0" layoutY="255.0" prefHeight="70.0" prefWidth="342.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextField>
+            <Button fx:id="submit" layoutX="680.0" layoutY="385.0" mnemonicParsing="false" onAction="#submitGuess" prefHeight="70.0" prefWidth="342.0" style="-fx-background-color: #f15025;" text="Submit" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Label fx:id="guessLabel" alignment="CENTER" layoutX="669.0" layoutY="325.0" prefHeight="60.0" prefWidth="364.0" styleClass="activityLabel" textAlignment="CENTER" textFill="WHITE" />
          </children>
       </Pane>
    </children>

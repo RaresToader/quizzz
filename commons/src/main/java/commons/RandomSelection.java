@@ -27,7 +27,7 @@ public class RandomSelection {
                         database.get(3 * i + 1), database.get(3 * i + 2)));
             }
 
-            if(type == 1) {
+            else if(type == 1) {
                 long correct = database.get(3 * i).getConsumption_in_wh();
                 double lower = correct * 0.9;
                 double higher = correct * 1.1;
@@ -47,8 +47,8 @@ public class RandomSelection {
                 }
             }
 
-            if(type == 2) {
-                listOfQuestions.add(new GuessQuestion("Guess the energy consumption of the following activity", database.get(3 * i)));
+            else {
+                listOfQuestions.add(new GuessQuestion("Guess the cost of the activity", database.get(3 * i)));
             }
         }
     }
