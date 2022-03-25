@@ -3,11 +3,17 @@ package commons;
 import java.util.Objects;
 
 public class GuessQuestion extends Question {
-    Activity activity;
+    private String question;
+    private Activity activity;
 
     public GuessQuestion(String question, Activity activity) {
-        super(question);
+        super();
+        this.question = question;
         this.activity = activity;
+    }
+
+    public String getQuestion() {
+        return question;
     }
 
     public Activity getActivity() {

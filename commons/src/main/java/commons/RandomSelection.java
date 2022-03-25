@@ -48,7 +48,7 @@ public class RandomSelection {
             }
 
             if(type == 2) {
-                listOfQuestions.add(new GuessQuestion("Guess the energy consumption of: " + database.get(3 * i).getTitle(), database.get(3 * i)));
+                listOfQuestions.add(new GuessQuestion("Guess the energy consumption of the following activity", database.get(3 * i)));
             }
         }
     }
