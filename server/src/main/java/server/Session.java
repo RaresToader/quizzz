@@ -212,8 +212,8 @@ public class Session {
     }
 
     /**
-     * Check if there are expired emoji's in the session emoij-list en get the list with active emoijs
-     * @return List<Emoij> that contains all the 'active' emoji's.
+     * Check if there are expired emoji's in the session emoij-list and only gives the newest emoji of the players and get the list with active emoji's
+     * @return List<Emoji> that contains all the 'active' emoji's.
      */
     public List<Emoji> getActiveEmoijList(){
         List<Emoji> activeEmojiList = new ArrayList<Emoji>();
@@ -221,8 +221,16 @@ public class Session {
         int emojiListLength = emojiList.size();
         for (int i = 0; i < emojiListLength; i++){
             if(emojiList.get(i).getStartTimeEmoji() > (date.getTime() - 5000 )){ //emoji's have an expiry time of 5 seconds
+                for (int a = 0; a < activeEmojiList.size(); a++){
+                    if(emojiList.get(i).getUserApplying() == activeEmojiList.get(a).getUserApplying() &&
+                    emojiList.get(i).getStartTimeEmoji() >= activeEmojiList.get(a).getStartTimeEmoji()){
+                        activeEmojiList.remove(a);
+
+                    }
+                }
                 activeEmojiList.add(emojiList.get(i));
             }
+
         }
         this.emojiList = activeEmojiList;
         return activeEmojiList;

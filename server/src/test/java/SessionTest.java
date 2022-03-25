@@ -352,5 +352,17 @@ public class SessionTest {
         emojiList2.add(emoji1);
         assertEquals(emojiList2,x.getActiveEmoijList());
         assertEquals(emojiList2,x.getEmojiList());
+        Emoji emoji3 = new Emoji("user1","emoji3");
+        x.addEmoij(emoji3);
+        emoji1.setStartTimeEmoji(emoji1.getStartTimeEmoji() - 2000);
+        List<Emoji> emojiList3 = new ArrayList<Emoji>();
+        emojiList3.add(emoji3);
+        assertEquals(emojiList3,x.getActiveEmoijList());
+        Emoji emoji4 = new Emoji("user1", "emoij4");
+        emoji4.setStartTimeEmoji(emoji4.getStartTimeEmoji() + 1000);
+        x.addEmoij(emoji4);
+        emojiList3.remove(emoji3);
+        emojiList3.add(emoji4);
+        assertEquals(emojiList3,x.getActiveEmoijList());
     }
 }

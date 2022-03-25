@@ -1,4 +1,5 @@
 import commons.Activity;
+import commons.Emoji;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.Session;
@@ -80,6 +81,26 @@ public class SessionContollerTest {
         List<String> list = new ArrayList<String>();
         list.add("test");
         assertEquals(list,sess.getPlayersInSession("test"));
+    }
+    @Test
+    public void setEmojiTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test",sess.get60RandomActivities());
+        int sessionId = SessionContainer.findUserSession("test");
+        Session session = SessionContainer.getSession(sessionId);
+        session.addPlayer("test1");
+        session.addPlayer("test2");
+        session.addPlayer("test3");
+        List<Emoji> list = new ArrayList<>();
+        Emoji emoji1 = new Emoji("test1","emoji1");
+        Emoji emoji2 = new Emoji("test2","emoji2");
+        list.add(emoji1);
+        sess.setEmoji("test1", "emoji1");
+        assertEquals(list,session.getActiveEmoijList());
+        sess.setEmoji("test2", "emoji2");
+        ;
+
+
     }
 
     @Test
