@@ -64,7 +64,7 @@ public class SessionContainer {
         for (int i = 0; i < sessionList.size(); i++) {
             if (sessionList.get(i) == null) continue;
 
-            if (sessionList.get(i).isPlayerInSession(x) && !sessionList.get(i).hasEnded()) {
+            if (sessionList.get(i).isPlayerInSession(x)) {
                 return i;
             }
         }

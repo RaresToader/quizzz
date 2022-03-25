@@ -39,6 +39,8 @@ public class Utils {
                 .accept(APPLICATION_JSON) //
                 .get(String.class);
     }
+
+
     public static List<Map.Entry<String,Integer>> getCurrentLeaderBoard(String nickname) {
         return ClientBuilder.newClient(new ClientConfig()) //
                 .target(SERVER).path("session/currentleaderboard/" + nickname) //
