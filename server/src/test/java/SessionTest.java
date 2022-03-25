@@ -5,9 +5,7 @@ import server.Session;
 import server.SessionController;
 import server.api.TestActivityRepository;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -302,6 +300,22 @@ public class SessionTest {
     public void equalsSameInstanceTest() {
         Session x = new Session(false,sess.get60RandomActivities());
         assertTrue(x.equals(x));
+    }
+
+    @Test
+    public void setQuestionStartedAtTest() {
+        Session x = new Session(false,sess.get60RandomActivities());
+        x.setQuestionStartedAt(Long.valueOf(0));
+        assertEquals(Long.valueOf(0),x.getQuestionStartedAt());
+    }
+    @Test
+    public void getCurrentLeaderboardTest() {
+        Session x = new Session(false,sess.get60RandomActivities());
+        x.addPlayer("test");
+        assertTrue(x.addAnswer(new Answer("test",10,x.getCurrentQuestionNum())));
+        HashMap<String,Integer> expected = new HashMap<>();
+        expected.put("test",10);
+        assertEquals(new ArrayList<Map.Entry<String,Integer>>(expected.entrySet()),x.getCurrentLeaderboard());
     }
 
 

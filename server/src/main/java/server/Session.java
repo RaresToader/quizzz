@@ -2,14 +2,12 @@ package server;
 
 import commons.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Session {
     private static final int playerLimit = 20; //To be determined
     private List<String> playerList;
+    private HashMap<String,Integer> currentScores;
     private boolean started;
     private boolean ended;
     private String gameAdmin;
@@ -24,6 +22,7 @@ public class Session {
 
     public Session(boolean gameType, List<Activity> activities) {
         this.playerList        = new ArrayList<String>();
+        this.currentScores     = new HashMap<>();
         this.started           = false;
         this.ended             = false;
         this.gameAdmin         = null;
@@ -52,7 +51,7 @@ public class Session {
     }
 
     public QuizzQuestionServerParsed getCurrentQuestion() {
-        if (!this.started) return Session.emptyQ;
+        if (!this.started || this.ended) return Session.emptyQ;
 
         Date date = new Date();
         //If everyone has answered that question OR this is first question OR time has passed then get new question
@@ -124,6 +123,7 @@ public class Session {
             }
         }
 
+        this.currentScores.put(x.getNickname(),x.getAnswer());
         this.answers.add(x);
         return true;
     }
@@ -208,6 +208,13 @@ public class Session {
         this.currentQuestion = currentQuestion;
     }
 
+    /**
+     * Setter for questionStartedAt ONLY FOR TESTING PURPOSES
+     */
+    public void setQuestionStartedAt(Long questionStartedAt) {
+        this.questionStartedAt = questionStartedAt;
+    }
+
     public List<String> getPlayerList() {
         return playerList;
     }
@@ -215,6 +222,8 @@ public class Session {
     public boolean isStarted() {
         return started;
     }
+
+    public boolean isEnded() { return ended; }
 
     public String getGameAdmin() {
         return gameAdmin;
@@ -244,6 +253,13 @@ public class Session {
         return this.usedJokers;
     }
 
+    public HashMap<String, Integer> getCurrentScores() {
+        return currentScores;
+    }
+
+    public ArrayList<Map.Entry<String,Integer>> getCurrentLeaderboard() {
+        return new ArrayList<Map.Entry<String,Integer>>(currentScores.entrySet());
+    }
 
     @Override
     public String toString() {

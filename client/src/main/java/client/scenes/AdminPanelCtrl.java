@@ -15,6 +15,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import javax.inject.Inject;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AdminPanelCtrl {
 
@@ -76,8 +77,7 @@ public class AdminPanelCtrl {
         if (addAnchorPlane.isVisible()) {
             showButtonsAndTable();
             hideConfirmDelete();
-        }
-        else{
+        } else {
             hideConfirmDelete();
             showButtonsAndTable();
             refreshActivities.cancel();
@@ -96,14 +96,20 @@ public class AdminPanelCtrl {
         consumptionColumn.setCellValueFactory(new PropertyValueFactory("consumption_in_wh"));
         imagePathColumn.setCellValueFactory(new PropertyValueFactory("image_path"));
         sourceColumn.setCellValueFactory(new PropertyValueFactory("source"));
-        ObservableList<Activity> activities = FXCollections.observableArrayList();
-        activities.addAll(serverUtils.getAllActivities());
-        activitiesTable.setItems(activities);
+        AtomicReference<ObservableList<Activity>> activities = new AtomicReference<>(FXCollections.observableArrayList());
+        activities.get().addAll(serverUtils.getAllActivities());
+        activitiesTable.setItems(activities.get());
         refreshActivities = new Timer();
         refreshActivities.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(() -> activitiesTable.setItems(FXCollections.observableArrayList(serverUtils.getAllActivities())));
+                Platform.runLater(() -> {
+                    ObservableList<Activity> activitiesCopy = FXCollections.observableArrayList(serverUtils.getAllActivities());
+                    if (!activitiesCopy.equals(activities.get())) {  ///only refresh table if there are new activities
+                        activitiesTable.setItems(activitiesCopy);
+                        activities.set(activitiesCopy);
+                    }
+                });
             }
         }, 0, 5 * 1000);
 
@@ -241,10 +247,11 @@ public class AdminPanelCtrl {
         imagePath.setText(activity.getImage_path());
         source.setText(activity.getSource());
     }
+
     /**
      * Shows and enables every element of the confirmDelete-pop-up.
      */
-    public void showConfirmDelete(){
+    public void showConfirmDelete() {
         confirmDeleteAnchor.setDisable(false);
         confirmDeleteAnchor.setVisible(true);
         confirmDeleteButton.setDisable(false);
@@ -256,7 +263,7 @@ public class AdminPanelCtrl {
     /**
      * Hides and disables every element of the confirmDelete-pop-up.
      */
-    public void hideConfirmDelete(){
+    public void hideConfirmDelete() {
         confirmDeleteAnchor.setDisable(true);
         confirmDeleteAnchor.setVisible(false);
         confirmDeleteButton.setDisable(true);
@@ -268,12 +275,11 @@ public class AdminPanelCtrl {
     /**
      * Checks if there is an Activity selected and if so pop's up the confirmDelete 'Pop-up'
      */
-    public void delete(){
+    public void delete() {
         Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
-        if(activity == null) {
-           return;
-        }
-        else{
+        if (activity == null) {
+            return;
+        } else {
             showConfirmDelete();
             hideButtonsAndTable();
             backButton.setVisible(false);
@@ -286,7 +292,7 @@ public class AdminPanelCtrl {
     /**
      * Deletes Activity from Activity-Bank after the confirmDeleteButton is clicked.
      */
-    public void confirmDelete(){
+    public void confirmDelete() {
         Activity activity = activitiesTable.getSelectionModel().getSelectedItem();
         serverUtils.deleteActivity(activity.getId());
         hideConfirmDelete();
@@ -299,14 +305,13 @@ public class AdminPanelCtrl {
     /**
      * Cancels deleted and set admin screen back to normal state. After cancelDeleteButton is clicked.
      */
-    public void cancelDelete(){
+    public void cancelDelete() {
         activitiesTable.getSelectionModel().clearSelection();
         hideConfirmDelete();
         showButtonsAndTable();
         backButton.setVisible(true);
         backButton.setDisable(false);
     }
-
 
 
 }

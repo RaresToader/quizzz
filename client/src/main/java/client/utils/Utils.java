@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -37,6 +38,14 @@ public class Utils {
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
                 .get(String.class);
+    }
+    public static List<Map.Entry<String,Integer>> getCurrentLeaderBoard(String nickname) {
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path("session/currentleaderboard/" + nickname) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(new GenericType<List<Map.Entry<String,Integer>>>() {
+                });
     }
 
     /**
@@ -158,6 +167,19 @@ public class Utils {
                 .target(SERVER).path(path) //
                 .request(APPLICATION_JSON) //
                 .accept(APPLICATION_JSON) //
+                .get(Boolean.class);
+    }
+
+    /**
+     * Invokes to /session/leavesession/{nickname} and informs server that player wants to leave given session
+     * @return Boolean value whether operation of removal was successful
+     */
+    public static boolean leaveSession() {
+        String path = "session/leavesession/"+Session.getNickname();
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path(path) //
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
                 .get(Boolean.class);
     }
 

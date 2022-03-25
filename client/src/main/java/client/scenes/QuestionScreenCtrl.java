@@ -404,8 +404,6 @@ public class QuestionScreenCtrl {
      */
     public void check(Button chosenBox)  {
 
-        Utils.submitAnswer(0);
-
         questionTimer.pause();
         points = timeLeft*25 + 500;
 
@@ -484,6 +482,7 @@ public class QuestionScreenCtrl {
      * handles the transition between two questions.
      */
     public void transition(){
+        Utils.submitAnswer(totalPoints);
         if(currQuestion instanceof QuizzQuestion) {
             firstAnswer.setDisable(true);
             firstAnswerLabel.setOpacity(1);
@@ -539,7 +538,7 @@ public class QuestionScreenCtrl {
                 }
                 )
         );
-        timer.setCycleCount(6);
+        timer.setCycleCount(1);
         timer.play();
     }
 
@@ -550,7 +549,7 @@ public class QuestionScreenCtrl {
         questionTimer.pause();
         timeBarAnimation.stop();
         Player player = serverUtils.getPlayer(Session.getNickname());
-        if(player.getScore()<totalPoints){
+        if(player.getScore()<totalPoints) {
             serverUtils.updatePlayerInRepo(Session.getNickname(),totalPoints);
             transitionTimer.setText("Congratulations! You improved your score!");
         }

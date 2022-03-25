@@ -6,10 +6,7 @@ import commons.QuizzQuestionServerParsed;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class SessionController {
@@ -28,6 +25,10 @@ public class SessionController {
         return SessionContainer.getNumOfActivePlayers();
     }
 
+    @GetMapping("/session/validusername/{username}")
+    public boolean isUsernameValid(@PathVariable("username") String username) {
+        return SessionContainer.isUsernameValid(username);
+    }
     /**
      * Controller for getting current question
      *
@@ -43,10 +44,6 @@ public class SessionController {
         int sessionId = SessionContainer.findUserSession(nickname);
         //System.out.println("For "+nickname+" it is "+sessionId); //DEBUG LINE
         Session x = SessionContainer.getSession(sessionId);
-
-        if(x.hasEnded()) {
-            return Session.emptyQ;
-        }
 
         if(!x.isStarted()) { //If game is not started
             x.startGame();
@@ -74,6 +71,20 @@ public class SessionController {
         return playerList;
     }
 
+    @GetMapping("/session/currentleaderboard/{nickname}")
+    public List<Map.Entry<String,Integer>> getCurrentLeaderboard(@PathVariable("nickname") String nickname) {
+        List<Map.Entry<String,Integer>> currentLeaderboard = new ArrayList<>();
+        int sessionId = SessionContainer.findUserSession(nickname);
+        if(sessionId == -1) { //if there is no session
+            return new ArrayList<>();
+        }
+        else {
+            Session session = SessionContainer.getSession(sessionId);
+            currentLeaderboard = session.getCurrentLeaderboard();
+        }
+        return currentLeaderboard;
+    }
+
     /**
      * Controller for submitting answer to current question
      * @param nickname - user submitting the answer
@@ -96,12 +107,10 @@ public class SessionController {
             return false;
         }
         //Provided answer is not in correct format
-        if(answer<0 || answer > 3) {
-            return false;
-        }
+
 
         Date date = new Date();
-        //If question submitted 30 seconds or more after init of question
+        //If question submitted 20 seconds or more after init of question
         if(date.getTime() - x.getQuestionStartedAt() > 20000) {
             return false;
         }
@@ -132,6 +141,28 @@ public class SessionController {
 
         //TODO when we know values of jokerType we need to add validation for those too
         return x.addJoker(jokerType,nickname,questionNum);
+    }
+
+    /**
+     * Controller for leaving session
+     * @param nickname - user who wants to leave current session
+     * @return Boolean value whether operation was successful
+     */
+    @GetMapping("/session/leavesession/{nickname}")
+    public boolean leaveSession(@PathVariable("nickname") String nickname) {
+        int session = SessionContainer.findUserSession(nickname);
+
+        //User not in the session
+        if(session == -1) {
+            return false;
+        }
+
+        Session x = SessionContainer.getSession(session);
+        if(!x.hasEnded() && x.getPlayerList().size() == 1) { //End game if that was the last player
+            x.endGame();
+        }
+
+        return x.removePlayer(nickname);
     }
 
 
