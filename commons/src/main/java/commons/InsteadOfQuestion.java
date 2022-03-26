@@ -79,6 +79,25 @@ public class InsteadOfQuestion extends Question {
     }
 
     /**
+     * Retrieve the correct answer for this type of question
+     *
+     * @return an activity, the correct choice
+     */
+    public Activity getCorrectChoice() {
+        long firstDiff = Math.abs(promptActivity.getConsumption_in_wh() - firstChoice.getConsumption_in_wh());
+        long secondDiff = Math.abs(promptActivity.getConsumption_in_wh() - secondChoice.getConsumption_in_wh());
+        long thirdDiff = Math.abs(promptActivity.getConsumption_in_wh() - thirdChoice.getConsumption_in_wh());
+        if (firstDiff <= secondDiff && firstDiff <= thirdDiff) {
+            return firstChoice;
+        }
+        if (secondDiff <= firstDiff && secondDiff <= thirdDiff) {
+            return secondChoice;
+        } else {
+            return thirdChoice;
+        }
+    }
+
+    /**
      * toString method for the InsteadOfQuestion class
      *
      * @return a string, containing the attributes from the instead of Question class

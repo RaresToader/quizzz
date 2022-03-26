@@ -39,7 +39,7 @@ public class SessionController {
     public QuizzQuestionServerParsed getCurrentQuestion(@PathVariable("nickname") String nickname, @PathVariable("sessionType") boolean sessionType) {
         int session = SessionContainer.findUserSession(nickname);
         if(session == -1) { //If not session provided for that user yet
-            SessionContainer.createSession(sessionType,nickname,this.get60RandomActivities());
+            SessionContainer.createSession(sessionType,nickname,activityRepository.findAll());
         }
 
         int sessionId = SessionContainer.findUserSession(nickname);
