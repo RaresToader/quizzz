@@ -194,7 +194,6 @@ public class QuestionScreenCtrl {
      */
     public void setNewQuestion() {
         progress += 1;
-
         if (currQuestion instanceof QuizzQuestion) {
             showQuizzPage();
             initQuizzQuestion();
@@ -207,11 +206,9 @@ public class QuestionScreenCtrl {
             firstConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getFirst()));
             secondConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getSecond()));
             thirdConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getThird()));
-
             firstConsump.setStyle("-fx-background-color: #CED0CE;");
             secondConsump.setStyle("-fx-background-color: #CED0CE;");
             thirdConsump.setStyle("-fx-background-color: #CED0CE;");
-
             firstConsump.setDisable(false);
             secondConsump.setDisable(false);
             thirdConsump.setDisable(false);
@@ -224,15 +221,12 @@ public class QuestionScreenCtrl {
             firstConsump.setText(((InsteadOfQuestion) currQuestion).getFirstChoice().getTitle());
             secondConsump.setText(((InsteadOfQuestion) currQuestion).getSecondChoice().getTitle());
             thirdConsump.setText(((InsteadOfQuestion) currQuestion).getThirdChoice().getTitle());
-
             firstConsump.setStyle("-fx-background-color: #CED0CE;");
             secondConsump.setStyle("-fx-background-color: #CED0CE;");
             thirdConsump.setStyle("-fx-background-color: #CED0CE;");
-
             firstConsump.setDisable(false);
             secondConsump.setDisable(false);
             thirdConsump.setDisable(false);
-
             firstConsump.setStyle("-fx-font-size: 10pt;");
             secondConsump.setStyle("-fx-font-size: 10pt;");
             thirdConsump.setStyle("-fx-font-size: 10pt;");
@@ -247,10 +241,8 @@ public class QuestionScreenCtrl {
             guess.setDisable(false);
             submit.setDisable(false);
             guessOnlyNum();
-
             guess.setStyle("-fx-background-color: #CED0CE;");
         }
-
         guessLabel.setText("");
         firstAnswerLabel.setText("");
         secondAnswerLabel.setText("");
@@ -471,12 +463,10 @@ public class QuestionScreenCtrl {
         String first = "";
         String second = "";
         String third = "";
-
         if (currQuestion instanceof QuizzQuestion) {
             first = ((QuizzQuestion) currQuestion).getFirstChoice().getTitle();
             second = ((QuizzQuestion) currQuestion).getSecondChoice().getTitle();
             third = ((QuizzQuestion) currQuestion).getThirdChoice().getTitle();
-
             if (correctAnswer.equals(first)) {
                 firstAnswer.setStyle("-fx-background-color: green");
                 secondAnswer.setStyle("-fx-background-color: red;");
@@ -491,12 +481,10 @@ public class QuestionScreenCtrl {
                 thirdAnswer.setStyle("-fx-background-color: green;");
             }
         }
-
         if (currQuestion instanceof ConsumpQuestion) {
             first = Long.toString(((ConsumpQuestion) currQuestion).getFirst());
             second = Long.toString(((ConsumpQuestion) currQuestion).getSecond());
             third = Long.toString(((ConsumpQuestion) currQuestion).getThird());
-
             if (correctAnswer.equals(first)) {
                 firstConsump.setStyle("-fx-background-color: green");
                 secondConsump.setStyle("-fx-background-color: red;");
@@ -529,7 +517,6 @@ public class QuestionScreenCtrl {
                 thirdConsump.setStyle("-fx-background-color: green;");
             }
         }
-
     }
 
     /**
