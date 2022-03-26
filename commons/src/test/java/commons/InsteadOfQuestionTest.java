@@ -101,4 +101,31 @@ class InsteadOfQuestionTest {
         InsteadOfQuestion question2 = new InsteadOfQuestion(test, test2, test3, test2);
         assertNotEquals(question2, question);
     }
+    @Test
+    public void getCorrectQuestionTest(){
+        test.setConsumption_in_wh(100);
+        test2.setConsumption_in_wh(120);
+        test3.setConsumption_in_wh(200);
+        test4.setConsumption_in_wh(50);
+        InsteadOfQuestion question = new InsteadOfQuestion(test, test2, test3, test4);
+        assertEquals(question.getCorrectChoice(),test2);
+    }
+    @Test
+    public void getCorrectQuestionTest2(){
+        test.setConsumption_in_wh(100);
+        test2.setConsumption_in_wh(120);
+        test3.setConsumption_in_wh(110);
+        test4.setConsumption_in_wh(50);
+        InsteadOfQuestion question = new InsteadOfQuestion(test, test2, test3, test4);
+        assertEquals(question.getCorrectChoice(),test3);
+    }
+    @Test
+    public void getCorrectQuestionTest3(){
+        test.setConsumption_in_wh(100);
+        test2.setConsumption_in_wh(120);
+        test3.setConsumption_in_wh(200);
+        test4.setConsumption_in_wh(98);
+        InsteadOfQuestion question = new InsteadOfQuestion(test, test2, test3, test4);
+        assertEquals(question.getCorrectChoice(),test4);
+    }
 }

@@ -17,7 +17,7 @@ public class SessionTest {
     @BeforeEach
     public void setup() {
         repo = new TestActivityRepository();
-        for(int i=0; i<60; i++) {
+        for(int i=0; i<5000; i++) {
             Activity toBeAdded = new Activity("test"+i, "test","10", 10L,"test");
             repo.save(toBeAdded);
         }
@@ -26,7 +26,7 @@ public class SessionTest {
 
     @Test
     public void singleplayerInitTest() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         assertFalse(x.isStarted());
         assertNotNull(x.getPlayerList());
         assertEquals(0, x.getPlayerNum());
@@ -38,7 +38,7 @@ public class SessionTest {
 
     @Test
     public void haveEveryoneAnsweredSingleplayerTest() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         x.addPlayer("test");
         Answer toAdd = new Answer("test", 0, -1);
         x.addAnswer(toAdd);
@@ -47,20 +47,20 @@ public class SessionTest {
 
     @Test
     public void haveEveryoneAnsweredSingleplayer2Test() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         x.addPlayer("test");
         assertFalse(x.haveEveryoneAnswered());
     }
 
     @Test
     public void getQuestionNotStartedTest() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         assertEquals(Session.emptyQ,x.getCurrentQuestion());
     }
 
     @Test
     public void getQuestionStartedTest() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         Date date = new Date();
         Question testQ = x.getQuestions().get(0);
         x.startGame();
@@ -69,20 +69,20 @@ public class SessionTest {
 
     @Test
     public void isSingleplayerAvailable() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         assertTrue(x.isAvailable("test"));
     }
 
     @Test
     public void isSingleplayerAvailableAfterAddition() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         x.addPlayer("test");
         assertFalse(x.isAvailable("test2"));
     }
 
     @Test
     public void gameNotAvailableWhenStarted() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         x.addPlayer("test2");
         x.startGame();
         assertFalse(x.isAvailable("test"));
@@ -90,47 +90,47 @@ public class SessionTest {
 
     @Test
     public void gameNotAvailableWhenAlreadyIn() {
-        Session x = new Session(true,sess.get60RandomActivities());
+        Session x = new Session(true,repo.activities);
         x.addPlayer("test2");
         assertFalse(x.isAvailable("test2"));
     }
 
     @Test
     public void endGameTest() {
-        Session x = new Session(false, sess.get60RandomActivities());
+        Session x = new Session(false, repo.activities);
         x.endGame();
         assertTrue(x.hasEnded());
     }
     @Test
     public void addPlayerFullSession() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         x.addPlayer("test");
         assertFalse(x.addPlayer("test2"));
     }
 
     @Test
     public void removeFromSession() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         x.addPlayer("test");
         assertTrue(x.removePlayer("test"));
     }
 
     @Test
     public void removeFromEmptySession() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         assertFalse(x.removePlayer("test"));
     }
 
     @Test
     public void removeFromNoneContainedSession() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         x.addPlayer("test");
         assertFalse(x.removePlayer("test2"));
     }
 
     @Test
     public void gameAdminNullAfterRemoval() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         x.addPlayer("test");
         x.removePlayer("test");
         assertNull(x.getGameAdmin());
@@ -138,7 +138,7 @@ public class SessionTest {
 
     @Test
     public void gameAdminOtherAfterRemoval() {
-        Session x = new Session(true,sess.get60RandomActivities());
+        Session x = new Session(true,repo.activities);
         x.addPlayer("test");
         x.addPlayer("test2");
         x.removePlayer("test");
@@ -147,14 +147,14 @@ public class SessionTest {
 
     @Test
     public void isNullPlayerInSession() {
-        Session x = new Session(false, sess.get60RandomActivities());
+        Session x = new Session(false, repo.activities);
         assertFalse(x.isPlayerInSession(null));
     }
 
 
     @Test
     public void isPlayerInSession() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         x.addPlayer("test");
         assertTrue(x.isPlayerInSession("test"));
         assertFalse(x.isPlayerInSession("test2"));
@@ -162,7 +162,7 @@ public class SessionTest {
 
     @Test
     public void getJokerListTest() {
-        Session x = new Session(false,sess.get60RandomActivities()); //Create session
+        Session x = new Session(false,repo.activities); //Create session
         x.addPlayer("test"); //Add player
         x.startGame(); //Start it
         x.getCurrentQuestion(); //Move question counter to 0
@@ -178,7 +178,7 @@ public class SessionTest {
 
     @Test
     public void addJokerTest() {
-        Session x = new Session(false,sess.get60RandomActivities()); //Create session
+        Session x = new Session(false,repo.activities); //Create session
         x.addPlayer("test"); //Add player
         x.startGame(); //Start it
         x.getCurrentQuestion(); //Move question counter to 0
@@ -193,7 +193,7 @@ public class SessionTest {
 
     @Test
     public void addJokerPlayerNotInSessionTest() {
-        Session x = new Session(false,sess.get60RandomActivities()); //Create session
+        Session x = new Session(false,repo.activities); //Create session
         x.addPlayer("test"); //Add player
         x.startGame(); //Start it
         x.getCurrentQuestion(); //Move question counter to 0
@@ -204,7 +204,7 @@ public class SessionTest {
 
     @Test
     public void addJokerPlayerNotCurrentQuestionTest() {
-        Session x = new Session(false,sess.get60RandomActivities()); //Create session
+        Session x = new Session(false,repo.activities); //Create session
         x.addPlayer("test"); //Add player
         x.startGame(); //Start it
         x.getCurrentQuestion(); //Move question counter to 0
@@ -215,7 +215,7 @@ public class SessionTest {
 
     @Test
     public void addDuplicateAnswerTest() {
-        Session x = new Session(false,sess.get60RandomActivities()); //Create session
+        Session x = new Session(false,repo.activities); //Create session
         x.addPlayer("test");
         x.startGame();
         x.getCurrentQuestion();
@@ -226,7 +226,7 @@ public class SessionTest {
 
     @Test
     public void endGameEventTest() {
-        Session x = new Session(false,sess.get60RandomActivities()); //Create session
+        Session x = new Session(false,repo.activities); //Create session
         x.addPlayer("test");
         x.startGame();
         x.getCurrentQuestion();
@@ -238,7 +238,7 @@ public class SessionTest {
 
     @Test
     public void emptySessionToString() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         String expected = "Session{" +
                 "playerList=" + x.getPlayerList() +
                 ", started=" + x.isStarted() +
@@ -257,32 +257,32 @@ public class SessionTest {
 
     @Test
     public void addNullAnswer() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         assertFalse(x.addAnswer(null));
     }
 
     @Test
     public void addPlayerNotInSessionAnswer() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         assertFalse(x.addAnswer(new Answer("test",0,0)));
     }
 
     @Test
     public void addPlayerWrongQuestion() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         x.addPlayer("test");
         assertFalse(x.addAnswer(new Answer("test",0,3)));
     }
 
     @Test
     public void nullEqualsTest() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         assertFalse(x.equals(null));
     }
 
     @Test
     public void equalsSameDiffInstanceTest() {
-        List<Activity> activities = sess.get60RandomActivities();
+        List<Activity> activities = repo.activities;
         Session x = new Session(false,activities);
         Session y = new Session(false,activities);
         assertFalse(x.equals(y));
@@ -290,7 +290,7 @@ public class SessionTest {
 
     @Test
     public void equalsNotSameTest() {
-        List<Activity> activities = sess.get60RandomActivities();
+        List<Activity> activities = repo.activities;
         Session x = new Session(false,activities);
         Session y = new Session(true,activities);
         assertFalse(x.equals(y));
@@ -298,19 +298,19 @@ public class SessionTest {
 
     @Test
     public void equalsSameInstanceTest() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         assertTrue(x.equals(x));
     }
 
     @Test
     public void setQuestionStartedAtTest() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         x.setQuestionStartedAt(Long.valueOf(0));
         assertEquals(Long.valueOf(0),x.getQuestionStartedAt());
     }
     @Test
     public void addEmojiTest() {
-        Session x = new Session(true, sess.get60RandomActivities());
+        Session x = new Session(true, repo.activities);
         Emoji emoji1 = new Emoji("user1", "emoji1");
         Emoji emoji2 = new Emoji("user2", "emoij2");
         List<Emoji> emojiList = new ArrayList<Emoji>();
@@ -322,7 +322,7 @@ public class SessionTest {
     }
     @Test
     public void getCurrentLeaderboardTest() {
-        Session x = new Session(false,sess.get60RandomActivities());
+        Session x = new Session(false,repo.activities);
         x.addPlayer("test");
         assertTrue(x.addAnswer(new Answer("test",10,x.getCurrentQuestionNum())));
         HashMap<String,Integer> expected = new HashMap<>();
@@ -332,7 +332,7 @@ public class SessionTest {
 
     @Test
     public void getEmojiListTest(){
-        Session x = new Session(true,sess.get60RandomActivities());
+        Session x = new Session(true,repo.activities);
         Emoji emoji1 = new Emoji("user1","emoji1");
         Emoji emoji2 = new Emoji("user2", "emoij2");
         List<Emoji> emojiList = new ArrayList<Emoji>();
@@ -345,7 +345,7 @@ public class SessionTest {
 
     @Test
     public void getActiveEmojiListTest(){
-        Session x = new Session(true,sess.get60RandomActivities());
+        Session x = new Session(true,repo.activities);
         Emoji emoji1 = new Emoji("user1","emoji1");
         Emoji emoji2 = new Emoji("user2", "emoij2");
         List<Emoji> emojiList = new ArrayList<Emoji>();

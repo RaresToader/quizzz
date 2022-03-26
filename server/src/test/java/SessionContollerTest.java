@@ -22,7 +22,7 @@ public class SessionContollerTest {
     @BeforeEach
     public void setup() {
         repo = new TestActivityRepository();
-        for(int i=0; i<60; i++) {
+        for(int i=0; i<10000; i++) {
             Activity toBeAdded = new Activity("test"+i, "test","10", 10L       ,"test");
             repo.save(toBeAdded);
         }
@@ -52,7 +52,7 @@ public class SessionContollerTest {
         int singlePlayerSessCount = 55;
         for(int i=0; i<singlePlayerSessCount; i++) {
             String username = "test"+i;
-            SessionContainer.createSession(false,username,sess.get60RandomActivities());
+            SessionContainer.createSession(false,username,repo.activities);
         }
         assertEquals(singlePlayerSessCount, sess.getActivePlayers());
     }
@@ -60,7 +60,7 @@ public class SessionContollerTest {
     @Test
     public void getPlayersInSessionTest(){
         SessionController sess = new SessionController(repo);
-        SessionContainer.createSession(true,"test",sess.get60RandomActivities());
+        SessionContainer.createSession(true,"test",repo.activities);
         List<String> list = new ArrayList<String>();
         list.add("test");
         assertEquals(list,sess.getPlayersInSession("test"));
@@ -79,7 +79,7 @@ public class SessionContollerTest {
     @Test
     public void getCurrentLeaderboardTest(){
         SessionController sess = new SessionController(repo);
-        SessionContainer.createSession(true,"test",sess.get60RandomActivities());
+        SessionContainer.createSession(true,"test",repo.activities);
         List<String> list = new ArrayList<String>();
         list.add("test");
         int sessionId = SessionContainer.findUserSession("test");
@@ -107,7 +107,7 @@ public class SessionContollerTest {
     public void setEmojiTest(){
         SessionController sess = new SessionController(repo);
         assertFalse(sess.setEmoji("user","emoji"));
-        SessionContainer.createSession(true,"test",sess.get60RandomActivities());
+        SessionContainer.createSession(true,"test",repo.activities);
         int sessionId = SessionContainer.findUserSession("test");
         Session session = SessionContainer.getSession(sessionId);
         session.addPlayer("test1");
@@ -130,7 +130,7 @@ public class SessionContollerTest {
         List<Emoji> list = new ArrayList<>();
         SessionController sess = new SessionController(repo);
         assertEquals(list,sess.getActiveSessionEmojis("test"));
-        SessionContainer.createSession(true,"test",sess.get60RandomActivities());
+        SessionContainer.createSession(true,"test",repo.activities);
         int sessionId = SessionContainer.findUserSession("test");
         Session session = SessionContainer.getSession(sessionId);
         session.addPlayer("test1");
@@ -162,7 +162,7 @@ public class SessionContollerTest {
     @Test
     public void submitAnswerInvalidAnswerFormatTest() {
         SessionController sess = new SessionController(repo);
-        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        SessionContainer.createSession(false,"test",repo.activities);
         Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
         x.startGame();
         x.getCurrentQuestion();
@@ -172,14 +172,14 @@ public class SessionContollerTest {
     @Test
     public void submitAnswerNotStartedTest() {
         SessionController sess = new SessionController(repo);
-        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        SessionContainer.createSession(false,"test",repo.activities);
         assertFalse(sess.submitAnswer("test",2,0));
     }
 
     @Test
     public void submitAnswerNotCurrentQuestionTest() {
         SessionController sess = new SessionController(repo);
-        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        SessionContainer.createSession(false,"test",repo.activities);
         Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
         x.startGame();
         x.getCurrentQuestion();
@@ -189,7 +189,7 @@ public class SessionContollerTest {
     @Test
     public void submitAnswerTest() {
         SessionController sess = new SessionController(repo);
-        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        SessionContainer.createSession(false,"test",repo.activities);
         Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
         x.startGame();
         x.getCurrentQuestion();
@@ -199,7 +199,7 @@ public class SessionContollerTest {
     @Test
     public void submitAnswerTimedOutTest() {
         SessionController sess = new SessionController(repo);
-        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        SessionContainer.createSession(false,"test",repo.activities);
         Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
         x.startGame();
         x.getCurrentQuestion();
@@ -216,7 +216,7 @@ public class SessionContollerTest {
     @Test
     public void addJokerNoStartedTest() {
         SessionController sess = new SessionController(repo);
-        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        SessionContainer.createSession(false,"test",repo.activities);
         Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
         assertFalse(sess.addJoker("test",0,-1));
     }
@@ -224,7 +224,7 @@ public class SessionContollerTest {
     @Test
     public void addJokerWrongQuestionNumTest() {
         SessionController sess = new SessionController(repo);
-        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        SessionContainer.createSession(false,"test",repo.activities);
         Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
         x.startGame();
         x.getCurrentQuestion();
@@ -235,7 +235,7 @@ public class SessionContollerTest {
     @Test
     public void addJokerTest() {
         SessionController sess = new SessionController(repo);
-        SessionContainer.createSession(false,"test",sess.get60RandomActivities());
+        SessionContainer.createSession(false,"test",repo.activities);
         Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
         x.startGame();
         x.getCurrentQuestion();
@@ -251,7 +251,7 @@ public class SessionContollerTest {
     @Test
     public void leaveSessionWithEnding() {
         SessionController sess = new SessionController(repo);
-        SessionContainer.createSession(false,"test", sess.get60RandomActivities());
+        SessionContainer.createSession(false,"test", repo.activities);
         Session x = SessionContainer.getSession(SessionContainer.findUserSession("test"));
         assertTrue(sess.leaveSession("test"));
         assertTrue(x.hasEnded());
@@ -261,7 +261,7 @@ public class SessionContollerTest {
         SessionController sess = new SessionController(repo);
         List<Session> sessionList = new ArrayList<>();
         sessionList.add(null);
-        List<Activity> activities = sess.get60RandomActivities();
+        List<Activity> activities = repo.activities;
         SessionContainer.setSessionList(sessionList);
         assertTrue(SessionContainer.createSession(false,"test",activities));
         assertTrue(sess.isUsernameValid("test2"));
