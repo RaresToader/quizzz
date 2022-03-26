@@ -25,9 +25,6 @@ public class MultiplayerLobbyCtrl {
     @Inject
     public MultiplayerLobbyCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
-
-        this.playerTags = new LinkedHashMap<>();
-        this.ownPlayerTag = null;
     }
 
     @FXML
@@ -90,7 +87,16 @@ public class MultiplayerLobbyCtrl {
     @FXML
     private Text playerNameLabel10;
 
+    /**
+     * Method which is called when the user switches to the screen
+     * Initialises all components of the screen to either allow the player to interact with certain buttons
+     * or to display other players
+     */
     public void init() {
+
+        // Reset tag data structures
+        this.playerTags = new LinkedHashMap<>();
+        this.ownPlayerTag = null;
 
         initialisePlayers();
 
@@ -108,6 +114,9 @@ public class MultiplayerLobbyCtrl {
         //TODO
     }
 
+    /**
+     * Leave the lobby session
+     */
     public void goBackToSplash() {
         playerUpdateTimer.cancel();
         //TODO
@@ -115,6 +124,10 @@ public class MultiplayerLobbyCtrl {
         mainCtrl.showSplash();
     }
 
+    /**
+     * The lobby leader is able to press the start game button, this method is then called
+     * Which tells the other players in the session and the session itself that the game is starting
+     */
     public void startGameButtonPressed() {
         startButton.setDisable(true);
         startButton.setVisible(false);
@@ -126,6 +139,7 @@ public class MultiplayerLobbyCtrl {
 
     /**
      * Initialise all player tags and display their names
+     * Also initialises a timer that calls a series of update methods to display any new changes
      */
     private void initialisePlayers() {
 
@@ -140,6 +154,7 @@ public class MultiplayerLobbyCtrl {
         playerTags.put(new Pair<>(playerNameBackground9, playerNameLabel9), null);
         playerTags.put(new Pair<>(playerNameBackground10, playerNameLabel10), null);
 
+        // Timer that regularly calls update methods
         playerUpdateTimer = new Timer();
         playerUpdateTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -167,11 +182,13 @@ public class MultiplayerLobbyCtrl {
      * Initialise all event handling for the emote menu
      */
     private void initialiseEmoteMenu() {
+        // Emote button, once hovered will display the other emote buttons
         emoteMenu.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 showEmotes(true);
             }
         });
+        // Invisible pane that acts as a hitbox to detect when the mouse is no longer hovering the emote buttons
         emoteBox.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 showEmotes(false);
@@ -251,15 +268,17 @@ public class MultiplayerLobbyCtrl {
 
     /**
      * Constantly called method to update any changes in the players in the lobby
-     * Their player tags, emotes and who the lobby leader is
+     * Their player tags, who the lobby leader is and which tag is their own
      */
     private void playerUpdate() {
         List<String> playerList = Utils.getCurrentSessionPlayers(Session.getNickname());
 
         System.out.println("Player list: " + playerList);
 
+        // Run through all players and player labels and check if the players are still in the session
         for (Pair<StackPane, Text> tag : playerTags.keySet()) {
-            if (!playerList.contains(playerTags.get(tag))) { // If player is no longer in the session's player list
+            // If the player is no longer in the session's player list
+            if (!playerList.contains(playerTags.get(tag))) {
                 playerTags.replace(tag, null);
             }
 
@@ -270,6 +289,7 @@ public class MultiplayerLobbyCtrl {
             }
         }
 
+        // Add any new players to a tag
         for (String player : playerList) {
 
             if (!playerTags.containsValue(player)) { // If the player is not yet displayed
@@ -277,26 +297,34 @@ public class MultiplayerLobbyCtrl {
                     if (playerTags.get(tag) == null) { // If the player tag is empty
                         playerTags.replace(tag, player);
                         tag.getValue().setText(player); // Set text to display players name
-                        break;
+                        break; // Player has already been assigned a tag so break out of the inner loop
                     }
                 }
             }
         }
-
-
-        //Run through all players and player labels and check if the players are still in the session
         //TODO
     }
 
+    /**
+     * Once the lobby leader has started the game, this method is called for all other players in the session
+     */
     private void startGame() {
         //TODO
         // Start the game locally
     }
 
+    /**
+     * Set the value to distinguish the current player is the lobby leader
+     * @param leader is true if the player is the lobby leader and false otherwise
+     */
     public void setLeader(boolean leader) {
         this.isLeader = leader;
     }
 
+    /**
+     * Get boolean of if the player is lobby leader
+     * @return a boolean value, true if the player is the lobby leader and false otherwise
+     */
     public boolean getLeader() {
         return this.isLeader;
     }
