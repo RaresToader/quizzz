@@ -128,6 +128,9 @@ public class AdminPanelCtrl {
                 return false; // Does not match.
             });
         });
+        SortedList<Activity> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(activitiesTable.comparatorProperty());
+        activitiesTable.setItems(sortedData);
         refreshActivities = new Timer();
         refreshActivities.scheduleAtFixedRate(new TimerTask() {
             @Override
