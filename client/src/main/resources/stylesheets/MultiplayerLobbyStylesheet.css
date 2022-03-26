@@ -1,0 +1,12 @@
+@import "MainStylesheet.css";
+
+#title {
+    -fx-font-size: 60pt;
+    -fx-translate-x: -20pt;
+    -fx-translate-y: -10pt;
+}
+
+#label1 {
+    -fx-translate-x: -20pt;
+    -fx-translate-y: -25pt;
+}

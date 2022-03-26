@@ -15,6 +15,7 @@ import javax.inject.Inject;
 public class EnterMenuCtrl {
 
     private final MainCtrl mainCtrl;
+    private final MultiplayerLobbyCtrl mLobbyCtrl;
     private final ServerUtils serverUtils;
     @FXML
     private TextField username;
@@ -28,8 +29,9 @@ public class EnterMenuCtrl {
     private Label errorText;
 
     @Inject
-    public EnterMenuCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
+    public EnterMenuCtrl(MainCtrl mainCtrl, MultiplayerLobbyCtrl multiplayerLobbyCtrl, ServerUtils serverUtils) {
         this.mainCtrl = mainCtrl;
+        this.mLobbyCtrl = multiplayerLobbyCtrl;
         this.serverUtils = serverUtils;
     }
 
@@ -62,6 +64,10 @@ public class EnterMenuCtrl {
             this.serverUtils.addPlayer(nickname);
             Session.setServerAddr(serverAddr);
             mainCtrl.showSplash();
+
+            if (Utils.getCurrentSessionPlayers(Session.getNickname()).size() <= 1) {
+                mLobbyCtrl.setLeader(true);
+            }
         }
         else {
             displayErrorText("Provided username is invalid!");

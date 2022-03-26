@@ -115,3 +115,35 @@
     -fx-border-width: 6;
     -fx-border-insets: -6;
 }
+
+.standardEmoteButton {
+    -fx-background-color: white;
+    -fx-font-size: 12pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: hand;
+}
+
+.standardEmoteButton:hover {
+    -fx-background-color: white;
+    -fx-border-color: #f15025;
+    -fx-border-radius: 24;
+    -fx-border-width: 4;
+    -fx-border-insets: -4;
+}
+
+.standardEmoteMenu {
+    -fx-background-color: #f15025;
+    -fx-font-size: 12pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: hand;
+}
