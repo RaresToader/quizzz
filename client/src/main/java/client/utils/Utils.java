@@ -224,11 +224,10 @@ public class Utils {
     /**
      * Invokes to /session/playersinsession/{nickname} and get all the players in the session
      *
-     * @param nickname - provided nickname of the requesting client
      * @return List<Players> that contains all the players in the session
      */
-    public static List<String> getCurrentSessionPlayers(String nickname) {
-        String path = "session/playersinsession/" + nickname;
+    public static List<String> getCurrentSessionPlayers() {
+        String path = "session/playersinsession/" + Session.getNickname();
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path(path).request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
@@ -253,20 +252,45 @@ public class Utils {
     }
 
     /**
-     * Invokes to session/getactivesessionemojis/{nickname} and get a list with the active session emojis
+     * Invokes to session/getlobbystatus/{nickname} and gets a SessionLobbyStatus object
      *
-     * @param nickname - provided nickname of the requesting client
-     * @return List<Emoji> that contains all active emojis in the session (1/user)
+     * @return SessionLobbyStatus object containing active emojis, gameStarted status and name of gameAdmin
      */
-    public static List<Emoji> getActiveSessionEmojis(String nickname) {
-        String path = "session/getactivesessionemojis/" + nickname;
+    public static SessionLobbyStatus getLobbyStatus() {
+        String path = "session/getlobbystatus/" + Session.getNickname();
         return ClientBuilder.newClient(new ClientConfig())
                 .target(SERVER).path(path)
                 .request(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
-                .get(new GenericType<List<Emoji>>() {
+                .get(new GenericType<SessionLobbyStatus>() {
                 });
     }
 
+    /**
+     * Invokes to session/joinsession/{nickname} and adds player to available (or creates new) multiplayer session
+     * !!ONLY FOR MULTIPLAYER SESSION PURPOSES!!
+     * @return Boolean value whether operation was successful
+     */
+    public static boolean joinSession() {
+        String path = "session/joinsession/" + Session.getNickname();
+        return ClientBuilder.newClient(new ClientConfig()) //
+                .target(SERVER).path(path) //
+                .request(APPLICATION_JSON) //
+                .accept(APPLICATION_JSON) //
+                .get(Boolean.class);
+    }
 
+    /**
+     * Invokes to session/startsession/{nickname} and starts a game
+     *
+     * @return Boolean value whether operation was successful
+     */
+    public static boolean startSession() {
+        String path = "session/startsession/" + Session.getNickname();
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path(path)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(Boolean.class);
+    }
 }
