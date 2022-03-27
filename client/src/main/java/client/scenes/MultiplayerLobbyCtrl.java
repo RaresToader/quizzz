@@ -241,7 +241,7 @@ public class MultiplayerLobbyCtrl {
      * Receive any emotes sent by other players and display them next to the corresponding player tag
      */
     private void receiveEmotes() {
-        List<Emoji> activeEmojiList = Utils.getActiveSessionEmojis(Session.getNickname());
+        List<Emoji> activeEmojiList = Utils.getLobbyStatus().getEmojiList();
         System.out.println("\nEMOJI LIST: " + activeEmojiList + "\n");
 
         // Loop through all active emojis and display them according to the user that sent it
@@ -271,7 +271,7 @@ public class MultiplayerLobbyCtrl {
      * Their player tags, who the lobby leader is and which tag is their own
      */
     private void playerUpdate() {
-        List<String> playerList = Utils.getCurrentSessionPlayers(Session.getNickname());
+        List<String> playerList = Utils.getCurrentSessionPlayers();
 
         System.out.println("Player list: " + playerList);
 

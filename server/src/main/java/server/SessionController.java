@@ -1,9 +1,6 @@
 package server;
 
-import commons.Activity;
-import commons.Answer;
-import commons.Emoji;
-import commons.QuizzQuestionServerParsed;
+import commons.*;
 import org.springframework.web.bind.annotation.*;
 import server.database.ActivityRepository;
 
@@ -30,6 +27,45 @@ public class SessionController {
     public boolean isUsernameValid(@PathVariable("username") String username) {
         return SessionContainer.isUsernameValid(username);
     }
+
+    /**
+     * Controller for creating/joining multiplayer session
+     * @param nickname - nickname of user creating the request
+     * @return Boolean value whether the operation was successful or not
+     */
+    @GetMapping("/session/joinsession/{nickname}")
+    public boolean joinSession(@PathVariable("nickname") String nickname) {
+        int session = SessionContainer.findUserSession(nickname);
+        if(session != -1) return false; //User is already in session
+
+        int foundSess = SessionContainer.findAvailableSession(nickname);
+        if(foundSess != -1) return true; //Available session was found
+
+        SessionContainer.createSession(true,nickname,this.get60RandomActivities()); //Create session
+        return true;
+    }
+
+    /**
+     * Controller for starting multiplayer game by gameAdmin
+     * @param nickname - nickname of user creating the request
+     * @return Boolean value whether the operation was successful or not
+     */
+    @GetMapping("/session/startsession/{nickname}")
+    public boolean startSession(@PathVariable("nickname") String nickname) {
+        int session = SessionContainer.findUserSession(nickname);
+        if(session == -1) return false; //There's no session to start
+
+        Session x = SessionContainer.getSession(session);
+
+        //If game is started OR players is not game admin OR (it is multiplayer AND number of players is <=1)
+        if(x.isStarted() || !x.getGameAdmin().equals(nickname) || (x.isGameType() && x.getPlayerList().size() <=1)) {
+            return false;
+        }
+
+        x.startGame();
+        return true;
+    }
+
     /**
      * Controller for getting current question
      *
@@ -106,22 +142,17 @@ public class SessionController {
     }
 
     /**
-     * Gets a list with the active emoji's in the session
-     * @param nickname - nickname of the user who asks for the emoji's
-     * @return List<Emoji> - list with all emoji's which contain also the name of the user and the emoji-types
+     * Gets a list of active emojis, whether game has started and name of gameAdmin
+     * @param nickname - nickname of the user doing the request
+     * @return SessionLobbyStatus object containing active emojis, gameStarted status and name of gameAdmin
      */
-    @GetMapping("/session/getactivesessionemojis/{nickname}")
-    public List<Emoji> getActiveSessionEmojis(@PathVariable("nickname") String nickname){
-        List<Emoji> list = new ArrayList<Emoji>();
+    @GetMapping("/session/getlobbystatus/{nickname}")
+    public SessionLobbyStatus getLobbyStatus(@PathVariable("nickname") String nickname) {
         int sessionId = SessionContainer.findUserSession(nickname);
-        if (sessionId == -1){
-            return list;
-        }
-        else{
-            Session session = SessionContainer.getSession(sessionId);
-            list = session.getActiveEmoijList();
-            return list;
-        }
+        if(sessionId == -1) return new SessionLobbyStatus(new ArrayList<Emoji>(), false, "none");
+
+        Session session = SessionContainer.getSession(sessionId);
+        return new SessionLobbyStatus(session.getActiveEmoijList(),session.isStarted(),session.getGameAdmin());
     }
 
     /**
