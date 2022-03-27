@@ -154,6 +154,8 @@ public class AdminPanelCtrl {
      */
 
     public void hideButtonsAndTable() {
+        searchBar.setDisable(true);
+        searchBar.setVisible(false);
         addButton.setVisible(false);
         addButton.setDisable(true);
         editButton.setVisible(false);
@@ -174,6 +176,8 @@ public class AdminPanelCtrl {
      * It switches the 'Admin-Panel-screen' back to the beginning state.
      */
     public void showButtonsAndTable() {
+        searchBar.setDisable(false);
+        searchBar.setVisible(true);
         addButton.setVisible(true);
         addButton.setDisable(false);
         editButton.setVisible(true);
