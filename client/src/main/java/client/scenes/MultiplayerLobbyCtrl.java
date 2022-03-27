@@ -3,12 +3,18 @@ package client.scenes;
 import client.Session;
 import client.utils.Utils;
 import commons.Emoji;
+import commons.SessionLobbyStatus;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 import javax.inject.Inject;
@@ -22,6 +28,11 @@ public class MultiplayerLobbyCtrl {
     private Pair<StackPane, Text> ownPlayerTag;
     private LinkedHashMap<Pair<StackPane, Text>, String> playerTags;
 
+    private SessionLobbyStatus lobbyStatus;
+
+    private int transitionTimeLeft;
+    private Timeline transitionTimer;
+
     @Inject
     public MultiplayerLobbyCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
@@ -29,6 +40,13 @@ public class MultiplayerLobbyCtrl {
 
     @FXML
     private Button startButton;
+    @FXML
+    private Button leaveButton;
+    @FXML
+    private Label label1;
+    @FXML
+    private ImageView leaderCrown;
+
     @FXML
     private Pane emoteBox;
     @FXML
@@ -102,6 +120,8 @@ public class MultiplayerLobbyCtrl {
 
         initialiseEmoteMenu();
 
+        leaderCrown.resize(50, 50);
+
         if (isLeader) {
             startButton.setDisable(false);
             startButton.setVisible(true);
@@ -110,8 +130,6 @@ public class MultiplayerLobbyCtrl {
             startButton.setDisable(true);
             startButton.setVisible(false);
         }
-
-        //TODO
     }
 
     /**
@@ -119,8 +137,9 @@ public class MultiplayerLobbyCtrl {
      */
     public void goBackToSplash() {
         playerUpdateTimer.cancel();
-        //TODO
-        // IF PLAYER WAS LEADER THEY MUST PASS IT ON TO ANOTHER PLAYER
+        setLeader(false);
+
+        Utils.leaveSession();
         mainCtrl.showSplash();
     }
 
@@ -132,9 +151,7 @@ public class MultiplayerLobbyCtrl {
         startButton.setDisable(true);
         startButton.setVisible(false);
 
-        //TODO
-        // SEND START OF GAME TO OTHER PLAYERS AND SWITCH ALL PLAYERS TO QUESTION SCREEN
-        // ALSO LOCK THE LOBBY, NO MORE PLAYERS CAN JOIN
+        Utils.startSession();
     }
 
     /**
@@ -159,19 +176,27 @@ public class MultiplayerLobbyCtrl {
         playerUpdateTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                System.out.println("PLAYER UPDATE TIMER");
+                lobbyStatus = Utils.getLobbyStatus();
+
+                if (Objects.equals(lobbyStatus.getGameAdmin(), Session.getNickname())) {
+                    setLeader(true);
+                    startButton.setDisable(false);
+                    startButton.setVisible(true);
+                }
+                else {
+                    setLeader(false);
+                    startButton.setDisable(true);
+                    startButton.setVisible(false);
+                }
+
                 playerUpdate();
 
                 receiveEmotes();
 
-                System.out.println("isleader: " + isLeader);
+                if (lobbyStatus.isStarted()) {
+                    startGame();
+                }
 
-//                    if (!isLeader) {
-//                        //TODO
-//                        // If leader is changed update start button accordingly
-//                        // If leader starts game display transition countdown
-//
-//                    }
             }
 
         }, 0, 1000);
@@ -233,8 +258,7 @@ public class MultiplayerLobbyCtrl {
      * @param emoteType identifies which emote button was clicked and what emote to send
      */
     private void sendEmote(String emoteType) {
-        System.out.println("emote button pressed: " + emoteType); //DEBUG LINE
-        System.out.println(Utils.setEmoji(Session.getNickname(), emoteType));
+        System.out.println("Emote send confirmation: " + Utils.setEmoji(Session.getNickname(), emoteType));
     }
 
     /**
@@ -273,8 +297,6 @@ public class MultiplayerLobbyCtrl {
     private void playerUpdate() {
         List<String> playerList = Utils.getCurrentSessionPlayers();
 
-        System.out.println("Player list: " + playerList);
-
         // Run through all players and player labels and check if the players are still in the session
         for (Pair<StackPane, Text> tag : playerTags.keySet()) {
             // If the player is no longer in the session's player list
@@ -286,6 +308,12 @@ public class MultiplayerLobbyCtrl {
             if (Objects.equals(tag.getValue().getText(), Session.getNickname()) && ownPlayerTag == null) {
                 ownPlayerTag = tag;
                 ownPlayerTag.getValue().setFill(Color.web("#f15025"));
+            }
+
+            // If it is the tag of the lobby leader
+            if (Objects.equals(tag.getValue().getText(), lobbyStatus.getGameAdmin())) {
+                leaderCrown.setX(tag.getKey().getLayoutX() - 100);
+                leaderCrown.setY(tag.getKey().getLayoutY());
             }
         }
 
@@ -302,15 +330,36 @@ public class MultiplayerLobbyCtrl {
                 }
             }
         }
-        //TODO
     }
 
     /**
      * Once the lobby leader has started the game, this method is called for all other players in the session
      */
     private void startGame() {
-        //TODO
-        // Start the game locally
+        leaveButton.setDisable(true);
+        leaveButton.setVisible(false);
+
+
+        transitionTimeLeft = 5;
+        transitionTimer = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        event -> {
+                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
+                            label1.setText("Game starting in " + transitionTimeLeft);
+
+                            if (transitionTimeLeft == 0) {
+                                playerUpdateTimer.cancel();
+                                //TODO
+                                // Start the game locally
+                            }
+                            else {
+                                transitionTimeLeft -= 1;
+                            }
+                        }
+                )
+        );
+        transitionTimer.setCycleCount(6);
+        transitionTimer.play();
     }
 
     /**
