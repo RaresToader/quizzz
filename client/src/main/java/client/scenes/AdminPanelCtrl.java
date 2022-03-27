@@ -5,6 +5,8 @@ import commons.Activity;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -66,6 +68,8 @@ public class AdminPanelCtrl {
     private Label deleteNameLabel;
     @FXML
     private Button backButton;
+    @FXML
+    private TextField searchBar;
 
     @Inject
     public AdminPanelCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
@@ -99,6 +103,34 @@ public class AdminPanelCtrl {
         AtomicReference<ObservableList<Activity>> activities = new AtomicReference<>(FXCollections.observableArrayList());
         activities.get().addAll(serverUtils.getAllActivities());
         activitiesTable.setItems(activities.get());
+        /**
+         * Credits to this youtube video for explaining how to do it
+         * https://www.youtube.com/watch?v=FeTrcNBVWtg
+         */
+        FilteredList<Activity> filteredData = new FilteredList<>(activities.get(), b -> true);
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(activity -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (activity.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches activity id.
+                } else if (activity.getTitle().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches the title of the activity.
+                } else if (String.valueOf(activity.getConsumption_in_wh()).indexOf(lowerCaseFilter) != -1) {
+                    return true; //Filter matches the consumption.
+                } else if (activity.getSource().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; //Filter matches the source.
+                } else if (activity.getImage_path().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; //Filter matches the image path.
+                }
+                return false; // Does not match.
+            });
+        });
+        SortedList<Activity> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(activitiesTable.comparatorProperty());
+        activitiesTable.setItems(sortedData);
         refreshActivities = new Timer();
         refreshActivities.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -109,6 +141,7 @@ public class AdminPanelCtrl {
                         activitiesTable.setItems(activitiesCopy);
                         activities.set(activitiesCopy);
                     }
+
                 });
             }
         }, 0, 5 * 1000);

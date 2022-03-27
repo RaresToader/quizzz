@@ -24,7 +24,7 @@
          <font>
             <Font size="36.0" />
          </font></Label>
-      <Label id="titleLabel" contentDisplay="RIGHT" graphicTextGap="40.0" layoutX="400.0" layoutY="56.0" prefHeight="118.0" prefWidth="631.0" styleClass="title" text="Admin Panel" textAlignment="CENTER" textFill="WHITE">
+      <Label id="titleLabel" contentDisplay="RIGHT" graphicTextGap="40.0" layoutX="400.0" prefHeight="113.0" prefWidth="653.0" styleClass="title" text="Admin Panel" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="72.0" />
          </font></Label>
@@ -175,5 +175,10 @@
                </font>
             </Label>
          </children></AnchorPane>
+      <TextField fx:id="searchBar" layoutX="391.0" layoutY="103.0" prefHeight="39.0" prefWidth="455.0" promptText="Search bar">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
    </children>
 </AnchorPane>
