@@ -2,16 +2,19 @@ package client;
 
 
 import commons.Activity;
+import commons.Joker;
 import commons.QuizzQuestion;
 import commons.QuizzQuestionServerParsed;
+
+import java.util.ArrayList;
 
 public class Session {
 
     private static String nickname;
     private static String serverAddr;
-    private static int questionNum;
+    private static long questionNum;
 
-    public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1);
+    public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1, new ArrayList<Joker>());
 
 
     public static String getNickname() {
@@ -22,7 +25,7 @@ public class Session {
         return Session.serverAddr;
     }
 
-    public static int getQuestionNum() {
+    public static long getQuestionNum() {
         return Session.questionNum;
     }
 
@@ -34,7 +37,7 @@ public class Session {
         Session.serverAddr = serverAddr;
     }
 
-    public static void setQuestionNum(int questionNum) {
+    public static void setQuestionNum(long questionNum) {
         Session.questionNum = questionNum;
     }
 }

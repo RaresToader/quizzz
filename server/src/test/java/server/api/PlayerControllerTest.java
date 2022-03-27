@@ -358,7 +358,92 @@ public class PlayerControllerTest {
         systemUnderTest.addPlayer(test);
         test = new Player("test", 5000);
         systemUnderTest.updatePlayerScore(test);
-        assertEquals(new Player("test",10000), repo.getById("test"));
+        assertEquals(new Player("test", 10000), repo.getById("test"));
     }
 
+    @Test
+    public void addPlayerTest3() {
+        systemUnderTest.addPlayer(new Player("test"));
+        var actual = systemUnderTest.addPlayer(new Player("test"));
+        assertEquals(actual.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    public void addPlayerTest4() {
+        systemUnderTest.addPlayer(new Player("test"));
+        var actual = systemUnderTest.addPlayer(new Player("test"));
+        assertEquals(actual.getBody(), new Player("test"));
+    }
+
+
+    @Test
+    public void comparatorTest2() {
+        Player p1 = new Player("a");
+        p1.incrementScore(100);
+        Player p2 = new Player("b");
+        p2.incrementScore(200);
+        assertEquals(new PlayerComparator().compare(p1, p2), 1);
+    }
+
+    @Test
+    public void comparatorTest3() {
+        Player p1 = new Player("a");
+        p1.incrementScore(100);
+        Player p2 = new Player("b");
+        p2.incrementScore(200);
+        assertEquals(new PlayerComparator().compare(p2, p1), -1);
+    }
+
+    @Test
+    public void comparatorTest4() {
+        Player p1 = new Player("a");
+        p1.incrementScore(100);
+        Player p2 = new Player("b");
+        p2.incrementScore(100);
+        assertEquals(new PlayerComparator().compare(p1, p2), 0);
+    }
+
+    @Test
+    public void leaderboardPlayers() {
+        systemUnderTest.getLeaderboardPlayers();
+        assertTrue(repo.calledMethods.contains("findAll"));
+    }
+
+    @Test
+    public void leaderboardPlayer2() {
+        String test = "test";
+        for (int i = 0; i < 9; i++) {
+            systemUnderTest.addPlayer(new Player(test + i));
+        }
+        assertEquals(Objects.requireNonNull(systemUnderTest.getLeaderboardPlayers().getBody()).size(), 9);
+    }
+
+    @Test
+    public void leaderboardPlayer3() {
+        String test = "test";
+        for (int i = 0; i < 21; i++) {
+            systemUnderTest.addPlayer(new Player(test + i));
+        }
+        assertEquals(Objects.requireNonNull(systemUnderTest.getLeaderboardPlayers().getBody()).size(), 19);
+    }
+
+    @Test
+    public void leaderboardPlayer4() {
+        String test = "test";
+        for (int i = 0; i < 9; i++) {
+            systemUnderTest.addPlayer(new Player(test + i));
+        }
+        var actual = systemUnderTest.getLeaderboardPlayers().getStatusCode();
+        assertEquals(actual, HttpStatus.OK);
+    }
+
+    @Test
+    public void leaderboardPlayer5() {
+        String test = "test";
+        for (int i = 0; i < 21; i++) {
+            systemUnderTest.addPlayer(new Player(test + i));
+        }
+        var actual = systemUnderTest.getLeaderboardPlayers().getStatusCode();
+        assertEquals(actual, HttpStatus.OK);
+    }
 }

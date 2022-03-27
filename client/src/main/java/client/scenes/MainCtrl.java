@@ -30,6 +30,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
+import java.util.Objects;
+
 public class MainCtrl {
 
     private Stage primaryStage;
@@ -43,6 +45,8 @@ public class MainCtrl {
     private Scene adminPanelScreen;
     private QueueCtrl queueCtrl;
     private Scene queueScreen;
+    private MultiplayerLobbyCtrl mLobbyCtrl;
+    private Scene mLobbyScreen;
     private SingleplayerLobbyCtrl sLobbyCtrl;
     private Scene sLobbyScreen;
     private QuestionScreenCtrl questionScreenCtrl;
@@ -55,7 +59,7 @@ public class MainCtrl {
     public RotateTransition rotationAnimation4;
 
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
-                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue, Pair<SingleplayerLobbyCtrl, Parent> singleLobbyScreen, Pair<AdminPanelCtrl, Parent> admin) {
+                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue, Pair<SingleplayerLobbyCtrl, Parent> singleLobbyScreen, Pair<AdminPanelCtrl, Parent> admin, Pair<MultiplayerLobbyCtrl, Parent> multiLobbyScreen) {
 
         this.primaryStage = primaryStage;
         this.enterMenuCtrl = enterMenu.getKey();
@@ -66,6 +70,9 @@ public class MainCtrl {
 
         this.queueCtrl = queue.getKey();
         this.queueScreen = new Scene(queue.getValue());
+
+        this.mLobbyCtrl = multiLobbyScreen.getKey();
+        this.mLobbyScreen = new Scene(multiLobbyScreen.getValue());
 
         this.globalLeaderboardCtrl = globalLeaderboard.getKey();
         this.globalLeadScreen = new Scene(globalLeaderboard.getValue());
@@ -79,7 +86,7 @@ public class MainCtrl {
         this.questionScreenCtrl = questionScreen.getKey();
         this.questionScreen = new Scene(questionScreen.getValue());
         //Set program icon
-        this.primaryStage.getIcons().add(new Image(MainCtrl.class.getResourceAsStream(iconPath)));
+        this.primaryStage.getIcons().add(new Image(Objects.requireNonNull(MainCtrl.class.getResourceAsStream(iconPath))));
         showEnterMenu();
         primaryStage.show();
 
@@ -124,8 +131,14 @@ public class MainCtrl {
 
     public void showQueue() {
         primaryStage.setTitle("Multiplayer queue");
-        primaryStage.setScene((this.queueScreen));
+        primaryStage.setScene(this.queueScreen);
         queueCtrl.runLoadingAnimation();
+    }
+
+    public void showMultiplayerLobby() {
+        mLobbyCtrl.init();
+        primaryStage.setTitle("Multiplayer Lobby");
+        primaryStage.setScene(mLobbyScreen);
     }
 
     /**
@@ -153,6 +166,7 @@ public class MainCtrl {
 
     public void showSingleplayerLobby() {
         sLobbyCtrl.playerNameLabel.setText(Session.getNickname());
+        sLobbyCtrl.startGameButton.requestFocus();
         primaryStage.setTitle("Singleplayer Lobby");
         primaryStage.setScene(this.sLobbyScreen);
     }
@@ -162,6 +176,7 @@ public class MainCtrl {
         primaryStage.setScene(this.questionScreen);
         questionScreenCtrl.init(false); //False for singleplayer session
     }
+
 
     public void showAdminPanel() {
         primaryStage.setTitle("Admin Panel");

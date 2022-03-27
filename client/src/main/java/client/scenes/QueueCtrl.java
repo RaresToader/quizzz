@@ -1,16 +1,18 @@
 package client.scenes;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 import javax.inject.Inject;
 
 public class QueueCtrl {
     private final MainCtrl mainCtrl;
 
-    @FXML
-    private Button goBack;
+    private int transitionTimeLeft;
+    private Timeline transitionTimer;
 
     @FXML
     public Circle loadingCircle1;
@@ -28,9 +30,32 @@ public class QueueCtrl {
         this.mainCtrl = mainCtrl;
     }
 
-
+    public void init() {
+        if (false) {
+            return;
+        }
+        else {
+            transitionTimeLeft = 0;
+            transitionTimer = new Timeline(
+                    new KeyFrame(Duration.seconds(1),
+                            event -> {
+                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
+                                if (transitionTimeLeft == 0) {
+                                    mainCtrl.showMultiplayerLobby();
+                                }
+                                else {
+                                    transitionTimeLeft -= 1;
+                                }
+                            }
+                    )
+            );
+            transitionTimer.setCycleCount(6);
+            transitionTimer.play();
+        }
+    }
 
     public void goBackToSplash() {
+        transitionTimer.stop();
         mainCtrl.showSplash();
     }
 

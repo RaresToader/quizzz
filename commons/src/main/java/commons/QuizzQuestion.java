@@ -6,29 +6,25 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.MULTI_LINE_STYLE;
 
-public class QuizzQuestion {
+public class QuizzQuestion extends Question {
     private String question;
     private Activity firstChoice;
     private Activity secondChoice;
     private Activity thirdChoice;
 
-    public QuizzQuestion() {
-        //Object mapping
-    }
+
 
     public QuizzQuestion(String question, Activity firstChoice, Activity secondChoice, Activity thirdChoice) {
-        this.question = question;
+        super(question);
         this.firstChoice = firstChoice;
         this.secondChoice = secondChoice;
         this.thirdChoice = thirdChoice;
     }
+    public QuizzQuestion(){
 
-    public String getQuestion() {
-        return question;
     }
-
     public void setQuestion(String question) {
-        this.question = question;
+        super.setQuestion(question);
     }
 
     public Activity getFirstChoice() {
@@ -55,6 +51,10 @@ public class QuizzQuestion {
         this.thirdChoice = thirdChoice;
     }
 
+    /**
+     *  Calculates the correct answer to the question by seeing which of the three activities has
+     *  the highest consumption
+     */
     public String getMostExpensive() {
         Activity highest = this.firstChoice;
         Activity second = this.secondChoice;

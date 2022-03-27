@@ -2,35 +2,38 @@ package server;
 
 import commons.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Session {
     private static final int playerLimit = 20; //To be determined
     private List<String> playerList;
+    private HashMap<String,Integer> currentScores;
     private boolean started;
     private boolean ended;
     private String gameAdmin;
     private boolean gameType; //0 for singleplayer || 1 for multiplayer
-    private List<QuizzQuestion> questions;
+    private List<Question> questions;
     private List<Answer> answers;
+    private List<Joker> usedJokers;
     private int currentQuestion;
     private long questionStartedAt;
+    private List<Emoji> emojiList;
 
-    public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1);
+    public static QuizzQuestionServerParsed emptyQ = new QuizzQuestionServerParsed(new QuizzQuestion("0",new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0"),new Activity("0","0","0",Long.valueOf(0),"0")),-1,-1, new ArrayList<Joker>());
 
     public Session(boolean gameType, List<Activity> activities) {
-        this.playerList = new ArrayList<String>();
-        this.started = false;
-        this.ended = false;
-        this.gameAdmin = null;
-        this.gameType = gameType;
-        this.questions = new ArrayList<QuizzQuestion>();
-        this.answers = new ArrayList<Answer>();
-        this.currentQuestion = -1;
+        this.playerList        = new ArrayList<String>();
+        this.currentScores     = new HashMap<>();
+        this.started           = false;
+        this.ended             = false;
+        this.gameAdmin         = null;
+        this.gameType          = gameType;
+        this.questions         = new ArrayList<Question>();
+        this.answers           = new ArrayList<Answer>();
+        this.usedJokers        = new ArrayList<Joker>();
+        this.currentQuestion   = -1;
         this.questionStartedAt = -1;
+        this.emojiList         = new ArrayList<Emoji>();
         this.generateTestQuestions(activities);
     }
 
@@ -50,7 +53,7 @@ public class Session {
     }
 
     public QuizzQuestionServerParsed getCurrentQuestion() {
-        if (!this.started) return Session.emptyQ;
+        if (!this.started || this.ended) return Session.emptyQ;
 
         Date date = new Date();
         //If everyone has answered that question OR this is first question OR time has passed then get new question
@@ -65,7 +68,9 @@ public class Session {
             return Session.emptyQ;
         }
 
-        return new QuizzQuestionServerParsed(this.questions.get(currentQuestion),this.questionStartedAt,this.currentQuestion);
+        List<Joker> jokers = this.getJokersForCurrentQuestion("test");
+
+        return new QuizzQuestionServerParsed(this.questions.get(currentQuestion),this.questionStartedAt,this.currentQuestion,jokers);
     }
 
     /**
@@ -120,7 +125,22 @@ public class Session {
             }
         }
 
+        this.currentScores.put(x.getNickname(),x.getAnswer());
         this.answers.add(x);
+        return true;
+    }
+
+    /**
+     * Adds joker to current session
+     * @param jokerType - type of joker used
+     * @param username - user applying joker
+     * @param questionNum - question that joker applies to
+     * @return Boolean value indicating whether operation was successful
+     */
+    public boolean addJoker(int jokerType, String username, int questionNum) {
+        if(!this.isPlayerInSession(username) || questionNum != this.currentQuestion) return false;
+
+        this.usedJokers.add(new Joker(username,jokerType,questionNum));
         return true;
     }
 
@@ -139,6 +159,22 @@ public class Session {
         }
 
         return true;
+    }
+
+    /**
+     * Returns all jokers that apply to current question and weren't applied by that user
+     * @param username - User that requests joker list
+     * @return List of jokers for given question
+     */
+    public List<Joker> getJokersForCurrentQuestion(String username) {
+        List<Joker> retList = new ArrayList<Joker>();
+        for(Joker x : usedJokers) {
+            if(x.getQuestionNum() != this.currentQuestion || x.getUsedBy().equals(username)) continue;
+
+            retList.add(x);
+        }
+
+        return retList;
     }
 
     /**
@@ -167,6 +203,53 @@ public class Session {
         this.ended = true;
     }
 
+    /**
+     * Adds an Emoij to the list of emoijs in the session.
+     * @param emoij - The information about the added emoij (with username and emoijType)
+     */
+    public void addEmoij(Emoji emoij){
+        this.emojiList.add(emoij);
+    }
+
+    /**
+     * Check if there are expired emoji's in the session emoij-list and only gives the newest emoji of the players and get the list with active emoji's
+     * @return List<Emoji> that contains all the 'active' emoji's.
+     */
+    public List<Emoji> getActiveEmoijList(){
+        List<Emoji> activeEmojiList = new ArrayList<Emoji>();
+        Date date = new Date();
+        int emojiListLength = emojiList.size();
+        for (int i = 0; i < emojiListLength; i++){
+            if(emojiList.get(i).getStartTimeEmoji() > (date.getTime() - 5000 )){ //emoji's have an expiry time of 5 seconds
+                for (int a = 0; a < activeEmojiList.size(); a++){
+                    if(emojiList.get(i).getUserApplying() == activeEmojiList.get(a).getUserApplying() &&
+                    emojiList.get(i).getStartTimeEmoji() >= activeEmojiList.get(a).getStartTimeEmoji()){
+                        activeEmojiList.remove(a);
+
+                    }
+                }
+                activeEmojiList.add(emojiList.get(i));
+            }
+
+        }
+        this.emojiList = activeEmojiList;
+        return activeEmojiList;
+    }
+
+    /**
+     * Setter for currentQuestionNumber ONLY FOR TESTING PURPOSES
+     */
+    public void setCurrentQuestionNum(int currentQuestion) {
+        this.currentQuestion = currentQuestion;
+    }
+
+    /**
+     * Setter for questionStartedAt ONLY FOR TESTING PURPOSES
+     */
+    public void setQuestionStartedAt(Long questionStartedAt) {
+        this.questionStartedAt = questionStartedAt;
+    }
+
     public List<String> getPlayerList() {
         return playerList;
     }
@@ -174,6 +257,8 @@ public class Session {
     public boolean isStarted() {
         return started;
     }
+
+    public boolean isEnded() { return ended; }
 
     public String getGameAdmin() {
         return gameAdmin;
@@ -187,7 +272,7 @@ public class Session {
         return currentQuestion;
     }
 
-    public List<QuizzQuestion> getQuestions() {
+    public List<Question> getQuestions() {
         return this.questions;
     }
 
@@ -199,13 +284,34 @@ public class Session {
         return this.questionStartedAt;
     }
 
+    public List<Joker> getUsedJokers() {
+        return this.usedJokers;
+    }
+    public List<Emoji> getEmojiList(){
+        return this.emojiList;
+    }
+
+    public HashMap<String, Integer> getCurrentScores() {
+        return currentScores;
+    }
+
+    public ArrayList<Map.Entry<String,Integer>> getCurrentLeaderboard() {
+        return new ArrayList<Map.Entry<String,Integer>>(currentScores.entrySet());
+    }
+
     @Override
     public String toString() {
         return "Session{" +
                 "playerList=" + playerList +
                 ", started=" + started +
-                ", gameAdmin=" + gameAdmin +
+                ", ended=" + ended +
+                ", gameAdmin='" + gameAdmin + '\'' +
                 ", gameType=" + gameType +
+                ", questions=" + questions +
+                ", answers=" + answers +
+                ", usedJokers=" + usedJokers +
+                ", currentQuestion=" + currentQuestion +
+                ", questionStartedAt=" + questionStartedAt +
                 '}';
     }
 
@@ -214,6 +320,7 @@ public class Session {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Session session = (Session) o;
-        return started == session.started && gameType == session.gameType && Objects.equals(playerList, session.playerList) && Objects.equals(gameAdmin, session.gameAdmin);
+        return started == session.started && ended == session.ended && gameType == session.gameType && currentQuestion == session.currentQuestion && questionStartedAt == session.questionStartedAt && Objects.equals(playerList, session.playerList) && Objects.equals(gameAdmin, session.gameAdmin) && Objects.equals(questions, session.questions) && Objects.equals(answers, session.answers) && Objects.equals(usedJokers, session.usedJokers);
     }
+
 }

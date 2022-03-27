@@ -66,7 +66,7 @@ public class ServerUtils {
      */
     public boolean checkIfServerMatches(String otherServer) {
 
-        return this.SERVER.equals(otherServer);
+        return SERVER.equals(otherServer);
     }
 
     /**
@@ -151,6 +151,20 @@ public class ServerUtils {
     }
 
     /**
+     * checks if the chosen username is valid or not
+     * @param username
+     * @return
+     */
+    public static boolean isUsernameValid(String username) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(SERVER).path("session/validusername/" + username)
+                .request(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .get(new GenericType<Boolean>() {
+                });
+    }
+
+    /**
      * Retrives a list of all activities
      *
      * @return the list of all activities, from the activity repository
@@ -191,9 +205,9 @@ public class ServerUtils {
     }
 
     /**
-     * Gets the top 10 players according to score, in descending order
+     * Gets the top 20 players according to score, in descending order
      *
-     * @return a list of the top 10 players
+     * @return a list of the top 20 players
      */
     public List<Player> getLeaderboardPlayers() {
         return ClientBuilder.newClient(new ClientConfig())

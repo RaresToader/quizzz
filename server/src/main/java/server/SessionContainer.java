@@ -10,6 +10,11 @@ public class SessionContainer {
     private static int maxSessions = 100;
 
     /**
+     * Empty constructor
+     */
+    public SessionContainer() {}
+
+    /**
      * @return number of all active players across all sessions
      */
     public static int getNumOfActivePlayers() {
@@ -59,7 +64,7 @@ public class SessionContainer {
         for (int i = 0; i < sessionList.size(); i++) {
             if (sessionList.get(i) == null) continue;
 
-            if (sessionList.get(i).isPlayerInSession(x) && !sessionList.get(i).hasEnded()) {
+            if (sessionList.get(i).isPlayerInSession(x)) {
                 return i;
             }
         }
@@ -97,12 +102,20 @@ public class SessionContainer {
         if (sessionList == null) return;
 
         for (int i = 0; i < sessionList.size(); i++) {
-            if (sessionList.get(i).getPlayerNum() == 0) {
+            if (sessionList.get(i) == null || sessionList.get(i).getPlayerNum() == 0) {
                 sessionList.set(i, null);
             }
         }
 
         return;
+    }
+
+    /**
+     * Setter for sessionList - ONLY FOR TESTING PURPOSES
+     * @param sessionList List to be set
+     */
+    public static void setSessionList(List<Session> sessionList) {
+        SessionContainer.sessionList = sessionList;
     }
 
     public static void clear() {
@@ -117,6 +130,15 @@ public class SessionContainer {
 
     public static List<Session> getSessionList() {
         return sessionList;
+    }
+
+    public static boolean isUsernameValid(String username) {
+        for(Session x: sessionList) {
+            if(!x.isEnded() && x.getPlayerList().contains(username)){
+                return false;
+            }
+        }
+        return true;
     }
 
 

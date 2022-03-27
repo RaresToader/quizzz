@@ -18,13 +18,15 @@ public class SplashCtrl {
     private final ServerUtils serverUtils;
     private GlobalLeaderboardCtrl globalLeaderboardCtrl;
     private AdminPanelCtrl adminPanelCtrl;
+    private QueueCtrl queueCtrl;
 
     @Inject
-    public SplashCtrl(MainCtrl mainCtrl, ServerUtils serverUtils, GlobalLeaderboardCtrl globalLeaderboardCtrl, AdminPanelCtrl adminPanelCtrl) {
+    public SplashCtrl(MainCtrl mainCtrl, ServerUtils serverUtils, GlobalLeaderboardCtrl globalLeaderboardCtrl, AdminPanelCtrl adminPanelCtrl, QueueCtrl queueCtrl) {
         this.mainCtrl = mainCtrl;
         this.serverUtils = serverUtils;
         this.globalLeaderboardCtrl = globalLeaderboardCtrl;
         this.adminPanelCtrl = adminPanelCtrl;
+        this.queueCtrl = queueCtrl;
 
     }
 
@@ -148,6 +150,7 @@ public class SplashCtrl {
     }
 
     public void goToMultiplayerQueue() {
+        queueCtrl.init();
         activePlayersTimer.cancel();
         mainCtrl.showQueue();
     }
