@@ -41,7 +41,7 @@ public class SessionController {
         int foundSess = SessionContainer.findAvailableSession(nickname);
         if(foundSess != -1) return true; //Available session was found
 
-        SessionContainer.createSession(true,nickname,this.get60RandomActivities()); //Create session
+        SessionContainer.createSession(true,nickname,this.activityRepository.findAll()); //Create session
         return true;
     }
 
