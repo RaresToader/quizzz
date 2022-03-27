@@ -209,6 +209,6 @@ public class UtilsTest {
                 .addHeader("content-type: application/json; charset=utf-8"));
 
         Session.setNickname("test");
-        assertEquals(x,Utils.getCurrentSessionPlayers("test"));
+        assertEquals(x,Utils.getCurrentSessionPlayers());
     }
 }
