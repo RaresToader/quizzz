@@ -222,7 +222,7 @@ public class Session {
         for (int i = 0; i < emojiListLength; i++){
             if(emojiList.get(i).getStartTimeEmoji() > (date.getTime() - 5000 )){ //emoji's have an expiry time of 5 seconds
                 for (int a = 0; a < activeEmojiList.size(); a++){
-                    if(emojiList.get(i).getUserApplying() == activeEmojiList.get(a).getUserApplying() &&
+                    if(Objects.equals(emojiList.get(i).getUserApplying(), activeEmojiList.get(a).getUserApplying()) &&
                     emojiList.get(i).getStartTimeEmoji() >= activeEmojiList.get(a).getStartTimeEmoji()){
                         activeEmojiList.remove(a);
 
