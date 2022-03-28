@@ -11,8 +11,15 @@ import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class EnterMenuCtrl {
+
+    private static final String usernameFileName = "username.log";
 
     private final MainCtrl mainCtrl;
     private final MultiplayerLobbyCtrl mLobbyCtrl;
@@ -33,6 +40,11 @@ public class EnterMenuCtrl {
         this.mainCtrl = mainCtrl;
         this.mLobbyCtrl = multiplayerLobbyCtrl;
         this.serverUtils = serverUtils;
+
+    }
+
+    public void initialize() {
+        username.setText(EnterMenuCtrl.getUsernameFromFile());
     }
 
     @FXML
@@ -60,6 +72,8 @@ public class EnterMenuCtrl {
             }
 
 
+
+            EnterMenuCtrl.saveUsernameToFile(nickname);
             Session.setNickname(nickname);
             this.serverUtils.addPlayer(nickname);
             Session.setServerAddr(serverAddr);
@@ -71,6 +85,46 @@ public class EnterMenuCtrl {
         }
         else {
             displayErrorText("Provided username is invalid!");
+        }
+    }
+
+    /**
+     * Gets username from file
+     * @return String value of saved username ("" - empty string if empty file)
+     */
+    private static String getUsernameFromFile() {
+        try {
+            File myObj = new File(usernameFileName);
+            Scanner myReader = new Scanner(myObj);
+            String data = "";
+            while (myReader.hasNextLine()) {
+                data = myReader.nextLine();
+            }
+            myReader.close();
+            return data;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+    }
+
+    /**
+     * Saves username into file for further usage
+     * @param username - username to be saved
+     * @return Boolean value whether operation was successful or not
+     */
+    private static boolean saveUsernameToFile(String username) {
+        try {
+            File usernameFile = new File(usernameFileName);
+            usernameFile.createNewFile(); //Only creates new file if exists
+            FileWriter myWriter = new FileWriter(usernameFileName);
+            myWriter.write(username);
+            myWriter.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
