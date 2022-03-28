@@ -13,6 +13,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -242,6 +243,9 @@ public class QuestionScreenCtrl {
             submit.setDisable(false);
             guessOnlyNum();
             guess.setStyle("-fx-background-color: #CED0CE;");
+            guess.setCursor(Cursor.TEXT);
+            guess.requestFocus();
+            submit.setDefaultButton(true);
         }
         guessLabel.setText("");
         firstAnswerLabel.setText("");
@@ -288,7 +292,6 @@ public class QuestionScreenCtrl {
             }
         });
     }
-
 
     /**
      * restarts the timer
