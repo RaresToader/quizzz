@@ -314,11 +314,9 @@ public class MultiplayerLobbyCtrl {
                 }
             }, 6000);
 
-
-
+            
             String userApplying = emoji.getUserApplying();
             ImageView playerEmoteImageView = null;
-
 
             // Find the right player tag for the given user that applied the emoji
             for (Triple<StackPane, Text, ImageView> tag : playerTags.keySet()) {
@@ -328,7 +326,6 @@ public class MultiplayerLobbyCtrl {
             }
 
             if (playerEmoteImageView != null) {
-
                 String emotePNG;
 
                 // Get the right emote image
@@ -351,10 +348,6 @@ public class MultiplayerLobbyCtrl {
                 emoteFadeOut.setDelay(Duration.seconds(2));
 
                 emoteFadeOut.play();
-
-
-
-
             }
         }
     }
