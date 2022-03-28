@@ -161,7 +161,9 @@ public class MultiplayerLobbyCtrl {
      */
     public void goBackToSplash() {
         playerUpdateTimer.cancel();
-        removeEmojiTimer.cancel();
+        if (removeEmojiTimer != null) {
+            removeEmojiTimer.cancel();
+        }
         setLeader(false);
 
         Utils.leaveSession();
@@ -176,7 +178,7 @@ public class MultiplayerLobbyCtrl {
         startButton.setDisable(true);
         startButton.setVisible(false);
 
-        Utils.startSession();
+        System.out.println("\n\n\n\t\t\t" + Utils.startSession() + "\n\n\n");
     }
 
     /**
@@ -295,7 +297,6 @@ public class MultiplayerLobbyCtrl {
      */
     private void receiveEmotes() {
         List<Emoji> activeEmojiList = lobbyStatus.getEmojiList();
-        System.out.println("\nEMOJI LIST: " + activeEmojiList + "\n");
 
         // Loop through all active emojis and display them according to the user that sent it
         for (Emoji emoji : activeEmojiList) {
