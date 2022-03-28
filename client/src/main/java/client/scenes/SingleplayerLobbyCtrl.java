@@ -60,6 +60,7 @@ public class SingleplayerLobbyCtrl {
         );
         timerForStart.setCycleCount(6);
         timerForStart.play();
+        startGameButton.setDisable(false);
     }
 
     public void goBackToSplash() {
