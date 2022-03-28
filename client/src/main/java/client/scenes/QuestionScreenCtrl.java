@@ -292,6 +292,7 @@ public class QuestionScreenCtrl {
             }
         });
     }
+    
 
     /**
      * restarts the timer
