@@ -26,7 +26,7 @@
       <Button fx:id="startButton" layoutX="1090.0" layoutY="605.0" mnemonicParsing="false" onAction="#startGameButtonPressed" prefHeight="82.0" prefWidth="180.0" styleClass="standardButton" text="Start&#10;game" textFill="WHITE" />
       <ImageView fx:id="leaderCrown" fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
          <image>
-<!--            <Image url="/photos/crown.png" />-->
+            <Image url="/photos/crown.png" />
          </image></ImageView>
       <Pane fx:id="emoteBox" layoutX="1080.0" prefHeight="149.0" prefWidth="200.0">
          <children>
@@ -34,7 +34,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-<!--                        <Image url="/photos/emoteBubble.png" />-->
+                        <Image url="/photos/emoteBubble.png" />
                      </image></ImageView>
                </graphic></Button>
             <Button fx:id="emoteButtonSmile" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="136.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" visible="false">
