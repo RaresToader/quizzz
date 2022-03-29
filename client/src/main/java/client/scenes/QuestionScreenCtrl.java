@@ -197,13 +197,13 @@ public class QuestionScreenCtrl {
      */
     public void setNewQuestion() {
         progress += 1;
+        questionNumber.setText(progress + "/20");
         if (currQuestion instanceof QuizzQuestion) {
             showQuizzPage();
             initQuizzQuestion();
         } else if (currQuestion instanceof ConsumpQuestion) {
             consumpPage();
             question.setText(((ConsumpQuestion) currQuestion).getQuestion());
-            questionNumber.setText(progress + "/20");
             activity.setText(((ConsumpQuestion) currQuestion).getActivity().getTitle());
             String path = "/photos/" + ((ConsumpQuestion) currQuestion).getActivity().getImage_path();
             activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
@@ -219,7 +219,6 @@ public class QuestionScreenCtrl {
         } else if (currQuestion instanceof InsteadOfQuestion) {
             consumpPage();
             question.setText(((InsteadOfQuestion) currQuestion).getQuestion());
-            questionNumber.setText(progress + "/20");
             activity.setText(((InsteadOfQuestion) currQuestion).getPromptActivity().getTitle());
             String path = "/photos/" + ((InsteadOfQuestion) currQuestion).getPromptActivity().getImage_path();
             activityImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
@@ -239,7 +238,6 @@ public class QuestionScreenCtrl {
         } else {
             guessPage();
             question.setText(((GuessQuestion) currQuestion).getQuestion());
-            questionNumber.setText(progress + "/20");
             activity.setText(((GuessQuestion) currQuestion).getActivity().getTitle());
             String path = "/photos/" + ((GuessQuestion) currQuestion).getActivity().getImage_path();
             activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
