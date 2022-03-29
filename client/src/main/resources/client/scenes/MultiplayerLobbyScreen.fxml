@@ -9,6 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.image.Image?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #191919;" stylesheets="/stylesheets/MultiplayerLobbyStylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiplayerLobbyCtrl">
    <children>
       <Label id="title" alignment="CENTER" layoutX="532.0" layoutY="-10.0" styleClass="title" text="Lobby" textAlignment="CENTER" textFill="WHITE">
@@ -40,42 +41,42 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-<!--                        <Image url="/photos/emoteSmile.png" />-->
+                        <Image url="/photos/emoteSmile.png" />
                      </image></ImageView>
                </graphic></Button>
             <Button fx:id="emoteButtonSad" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="75.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" visible="false">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-<!--                        <Image url="/photos/emoteSad.png" />-->
+                        <Image url="/photos/emoteSad.png" />
                      </image></ImageView>
                </graphic></Button>
             <Button fx:id="emoteButtonAngry" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" visible="false">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-<!--                        <Image url="/photos/emoteAngry.png" />-->
+                        <Image url="/photos/emoteAngry.png" />
                      </image></ImageView>
                </graphic></Button>
             <Button fx:id="emoteButtonSurprise" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" visible="false">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-<!--                        <Image url="/photos/emoteSurprise.png" />-->
+                        <Image url="/photos/emoteSurprise.png" />
                      </image></ImageView>
                </graphic></Button>
             <Button fx:id="emoteButtonCelebrate" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="75.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" visible="false">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-<!--                        <Image url="/photos/emoteCelebrate.png" />-->
+                        <Image url="/photos/emoteCelebrate.png" />
                      </image></ImageView>
                </graphic></Button>
             <Button fx:id="emoteButtonSunglasses" contentDisplay="CENTER" disable="true" graphicTextGap="0.0" layoutX="136.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="standardEmoteButton" visible="false">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-<!--                        <Image url="/photos/emoteSunglasses.png" />-->
+                        <Image url="/photos/emoteSunglasses.png" />
                      </image></ImageView>
                </graphic></Button>
          </children>

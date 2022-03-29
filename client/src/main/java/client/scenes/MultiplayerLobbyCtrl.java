@@ -225,7 +225,9 @@ public class MultiplayerLobbyCtrl {
         System.out.println(Utils.setEmoji(Session.getNickname(), emoteType));
     }
 
-
+    /**
+     * Updates the number of players in the lobby every 2 seconds.
+     **/
     private void updateNumberOfPlayersLobby() {
         numberOfPlayersTimer = new Timer();
 
@@ -237,7 +239,7 @@ public class MultiplayerLobbyCtrl {
                     public void run() {
                         List<String> list = Utils.getCurrentSessionPlayers();
                         int numberOfPlayers = list.size();
-                        if (numberOfPlayers == 1){
+                        if (numberOfPlayers == 1) {
                             numberOfPlayersLabel.setText(numberOfPlayers + " player waiting in lobby");
                         }
                         else {
@@ -246,7 +248,7 @@ public class MultiplayerLobbyCtrl {
                     }
                 });
             }
-        }, 0, 2*1000);
+        }, 0, 2*1000); //run every 2 seconds
     }
 
 
