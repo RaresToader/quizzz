@@ -10,3 +10,8 @@
     -fx-translate-x: -20pt;
     -fx-translate-y: -25pt;
 }
+
+#numberOfPlayersLabel{
+    -fx-translate-x: -20pt;
+    -fx-translate-y: -25pt;
+}

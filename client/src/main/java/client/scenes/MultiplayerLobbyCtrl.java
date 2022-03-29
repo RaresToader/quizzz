@@ -5,6 +5,7 @@ import client.utils.Utils;
 import commons.Emoji;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -48,6 +49,9 @@ public class MultiplayerLobbyCtrl {
     private Button emoteButtonCelebrate;
     @FXML
     private Button emoteButtonSunglasses;
+
+    @FXML
+    private Label numberOfPlayersLabel;
 
     @FXML
     private StackPane playerNameBackground1;
@@ -146,8 +150,8 @@ public class MultiplayerLobbyCtrl {
             public void run() {
                 System.out.println("PLAYER UPDATE TIMER");
                 playerUpdate();
-
                 receiveEmotes();
+                updateNumberOfPlayersLobby();
 
                 System.out.println("isleader: " + isLeader);
 
@@ -218,6 +222,14 @@ public class MultiplayerLobbyCtrl {
     private void sendEmote(String emoteType) {
         System.out.println("emote button pressed: " + emoteType); //DEBUG LINE
         System.out.println(Utils.setEmoji(Session.getNickname(), emoteType));
+    }
+
+    private void updateNumberOfPlayersLobby() {
+        List<String> list = Utils.getCurrentSessionPlayers();
+        int numberOfPlayers = list.size();
+        numberOfPlayersLabel.setText("test");
+        System.out.println(numberOfPlayers + "players waiting in lobby");
+
     }
 
     /**
