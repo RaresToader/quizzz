@@ -3,6 +3,7 @@ package client.scenes;
 import client.Session;
 import client.utils.Utils;
 import commons.Emoji;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,6 +21,7 @@ public class MultiplayerLobbyCtrl {
 
     private boolean isLeader;
     private Timer playerUpdateTimer;
+    private Timer numberOfPlayersTimer;
     private Pair<StackPane, Text> ownPlayerTag;
     private LinkedHashMap<Pair<StackPane, Text>, String> playerTags;
 
@@ -97,7 +99,7 @@ public class MultiplayerLobbyCtrl {
     public void init() {
 
         initialisePlayers();
-
+        updateNumberOfPlayersLobby();
         initialiseEmoteMenu();
 
         if (isLeader) {
@@ -151,7 +153,6 @@ public class MultiplayerLobbyCtrl {
                 System.out.println("PLAYER UPDATE TIMER");
                 playerUpdate();
                 receiveEmotes();
-                updateNumberOfPlayersLobby();
 
                 System.out.println("isleader: " + isLeader);
 
@@ -224,13 +225,30 @@ public class MultiplayerLobbyCtrl {
         System.out.println(Utils.setEmoji(Session.getNickname(), emoteType));
     }
 
-    private void updateNumberOfPlayersLobby() {
-        List<String> list = Utils.getCurrentSessionPlayers();
-        int numberOfPlayers = list.size();
-        numberOfPlayersLabel.setText("test");
-        System.out.println(numberOfPlayers + "players waiting in lobby");
 
+    private void updateNumberOfPlayersLobby() {
+        numberOfPlayersTimer = new Timer();
+
+        numberOfPlayersTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<String> list = Utils.getCurrentSessionPlayers();
+                        int numberOfPlayers = list.size();
+                        if (numberOfPlayers == 1){
+                            numberOfPlayersLabel.setText(numberOfPlayers + " player waiting in lobby");
+                        }
+                        else {
+                            numberOfPlayersLabel.setText(numberOfPlayers + " players waiting in lobby");
+                        }
+                    }
+                });
+            }
+        }, 0, 2*1000);
     }
+
 
     /**
      * Receive any emotes sent by other players and display them next to the corresponding player tag
