@@ -279,6 +279,12 @@ public class SessionTest {
         Session x = new Session(false,repo.activities);
         assertFalse(x.equals(null));
     }
+    @Test
+    public void otherObjectEqualsTest(){
+        Session x = new Session(false,repo.activities);
+        Emoji emoji = new Emoji("user","emoji");
+        assertFalse(x.equals(emoji));
+    }
 
     @Test
     public void equalsSameDiffInstanceTest() {
@@ -300,6 +306,59 @@ public class SessionTest {
     public void equalsSameInstanceTest() {
         Session x = new Session(false,repo.activities);
         assertTrue(x.equals(x));
+    }
+    @Test
+    public void equalsSameOtherInstanceTest(){
+        Session x = new Session(false,repo.activities);
+        Session y = new Session(false,repo.activities);
+        y.setQuestionStartedAt(x.getQuestionStartedAt());
+        y.setAnswers(x.getAnswers());
+        y.setCurrentQuestionNum(x.getCurrentQuestionNum());
+        y.setQuestions(x.getQuestions());
+        assertTrue(x.equals(y));
+        y.setQuestionStartedAt(1);
+        assertFalse(x.equals(y));
+        y.setQuestionStartedAt(x.getQuestionStartedAt());
+        Session z = new Session(false,repo.activities);
+        List<Answer> answerList= new ArrayList<Answer>();
+        Answer answer = new Answer();
+        answerList.add(answer);
+        y.setAnswers(answerList);
+        assertFalse(x.equals(y));
+        y.setAnswers(x.getAnswers());
+        y.setCurrentQuestionNum(2);
+        assertFalse(x.equals(y));
+        y.setCurrentQuestionNum(x.getCurrentQuestionNum());
+        y.setQuestions(z.getQuestions());
+        assertFalse(x.equals(y));
+        y.setQuestions(x.getQuestions());
+        assertTrue(x.equals(y));
+        y.setCurrentQuestion(2);
+        assertFalse(x.equals(y));
+        y.setCurrentQuestion(x.getCurrentQuestionNum());
+        y.setEnded(true);
+        assertFalse(x.equals(y));
+        y.setEnded(false);
+        y.setGameAdmin("user1");
+        assertFalse(x.equals(y));
+        y.setGameAdmin(x.getGameAdmin());
+        y.setGameType(true);
+        assertFalse(x.equals(y));
+        y.setGameType(false);
+        y.setStarted(true);
+        assertFalse(x.equals(y));
+        y.setStarted(false);
+        Joker joker = new Joker("user",2,3);
+        List<Joker> jokers = new ArrayList<Joker>();
+        jokers.add(joker);
+        y.setUsedJokers(jokers);
+        assertFalse(x.equals(y));
+        y.setUsedJokers(x.getUsedJokers());
+        List<String> playerList = new ArrayList<String>();
+        playerList.add("user");
+        y.setPlayerList(playerList);
+        assertFalse(x.equals(y));
+
     }
 
     @Test

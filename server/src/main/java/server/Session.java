@@ -250,6 +250,54 @@ public class Session {
         this.questionStartedAt = questionStartedAt;
     }
 
+    public void setPlayerList(List<String> playerList) {
+        this.playerList = playerList;
+    }
+
+    public void setCurrentScores(HashMap<String, Integer> currentScores) {
+        this.currentScores = currentScores;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
+    }
+
+    public void setGameAdmin(String gameAdmin) {
+        this.gameAdmin = gameAdmin;
+    }
+
+    public void setGameType(boolean gameType) {
+        this.gameType = gameType;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
+
+    public void setUsedJokers(List<Joker> usedJokers) {
+        this.usedJokers = usedJokers;
+    }
+
+    public void setCurrentQuestion(int currentQuestion) {
+        this.currentQuestion = currentQuestion;
+    }
+
+    public void setQuestionStartedAt(long questionStartedAt) {
+        this.questionStartedAt = questionStartedAt;
+    }
+
+    public void setEmojiList(List<Emoji> emojiList) {
+        this.emojiList = emojiList;
+    }
+
     public List<String> getPlayerList() {
         return playerList;
     }
