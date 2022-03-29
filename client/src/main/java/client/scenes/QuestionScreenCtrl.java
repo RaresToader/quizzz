@@ -399,7 +399,6 @@ public class QuestionScreenCtrl {
      * received, shows whether the question was answered correctly and if not it shows the correct answer
      */
     public void submitGuess() {
-        closeConfirmPage();
         if(guess.getText() == ""){
             return;
         }
@@ -471,7 +470,6 @@ public class QuestionScreenCtrl {
      * handles the display when the chosen answer was not the right answer.
      */
     public void wrongAnswer() {
-        closeConfirmPage();
         String first = "";
         String second = "";
         String third = "";
@@ -535,7 +533,6 @@ public class QuestionScreenCtrl {
      * handles the transition between two questions.
      */
     public void transition() {
-        closeConfirmPage();
         Utils.submitAnswer(totalPoints);
         if (currQuestion instanceof QuizzQuestion) {
             firstAnswer.setDisable(true);
@@ -598,7 +595,6 @@ public class QuestionScreenCtrl {
      * handles the end of a game.
      */
     public void endOfGame() {
-        closeConfirmPage();
         questionTimer.pause();
         timeBarAnimation.stop();
         Player player = serverUtils.getPlayer(Session.getNickname());
@@ -673,7 +669,6 @@ public class QuestionScreenCtrl {
      * Shows and sets to front everything that should be shown for the "QuizzQuestion" question type
      */
     public void showQuizzPage() {
-        closeConfirmPage();
         notConsumpPage();
         notGuessPage();
         firstAnswer.setVisible(true);
@@ -715,7 +710,6 @@ public class QuestionScreenCtrl {
      * Show, make clickable and set to front everything that should be shown for the "ConsumpQuestion" question type
      */
     public void consumpPage() {
-        closeConfirmPage();
         notGuessPage();
         notQuizzPage();
         firstConsump.setVisible(true);
@@ -749,7 +743,6 @@ public class QuestionScreenCtrl {
      * Show, make clickable and set to front everything that should be shown for the "GuessQuestion" question type
      */
     public void guessPage() {
-        closeConfirmPage();
         notQuizzPage();
         notConsumpPage();
         activity.setVisible(true);
