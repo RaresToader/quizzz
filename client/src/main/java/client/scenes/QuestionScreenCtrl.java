@@ -255,7 +255,6 @@ public class QuestionScreenCtrl {
         firstAnswerLabel.setText("");
         secondAnswerLabel.setText("");
         thirdAnswerLabel.setText("");
-
     }
 
     /**
