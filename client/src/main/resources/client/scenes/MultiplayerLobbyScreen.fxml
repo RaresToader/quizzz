@@ -17,7 +17,7 @@
             <Font size="72.0" />
          </font>
       </Label>
-      <Label id="label1" alignment="CENTER" layoutX="346.0" layoutY="119.0" styleClass="label" text="Waiting for leader to start the game..." textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="label1" alignment="CENTER" layoutX="346.0" layoutY="119.0" styleClass="label" text="Waiting for leader to start the game..." textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="36.0" />
          </font>

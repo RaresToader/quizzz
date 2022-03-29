@@ -401,6 +401,11 @@ public class MultiplayerLobbyCtrl {
         leaveButton.setDisable(true);
         leaveButton.setVisible(false);
 
+        playerUpdateTimer.cancel();
+        if (removeEmojiTimer != null) {
+            removeEmojiTimer.cancel();
+        }
+
         System.out.println("\n\n\n\t\t\tIN startGame()\n\n\n");
 
         transitionTimeLeft = 5;
@@ -411,8 +416,6 @@ public class MultiplayerLobbyCtrl {
                             label1.setText("Game starting in " + transitionTimeLeft);
 
                             if (transitionTimeLeft == 0) {
-                                playerUpdateTimer.cancel();
-                                removeEmojiTimer.cancel();
                                 //TODO
                                 // Start the game locally
                             } else {
