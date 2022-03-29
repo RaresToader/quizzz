@@ -3,13 +3,21 @@ package client.scenes;
 import client.Session;
 import client.utils.Utils;
 import commons.Emoji;
+import commons.SessionLobbyStatus;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.util.Pair;
+import javafx.util.Duration;
+import kotlin.Triple;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -19,19 +27,29 @@ public class MultiplayerLobbyCtrl {
 
     private boolean isLeader;
     private Timer playerUpdateTimer;
-    private Pair<StackPane, Text> ownPlayerTag;
-    private LinkedHashMap<Pair<StackPane, Text>, String> playerTags;
+    private Triple<StackPane, Text, ImageView> ownPlayerTag;
+    private LinkedHashMap<Triple<StackPane, Text, ImageView>, String> playerTags;
+
+    private SessionLobbyStatus lobbyStatus;
+    private ArrayList<Emoji> recentlyReceivedEmojis;
+    private Timer removeEmojiTimer;
+
+    private int transitionTimeLeft;
 
     @Inject
     public MultiplayerLobbyCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
-
-        this.playerTags = new LinkedHashMap<>();
-        this.ownPlayerTag = null;
     }
 
     @FXML
     private Button startButton;
+    @FXML
+    private Button leaveButton;
+    @FXML
+    private Label label1;
+    @FXML
+    private ImageView leaderCrown;
+
     @FXML
     private Pane emoteBox;
     @FXML
@@ -90,7 +108,39 @@ public class MultiplayerLobbyCtrl {
     @FXML
     private Text playerNameLabel10;
 
+    @FXML
+    private ImageView playerEmote1;
+    @FXML
+    private ImageView playerEmote2;
+    @FXML
+    private ImageView playerEmote3;
+    @FXML
+    private ImageView playerEmote4;
+    @FXML
+    private ImageView playerEmote5;
+    @FXML
+    private ImageView playerEmote6;
+    @FXML
+    private ImageView playerEmote7;
+    @FXML
+    private ImageView playerEmote8;
+    @FXML
+    private ImageView playerEmote9;
+    @FXML
+    private ImageView playerEmote10;
+
+
+    /**
+     * Method which is called when the user switches to the screen
+     * Initialises all components of the screen to either allow the player to interact with certain buttons
+     * or to display other players
+     */
     public void init() {
+
+        // Reset tag data structures
+        this.playerTags = new LinkedHashMap<>();
+        this.ownPlayerTag = null;
+        this.recentlyReceivedEmojis = new ArrayList<>();
 
         initialisePlayers();
 
@@ -104,62 +154,82 @@ public class MultiplayerLobbyCtrl {
             startButton.setDisable(true);
             startButton.setVisible(false);
         }
-
-        //TODO
     }
 
+    /**
+     * Leave the lobby session
+     */
     public void goBackToSplash() {
         playerUpdateTimer.cancel();
-        //TODO
-        // IF PLAYER WAS LEADER THEY MUST PASS IT ON TO ANOTHER PLAYER
+        if (removeEmojiTimer != null) {
+            removeEmojiTimer.cancel();
+        }
+        setLeader(false);
+
+        Utils.leaveSession();
         mainCtrl.showSplash();
     }
 
+    /**
+     * The lobby leader is able to press the start game button, this method is then called
+     * Which tells the other players in the session and the session itself that the game is starting
+     */
     public void startGameButtonPressed() {
         startButton.setDisable(true);
         startButton.setVisible(false);
 
-        //TODO
-        // SEND START OF GAME TO OTHER PLAYERS AND SWITCH ALL PLAYERS TO QUESTION SCREEN
-        // ALSO LOCK THE LOBBY, NO MORE PLAYERS CAN JOIN
+        System.out.println("\n\n\n\t\t\t" + Utils.startSession() + "\n\n\n");
     }
 
     /**
      * Initialise all player tags and display their names
+     * Also initialises a timer that calls a series of update methods to display any new changes
      */
     private void initialisePlayers() {
 
-        playerTags.put(new Pair<>(playerNameBackground1, playerNameLabel1), null);
-        playerTags.put(new Pair<>(playerNameBackground2, playerNameLabel2), null);
-        playerTags.put(new Pair<>(playerNameBackground3, playerNameLabel3), null);
-        playerTags.put(new Pair<>(playerNameBackground4, playerNameLabel4), null);
-        playerTags.put(new Pair<>(playerNameBackground5, playerNameLabel5), null);
-        playerTags.put(new Pair<>(playerNameBackground6, playerNameLabel6), null);
-        playerTags.put(new Pair<>(playerNameBackground7, playerNameLabel7), null);
-        playerTags.put(new Pair<>(playerNameBackground8, playerNameLabel8), null);
-        playerTags.put(new Pair<>(playerNameBackground9, playerNameLabel9), null);
-        playerTags.put(new Pair<>(playerNameBackground10, playerNameLabel10), null);
+        // Set up all the tags
+        // Triple<StackPane, Text, ImageView>
+        playerTags.put(new Triple<>(playerNameBackground1, playerNameLabel1, playerEmote1), null);
+        playerTags.put(new Triple<>(playerNameBackground2, playerNameLabel2, playerEmote2), null);
+        playerTags.put(new Triple<>(playerNameBackground3, playerNameLabel3, playerEmote3), null);
+        playerTags.put(new Triple<>(playerNameBackground4, playerNameLabel4, playerEmote4), null);
+        playerTags.put(new Triple<>(playerNameBackground5, playerNameLabel5, playerEmote5), null);
+        playerTags.put(new Triple<>(playerNameBackground6, playerNameLabel6, playerEmote6), null);
+        playerTags.put(new Triple<>(playerNameBackground7, playerNameLabel7, playerEmote7), null);
+        playerTags.put(new Triple<>(playerNameBackground8, playerNameLabel8, playerEmote8), null);
+        playerTags.put(new Triple<>(playerNameBackground9, playerNameLabel9, playerEmote9), null);
+        playerTags.put(new Triple<>(playerNameBackground10, playerNameLabel10, playerEmote10), null);
 
+        // Timer that regularly calls update methods
         playerUpdateTimer = new Timer();
         playerUpdateTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                System.out.println("PLAYER UPDATE TIMER");
+                lobbyStatus = Utils.getLobbyStatus();
+
+                if (Objects.equals(lobbyStatus.getGameAdmin(), Session.getNickname()) && !lobbyStatus.isStarted()) {
+                    setLeader(true);
+                    startButton.setDisable(false);
+                    startButton.setVisible(true);
+                }
+                else {
+                    setLeader(false);
+                    startButton.setDisable(true);
+                    startButton.setVisible(false);
+                }
+
                 playerUpdate();
 
                 receiveEmotes();
 
-                System.out.println("isleader: " + isLeader);
+                if (lobbyStatus.isStarted()) {
+                    System.out.println("\n\n\n\t\t\tlobbyStatus.isStarted()\n\n\n");
+                    startGame();
+                }
 
-//                    if (!isLeader) {
-//                        //TODO
-//                        // If leader is changed update start button accordingly
-//                        // If leader starts game display transition countdown
-//
-//                    }
             }
 
-        }, 0, 1000);
+        }, 0, 20);
 
     }
 
@@ -167,17 +237,20 @@ public class MultiplayerLobbyCtrl {
      * Initialise all event handling for the emote menu
      */
     private void initialiseEmoteMenu() {
+        // Emote button, once hovered will display the other emote buttons
         emoteMenu.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 showEmotes(true);
             }
         });
+        // Invisible pane that acts as a hitbox to detect when the mouse is no longer hovering the emote buttons
         emoteBox.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 showEmotes(false);
             }
         });
 
+        // Set up the on action event for each emote button corresponding to their image
         emoteButtonSmile.setOnAction(e -> sendEmote("smile"));
         emoteButtonSad.setOnAction(e -> sendEmote("sad"));
         emoteButtonAngry.setOnAction(e -> sendEmote("angry"));
@@ -216,87 +289,157 @@ public class MultiplayerLobbyCtrl {
      * @param emoteType identifies which emote button was clicked and what emote to send
      */
     private void sendEmote(String emoteType) {
-        System.out.println("emote button pressed: " + emoteType); //DEBUG LINE
-        System.out.println(Utils.setEmoji(Session.getNickname(), emoteType));
+        Utils.setEmoji(Session.getNickname(), emoteType);
     }
 
     /**
      * Receive any emotes sent by other players and display them next to the corresponding player tag
      */
     private void receiveEmotes() {
-        List<Emoji> activeEmojiList = Utils.getLobbyStatus().getEmojiList();
-        System.out.println("\nEMOJI LIST: " + activeEmojiList + "\n");
+        List<Emoji> activeEmojiList = lobbyStatus.getEmojiList();
 
         // Loop through all active emojis and display them according to the user that sent it
         for (Emoji emoji : activeEmojiList) {
-            System.out.println("\nActive emoji: " + emoji.getEmojiType() + "\n");
 
+            // Prevent the emoji from being received again in the time that it has not expired
+            if (recentlyReceivedEmojis.contains(emoji)) {
+                continue;
+            }
+            recentlyReceivedEmojis.add(emoji);
+            removeEmojiTimer = new Timer();
+            removeEmojiTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    recentlyReceivedEmojis.remove(emoji);
+                }
+            }, 6000);
+
+            
             String userApplying = emoji.getUserApplying();
-            StackPane playerLabel = null;
+            ImageView playerEmoteImageView = null;
 
             // Find the right player tag for the given user that applied the emoji
-            for (Pair<StackPane, Text> tag : playerTags.keySet()) {
-                if (Objects.equals(userApplying, tag.getValue().getText())) {
-                    playerLabel = tag.getKey();
+            for (Triple<StackPane, Text, ImageView> tag : playerTags.keySet()) {
+                if (Objects.equals(userApplying, playerTags.get(tag))) {
+                    playerEmoteImageView = tag.getThird();
                 }
             }
-            if (playerLabel != null) {
-                Text test = new Text(
-                        playerLabel.getLayoutX() + 350, playerLabel.getLayoutY(),
-                        userApplying + " used: " + emoji.getEmojiType());
-                test.setVisible(true);
+
+            if (playerEmoteImageView != null) {
+                String emotePNG;
+
+                // Get the right emote image
+                switch (emoji.getEmojiType()) {
+                    case "smile" -> emotePNG = "/photos/emoteSmile.png";
+                    case "sad" -> emotePNG = "/photos/emoteSad.png";
+                    case "angry" -> emotePNG = "/photos/emoteAngry.png";
+                    case "surprise" -> emotePNG = "/photos/emoteSurprise.png";
+                    case "celebrate" -> emotePNG = "/photos/emoteCelebrate.png";
+                    case "sunglasses" -> emotePNG = "/photos/emoteSunglasses.png";
+                    default -> throw new IllegalStateException("Unexpected value: " + emoji.getEmojiType());
+                }
+
+                playerEmoteImageView.setImage(new Image(emotePNG));
+
+                playerEmoteImageView.setOpacity(1);
+                FadeTransition emoteFadeOut = new FadeTransition(Duration.seconds(2), playerEmoteImageView);
+                emoteFadeOut.setFromValue(1);
+                emoteFadeOut.setToValue(0);
+                emoteFadeOut.setDelay(Duration.seconds(2));
+
+                emoteFadeOut.play();
             }
         }
     }
 
     /**
      * Constantly called method to update any changes in the players in the lobby
-     * Their player tags, emotes and who the lobby leader is
+     * Their player tags, who the lobby leader is and which tag is their own
      */
     private void playerUpdate() {
         List<String> playerList = Utils.getCurrentSessionPlayers();
 
-        System.out.println("Player list: " + playerList);
-
-        for (Pair<StackPane, Text> tag : playerTags.keySet()) {
-            if (!playerList.contains(playerTags.get(tag))) { // If player is no longer in the session's player list
+        // Run through all players and player labels and check if the players are still in the session
+        for (Triple<StackPane, Text, ImageView> tag : playerTags.keySet()) {
+            // If the player is no longer in the session's player list
+            if (!playerList.contains(playerTags.get(tag))) {
                 playerTags.replace(tag, null);
             }
 
             // If it is the player's tag, and it has not been set yet
-            if (Objects.equals(tag.getValue().getText(), Session.getNickname()) && ownPlayerTag == null) {
+            if (Objects.equals(tag.getSecond().getText(), Session.getNickname()) && ownPlayerTag == null) {
                 ownPlayerTag = tag;
-                ownPlayerTag.getValue().setFill(Color.web("#f15025"));
+                ownPlayerTag.getSecond().setFill(Color.web("#f15025"));
+            }
+
+            // If it is the tag of the lobby leader
+            if (Objects.equals(tag.getSecond().getText(), lobbyStatus.getGameAdmin())) {
+                leaderCrown.setX(tag.getFirst().getLayoutX() - 100);
+                leaderCrown.setY(tag.getFirst().getLayoutY() - 25);
             }
         }
 
+        // Add any new players to a tag
         for (String player : playerList) {
 
             if (!playerTags.containsValue(player)) { // If the player is not yet displayed
-                for (Pair<StackPane, Text> tag : playerTags.keySet()) {
+                for (Triple<StackPane, Text, ImageView> tag : playerTags.keySet()) {
                     if (playerTags.get(tag) == null) { // If the player tag is empty
                         playerTags.replace(tag, player);
-                        tag.getValue().setText(player); // Set text to display players name
-                        break;
+                        tag.getSecond().setText(player); // Set text to display players name
+                        break; // Player has already been assigned a tag so break out of the inner loop
                     }
                 }
             }
         }
-
-
-        //Run through all players and player labels and check if the players are still in the session
-        //TODO
     }
 
+    /**
+     * Once the lobby leader has started the game, this method is called for all other players in the session
+     */
     private void startGame() {
-        //TODO
-        // Start the game locally
+        leaveButton.setDisable(true);
+        leaveButton.setVisible(false);
+
+        playerUpdateTimer.cancel();
+        if (removeEmojiTimer != null) {
+            removeEmojiTimer.cancel();
+        }
+
+        System.out.println("\n\n\n\t\t\tIN startGame()\n\n\n");
+
+        transitionTimeLeft = 5;
+        Timeline transitionTimer = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        event -> {
+                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
+                            label1.setText("Game starting in " + transitionTimeLeft);
+
+                            if (transitionTimeLeft == 0) {
+                                //TODO
+                                // Start the game locally
+                            } else {
+                                transitionTimeLeft -= 1;
+                            }
+                        }
+                )
+        );
+        transitionTimer.setCycleCount(6);
+        transitionTimer.play();
     }
 
+    /**
+     * Set the value to distinguish the current player is the lobby leader
+     * @param leader is true if the player is the lobby leader and false otherwise
+     */
     public void setLeader(boolean leader) {
         this.isLeader = leader;
     }
 
+    /**
+     * Get boolean of if the player is lobby leader
+     * @return a boolean value, true if the player is the lobby leader and false otherwise
+     */
     public boolean getLeader() {
         return this.isLeader;
     }

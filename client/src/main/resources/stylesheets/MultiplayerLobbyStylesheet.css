@@ -10,3 +10,14 @@
     -fx-translate-x: -20pt;
     -fx-translate-y: -25pt;
 }
+
+#startButton {
+    -fx-font-size: 32pt;
+    -fx-line-spacing: -32;
+    -fx-padding: -12;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+
+    -fx-translate-x: -20pt;
+}
