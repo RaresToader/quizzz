@@ -11,6 +11,11 @@
     -fx-translate-y: -25pt;
 }
 
+#numberOfPlayersLabel {
+    -fx-translate-x: -20pt;
+    -fx-translate-y: -25pt;
+}
+
 #startButton {
     -fx-font-size: 32pt;
     -fx-line-spacing: -32;
@@ -20,4 +25,5 @@
     -fx-start-margin: 0;
 
     -fx-translate-x: -20pt;
+
 }

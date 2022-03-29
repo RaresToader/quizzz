@@ -235,7 +235,6 @@ public class QuestionScreenCtrl {
             firstConsump.setStyle("-fx-font-size: 10pt;");
             secondConsump.setStyle("-fx-font-size: 10pt;");
             thirdConsump.setStyle("-fx-font-size: 10pt;");
-
         } else {
             guessPage();
             question.setText(((GuessQuestion) currQuestion).getQuestion());

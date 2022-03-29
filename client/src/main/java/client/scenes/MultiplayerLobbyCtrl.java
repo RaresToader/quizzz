@@ -3,13 +3,14 @@ package client.scenes;
 import client.Session;
 import client.utils.Utils;
 import commons.Emoji;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import commons.SessionLobbyStatus;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -27,6 +28,7 @@ public class MultiplayerLobbyCtrl {
 
     private boolean isLeader;
     private Timer playerUpdateTimer;
+    private Timer numberOfPlayersTimer;
     private Triple<StackPane, Text, ImageView> ownPlayerTag;
     private LinkedHashMap<Triple<StackPane, Text, ImageView>, String> playerTags;
 
@@ -66,6 +68,9 @@ public class MultiplayerLobbyCtrl {
     private Button emoteButtonCelebrate;
     @FXML
     private Button emoteButtonSunglasses;
+
+    @FXML
+    private Label numberOfPlayersLabel;
 
     @FXML
     private StackPane playerNameBackground1;
@@ -143,7 +148,7 @@ public class MultiplayerLobbyCtrl {
         this.recentlyReceivedEmojis = new ArrayList<>();
 
         initialisePlayers();
-
+        updateNumberOfPlayersLobby();
         initialiseEmoteMenu();
 
         if (isLeader) {
@@ -219,7 +224,6 @@ public class MultiplayerLobbyCtrl {
                 }
 
                 playerUpdate();
-
                 receiveEmotes();
 
                 if (lobbyStatus.isStarted()) {
@@ -291,6 +295,33 @@ public class MultiplayerLobbyCtrl {
     private void sendEmote(String emoteType) {
         Utils.setEmoji(Session.getNickname(), emoteType);
     }
+
+    /**
+     * Updates the number of players in the lobby every 2 seconds.
+     **/
+    private void updateNumberOfPlayersLobby() {
+        numberOfPlayersTimer = new Timer();
+
+        numberOfPlayersTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<String> list = Utils.getCurrentSessionPlayers();
+                        int numberOfPlayers = list.size();
+                        if (numberOfPlayers == 1) {
+                            numberOfPlayersLabel.setText(numberOfPlayers + " player waiting in lobby");
+                        }
+                        else {
+                            numberOfPlayersLabel.setText(numberOfPlayers + " players waiting in lobby");
+                        }
+                    }
+                });
+            }
+        }, 0, 2*1000); //run every 2 seconds
+    }
+
 
     /**
      * Receive any emotes sent by other players and display them next to the corresponding player tag

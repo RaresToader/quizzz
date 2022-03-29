@@ -145,6 +145,7 @@ public class SplashCtrl {
 
     public void adminPanelButton() {
         adminPanelCtrl.initialise();
+        activePlayersTimer.cancel();
         mainCtrl.showAdminPanel();
 
     }
