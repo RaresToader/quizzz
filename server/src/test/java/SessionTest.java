@@ -260,6 +260,22 @@ public class SessionTest {
         Session x = new Session(false,repo.activities);
         assertFalse(x.addAnswer(null));
     }
+    @Test
+    public void addAnswerAlreadyAddedTest(){
+        Session x = new Session(false,repo.activities);
+        List<Answer> answerList= new ArrayList<Answer>();
+        List<String> playerList = new ArrayList<String>();
+        playerList.add("user");
+        x.setPlayerList(playerList);
+        Answer answer = new Answer("user",3,2);
+        answerList.add(answer);
+        x.setAnswers(answerList);
+        assertFalse(x.addAnswer(answer));
+        Answer answer1 = new Answer("user2", 2, x.getCurrentQuestionNum());
+        playerList.add("user2");
+        x.setPlayerList(playerList);
+        assertTrue(x.addAnswer(answer1));
+    }
 
     @Test
     public void addPlayerNotInSessionAnswer() {
