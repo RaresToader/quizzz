@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.utils.Utils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -31,11 +32,8 @@ public class QueueCtrl {
     }
 
     public void init() {
-        if (false) {
-            return;
-        }
-        else {
-            transitionTimeLeft = 0;
+        if (Utils.joinSession()) {
+            transitionTimeLeft = 3;
             transitionTimer = new Timeline(
                     new KeyFrame(Duration.seconds(1),
                             event -> {
@@ -49,8 +47,12 @@ public class QueueCtrl {
                             }
                     )
             );
-            transitionTimer.setCycleCount(6);
+            transitionTimer.setCycleCount(4);
             transitionTimer.play();
+        }
+        else {
+            // ERROR
+            System.out.println("Joining a lobby has failed!");
         }
     }
 
