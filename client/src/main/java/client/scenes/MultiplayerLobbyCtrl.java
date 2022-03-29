@@ -11,9 +11,6 @@ import commons.SessionLobbyStatus;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -21,6 +18,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import javafx.util.Pair;
 import kotlin.Triple;
 
 import javax.inject.Inject;
@@ -31,11 +29,7 @@ public class MultiplayerLobbyCtrl {
 
     private boolean isLeader;
     private Timer playerUpdateTimer;
-<<<<<<< client/src/main/java/client/scenes/MultiplayerLobbyCtrl.java
     private Timer numberOfPlayersTimer;
-    private Pair<StackPane, Text> ownPlayerTag;
-    private LinkedHashMap<Pair<StackPane, Text>, String> playerTags;
-=======
     private Triple<StackPane, Text, ImageView> ownPlayerTag;
     private LinkedHashMap<Triple<StackPane, Text, ImageView>, String> playerTags;
 
@@ -44,7 +38,6 @@ public class MultiplayerLobbyCtrl {
     private Timer removeEmojiTimer;
 
     private int transitionTimeLeft;
->>>>>>> client/src/main/java/client/scenes/MultiplayerLobbyCtrl.java
 
     @Inject
     public MultiplayerLobbyCtrl(MainCtrl mainCtrl) {
