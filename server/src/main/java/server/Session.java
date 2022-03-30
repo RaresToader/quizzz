@@ -45,8 +45,8 @@ public class Session {
     public boolean haveEveryoneAnswered() {
         int playerNum = playerList.size();
         int answersNum = 0;
-        for (Answer x : answers) {
-            if (x.getQuestionNum() == this.currentQuestion) answersNum++;
+        for (int i = 0; i < answers.size(); i++) {
+            if (answers.get(i).getQuestionNum() == this.currentQuestion) answersNum++;
         }
 
         return answersNum == playerNum;
@@ -89,6 +89,14 @@ public class Session {
     }
 
     /**
+     * Get's the player limit of a session
+     * @return int - player limit
+     */
+    public int getPlayerLimit(){
+        return Session.playerLimit;
+    }
+
+    /**
      * @param p - Player to be added to game
      * @return boolean value whether operation of addition was successful
      */
@@ -119,8 +127,10 @@ public class Session {
 
 
         //If answer has already been submitted
-        for(Answer ans : this.answers) {
-            if(ans.getQuestionNum() == x.getQuestionNum() && ans.getNickname().equals(x.getNickname())) {
+        List<Answer> answerList = getAnswers();
+        int size = answerList.size();
+        for(int i = 0; i < size; i++) {
+            if(answerList.get(i).getQuestionNum() == x.getQuestionNum() && answerList.get(i).getNickname().equals(x.getNickname())) {
                 return false;
             }
         }
@@ -168,10 +178,12 @@ public class Session {
      */
     public List<Joker> getJokersForCurrentQuestion(String username) {
         List<Joker> retList = new ArrayList<Joker>();
-        for(Joker x : usedJokers) {
-            if(x.getQuestionNum() != this.currentQuestion || x.getUsedBy().equals(username)) continue;
+        List<Joker> usedJokers = getUsedJokers();
+        int size = usedJokers.size();
+        for(int i = 0; i < size; i++) {
+            if(usedJokers.get(i).getQuestionNum() != this.currentQuestion || usedJokers.get(i).getUsedBy().equals(username)) continue;
 
-            retList.add(x);
+            retList.add(usedJokers.get(i));
         }
 
         return retList;
@@ -250,6 +262,46 @@ public class Session {
         this.questionStartedAt = questionStartedAt;
     }
 
+    public void setPlayerList(List<String> playerList) {
+        this.playerList = playerList;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
+    }
+
+    public void setGameAdmin(String gameAdmin) {
+        this.gameAdmin = gameAdmin;
+    }
+
+    public void setGameType(boolean gameType) {
+        this.gameType = gameType;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
+
+    public void setUsedJokers(List<Joker> usedJokers) {
+        this.usedJokers = usedJokers;
+    }
+
+    public void setCurrentQuestion(int currentQuestion) {
+        this.currentQuestion = currentQuestion;
+    }
+
+    public void setQuestionStartedAt(long questionStartedAt) {
+        this.questionStartedAt = questionStartedAt;
+    }
+
     public List<String> getPlayerList() {
         return playerList;
     }
@@ -287,12 +339,9 @@ public class Session {
     public List<Joker> getUsedJokers() {
         return this.usedJokers;
     }
+
     public List<Emoji> getEmojiList(){
         return this.emojiList;
-    }
-
-    public HashMap<String, Integer> getCurrentScores() {
-        return currentScores;
     }
 
     public ArrayList<Map.Entry<String,Integer>> getCurrentLeaderboard() {
