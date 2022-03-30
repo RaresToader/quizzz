@@ -51,6 +51,19 @@ public class SessionTest {
         x.addPlayer("test");
         assertFalse(x.haveEveryoneAnswered());
     }
+    @Test
+    public void haveEveryoneAnsweredMultiplayerTest(){
+        Session x = new Session(true,repo.activities);
+        x.setCurrentQuestion(1);
+        x.addPlayer("user1");
+        x.addPlayer("user2");
+        Answer answer = new Answer("user1",2,1);
+        x.addAnswer(answer);
+        assertFalse(x.haveEveryoneAnswered());
+        Answer answer2 = new Answer("user2",2,1);
+        x.addAnswer(answer2);
+        assertTrue(x.haveEveryoneAnswered());
+    }
 
     @Test
     public void getQuestionNotStartedTest() {
@@ -402,6 +415,11 @@ public class SessionTest {
         y.setPlayerList(playerList);
         assertFalse(x.equals(y));
 
+    }
+    @Test
+    public void getPlayerLimitTest(){
+        Session x = new Session(false,repo.activities);
+        assertEquals(20,x.getPlayerLimit());
     }
 
     @Test

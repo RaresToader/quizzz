@@ -45,8 +45,8 @@ public class Session {
     public boolean haveEveryoneAnswered() {
         int playerNum = playerList.size();
         int answersNum = 0;
-        for (Answer x : answers) {
-            if (x.getQuestionNum() == this.currentQuestion) answersNum++;
+        for (int i = 0; i < answers.size(); i++) {
+            if (answers.get(i).getQuestionNum() == this.currentQuestion) answersNum++;
         }
 
         return answersNum == playerNum;
