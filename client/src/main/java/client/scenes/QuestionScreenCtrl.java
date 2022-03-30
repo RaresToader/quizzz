@@ -545,6 +545,10 @@ public class QuestionScreenCtrl {
             firstConsump.setDisable(true);
             secondConsump.setDisable(true);
             thirdConsump.setDisable(true);
+        } else if(currQuestion instanceof InsteadOfQuestion) {
+            firstConsump.setDisable(true);
+            secondConsump.setDisable(true);
+            thirdConsump.setDisable(true);
         } else {
             guess.setDisable(true);
             submit.setDisable(true);
@@ -792,7 +796,9 @@ public class QuestionScreenCtrl {
         if (currQuestion instanceof ConsumpQuestion) {
             consumpPage();
         }
-
+        if (currQuestion instanceof InsteadOfQuestion) {
+            consumpPage();
+        }
         if (currQuestion instanceof GuessQuestion) {
             guessPage();
         }
