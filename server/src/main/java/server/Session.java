@@ -170,10 +170,12 @@ public class Session {
      */
     public List<Joker> getJokersForCurrentQuestion(String username) {
         List<Joker> retList = new ArrayList<Joker>();
-        for(Joker x : usedJokers) {
-            if(x.getQuestionNum() != this.currentQuestion || x.getUsedBy().equals(username)) continue;
+        List<Joker> usedJokers = getUsedJokers();
+        int size = usedJokers.size();
+        for(int i = 0; i < size; i++) {
+            if(usedJokers.get(i).getQuestionNum() != this.currentQuestion || usedJokers.get(i).getUsedBy().equals(username)) continue;
 
-            retList.add(x);
+            retList.add(usedJokers.get(i));
         }
 
         return retList;

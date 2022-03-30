@@ -166,14 +166,23 @@ public class SessionTest {
         x.addPlayer("test"); //Add player
         x.startGame(); //Start it
         x.getCurrentQuestion(); //Move question counter to 0
-
         assertEquals(new ArrayList<Joker>(), x.getJokersForCurrentQuestion("test2"));
-
         x.addJoker(0,"test",0);
+        x.addJoker(2,"test",2);
         List<Joker> toBeObtained = new ArrayList<Joker>();
         toBeObtained.add(new Joker("test",0,0));
         assertEquals(new ArrayList<Joker>(), x.getJokersForCurrentQuestion("test"));
         assertEquals(toBeObtained, x.getJokersForCurrentQuestion("test2"));
+        Joker joker = new Joker("user",2,2);
+        toBeObtained.add(joker);
+        assertNotEquals(toBeObtained,x.getJokersForCurrentQuestion("test"));
+        x.setUsedJokers(toBeObtained);
+        List<Joker> newList = new ArrayList<Joker>();
+        newList.add(new Joker("test",3,0));
+        x.addJoker(3,"test",0);
+        assertNotEquals(newList, x.getJokersForCurrentQuestion("test"));
+
+
     }
 
     @Test
@@ -182,13 +191,11 @@ public class SessionTest {
         x.addPlayer("test"); //Add player
         x.startGame(); //Start it
         x.getCurrentQuestion(); //Move question counter to 0
-
-        x.addJoker(0,"test",0);
         List<Joker> toBeObtained = new ArrayList<Joker>();
         toBeObtained.add(new Joker("test",0,0));
-
-        assertEquals(1,x.getJokersForCurrentQuestion("test2").size());
-        assertEquals(toBeObtained,x.getJokersForCurrentQuestion("test2"));
+        assertTrue(x.addJoker(0,"test",0));
+        assertEquals(toBeObtained, x.getUsedJokers());
+        assertEquals(1, x.getUsedJokers().size());
     }
 
     @Test
