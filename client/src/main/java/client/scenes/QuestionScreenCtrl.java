@@ -541,11 +541,7 @@ public class QuestionScreenCtrl {
             secondAnswerLabel.setOpacity(1);
             thirdAnswer.setDisable(true);
             thirdAnswerLabel.setOpacity(1);
-        } else if (currQuestion instanceof ConsumpQuestion) {
-            firstConsump.setDisable(true);
-            secondConsump.setDisable(true);
-            thirdConsump.setDisable(true);
-        } else if(currQuestion instanceof InsteadOfQuestion) {
+        } else if (currQuestion instanceof ConsumpQuestion || currQuestion instanceof InsteadOfQuestion) {
             firstConsump.setDisable(true);
             secondConsump.setDisable(true);
             thirdConsump.setDisable(true);
