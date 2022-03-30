@@ -818,7 +818,6 @@ public class QuestionScreenCtrl {
         confirmButton.setVisible(false);
         notConfirmButton.setDisable(true);
         notConfirmButton.setVisible(false);
-        setNewQuestion();
     }
 
     /**
