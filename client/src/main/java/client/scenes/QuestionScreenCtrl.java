@@ -73,6 +73,9 @@ public class QuestionScreenCtrl {
     private Label question;
 
     @FXML
+    private Button endButton;
+
+    @FXML
     private Label questionNumber;
 
     @FXML
@@ -539,6 +542,7 @@ public class QuestionScreenCtrl {
         confirmButton.setVisible(false);
         notConfirmButton.setVisible(false);
         confirmButton.setDisable(true);
+        endButton.setDisable(true);
         notConfirmButton.setDisable(true);
         if (currQuestion instanceof QuizzQuestion) {
             firstAnswer.setDisable(true);
@@ -584,6 +588,7 @@ public class QuestionScreenCtrl {
                                 transitionTimer.setVisible(false);
                                 timeBarFill.setVisible(true);
                                 timeBarBackground.setVisible(true);
+                                endButton.setDisable(false);
                                 time.setVisible(true);
                                 nextDisplay();
                             } else {
@@ -807,6 +812,7 @@ public class QuestionScreenCtrl {
         confirmButton.setVisible(false);
         notConfirmButton.setDisable(true);
         notConfirmButton.setVisible(false);
+        setNewQuestion();
     }
 
     /**
