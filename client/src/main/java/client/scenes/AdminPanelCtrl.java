@@ -108,6 +108,30 @@ public class AdminPanelCtrl {
          * https://www.youtube.com/watch?v=FeTrcNBVWtg
          */
         FilteredList<Activity> filteredData = new FilteredList<>(activities.get(), b -> true);
+        searchBar(filteredData);
+        refreshActivities = new Timer();
+        refreshActivities.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    ObservableList<Activity> activitiesCopy = FXCollections.observableArrayList(serverUtils.getAllActivities());
+                    if (!activitiesCopy.equals(activities.get())) {  ///only refresh table if there are new activities
+                        activitiesTable.setItems(activitiesCopy);
+                        activities.set(activitiesCopy);
+                    }
+                    searchBar(filteredData);
+                });
+            }
+        }, 0, 5 * 1000);
+
+    }
+
+    /**
+     * Filter the activities based on the text written in the search bar.
+     *
+     * @param filteredData the filtered activities
+     */
+    private void searchBar(FilteredList<Activity> filteredData) {
         searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(activity -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -131,21 +155,6 @@ public class AdminPanelCtrl {
         SortedList<Activity> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(activitiesTable.comparatorProperty());
         activitiesTable.setItems(sortedData);
-        refreshActivities = new Timer();
-        refreshActivities.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    ObservableList<Activity> activitiesCopy = FXCollections.observableArrayList(serverUtils.getAllActivities());
-                    if (!activitiesCopy.equals(activities.get())) {  ///only refresh table if there are new activities
-                        activitiesTable.setItems(activitiesCopy);
-                        activities.set(activitiesCopy);
-                    }
-
-                });
-            }
-        }, 0, 5 * 1000);
-
     }
 
     /**
@@ -256,6 +265,7 @@ public class AdminPanelCtrl {
         showButtonsAndTable();
         addAnchorPlane.setVisible(false);
         activitiesTable.getSelectionModel().clearSelection();
+
     }
 
     /**
