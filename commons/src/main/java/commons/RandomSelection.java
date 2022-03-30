@@ -47,8 +47,14 @@ public class RandomSelection {
                 double higher = correct * 1.3;
                 long temp = (long) (random.nextInt((int) (higher - lower)) + lower);
                 long next = temp - (temp % 5);
+                while(next == correct || next == 0) {
+                    next += 5;
+                }
                 long temp2 = (long) (random.nextInt((int) (higher - lower)) + lower);
                 long last = temp2 - (temp2 % 5);
+                while(last == correct || last == next || last == 0) {
+                    last += 5;
+                }
                 int version = random.nextInt(3);
                 if (version == 0) {
                     listOfQuestions.add(new ConsumpQuestion("How much energy does this cost?", database.get(3 * i), correct, next, last));

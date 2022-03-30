@@ -13,6 +13,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -70,6 +71,9 @@ public class QuestionScreenCtrl {
 
     @FXML
     private Label question;
+
+    @FXML
+    private Label questionNumber;
 
     @FXML
     private Button activity;
@@ -194,12 +198,13 @@ public class QuestionScreenCtrl {
      */
     public void setNewQuestion() {
         progress += 1;
+        questionNumber.setText(progress + "/20");
         if (currQuestion instanceof QuizzQuestion) {
             showQuizzPage();
             initQuizzQuestion();
         } else if (currQuestion instanceof ConsumpQuestion) {
             consumpPage();
-            question.setText(progress + ". " + ((ConsumpQuestion) currQuestion).getQuestion());
+            question.setText(((ConsumpQuestion) currQuestion).getQuestion());
             activity.setText(((ConsumpQuestion) currQuestion).getActivity().getTitle());
             String path = "/photos/" + ((ConsumpQuestion) currQuestion).getActivity().getImage_path();
             activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
@@ -214,7 +219,7 @@ public class QuestionScreenCtrl {
             thirdConsump.setDisable(false);
         } else if (currQuestion instanceof InsteadOfQuestion) {
             consumpPage();
-            question.setText(progress + ". " + ((InsteadOfQuestion) currQuestion).getQuestion());
+            question.setText(((InsteadOfQuestion) currQuestion).getQuestion());
             activity.setText(((InsteadOfQuestion) currQuestion).getPromptActivity().getTitle());
             String path = "/photos/" + ((InsteadOfQuestion) currQuestion).getPromptActivity().getImage_path();
             activityImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
@@ -233,7 +238,7 @@ public class QuestionScreenCtrl {
 
         } else {
             guessPage();
-            question.setText(progress + ". " + ((GuessQuestion) currQuestion).getQuestion());
+            question.setText(((GuessQuestion) currQuestion).getQuestion());
             activity.setText(((GuessQuestion) currQuestion).getActivity().getTitle());
             String path = "/photos/" + ((GuessQuestion) currQuestion).getActivity().getImage_path();
             activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
@@ -242,6 +247,9 @@ public class QuestionScreenCtrl {
             submit.setDisable(false);
             guessOnlyNum();
             guess.setStyle("-fx-background-color: #CED0CE;");
+            guess.setCursor(Cursor.TEXT);
+            guess.requestFocus();
+            submit.setDefaultButton(true);
         }
         guessLabel.setText("");
         firstAnswerLabel.setText("");
@@ -254,7 +262,7 @@ public class QuestionScreenCtrl {
      * Sets a new question for the question type "QuizzQuestion"
      */
     public void initQuizzQuestion() {
-        question.setText(progress + ". " + currQuestion.getQuestion());
+        question.setText(currQuestion.getQuestion());
         firstAnswer.setText(((QuizzQuestion) currQuestion).getFirstChoice().getTitle());
         String path = "/photos/" + ((QuizzQuestion) currQuestion).getFirstChoice().getImage_path();
         firstAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
@@ -288,7 +296,7 @@ public class QuestionScreenCtrl {
             }
         });
     }
-
+    
 
     /**
      * restarts the timer
@@ -393,6 +401,9 @@ public class QuestionScreenCtrl {
      * received, shows whether the question was answered correctly and if not it shows the correct answer
      */
     public void submitGuess() {
+        if(guess.getText() == ""){
+            return;
+        }
         if (currQuestion instanceof GuessQuestion) {
             Utils.submitAnswer(0);
             questionTimer.pause();
@@ -411,12 +422,13 @@ public class QuestionScreenCtrl {
                 guess.setStyle("-fx-background-color: orange;");
                 totalPoints += points;
                 pointCounter.setText("current points: " + totalPoints);
-                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " watt per hour");
+                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
             } else {
                 question.setText("That's wrong!");
                 guess.setStyle("-fx-background-color: red;");
-                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " watt per hour");
+                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
             }
+            submit.setDisable(true);
             transition();
         }
     }
@@ -434,9 +446,9 @@ public class QuestionScreenCtrl {
 
         if (currQuestion instanceof QuizzQuestion) {
             correctAnswer = ((QuizzQuestion) currQuestion).getMostExpensive();
-            firstAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getFirstChoice().getConsumption_in_wh() + " watt per hour");
-            secondAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getSecondChoice().getConsumption_in_wh() + " watt per hour");
-            thirdAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getThirdChoice().getConsumption_in_wh() + " watt per hour");
+            firstAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getFirstChoice().getConsumption_in_wh() + " wh");
+            secondAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getSecondChoice().getConsumption_in_wh() + " wh");
+            thirdAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getThirdChoice().getConsumption_in_wh() + " wh");
         }
         if (currQuestion instanceof ConsumpQuestion) {
             correctAnswer = ((ConsumpQuestion) currQuestion).getConsump();
@@ -524,6 +536,10 @@ public class QuestionScreenCtrl {
      */
     public void transition() {
         Utils.submitAnswer(totalPoints);
+        confirmButton.setVisible(false);
+        notConfirmButton.setVisible(false);
+        confirmButton.setDisable(true);
+        notConfirmButton.setDisable(true);
         if (currQuestion instanceof QuizzQuestion) {
             firstAnswer.setDisable(true);
             firstAnswerLabel.setOpacity(1);
@@ -541,7 +557,7 @@ public class QuestionScreenCtrl {
         }
 
         timeBarAnimation.pause();
-        transitionTimeLeft = 5;
+        transitionTimeLeft = 1;
         transitionTimer.setVisible(true);
         transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
 
@@ -577,7 +593,7 @@ public class QuestionScreenCtrl {
                         }
                 )
         );
-        timer.setCycleCount(6);
+        timer.setCycleCount(2);
         timer.play();
     }
 

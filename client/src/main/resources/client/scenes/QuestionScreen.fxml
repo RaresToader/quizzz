@@ -29,7 +29,7 @@
                   <Font size="42.0" />
                </font>
             </Label>
-            <Label id="question" fx:id="question" alignment="CENTER" layoutX="68.0" layoutY="-6.0" prefHeight="93.0" prefWidth="1085.0" styleClass="title" text="N. (Question)" textAlignment="CENTER" textFill="WHITE">
+            <Label id="question" fx:id="question" alignment="CENTER" layoutX="171.0" layoutY="-6.0" prefHeight="93.0" prefWidth="982.0" styleClass="title" text="N. (Question)" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Monaco" size="55.0" />
                </font>
@@ -95,6 +95,11 @@
                </font>
             </Button>
             <Label fx:id="guessLabel" alignment="CENTER" layoutX="669.0" layoutY="325.0" prefHeight="60.0" prefWidth="364.0" styleClass="activityLabel" textAlignment="CENTER" textFill="WHITE" />
+            <Label id="questionNumber" fx:id="questionNumber" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="-6.0" prefHeight="93.0" prefWidth="222.0" styleClass="title" text="N/20" textFill="WHITE">
+               <font>
+                  <Font name="Monaco" size="55.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

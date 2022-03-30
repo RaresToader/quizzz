@@ -20,6 +20,10 @@ public class Emoji {
         this.startTimeEmoji = date.getTime();
     }
 
+    private Emoji() {
+        //for Object Mapping
+    }
+
     public String getUserApplying() {
         return this.userApplying;
     }
