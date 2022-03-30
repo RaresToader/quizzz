@@ -584,13 +584,13 @@ public class QuestionScreenCtrl {
                         }
                 )
         );
-        timer.setCycleCount(2);
+        timer.setCycleCount(6);
         timer.play();
     }
 
     public void transitionStuff() {
         timeBarAnimation.pause();
-        transitionTimeLeft = 1;
+        transitionTimeLeft = 5;
         transitionTimer.setVisible(true);
         transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
 
