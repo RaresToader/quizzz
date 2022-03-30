@@ -123,11 +123,25 @@ public class MainCtrl {
     }
 
     public void showGlobalLeaderboard(boolean isFromSplash) {
+        globalLeaderboardCtrl.changeBackGoBack();
         globalLeaderboardCtrl.init();
         globalLeaderboardCtrl.buttonOnOrOff(isFromSplash);
         primaryStage.setTitle("Global Leaderboard");
         primaryStage.setScene(this.globalLeadScreen);
     }
+    public void showGlobalLeaderboard(boolean isFromSplash, boolean isFromLobby) {
+        if(isFromLobby) {
+            globalLeaderboardCtrl.changeGoBack();
+        }
+        else {
+            globalLeaderboardCtrl.changeBackGoBack();
+        }
+        globalLeaderboardCtrl.init();
+        globalLeaderboardCtrl.buttonOnOrOff(isFromSplash);
+        primaryStage.setTitle("Global Leaderboard");
+        primaryStage.setScene(this.globalLeadScreen);
+    }
+
 
     public void showQueue() {
         primaryStage.setTitle("Multiplayer queue");
