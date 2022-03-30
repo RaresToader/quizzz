@@ -541,7 +541,7 @@ public class QuestionScreenCtrl {
             secondAnswerLabel.setOpacity(1);
             thirdAnswer.setDisable(true);
             thirdAnswerLabel.setOpacity(1);
-        } else if (currQuestion instanceof ConsumpQuestion) {
+        } else if (currQuestion instanceof ConsumpQuestion || currQuestion instanceof InsteadOfQuestion) {
             firstConsump.setDisable(true);
             secondConsump.setDisable(true);
             thirdConsump.setDisable(true);
@@ -792,7 +792,9 @@ public class QuestionScreenCtrl {
         if (currQuestion instanceof ConsumpQuestion) {
             consumpPage();
         }
-
+        if (currQuestion instanceof InsteadOfQuestion) {
+            consumpPage();
+        }
         if (currQuestion instanceof GuessQuestion) {
             guessPage();
         }
