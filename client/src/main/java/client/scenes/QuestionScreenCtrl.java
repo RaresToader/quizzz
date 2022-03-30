@@ -67,7 +67,7 @@ public class QuestionScreenCtrl {
         this.mainCtrl = mainCtrl;
     }
 
-    int progress = 0;
+    private int progress = 0;
 
     @FXML
     private Label question;
@@ -143,7 +143,7 @@ public class QuestionScreenCtrl {
      */
     public void init(boolean sessionType) {
         this.sessionType = sessionType;
-
+        this.progress = 0;
         restartTimer();
         transitionTimer.setVisible(false);
 
@@ -202,6 +202,8 @@ public class QuestionScreenCtrl {
     public void setNewQuestion() {
         progress += 1;
         questionNumber.setText(progress + "/20");
+        endButton.setDisable(false);
+        questionNumber.setVisible(true);
         if (currQuestion instanceof QuizzQuestion) {
             showQuizzPage();
             initQuizzQuestion();
@@ -212,7 +214,7 @@ public class QuestionScreenCtrl {
             question.setText(((InsteadOfQuestion) currQuestion).getQuestion());
             activity.setText(((InsteadOfQuestion) currQuestion).getPromptActivity().getTitle());
             String path = "/photos/" + ((InsteadOfQuestion) currQuestion).getPromptActivity().getImage_path();
-            activityImage.setImage(new Image(QuestionScreenCtrl.class.getResourceAsStream(path), 300, 300, false, false));
+            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
             firstConsump.setText(((InsteadOfQuestion) currQuestion).getFirstChoice().getTitle());
             secondConsump.setText(((InsteadOfQuestion) currQuestion).getSecondChoice().getTitle());
             thirdConsump.setText(((InsteadOfQuestion) currQuestion).getThirdChoice().getTitle());
@@ -301,7 +303,7 @@ public class QuestionScreenCtrl {
             }
         });
     }
-    
+
 
     /**
      * restarts the timer
@@ -406,7 +408,7 @@ public class QuestionScreenCtrl {
      * received, shows whether the question was answered correctly and if not it shows the correct answer
      */
     public void submitGuess() {
-        if(guess.getText() == ""){
+        if (guess.getText() == "") {
             return;
         }
         if (currQuestion instanceof GuessQuestion) {
@@ -607,9 +609,18 @@ public class QuestionScreenCtrl {
     }
 
     /**
+     * Sets the question counter to 0
+     */
+    public void setCounterTo0() {
+        this.progress = 0;
+    }
+
+    /**
      * handles the end of a game.
      */
     public void endOfGame() {
+        endButton.setDisable(true);
+        questionNumber.setVisible(false);
         questionTimer.pause();
         timeBarAnimation.stop();
         Player player = serverUtils.getPlayer(Session.getNickname());
@@ -825,6 +836,7 @@ public class QuestionScreenCtrl {
      */
     public void confirmQuit() {
         transitionTimer.setVisible(true);
+        questionUpdateTimer.cancel();
         transitionTimer.setText("You interrupted the game");
         confirmButton.setVisible(false);
         notConfirmButton.setVisible(false);
