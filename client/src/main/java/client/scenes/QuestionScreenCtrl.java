@@ -73,6 +73,9 @@ public class QuestionScreenCtrl {
     private Label question;
 
     @FXML
+    private Button endButton;
+
+    @FXML
     private Label questionNumber;
 
     @FXML
@@ -203,20 +206,7 @@ public class QuestionScreenCtrl {
             showQuizzPage();
             initQuizzQuestion();
         } else if (currQuestion instanceof ConsumpQuestion) {
-            consumpPage();
-            question.setText(((ConsumpQuestion) currQuestion).getQuestion());
-            activity.setText(((ConsumpQuestion) currQuestion).getActivity().getTitle());
-            String path = "/photos/" + ((ConsumpQuestion) currQuestion).getActivity().getImage_path();
-            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
-            firstConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getFirst()));
-            secondConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getSecond()));
-            thirdConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getThird()));
-            firstConsump.setStyle("-fx-background-color: #CED0CE;");
-            secondConsump.setStyle("-fx-background-color: #CED0CE;");
-            thirdConsump.setStyle("-fx-background-color: #CED0CE;");
-            firstConsump.setDisable(false);
-            secondConsump.setDisable(false);
-            thirdConsump.setDisable(false);
+            newConsumpQuestion();
         } else if (currQuestion instanceof InsteadOfQuestion) {
             consumpPage();
             question.setText(((InsteadOfQuestion) currQuestion).getQuestion());
@@ -254,6 +244,23 @@ public class QuestionScreenCtrl {
         firstAnswerLabel.setText("");
         secondAnswerLabel.setText("");
         thirdAnswerLabel.setText("");
+    }
+
+    public void newConsumpQuestion() {
+        consumpPage();
+        question.setText(((ConsumpQuestion) currQuestion).getQuestion());
+        activity.setText(((ConsumpQuestion) currQuestion).getActivity().getTitle());
+        String path = "/photos/" + ((ConsumpQuestion) currQuestion).getActivity().getImage_path();
+        activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+        firstConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getFirst()));
+        secondConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getSecond()));
+        thirdConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getThird()));
+        firstConsump.setStyle("-fx-background-color: #CED0CE;");
+        secondConsump.setStyle("-fx-background-color: #CED0CE;");
+        thirdConsump.setStyle("-fx-background-color: #CED0CE;");
+        firstConsump.setDisable(false);
+        secondConsump.setDisable(false);
+        thirdConsump.setDisable(false);
     }
 
     /**
@@ -534,6 +541,11 @@ public class QuestionScreenCtrl {
      */
     public void transition() {
         Utils.submitAnswer(totalPoints);
+        confirmButton.setVisible(false);
+        notConfirmButton.setVisible(false);
+        confirmButton.setDisable(true);
+        endButton.setDisable(true);
+        notConfirmButton.setDisable(true);
         if (currQuestion instanceof QuizzQuestion) {
             firstAnswer.setDisable(true);
             firstAnswerLabel.setOpacity(1);
@@ -549,7 +561,32 @@ public class QuestionScreenCtrl {
             guess.setDisable(true);
             submit.setDisable(true);
         }
+        transitionStuff();
+        Timeline timer = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        event -> {
+//                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
+                            if (transitionTimeLeft == 0) {
+                                transitionTimerAnimation.stop();
+                                transitionTimer.setOpacity(1);
+                                transitionTimer.setVisible(false);
+                                timeBarFill.setVisible(true);
+                                timeBarBackground.setVisible(true);
+                                endButton.setDisable(false);
+                                time.setVisible(true);
+                                nextDisplay();
+                            } else {
+                                transitionTimeLeft -= 1;
+                                transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
+                            }
+                        }
+                )
+        );
+        timer.setCycleCount(6);
+        timer.play();
+    }
 
+    public void transitionStuff() {
         timeBarAnimation.pause();
         transitionTimeLeft = 5;
         transitionTimer.setVisible(true);
@@ -567,28 +604,6 @@ public class QuestionScreenCtrl {
         timeBarFill.setVisible(false);
         timeBarBackground.setVisible(false);
         time.setVisible(false);
-
-        Timeline timer = new Timeline(
-                new KeyFrame(Duration.seconds(1),
-                        event -> {
-//                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
-                            if (transitionTimeLeft == 0) {
-                                transitionTimerAnimation.stop();
-                                transitionTimer.setOpacity(1);
-                                transitionTimer.setVisible(false);
-                                timeBarFill.setVisible(true);
-                                timeBarBackground.setVisible(true);
-                                time.setVisible(true);
-                                nextDisplay();
-                            } else {
-                                transitionTimeLeft -= 1;
-                                transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
-                            }
-                        }
-                )
-        );
-        timer.setCycleCount(6);
-        timer.play();
     }
 
     /**
@@ -803,6 +818,7 @@ public class QuestionScreenCtrl {
         confirmButton.setVisible(false);
         notConfirmButton.setDisable(true);
         notConfirmButton.setVisible(false);
+        setNewQuestion();
     }
 
     /**
