@@ -119,8 +119,10 @@ public class Session {
 
 
         //If answer has already been submitted
-        for(Answer ans : this.answers) {
-            if(ans.getQuestionNum() == x.getQuestionNum() && ans.getNickname().equals(x.getNickname())) {
+        List<Answer> answerList = getAnswers();
+        int size = answerList.size();
+        for(int i = 0; i < size; i++) {
+            if(answerList.get(i).getQuestionNum() == x.getQuestionNum() && answerList.get(i).getNickname().equals(x.getNickname())) {
                 return false;
             }
         }

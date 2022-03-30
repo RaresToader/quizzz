@@ -267,14 +267,12 @@ public class SessionTest {
         List<String> playerList = new ArrayList<String>();
         playerList.add("user");
         x.setPlayerList(playerList);
-        Answer answer = new Answer("user",3,2);
-        answerList.add(answer);
-        x.setAnswers(answerList);
-        assertFalse(x.addAnswer(answer));
-        Answer answer1 = new Answer("user2", 2, x.getCurrentQuestionNum());
-        playerList.add("user2");
-        x.setPlayerList(playerList);
-        assertTrue(x.addAnswer(answer1));
+        Answer answer = new Answer("user",3,x.getCurrentQuestionNum());
+        assertTrue(x.isPlayerInSession(answer.getNickname()));
+        assertTrue(x.getCurrentQuestionNum() == answer.getQuestionNum());
+        x.addAnswer(answer);
+        Answer answer2 = new Answer("user",3,x.getCurrentQuestionNum());
+        assertFalse(x.addAnswer(answer2));
     }
 
     @Test
