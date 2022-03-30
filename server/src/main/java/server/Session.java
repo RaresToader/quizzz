@@ -266,10 +266,6 @@ public class Session {
         this.playerList = playerList;
     }
 
-    public void setCurrentScores(HashMap<String, Integer> currentScores) {
-        this.currentScores = currentScores;
-    }
-
     public void setStarted(boolean started) {
         this.started = started;
     }
@@ -304,10 +300,6 @@ public class Session {
 
     public void setQuestionStartedAt(long questionStartedAt) {
         this.questionStartedAt = questionStartedAt;
-    }
-
-    public void setEmojiList(List<Emoji> emojiList) {
-        this.emojiList = emojiList;
     }
 
     public List<String> getPlayerList() {
@@ -347,12 +339,9 @@ public class Session {
     public List<Joker> getUsedJokers() {
         return this.usedJokers;
     }
+
     public List<Emoji> getEmojiList(){
         return this.emojiList;
-    }
-
-    public HashMap<String, Integer> getCurrentScores() {
-        return currentScores;
     }
 
     public ArrayList<Map.Entry<String,Integer>> getCurrentLeaderboard() {
