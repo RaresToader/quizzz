@@ -57,6 +57,8 @@ public class SessionTest {
         x.setCurrentQuestion(1);
         x.addPlayer("user1");
         x.addPlayer("user2");
+        Answer answer3 = new Answer("user1",2,2);
+        x.addAnswer(answer3);
         Answer answer = new Answer("user1",2,1);
         x.addAnswer(answer);
         assertFalse(x.haveEveryoneAnswered());
@@ -73,6 +75,7 @@ public class SessionTest {
     @Test
     public void getQuestionEndedTest(){
         Session x = new Session(false,repo.activities);
+        x.setStarted(true);
         x.endGame();
         assertEquals(Session.emptyQ,x.getCurrentQuestion());
     }
