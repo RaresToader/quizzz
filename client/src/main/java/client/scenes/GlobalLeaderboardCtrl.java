@@ -105,4 +105,15 @@ public class GlobalLeaderboardCtrl {
         this.playAgain.setVisible(!isFromSplash);
         this.playAgain.setDisable(isFromSplash);
     }
+
+    public void changeGoBack() {
+        goBack.setOnAction(event -> {
+            mainCtrl.showSingleplayerLobby();
+        });
+    }
+    public void changeBackGoBack() {   // amazing name i know
+        goBack.setOnAction(event -> {
+            mainCtrl.showSplash();
+        });
+    }
 }

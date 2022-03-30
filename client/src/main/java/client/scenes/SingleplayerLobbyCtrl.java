@@ -15,6 +15,7 @@ public class SingleplayerLobbyCtrl {
     private final ServerUtils serverUtils;
     private GlobalLeaderboardCtrl globalLeaderboardCtrl;
     private int transitionTimeLeft;
+    Timeline timerForStart = new Timeline();
 
     @Inject
     public SingleplayerLobbyCtrl(MainCtrl mainCtrl,ServerUtils serverUtils,GlobalLeaderboardCtrl globalLeaderboardCtrl) {
@@ -35,15 +36,17 @@ public class SingleplayerLobbyCtrl {
     private Text label1;
 
     public void leaderboardButton() {
+        timerForStart.stop();
+        label1.setText("Play by yourself and place on the global leaderboard!");
         globalLeaderboardCtrl.init();
-        mainCtrl.showGlobalLeaderboard(true);
+        mainCtrl.showGlobalLeaderboard(true,true);
     }
 
     public void toSingleplayer() {
         startGameButton.setDisable(true);
         transitionTimeLeft = 5;
         label1.setText("Starting in " + transitionTimeLeft + "!");
-        Timeline timerForStart = new Timeline(
+        timerForStart = new Timeline(
                 new KeyFrame(Duration.seconds(1),
                         event -> {
 //                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
@@ -64,6 +67,8 @@ public class SingleplayerLobbyCtrl {
     }
 
     public void goBackToSplash() {
+        timerForStart.stop();
+        label1.setText("Play by yourself and place on the global leaderboard!");
         mainCtrl.showSplash();
     }
 }
