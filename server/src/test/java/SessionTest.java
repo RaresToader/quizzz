@@ -57,6 +57,12 @@ public class SessionTest {
         Session x = new Session(false,repo.activities);
         assertEquals(Session.emptyQ,x.getCurrentQuestion());
     }
+    @Test
+    public void getQuestionEndedTest(){
+        Session x = new Session(false,repo.activities);
+        x.endGame();
+        assertEquals(Session.emptyQ,x.getCurrentQuestion());
+    }
 
     @Test
     public void getQuestionStartedTest() {
