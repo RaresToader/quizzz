@@ -559,25 +559,7 @@ public class QuestionScreenCtrl {
             guess.setDisable(true);
             submit.setDisable(true);
         }
-
-        timeBarAnimation.pause();
-        transitionTimeLeft = 1;
-        transitionTimer.setVisible(true);
-        transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
-
-        transitionTimerAnimation = new ScaleTransition(Duration.seconds(2), transitionTimer);
-        transitionTimerAnimation.setFromX(1);
-        transitionTimerAnimation.setToX(0.8);
-        transitionTimerAnimation.setFromY(1);
-        transitionTimerAnimation.setToY(0.8);
-        transitionTimerAnimation.setAutoReverse(true);
-        transitionTimerAnimation.setCycleCount(20);
-        transitionTimerAnimation.play();
-
-        timeBarFill.setVisible(false);
-        timeBarBackground.setVisible(false);
-        time.setVisible(false);
-
+        transitionStuff();
         Timeline timer = new Timeline(
                 new KeyFrame(Duration.seconds(1),
                         event -> {
@@ -600,6 +582,26 @@ public class QuestionScreenCtrl {
         );
         timer.setCycleCount(2);
         timer.play();
+    }
+
+    public void transitionStuff() {
+        timeBarAnimation.pause();
+        transitionTimeLeft = 1;
+        transitionTimer.setVisible(true);
+        transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
+
+        transitionTimerAnimation = new ScaleTransition(Duration.seconds(2), transitionTimer);
+        transitionTimerAnimation.setFromX(1);
+        transitionTimerAnimation.setToX(0.8);
+        transitionTimerAnimation.setFromY(1);
+        transitionTimerAnimation.setToY(0.8);
+        transitionTimerAnimation.setAutoReverse(true);
+        transitionTimerAnimation.setCycleCount(20);
+        transitionTimerAnimation.play();
+
+        timeBarFill.setVisible(false);
+        timeBarBackground.setVisible(false);
+        time.setVisible(false);
     }
 
     /**
