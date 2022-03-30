@@ -536,6 +536,10 @@ public class QuestionScreenCtrl {
      */
     public void transition() {
         Utils.submitAnswer(totalPoints);
+        confirmButton.setVisible(false);
+        notConfirmButton.setVisible(false);
+        confirmButton.setDisable(true);
+        notConfirmButton.setDisable(true);
         if (currQuestion instanceof QuizzQuestion) {
             firstAnswer.setDisable(true);
             firstAnswerLabel.setOpacity(1);
@@ -553,7 +557,7 @@ public class QuestionScreenCtrl {
         }
 
         timeBarAnimation.pause();
-        transitionTimeLeft = 5;
+        transitionTimeLeft = 1;
         transitionTimer.setVisible(true);
         transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
 
@@ -589,7 +593,7 @@ public class QuestionScreenCtrl {
                         }
                 )
         );
-        timer.setCycleCount(6);
+        timer.setCycleCount(2);
         timer.play();
     }
 
