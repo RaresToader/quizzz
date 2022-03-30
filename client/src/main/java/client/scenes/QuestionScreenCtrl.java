@@ -206,20 +206,7 @@ public class QuestionScreenCtrl {
             showQuizzPage();
             initQuizzQuestion();
         } else if (currQuestion instanceof ConsumpQuestion) {
-            consumpPage();
-            question.setText(((ConsumpQuestion) currQuestion).getQuestion());
-            activity.setText(((ConsumpQuestion) currQuestion).getActivity().getTitle());
-            String path = "/photos/" + ((ConsumpQuestion) currQuestion).getActivity().getImage_path();
-            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
-            firstConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getFirst()));
-            secondConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getSecond()));
-            thirdConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getThird()));
-            firstConsump.setStyle("-fx-background-color: #CED0CE;");
-            secondConsump.setStyle("-fx-background-color: #CED0CE;");
-            thirdConsump.setStyle("-fx-background-color: #CED0CE;");
-            firstConsump.setDisable(false);
-            secondConsump.setDisable(false);
-            thirdConsump.setDisable(false);
+            newConsumpQuestion();
         } else if (currQuestion instanceof InsteadOfQuestion) {
             consumpPage();
             question.setText(((InsteadOfQuestion) currQuestion).getQuestion());
@@ -259,6 +246,23 @@ public class QuestionScreenCtrl {
         secondAnswerLabel.setText("");
         thirdAnswerLabel.setText("");
 
+    }
+
+    public void newConsumpQuestion() {
+        consumpPage();
+        question.setText(((ConsumpQuestion) currQuestion).getQuestion());
+        activity.setText(((ConsumpQuestion) currQuestion).getActivity().getTitle());
+        String path = "/photos/" + ((ConsumpQuestion) currQuestion).getActivity().getImage_path();
+        activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+        firstConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getFirst()));
+        secondConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getSecond()));
+        thirdConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getThird()));
+        firstConsump.setStyle("-fx-background-color: #CED0CE;");
+        secondConsump.setStyle("-fx-background-color: #CED0CE;");
+        thirdConsump.setStyle("-fx-background-color: #CED0CE;");
+        firstConsump.setDisable(false);
+        secondConsump.setDisable(false);
+        thirdConsump.setDisable(false);
     }
 
     /**
