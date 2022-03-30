@@ -307,7 +307,7 @@ public class QuestionScreenCtrl {
      * restarts the timer
      */
     public void restartTimer() {
-        timeLeft = 20;
+        timeLeft = 2;
         time.setText(timeLeft + " seconds");
         questionTimer.pause();
         questionTimer = new Timeline(
@@ -321,7 +321,7 @@ public class QuestionScreenCtrl {
                         }
                 )
         );
-        questionTimer.setCycleCount(20);
+        questionTimer.setCycleCount(2);
         questionTimer.play();
 
         timeBarAnimation = new ScaleTransition(Duration.seconds(20), timeBarFill);
@@ -335,10 +335,12 @@ public class QuestionScreenCtrl {
      */
     public void timeRanOut() {
         question.setText("Time ran out!");
+        setCorrectAnswer();
         if (currQuestion instanceof ConsumpQuestion || currQuestion instanceof QuizzQuestion || currQuestion instanceof InsteadOfQuestion) {
             wrongAnswer();
         } else {
             guess.setStyle("-fx-background-color: red;");
+            guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
         }
         transition();
     }
@@ -350,16 +352,11 @@ public class QuestionScreenCtrl {
      */
 
     public void chooseFirst() {
+        setCorrectAnswer();
         if (currQuestion instanceof QuizzQuestion) {
-            chosenAnswer = ((QuizzQuestion) currQuestion).getFirstChoice().getTitle();
             check(firstAnswer);
         }
-        if (currQuestion instanceof ConsumpQuestion) {
-            chosenAnswer = Long.toString(((ConsumpQuestion) currQuestion).getFirst());
-            check(firstConsump);
-        }
-        if (currQuestion instanceof InsteadOfQuestion) {
-            chosenAnswer = ((InsteadOfQuestion) currQuestion).getFirstChoice().toString();
+        if (currQuestion instanceof ConsumpQuestion || currQuestion instanceof InsteadOfQuestion) {
             check(firstConsump);
         }
     }
@@ -368,16 +365,11 @@ public class QuestionScreenCtrl {
      * Works the same way as for the first button
      */
     public void chooseSecond() {
+        setCorrectAnswer();
         if (currQuestion instanceof QuizzQuestion) {
-            chosenAnswer = ((QuizzQuestion) currQuestion).getSecondChoice().getTitle();
             check(secondAnswer);
         }
-        if (currQuestion instanceof ConsumpQuestion) {
-            chosenAnswer = Long.toString(((ConsumpQuestion) currQuestion).getSecond());
-            check(secondConsump);
-        }
-        if (currQuestion instanceof InsteadOfQuestion) {
-            chosenAnswer = ((InsteadOfQuestion) currQuestion).getSecondChoice().toString();
+        if (currQuestion instanceof ConsumpQuestion || currQuestion instanceof InsteadOfQuestion) {
             check(secondConsump);
         }
     }
@@ -387,16 +379,11 @@ public class QuestionScreenCtrl {
      * Works the same as for the previous buttons
      */
     public void chooseThird() {
+        setCorrectAnswer();
         if (currQuestion instanceof QuizzQuestion) {
-            chosenAnswer = ((QuizzQuestion) currQuestion).getThirdChoice().getTitle();
             check(thirdAnswer);
         }
-        if (currQuestion instanceof ConsumpQuestion) {
-            chosenAnswer = Long.toString(((ConsumpQuestion) currQuestion).getThird());
-            check(thirdConsump);
-        }
-        if (currQuestion instanceof InsteadOfQuestion) {
-            chosenAnswer = ((InsteadOfQuestion) currQuestion).getThirdChoice().toString();
+        if (currQuestion instanceof ConsumpQuestion || currQuestion instanceof InsteadOfQuestion) {
             check(thirdConsump);
         }
     }
@@ -448,19 +435,8 @@ public class QuestionScreenCtrl {
 
         questionTimer.pause();
         points = timeLeft * 25 + 500;
+        setCorrectAnswer();
 
-        if (currQuestion instanceof QuizzQuestion) {
-            correctAnswer = ((QuizzQuestion) currQuestion).getMostExpensive();
-            firstAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getFirstChoice().getConsumption_in_wh() + " wh");
-            secondAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getSecondChoice().getConsumption_in_wh() + " wh");
-            thirdAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getThirdChoice().getConsumption_in_wh() + " wh");
-        }
-        if (currQuestion instanceof ConsumpQuestion) {
-            correctAnswer = ((ConsumpQuestion) currQuestion).getConsump();
-        }
-        if (currQuestion instanceof InsteadOfQuestion) {
-            correctAnswer = ((InsteadOfQuestion) currQuestion).getCorrectChoice().toString();
-        }
         if (chosenAnswer.equals(correctAnswer)) {
             question.setText("Yeah, that's right!");
             chosenBox.setStyle("-fx-background-color: green;");
@@ -471,6 +447,18 @@ public class QuestionScreenCtrl {
             wrongAnswer();
         }
         transition();
+    }
+
+    public void setCorrectAnswer() {
+        if (currQuestion instanceof QuizzQuestion) {
+            correctAnswer = ((QuizzQuestion) currQuestion).getMostExpensive();
+        }
+        if (currQuestion instanceof ConsumpQuestion) {
+            correctAnswer = ((ConsumpQuestion) currQuestion).getConsump();
+        }
+        if (currQuestion instanceof InsteadOfQuestion) {
+            correctAnswer = ((InsteadOfQuestion) currQuestion).getCorrectChoice().toString();
+        }
     }
 
     /**
@@ -484,6 +472,9 @@ public class QuestionScreenCtrl {
             first = ((QuizzQuestion) currQuestion).getFirstChoice().getTitle();
             second = ((QuizzQuestion) currQuestion).getSecondChoice().getTitle();
             third = ((QuizzQuestion) currQuestion).getThirdChoice().getTitle();
+            firstAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getFirstChoice().getConsumption_in_wh() + " wh");
+            secondAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getSecondChoice().getConsumption_in_wh() + " wh");
+            thirdAnswerLabel.setText("this consumes " + ((QuizzQuestion) currQuestion).getThirdChoice().getConsumption_in_wh() + " wh");
             if (correctAnswer.equals(first)) {
                 firstAnswer.setStyle("-fx-background-color: green");
                 secondAnswer.setStyle("-fx-background-color: red;");
@@ -497,29 +488,17 @@ public class QuestionScreenCtrl {
                 secondAnswer.setStyle("-fx-background-color: red;");
                 thirdAnswer.setStyle("-fx-background-color: green;");
             }
-        }
-        if (currQuestion instanceof ConsumpQuestion) {
-            first = Long.toString(((ConsumpQuestion) currQuestion).getFirst());
-            second = Long.toString(((ConsumpQuestion) currQuestion).getSecond());
-            third = Long.toString(((ConsumpQuestion) currQuestion).getThird());
-            if (correctAnswer.equals(first)) {
-                firstConsump.setStyle("-fx-background-color: green");
-                secondConsump.setStyle("-fx-background-color: red;");
-                thirdConsump.setStyle("-fx-background-color: red;");
-            } else if (correctAnswer.equals(second)) {
-                firstConsump.setStyle("-fx-background-color: red");
-                secondConsump.setStyle("-fx-background-color: green;");
-                thirdConsump.setStyle("-fx-background-color: red;");
-            } else if (correctAnswer.equals(third)) {
-                firstConsump.setStyle("-fx-background-color: red");
-                secondConsump.setStyle("-fx-background-color: red;");
-                thirdConsump.setStyle("-fx-background-color: green;");
+        } else {
+            if (currQuestion instanceof ConsumpQuestion) {
+                first = Long.toString(((ConsumpQuestion) currQuestion).getFirst());
+                second = Long.toString(((ConsumpQuestion) currQuestion).getSecond());
+                third = Long.toString(((ConsumpQuestion) currQuestion).getThird());
             }
-        }
-        if (currQuestion instanceof InsteadOfQuestion) {
-            first = ((InsteadOfQuestion) currQuestion).getFirstChoice().toString();
-            second = ((InsteadOfQuestion) currQuestion).getSecondChoice().toString();
-            third = ((InsteadOfQuestion) currQuestion).getThirdChoice().toString();
+            if (currQuestion instanceof InsteadOfQuestion) {
+                first = ((InsteadOfQuestion) currQuestion).getFirstChoice().toString();
+                second = ((InsteadOfQuestion) currQuestion).getSecondChoice().toString();
+                third = ((InsteadOfQuestion) currQuestion).getThirdChoice().toString();
+            }
             if (correctAnswer.equals(first)) {
                 firstConsump.setStyle("-fx-background-color: green");
                 secondConsump.setStyle("-fx-background-color: red;");
