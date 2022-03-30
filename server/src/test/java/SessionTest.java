@@ -1,7 +1,6 @@
 import commons.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.TestExecutionListeners;
 import server.Session;
 import server.SessionController;
 import server.api.TestActivityRepository;
