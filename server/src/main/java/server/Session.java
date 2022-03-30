@@ -89,6 +89,14 @@ public class Session {
     }
 
     /**
+     * Get's the player limit of a session
+     * @return int - player limit
+     */
+    public int getPlayerLimit(){
+        return Session.playerLimit;
+    }
+
+    /**
      * @param p - Player to be added to game
      * @return boolean value whether operation of addition was successful
      */

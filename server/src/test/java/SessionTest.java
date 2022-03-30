@@ -1,6 +1,7 @@
 import commons.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.TestExecutionListeners;
 import server.Session;
 import server.SessionController;
 import server.api.TestActivityRepository;
@@ -71,6 +72,22 @@ public class SessionTest {
     public void isSingleplayerAvailable() {
         Session x = new Session(false,repo.activities);
         assertTrue(x.isAvailable("test"));
+    }
+
+    @Test
+    public void isAvailableTest(){
+        Session x = new Session(true,repo.activities);
+        List<String> playerList = new ArrayList<String>();
+        for (int i = 0; i < 20; i++) {
+            String name = "player" + i;
+            playerList.add(name);
+        }
+        x.setPlayerList(playerList);
+        assertFalse(x.isAvailable("player40"));
+        playerList.remove("player2");
+        x.setPlayerList(playerList);
+        assertFalse(x.isAvailable("player1"));
+
     }
 
     @Test
