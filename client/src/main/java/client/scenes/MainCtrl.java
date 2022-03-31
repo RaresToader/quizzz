@@ -51,6 +51,8 @@ public class MainCtrl {
     private Scene sLobbyScreen;
     private QuestionScreenCtrl questionScreenCtrl;
     private Scene questionScreen;
+    private QuestionScreenMultiplayerCtrl questionScreenMultiplayerCtrl;
+    private Scene questionScreenMultiplayer;
     private static final String iconPath = "/photos/clientIcon.png";
 
     public RotateTransition rotationAnimation1;
@@ -59,7 +61,7 @@ public class MainCtrl {
     public RotateTransition rotationAnimation4;
 
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
-                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QueueCtrl, Parent> queue, Pair<SingleplayerLobbyCtrl, Parent> singleLobbyScreen, Pair<AdminPanelCtrl, Parent> admin, Pair<MultiplayerLobbyCtrl, Parent> multiLobbyScreen) {
+                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QuestionScreenMultiplayerCtrl, Parent> questionScreenMultiplayer, Pair<QueueCtrl, Parent> queue, Pair<SingleplayerLobbyCtrl, Parent> singleLobbyScreen, Pair<AdminPanelCtrl, Parent> admin, Pair<MultiplayerLobbyCtrl, Parent> multiLobbyScreen) {
 
         this.primaryStage = primaryStage;
         this.enterMenuCtrl = enterMenu.getKey();
@@ -85,6 +87,10 @@ public class MainCtrl {
 
         this.questionScreenCtrl = questionScreen.getKey();
         this.questionScreen = new Scene(questionScreen.getValue());
+
+        this.questionScreenMultiplayerCtrl = questionScreenMultiplayer.getKey();
+        this.questionScreenMultiplayer = new Scene(questionScreenMultiplayer.getValue());
+
         //Set program icon
         this.primaryStage.getIcons().add(new Image(Objects.requireNonNull(MainCtrl.class.getResourceAsStream(iconPath))));
         showEnterMenu();
@@ -189,6 +195,12 @@ public class MainCtrl {
         primaryStage.setTitle("Singleplayer");
         primaryStage.setScene(this.questionScreen);
         questionScreenCtrl.init(false); //False for singleplayer session
+    }
+
+    public void showMultiplayer() {
+        primaryStage.setTitle("Multiplayer");
+        primaryStage.setScene(this.questionScreenMultiplayer);
+        questionScreenMultiplayerCtrl.init(true); //True for singleplayer session
     }
 
 

@@ -428,10 +428,11 @@ public class MultiplayerLobbyCtrl {
     /**
      * Once the lobby leader has started the game, this method is called for all other players in the session
      */
+    @FXML
     private void startGame() {
         leaveButton.setDisable(true);
         leaveButton.setVisible(false);
-
+        startButton.setDisable(true);
         playerUpdateTimer.cancel();
         if (removeEmojiTimer != null) {
             removeEmojiTimer.cancel();
@@ -446,9 +447,9 @@ public class MultiplayerLobbyCtrl {
                             System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
                             label1.setText("Game starting in " + transitionTimeLeft);
 
-                            if (transitionTimeLeft == 0) {
-                                //TODO
-                                // Start the game locally
+                            if (transitionTimeLeft <= 0) {
+                                startButton.setDisable(false);
+                                mainCtrl.showMultiplayer();
                             } else {
                                 transitionTimeLeft -= 1;
                             }
