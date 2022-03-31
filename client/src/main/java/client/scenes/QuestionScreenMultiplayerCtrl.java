@@ -29,7 +29,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class QuestionScreenCtrl {
+public class QuestionScreenMultiplayerCtrl {
 
     private final MainCtrl mainCtrl;
     private boolean toEnd = false;
@@ -63,7 +63,7 @@ public class QuestionScreenCtrl {
     private ScaleTransition transitionTimerAnimation;
 
     @Inject
-    public QuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public QuestionScreenMultiplayerCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.serverUtils = server;
         this.mainCtrl = mainCtrl;
     }
@@ -138,7 +138,7 @@ public class QuestionScreenCtrl {
     private ImageView thirdAnswerImage;
 
     /**
-     * Initialise a singleplayer game
+     * Initialise a multiplayer game
      */
     public void init(boolean sessionType) {
         Session.setQuestionNum(0);
@@ -215,7 +215,7 @@ public class QuestionScreenCtrl {
             question.setText(((InsteadOfQuestion) currQuestion).getQuestion());
             activity.setText(((InsteadOfQuestion) currQuestion).getPromptActivity().getTitle());
             String path = "/photos/" + ((InsteadOfQuestion) currQuestion).getPromptActivity().getImage_path();
-            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenMultiplayerCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
             firstConsump.setText(((InsteadOfQuestion) currQuestion).getFirstChoice().getTitle());
             secondConsump.setText(((InsteadOfQuestion) currQuestion).getSecondChoice().getTitle());
             thirdConsump.setText(((InsteadOfQuestion) currQuestion).getThirdChoice().getTitle());
@@ -233,7 +233,7 @@ public class QuestionScreenCtrl {
             question.setText(((GuessQuestion) currQuestion).getQuestion());
             activity.setText(((GuessQuestion) currQuestion).getActivity().getTitle());
             String path = "/photos/" + ((GuessQuestion) currQuestion).getActivity().getImage_path();
-            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenMultiplayerCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
             guess.setText("");
             guess.setDisable(false);
             submit.setDisable(false);
@@ -254,7 +254,7 @@ public class QuestionScreenCtrl {
         question.setText(((ConsumpQuestion) currQuestion).getQuestion());
         activity.setText(((ConsumpQuestion) currQuestion).getActivity().getTitle());
         String path = "/photos/" + ((ConsumpQuestion) currQuestion).getActivity().getImage_path();
-        activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+        activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenMultiplayerCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
         firstConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getFirst()));
         secondConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getSecond()));
         thirdConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getThird()));
@@ -273,13 +273,13 @@ public class QuestionScreenCtrl {
         question.setText(currQuestion.getQuestion());
         firstAnswer.setText(((QuizzQuestion) currQuestion).getFirstChoice().getTitle());
         String path = "/photos/" + ((QuizzQuestion) currQuestion).getFirstChoice().getImage_path();
-        firstAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+        firstAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenMultiplayerCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
         secondAnswer.setText(((QuizzQuestion) currQuestion).getSecondChoice().getTitle());
         path = "/photos/" + ((QuizzQuestion) currQuestion).getSecondChoice().getImage_path();
-        secondAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+        secondAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenMultiplayerCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
         thirdAnswer.setText(((QuizzQuestion) currQuestion).getThirdChoice().getTitle());
         path = "/photos/" + ((QuizzQuestion) currQuestion).getThirdChoice().getImage_path();
-        thirdAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+        thirdAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenMultiplayerCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
 
         firstAnswer.setStyle("-fx-background-color: #CED0CE;");
         secondAnswer.setStyle("-fx-background-color: #CED0CE;");
@@ -403,46 +403,6 @@ public class QuestionScreenCtrl {
             check(thirdConsump);
         }
     }
-
-    /**
-     * When the user clicks on the submit button, this method calculates the points that should be
-     * received, shows whether the question was answered correctly and if not it shows the correct answer
-     */
-    public void submitGuess() {
-        if (guess.getText() == "") {
-            return;
-        }
-        if (currQuestion instanceof GuessQuestion) {
-            questionTimer.pause();
-            points = timeLeft * 25 + 500;
-
-            chosenAnswer = guess.getText();
-            correctAnswer = ((GuessQuestion) currQuestion).getCorrectGuess();
-            if (chosenAnswer.equals(correctAnswer)) {
-                question.setText("Yeah, that's right!");
-                guess.setStyle("-fx-background-color: green;");
-                points = points * 2;
-                Utils.submitAnswer(points);
-                totalPoints += points;
-                pointCounter.setText("current points: " + totalPoints);
-            } else if (Math.abs(Long.parseLong(correctAnswer) - Long.parseLong(chosenAnswer)) < Long.parseLong(correctAnswer) * 0.3) {
-                question.setText("Very close!");
-                guess.setStyle("-fx-background-color: orange;");
-                totalPoints += points;
-                Utils.submitAnswer(points);
-                pointCounter.setText("current points: " + totalPoints);
-                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
-            } else {
-                Utils.submitAnswer(0);
-                question.setText("That's wrong!");
-                guess.setStyle("-fx-background-color: red;");
-                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
-            }
-            submit.setDisable(true);
-            transition();
-        }
-    }
-
     /**
      * checks if the answer chosen was the right one, and if so distributes the points. Display the wh for each
      * choice.
@@ -470,7 +430,6 @@ public class QuestionScreenCtrl {
             question.setText("Yeah, that's right!");
             chosenBox.setStyle("-fx-background-color: green;");
             totalPoints += points;
-            Utils.submitAnswer(points);
             pointCounter.setText("current points: " + totalPoints);
         } else {
             question.setText("That's wrong!");
@@ -480,13 +439,51 @@ public class QuestionScreenCtrl {
     }
 
     /**
+     * When the user clicks on the submit button, this method calculates the points that should be
+     * received, shows whether the question was answered correctly and if not it shows the correct answer
+     */
+    public void submitGuess() {
+        if (guess.getText() == "") {
+            return;
+        }
+        if (currQuestion instanceof GuessQuestion) {
+            Utils.submitAnswer(0);
+            questionTimer.pause();
+            points = timeLeft * 25 + 500;
+
+            chosenAnswer = guess.getText();
+            correctAnswer = ((GuessQuestion) currQuestion).getCorrectGuess();
+            if (chosenAnswer.equals(correctAnswer)) {
+                question.setText("Yeah, that's right!");
+                guess.setStyle("-fx-background-color: green;");
+                points = points * 2;
+                totalPoints += points;
+                pointCounter.setText("current points: " + totalPoints);
+            } else if (Math.abs(Long.parseLong(correctAnswer) - Long.parseLong(chosenAnswer)) < Long.parseLong(correctAnswer) * 0.3) {
+                question.setText("Very close!");
+                guess.setStyle("-fx-background-color: orange;");
+                totalPoints += points;
+                pointCounter.setText("current points: " + totalPoints);
+                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
+            } else {
+                question.setText("That's wrong!");
+                guess.setStyle("-fx-background-color: red;");
+                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
+            }
+            submit.setDisable(true);
+            transition();
+        }
+    }
+
+
+
+    /**
      * handles the display when the chosen answer was not the right answer.
      */
     public void wrongAnswer() {
         String first = "";
         String second = "";
         String third = "";
-        Utils.submitAnswer(0);
         if (currQuestion instanceof QuizzQuestion) {
             first = ((QuizzQuestion) currQuestion).getFirstChoice().getTitle();
             second = ((QuizzQuestion) currQuestion).getSecondChoice().getTitle();
@@ -547,6 +544,7 @@ public class QuestionScreenCtrl {
      * handles the transition between two questions.
      */
     public void transition() {
+        Utils.submitAnswer(totalPoints);
         confirmButton.setVisible(false);
         notConfirmButton.setVisible(false);
         confirmButton.setDisable(true);

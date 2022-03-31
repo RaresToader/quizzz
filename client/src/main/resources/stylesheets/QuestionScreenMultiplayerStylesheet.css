@@ -1,0 +1,64 @@
+@import "MainStylesheet.css";
+
+#question {
+    -fx-font-size: 42pt;
+}
+#questionNumber {
+    -fx-font-size: 42pt;
+}
+
+#pointCounter {
+    -fx-font-size: 32pt;
+}
+
+.activityLabel {
+    -fx-font-size: 12pt;
+}
+#endButton {
+    -fx-font-family: "Fugaz One", cursive;
+    -fx-background-color: #f15025;
+    -fx-font-size: 20pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: hand;
+}
+#submit {
+    -fx-font-family: "Fugaz One", cursive;
+    -fx-background-color: #f15025;
+    -fx-font-size: 20pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: hand;
+}
+#confirmButton{
+    -fx-font-family: "Fugaz One", cursive;
+    -fx-background-color: #f15025;
+    -fx-font-size: 18pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: hand;
+}
+#notConfirmButton{
+    -fx-font-family: "Fugaz One", cursive;
+    -fx-background-color: #f15025;
+    -fx-font-size: 18pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: hand;
+}
