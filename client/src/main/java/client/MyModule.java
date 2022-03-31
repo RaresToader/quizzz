@@ -34,5 +34,7 @@ public class MyModule implements Module {
         binder.bind(GlobalLeaderboardCtrl.class).in(Scopes.SINGLETON);
         binder.bind(AdminPanelCtrl.class).in(Scopes.SINGLETON);
         binder.bind(QuestionScreenCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MultiPlayerFinalLeaderboardCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(MultiplayerMiddleLeaderboardCtrl.class).in(Scopes.SINGLETON);
     }
 }
