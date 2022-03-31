@@ -216,7 +216,7 @@ public class MultiplayerLobbyCtrl {
                     setLeader(true);
                     List<String> list = Utils.getCurrentSessionPlayers();
                     int numberOfPlayers = list.size();
-                    if(numberOfPlayers <= 0){
+                    if(numberOfPlayers <= 1){
                         startButton.setDisable(true);
                     }
                     else {
