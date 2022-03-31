@@ -413,7 +413,6 @@ public class QuestionScreenCtrl {
             return;
         }
         if (currQuestion instanceof GuessQuestion) {
-            Utils.submitAnswer(0);
             questionTimer.pause();
             points = timeLeft * 25 + 500;
 
@@ -423,15 +422,18 @@ public class QuestionScreenCtrl {
                 question.setText("Yeah, that's right!");
                 guess.setStyle("-fx-background-color: green;");
                 points = points * 2;
+                Utils.submitAnswer(points);
                 totalPoints += points;
                 pointCounter.setText("current points: " + totalPoints);
             } else if (Math.abs(Long.parseLong(correctAnswer) - Long.parseLong(chosenAnswer)) < Long.parseLong(correctAnswer) * 0.3) {
                 question.setText("Very close!");
                 guess.setStyle("-fx-background-color: orange;");
                 totalPoints += points;
+                Utils.submitAnswer(points);
                 pointCounter.setText("current points: " + totalPoints);
                 guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
             } else {
+                Utils.submitAnswer(0);
                 question.setText("That's wrong!");
                 guess.setStyle("-fx-background-color: red;");
                 guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
@@ -468,6 +470,7 @@ public class QuestionScreenCtrl {
             question.setText("Yeah, that's right!");
             chosenBox.setStyle("-fx-background-color: green;");
             totalPoints += points;
+            Utils.submitAnswer(points);
             pointCounter.setText("current points: " + totalPoints);
         } else {
             question.setText("That's wrong!");
@@ -483,6 +486,7 @@ public class QuestionScreenCtrl {
         String first = "";
         String second = "";
         String third = "";
+        Utils.submitAnswer(0);
         if (currQuestion instanceof QuizzQuestion) {
             first = ((QuizzQuestion) currQuestion).getFirstChoice().getTitle();
             second = ((QuizzQuestion) currQuestion).getSecondChoice().getTitle();
@@ -543,7 +547,6 @@ public class QuestionScreenCtrl {
      * handles the transition between two questions.
      */
     public void transition() {
-        Utils.submitAnswer(totalPoints);
         confirmButton.setVisible(false);
         notConfirmButton.setVisible(false);
         confirmButton.setDisable(true);

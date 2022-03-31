@@ -93,6 +93,9 @@ public class SessionContollerTest {
         list.add("test3");
         HashMap<String,Integer> expected = new HashMap<>();
         expected.put("test1",10);
+        expected.put("test",0);
+        expected.put("test2",0);
+        expected.put("test3",0);
         session.addAnswer(new Answer("test1",10,-1));
         assertEquals(new ArrayList<>(expected.entrySet()),session.getCurrentLeaderboard());
     }

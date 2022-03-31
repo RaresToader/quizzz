@@ -4,6 +4,8 @@ import commons.*;
 
 import java.util.*;
 
+import static java.util.Map.Entry.comparingByValue;
+
 public class Session {
     private static final int playerLimit = 20; //To be determined
     private List<String> playerList;
@@ -108,6 +110,7 @@ public class Session {
             this.gameAdmin = p;
         }
 
+        this.currentScores.put(p,0);
         this.playerList.add(p);
         return true;
     }
@@ -134,8 +137,12 @@ public class Session {
                 return false;
             }
         }
-
-        this.currentScores.put(x.getNickname(),x.getAnswer());
+        if(currentScores.get(x.getNickname()) != null) {
+            this.currentScores.put(x.getNickname(), this.currentScores.get(x.getNickname()) + x.getAnswer());
+        }
+        else {
+            this.currentScores.put(x.getNickname(),x.getAnswer());
+        }
         this.answers.add(x);
         return true;
     }
@@ -344,9 +351,12 @@ public class Session {
         return this.emojiList;
     }
 
-    public ArrayList<Map.Entry<String,Integer>> getCurrentLeaderboard() {
-        return new ArrayList<Map.Entry<String,Integer>>(currentScores.entrySet());
+    public List<Map.Entry<String,Integer>> getCurrentLeaderboard() {
+        List<Map.Entry<String,Integer>> list = new ArrayList<Map.Entry<String,Integer>>(currentScores.entrySet());
+        Collections.sort(list,comparingByValue());
+        return list;
     }
+
 
     @Override
     public String toString() {
