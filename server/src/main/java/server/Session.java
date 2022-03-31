@@ -137,8 +137,12 @@ public class Session {
                 return false;
             }
         }
-
-        this.currentScores.put(x.getNickname(),this.currentScores.get(x.getNickname()) + x.getAnswer());
+        if(currentScores.get(x.getNickname()) != null) {
+            this.currentScores.put(x.getNickname(), this.currentScores.get(x.getNickname()) + x.getAnswer());
+        }
+        else {
+            this.currentScores.put(x.getNickname(),x.getAnswer());
+        }
         this.answers.add(x);
         return true;
     }
