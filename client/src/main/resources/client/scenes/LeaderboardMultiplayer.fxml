@@ -13,7 +13,7 @@
             <Font name="Monaco" size="72.0" />
          </font>
       </Label>
-      <Button layoutX="24.0" layoutY="607.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="179.0" style="-fx-background-color: #f15025;" text="Leave" textFill="WHITE">
+      <Button fx:id="leave" layoutX="24.0" layoutY="607.0" mnemonicParsing="false" onAction="#goBack" prefHeight="82.0" prefWidth="179.0" style="-fx-background-color: #f15025;" text="Leave" textFill="WHITE">
          <font>
             <Font name="Monaco" size="40.0" />
          </font>

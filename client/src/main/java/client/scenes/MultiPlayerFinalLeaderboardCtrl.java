@@ -4,7 +4,6 @@ import client.Session;
 import client.utils.ServerUtils;
 import client.utils.Utils;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import javax.inject.Inject;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MultiplayerMiddleLeaderboardCtrl {
+public class MultiPlayerFinalLeaderboardCtrl {
     private final ServerUtils serverUtils;
     private final MainCtrl mainCtrl;
     private List<Label> playerList;
@@ -36,11 +35,10 @@ public class MultiplayerMiddleLeaderboardCtrl {
     private Label p9;
     @FXML
     private Label p10;
-    @FXML
-    private Button end;
+
 
     @Inject
-    public MultiplayerMiddleLeaderboardCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
+    public MultiPlayerFinalLeaderboardCtrl(MainCtrl mainCtrl, ServerUtils serverUtils) {
         this.mainCtrl = mainCtrl;
         this.serverUtils = serverUtils;
         playerList = new ArrayList<>();
@@ -71,5 +69,7 @@ public class MultiplayerMiddleLeaderboardCtrl {
         Utils.leaveSession();
         mainCtrl.showSplash();
     }
-
+    public void playAgain() {
+        mainCtrl.showMultiplayerLobby();
+    }
 }
