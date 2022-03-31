@@ -110,6 +110,7 @@ public class Session {
             this.gameAdmin = p;
         }
 
+        this.currentScores.put(p,0);
         this.playerList.add(p);
         return true;
     }
@@ -137,7 +138,7 @@ public class Session {
             }
         }
 
-        this.currentScores.put(x.getNickname(),x.getAnswer());
+        this.currentScores.put(x.getNickname(),this.currentScores.get(x.getNickname()) + x.getAnswer());
         this.answers.add(x);
         return true;
     }
