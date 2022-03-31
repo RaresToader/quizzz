@@ -214,7 +214,14 @@ public class MultiplayerLobbyCtrl {
 
                 if (Objects.equals(lobbyStatus.getGameAdmin(), Session.getNickname()) && !lobbyStatus.isStarted()) {
                     setLeader(true);
-                    startButton.setDisable(false);
+                    List<String> list = Utils.getCurrentSessionPlayers();
+                    int numberOfPlayers = list.size();
+                    if(numberOfPlayers <= 0){
+                        startButton.setDisable(true);
+                    }
+                    else {
+                        startButton.setDisable(false);
+                    }
                     startButton.setVisible(true);
                 }
                 else {
@@ -428,7 +435,6 @@ public class MultiplayerLobbyCtrl {
     /**
      * Once the lobby leader has started the game, this method is called for all other players in the session
      */
-    @FXML
     private void startGame() {
         leaveButton.setDisable(true);
         leaveButton.setVisible(false);

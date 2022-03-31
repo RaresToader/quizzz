@@ -23,7 +23,7 @@
          </font>
       </Label>
       <Button fx:id="leaveButton" layoutX="24.0" layoutY="605.0" mnemonicParsing="false" onAction="#goBackToSplash" prefHeight="90.0" prefWidth="200.0" styleClass="standardButton" text="Leave" textFill="WHITE" />
-      <Button fx:id="startButton" alignment="CENTER" layoutX="1090.0" layoutY="605.0" mnemonicParsing="false" onAction="#startGame" prefHeight="90.0" prefWidth="200.0" styleClass="standardButton" text="Start&#10;game" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="startButton" alignment="CENTER" layoutX="1090.0" layoutY="605.0" mnemonicParsing="false" onAction="#startGameButtonPressed" prefHeight="90.0" prefWidth="200.0" styleClass="standardButton" text="Start&#10;game" textAlignment="CENTER" textFill="WHITE" />
       <ImageView fx:id="leaderCrown" fitHeight="30.0" fitWidth="40.0" layoutX="50.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="/photos/crown.png" />
