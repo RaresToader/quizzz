@@ -216,7 +216,14 @@ public class MultiplayerLobbyCtrl {
 
                 if (Objects.equals(lobbyStatus.getGameAdmin(), Session.getNickname()) && !lobbyStatus.isStarted()) {
                     setLeader(true);
-                    startButton.setDisable(false);
+                    List<String> list = Utils.getCurrentSessionPlayers();
+                    int numberOfPlayers = list.size();
+                    if(numberOfPlayers <= 1){
+                        startButton.setDisable(true);
+                    }
+                    else {
+                        startButton.setDisable(false);
+                    }
                     startButton.setVisible(true);
                 }
                 else {
@@ -448,7 +455,7 @@ public class MultiplayerLobbyCtrl {
     private void startGame() {
         leaveButton.setDisable(true);
         leaveButton.setVisible(false);
-
+        startButton.setDisable(true);
         playerUpdateTimer.cancel();
         if (removeEmojiTimer != null) {
             removeEmojiTimer.cancel();
@@ -463,9 +470,9 @@ public class MultiplayerLobbyCtrl {
                             System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
                             label1.setText("Game starting in " + transitionTimeLeft);
 
-                            if (transitionTimeLeft == 0) {
-                                //TODO
-                                // Start the game locally
+                            if (transitionTimeLeft <= 0) {
+                                startButton.setDisable(false);
+                                mainCtrl.showMultiplayer();
                             } else {
                                 transitionTimeLeft -= 1;
                             }
