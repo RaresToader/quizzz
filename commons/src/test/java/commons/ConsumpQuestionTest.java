@@ -62,6 +62,16 @@ class ConsumpQuestionTest {
     }
 
     @Test
+    public void testEqualsWithNull() {
+        assertFalse(c.equals(null));
+    }
+
+    @Test
+    public void testEqualsWithItself() {
+        assertTrue(c.equals(c));
+    }
+
+    @Test
     public void testHashEquals() {
         ConsumpQuestion q = new ConsumpQuestion("How much energy does it take?",
                 new Activity("02-electric_stove", "02/electric_stove.png", "Using an electric stove for 1 hour", 1200L,

@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -70,6 +71,46 @@ public class UtilsTest {
                 .setBody("105")
                 .addHeader("content-type: text/plain; charset=utf-8"));
         assertTrue(Utils.validateServer("localhost:8080"));
+    }
+
+    @Test
+    public void startSessionTest() {
+        webClientMock.enqueue(new MockResponse()
+                .setStatus("HTTP/1.1 200")
+                .setBody("true")
+                .addHeader("content-type: text/plain; charset=utf-8"));
+        Session.setNickname("test");
+        assertTrue(Utils.startSession());
+    }
+
+    @Test
+    public void joinSessionTest() {
+        webClientMock.enqueue(new MockResponse()
+                .setStatus("HTTP/1.1 200")
+                .setBody("true")
+                .addHeader("content-type: text/plain; charset=utf-8"));
+        Session.setNickname("test");
+        assertTrue(Utils.joinSession());
+    }
+
+    @Test
+    public void setEmojiTest() {
+        webClientMock.enqueue(new MockResponse()
+                .setStatus("HTTP/1.1 200")
+                .setBody("true")
+                .addHeader("content-type: text/plain; charset=utf-8"));
+        assertTrue(Utils.setEmoji("test","smile"));
+    }
+
+    @Test
+    public void lobbyStatusTest() {
+        SessionLobbyStatus s = new SessionLobbyStatus(new ArrayList<>(),false,"none");
+        webClientMock.enqueue(new MockResponse()
+                .setStatus("HTTP/1.1 200")
+                .setBody("{\"emojiList\":[],\"started\":false,\"gameAdmin\":\"none\"}")
+                .addHeader("content-type: application/json; charset=utf-8"));
+        Session.setNickname("test");
+        assertEquals(s,Utils.getLobbyStatus());
     }
 
     @Test
@@ -136,6 +177,40 @@ public class UtilsTest {
                                     Long.valueOf(40),Long.valueOf(3),Long.valueOf(3))
 
                             ,5,0,new ArrayList<Joker>()),Utils.getCurrentQuestion(false));
+    }
+
+    @Test
+    public void getCurrentQuestionForGuess() throws ParseException {
+        webClientMock.enqueue(new MockResponse()
+                .setStatus("HTTP/1.1 200")
+                .setBody("{\"question\":{\"type\":\"GuessQuestion\",\"question\":null,\"activity\":{\"id\":\"43-printer\",\"title\":\"Using a Printer for an hour\",\"consumption_in_wh\":40,\"source\":\"https://energyusecalculator.com/electricity_printer.htm\",\"image_path\":\"43/printer.jpeg\"}},\"startTime\":5,\"questionNum\":0,\"jokerList\":[]}")
+                .addHeader("content-type: application/json; charset=utf-8"));
+
+        Session.setNickname("test");
+        assertEquals(new QuizzQuestionServerParsed(
+                new GuessQuestion(
+                        null,
+                        new Activity("43-printer","43/printer.jpeg","Using a Printer for an hour",Long.valueOf(40),"https://energyusecalculator.com/electricity_printer.htm"))
+                ,5,0,new ArrayList<Joker>()),Utils.getCurrentQuestion(false));
+    }
+
+
+    @Test
+    public void getCurrentQuestionForInsteadOfQuestion() throws ParseException {
+        webClientMock.enqueue(new MockResponse()
+                .setStatus("HTTP/1.1 200")
+                .setBody("{\"question\":{\"type\":\"InsteadOfQuestion\",\"promptActivity\":{\"id\":\"75-phone\",\"title\":\"Using your smartphone for a week\",\"consumption_in_wh\":915,\"source\":\"https://www.forbes.com/sites/christopherhelman/2013/09/07/how-much-energy-does-your-iphone-and-other-devices-use-and-what-to-do-about-it/?sh=45530aaa2f70\",\"image_path\":\"75/phone.jpg\"},\"firstChoice\":{\"id\":\"75-phone\",\"title\":\"Using your smartphone for a week\",\"consumption_in_wh\":915,\"source\":\"https://www.forbes.com/sites/christopherhelman/2013/09/07/how-much-energy-does-your-iphone-and-other-devices-use-and-what-to-do-about-it/?sh=45530aaa2f70\",\"image_path\":\"75/phone.jpg\"},\"secondChoice\":{\"id\":\"76-biking\",\"title\":\"Biking for 1 hour\",\"consumption_in_wh\":698,\"source\":\"https://runrepeat.com/calories-burned-cycling-biking\",\"image_path\":\"76/biking.png\"},\"thirdChoice\":{\"id\":\"52-wind_turbine\",\"title\":\"Energy produced by a wind turbine at optimal efficiency\",\"consumption_in_wh\":1500000,\"source\":\"https://www.energuide.be/en/questions-answers/how-much-power-does-an-electric-car-use/212/\",\"image_path\":\"52/wind_turbine.png\"},\"mostExpensive\":\"Energy produced by a wind turbine at optimal efficiency\"},\"startTime\":6,\"questionNum\":0,\"jokerList\":[]}")
+                .addHeader("content-type: application/json; charset=utf-8"));
+
+        Session.setNickname("test");
+        assertEquals(new QuizzQuestionServerParsed(
+                new InsteadOfQuestion(
+                        new Activity("75-phone","75/phone.jpg","Using your smartphone for a week",Long.valueOf(915),"https://www.forbes.com/sites/christopherhelman/2013/09/07/how-much-energy-does-your-iphone-and-other-devices-use-and-what-to-do-about-it/?sh=45530aaa2f70"),
+                        new Activity("75-phone","75/phone.jpg","Using your smartphone for a week",Long.valueOf(915),"https://www.forbes.com/sites/christopherhelman/2013/09/07/how-much-energy-does-your-iphone-and-other-devices-use-and-what-to-do-about-it/?sh=45530aaa2f70"),
+                        new Activity("76-biking","76/biking.png","Biking for 1 hour",Long.valueOf(698),"https://runrepeat.com/calories-burned-cycling-biking"),
+                        new Activity("52-wind_turbine","52/wind_turbine.png","Energy produced by a wind turbine at optimal efficiency",Long.valueOf(1500000),"https://www.energuide.be/en/questions-answers/how-much-power-does-an-electric-car-use/212/")
+                ),6,0,new ArrayList<Joker>()
+        ), Utils.getCurrentQuestion(false));
     }
 
     @Test
@@ -210,5 +285,52 @@ public class UtilsTest {
 
         Session.setNickname("test");
         assertEquals(x,Utils.getCurrentSessionPlayers());
+    }
+
+    @Test
+    public void getCurrentLeaderboardTest() {
+        List<Map.Entry<String, Integer>> x = new ArrayList<>();
+
+        webClientMock.enqueue(new MockResponse()
+                .setStatus("HTTP/1.1 200")
+                .setBody("[]")
+                .addHeader("content-type: application/json; charset=utf-8"));
+
+        Session.setNickname("test");
+        assertEquals(x,Utils.getCurrentLeaderBoard(Session.getNickname()));
+    }
+
+    @Test
+    public void parseGuessQuestionTest() {
+        Activity x = new Activity("5","https://google.com","activity",Long.valueOf(0),"google");
+        GuessQuestion q = new GuessQuestion("test",x);
+        JSONObject activity = new JSONObject();
+        activity.put("id",x.getId());
+        activity.put("image_path",x.getImage_path());
+        activity.put("title",x.getTitle());
+        activity.put("consumption_in_wh",x.getConsumption_in_wh());
+        activity.put("source",x.getSource());
+        JSONObject js = new JSONObject();
+        js.put("question",q.getQuestion());
+        js.put("activity",activity);
+        assertEquals(q,Utils.parseGuessQuestion(js));
+    }
+
+    @Test
+    public void parseInsteadOfQuestion() {
+        Activity x = new Activity("5","https://google.com","activity",Long.valueOf(0),"google");
+        InsteadOfQuestion q = new InsteadOfQuestion(x,x,x,x);
+        JSONObject activity = new JSONObject();
+        activity.put("id",x.getId());
+        activity.put("image_path",x.getImage_path());
+        activity.put("title",x.getTitle());
+        activity.put("consumption_in_wh",x.getConsumption_in_wh());
+        activity.put("source",x.getSource());
+        JSONObject js = new JSONObject();
+        js.put("promptActivity",activity);
+        js.put("firstChoice",activity);
+        js.put("secondChoice",activity);
+        js.put("thirdChoice",activity);
+        assertEquals(q,Utils.parseInsteadOfQuestion(js));
     }
 }
