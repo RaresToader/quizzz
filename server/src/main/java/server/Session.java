@@ -4,6 +4,8 @@ import commons.*;
 
 import java.util.*;
 
+import static java.util.Map.Entry.comparingByValue;
+
 public class Session {
     private static final int playerLimit = 20; //To be determined
     private List<String> playerList;
@@ -344,9 +346,12 @@ public class Session {
         return this.emojiList;
     }
 
-    public ArrayList<Map.Entry<String,Integer>> getCurrentLeaderboard() {
-        return new ArrayList<Map.Entry<String,Integer>>(currentScores.entrySet());
+    public List<Map.Entry<String,Integer>> getCurrentLeaderboard() {
+        List<Map.Entry<String,Integer>> list = new ArrayList<Map.Entry<String,Integer>>(currentScores.entrySet());
+        Collections.sort(list,comparingByValue());
+        return list;
     }
+
 
     @Override
     public String toString() {

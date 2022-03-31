@@ -23,7 +23,7 @@
       </Button>
       <AnchorPane layoutX="200.0" layoutY="161.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
          <children>
-            <Label prefHeight="61.0" prefWidth="306.0" text="Player 1[ ]">
+            <Label fx:id="p1" prefHeight="61.0" prefWidth="306.0" text="Player 1[ ]">
                <font>
                   <Font size="48.0" />
                </font>
@@ -32,7 +32,7 @@
       </AnchorPane>
       <AnchorPane layoutX="200.0" layoutY="319.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
          <children>
-            <Label prefHeight="61.0" prefWidth="306.0" text="Player 5 [ ]">
+            <Label fx:id="p5" prefHeight="61.0" prefWidth="306.0" text="Player 5 [ ]">
                <font>
                   <Font size="48.0" />
                </font>
@@ -41,7 +41,7 @@
       </AnchorPane>
       <AnchorPane layoutX="680.0" layoutY="161.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
          <children>
-            <Label prefHeight="61.0" prefWidth="306.0" text="Player 2">
+            <Label fx:id="p2" prefHeight="61.0" prefWidth="306.0" text="Player 2">
                <font>
                   <Font size="48.0" />
                </font>
@@ -50,7 +50,7 @@
       </AnchorPane>
       <AnchorPane layoutX="200.0" layoutY="395.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
          <children>
-            <Label prefHeight="61.0" prefWidth="306.0" text="Player 7 [ ]">
+            <Label fx:id="p7" prefHeight="61.0" prefWidth="306.0" text="Player 7 [ ]">
                <font>
                   <Font size="48.0" />
                </font>
@@ -59,7 +59,7 @@
       </AnchorPane>
       <AnchorPane layoutX="680.0" layoutY="319.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
          <children>
-            <Label prefHeight="61.0" prefWidth="306.0" text="Player 6 [ ]">
+            <Label fx:id="p6" prefHeight="61.0" prefWidth="306.0" text="Player 6 [ ]">
                <font>
                   <Font size="48.0" />
                </font>
@@ -68,7 +68,7 @@
       </AnchorPane>
       <AnchorPane layoutX="680.0" layoutY="395.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
          <children>
-            <Label prefHeight="61.0" prefWidth="306.0" text="Player 8 [ ]">
+            <Label fx:id="p8" prefHeight="61.0" prefWidth="306.0" text="Player 8 [ ]">
                <font>
                   <Font size="48.0" />
                </font>
@@ -77,7 +77,7 @@
       </AnchorPane>
       <AnchorPane layoutX="200.0" layoutY="471.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
          <children>
-            <Label prefHeight="61.0" prefWidth="306.0" text="Player 9 [ ]">
+            <Label fx:id="p9" prefHeight="61.0" prefWidth="306.0" text="Player 9 [ ]">
                <font>
                   <Font size="48.0" />
                </font>
@@ -86,7 +86,7 @@
       </AnchorPane>
       <AnchorPane layoutX="680.0" layoutY="471.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
          <children>
-            <Label prefHeight="61.0" prefWidth="306.0" text="Player 10 [ ]">
+            <Label fx:id="p10" prefHeight="61.0" prefWidth="306.0" text="Player 10 [ ]">
                <font>
                   <Font size="48.0" />
                </font>
@@ -95,7 +95,7 @@
       </AnchorPane>
       <AnchorPane layoutX="200.0" layoutY="243.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
          <children>
-            <Label prefHeight="61.0" prefWidth="306.0" text="Player 3 [ ]">
+            <Label fx:id="p3" prefHeight="61.0" prefWidth="306.0" text="Player 3 [ ]">
                <font>
                   <Font size="48.0" />
                </font>
@@ -104,7 +104,7 @@
       </AnchorPane>
       <AnchorPane layoutX="680.0" layoutY="243.0" prefHeight="61.0" prefWidth="306.0" style="-fx-background-color: #ced0ce;">
          <children>
-            <Label prefHeight="61.0" prefWidth="306.0" text="Player 4">
+            <Label fx:id="p4" prefHeight="61.0" prefWidth="306.0" text="Player 4">
                <font>
                   <Font size="48.0" />
                </font>
