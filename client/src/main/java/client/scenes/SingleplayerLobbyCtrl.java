@@ -15,13 +15,15 @@ public class SingleplayerLobbyCtrl {
     private final ServerUtils serverUtils;
     private GlobalLeaderboardCtrl globalLeaderboardCtrl;
     private int transitionTimeLeft;
-    Timeline timerForStart = new Timeline();
+    private Timeline timerForStart = new Timeline();
+    private QuestionScreenCtrl questionScreenCtrl;
 
     @Inject
-    public SingleplayerLobbyCtrl(MainCtrl mainCtrl,ServerUtils serverUtils,GlobalLeaderboardCtrl globalLeaderboardCtrl) {
+    public SingleplayerLobbyCtrl(MainCtrl mainCtrl, ServerUtils serverUtils, GlobalLeaderboardCtrl globalLeaderboardCtrl, QuestionScreenCtrl questionScreenCtrl) {
         this.mainCtrl = mainCtrl;
-        this.serverUtils=serverUtils;
+        this.serverUtils = serverUtils;
         this.globalLeaderboardCtrl = globalLeaderboardCtrl;
+        this.questionScreenCtrl = questionScreenCtrl;
     }
 
     @FXML
@@ -36,10 +38,13 @@ public class SingleplayerLobbyCtrl {
     private Text label1;
 
     public void leaderboardButton() {
-        timerForStart.stop();
-        label1.setText("Play by yourself and place on the global leaderboard!");
+        if (timerForStart != null) {
+            timerForStart.stop();
+            label1.setText("Play by yourself and place on the global leaderboard!");
+            startGameButton.setDisable(false);
+        }
         globalLeaderboardCtrl.init();
-        mainCtrl.showGlobalLeaderboard(true,true);
+        mainCtrl.showGlobalLeaderboard(true, true);
     }
 
     public void toSingleplayer() {
@@ -52,9 +57,10 @@ public class SingleplayerLobbyCtrl {
 //                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
                             if (transitionTimeLeft == 0) {
                                 label1.setText("Play by yourself and place on the global leaderboard!");
+                                startGameButton.setDisable(false);
+                                questionScreenCtrl.setCounterTo0();
                                 mainCtrl.showSingleplayer();
-                            }
-                            else {
+                            } else {
                                 transitionTimeLeft -= 1;
                                 label1.setText("Starting in " + transitionTimeLeft + "!");
                             }
@@ -63,12 +69,14 @@ public class SingleplayerLobbyCtrl {
         );
         timerForStart.setCycleCount(6);
         timerForStart.play();
-        startGameButton.setDisable(false);
     }
 
     public void goBackToSplash() {
-        timerForStart.stop();
-        label1.setText("Play by yourself and place on the global leaderboard!");
+        if (timerForStart != null) {
+            timerForStart.stop();
+            label1.setText("Play by yourself and place on the global leaderboard!");
+            startGameButton.setDisable(false);
+        }
         mainCtrl.showSplash();
     }
 }
