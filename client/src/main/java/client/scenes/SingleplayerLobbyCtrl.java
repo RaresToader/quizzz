@@ -54,11 +54,10 @@ public class SingleplayerLobbyCtrl {
         timerForStart = new Timeline(
                 new KeyFrame(Duration.seconds(1),
                         event -> {
-//                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
+                            //System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
                             if (transitionTimeLeft == 0) {
                                 label1.setText("Play by yourself and place on the global leaderboard!");
                                 startGameButton.setDisable(false);
-                                questionScreenCtrl.setCounterTo0();
                                 mainCtrl.showSingleplayer();
                             } else {
                                 transitionTimeLeft -= 1;

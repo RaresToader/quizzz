@@ -237,6 +237,23 @@ public class SessionController {
 
 
     /**
+     * !!!ONLY FOR TESTING PURPOSES !!!
+     * Controller for displaying all the data regarding user's current session
+     * @param nickname - user requesting data
+     * @return String containing all the session data
+     */
+    @GetMapping("/session/display/{nickname}")
+    public String displayAllSessionDetails(@PathVariable("nickname") String nickname) {
+        int session = SessionContainer.findUserSession(nickname);
+
+        if(session == -1) return "NO SESSION";
+
+        Session x = SessionContainer.getSession(session);
+        return x.toString();
+    }
+
+
+    /**
      * Produces list of 60 random activities from activityBank
      * @return List<Activity> of size 60
      */
