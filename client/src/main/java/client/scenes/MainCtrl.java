@@ -200,7 +200,7 @@ public class MainCtrl {
     public void showMultiplayer() {
         primaryStage.setTitle("Multiplayer");
         primaryStage.setScene(this.questionScreenMultiplayer);
-        questionScreenMultiplayerCtrl.init(true); //True for singleplayer session
+        questionScreenMultiplayerCtrl.init(true); //True for multiplayer session
     }
 
 
