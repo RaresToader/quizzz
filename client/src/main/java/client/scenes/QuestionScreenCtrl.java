@@ -23,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -66,8 +67,6 @@ public class QuestionScreenCtrl {
         this.serverUtils = server;
         this.mainCtrl = mainCtrl;
     }
-
-    private int progress = 0;
 
     @FXML
     private Label question;
@@ -142,8 +141,8 @@ public class QuestionScreenCtrl {
      * Initialise a singleplayer game
      */
     public void init(boolean sessionType) {
+        Session.setQuestionNum(0);
         this.sessionType = sessionType;
-        this.progress = 0;
         restartTimer();
         transitionTimer.setVisible(false);
 
@@ -158,13 +157,16 @@ public class QuestionScreenCtrl {
                         try {
                             QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion(sessionType); //gathers current question
                             //System.out.println(quizzQuestionServerParsed); //DEBUG LINE
+                            //System.out.println("Downloaded question no.: "+quizzQuestionServerParsed.getQuestionNum()); //DEBUG LINE
 
                             if (quizzQuestionServerParsed.equals(Session.emptyQ)) { //If gathered question is equal to empty Question
                                 questionUpdateTimer.cancel();
                                 toEnd = true;
                             } else {
+                                Date date = new Date();
                                 Question newQuestion = quizzQuestionServerParsed.getQuestion();
                                 Session.setQuestionNum(quizzQuestionServerParsed.getQuestionNum());
+                                timeLeft = (int)(20-(date.getTime()-quizzQuestionServerParsed.getStartTime())/1000); //Sync timer with server
 
                                 if (!newQuestion.equals(currQuestion)) {
                                     currQuestion = newQuestion;
@@ -173,7 +175,7 @@ public class QuestionScreenCtrl {
                                     }
                                 }
                             }
-//                            System.out.println(Session.getQuestionNum()); //DEBUG LINE
+                        //System.out.println(Session.getQuestionNum()); //DEBUG LINE
                         } catch (org.json.simple.parser.ParseException e) {
                             e.printStackTrace();
                         }
@@ -200,8 +202,7 @@ public class QuestionScreenCtrl {
      * display the next question
      */
     public void setNewQuestion() {
-        progress += 1;
-        questionNumber.setText(progress + "/20");
+        questionNumber.setText(Session.getQuestionNum()+1 + "/20");
         endButton.setDisable(false);
         questionNumber.setVisible(true);
         if (currQuestion instanceof QuizzQuestion) {
@@ -609,13 +610,6 @@ public class QuestionScreenCtrl {
     }
 
     /**
-     * Sets the question counter to 0
-     */
-    public void setCounterTo0() {
-        this.progress = 0;
-    }
-
-    /**
      * handles the end of a game.
      */
     public void endOfGame() {
@@ -623,6 +617,7 @@ public class QuestionScreenCtrl {
         questionNumber.setVisible(false);
         questionTimer.pause();
         timeBarAnimation.stop();
+        questionUpdateTimer.cancel();
         Player player = serverUtils.getPlayer(Session.getNickname());
         if (player.getScore() < totalPoints) {
             serverUtils.updatePlayerInRepo(Session.getNickname(), totalPoints);
@@ -672,6 +667,7 @@ public class QuestionScreenCtrl {
                         }
                 )
         );
+        toEnd = false;
         timer.setCycleCount(1);
         timer.play();
     }
