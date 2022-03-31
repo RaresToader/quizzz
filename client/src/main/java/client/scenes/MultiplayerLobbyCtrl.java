@@ -37,6 +37,8 @@ public class MultiplayerLobbyCtrl {
     private Timer removeEmojiTimer;
 
     private int transitionTimeLeft;
+    private Timer waitingForAdminTimer;
+    private int waitingForAdminCount;
 
     @Inject
     public MultiplayerLobbyCtrl(MainCtrl mainCtrl) {
@@ -241,7 +243,6 @@ public class MultiplayerLobbyCtrl {
             }
 
         }, 0, 20);
-
     }
 
     /**
@@ -317,6 +318,22 @@ public class MultiplayerLobbyCtrl {
                     public void run() {
                         List<String> list = Utils.getCurrentSessionPlayers();
                         int numberOfPlayers = list.size();
+
+                        if(waitingForAdminCount == 0) {
+                            label1.setText("Waiting for leader to start the game");
+                        }
+                        if(waitingForAdminCount == 1){
+                            label1.setText("Waiting for leader to start the game.");
+                        }
+                        if(waitingForAdminCount == 2){
+                            label1.setText("Waiting for leader to start the game..");
+                        }
+                        if(waitingForAdminCount == 3){
+                            label1.setText("Waiting for leader to start the game...");
+                            waitingForAdminCount = -1;
+                        }
+                        waitingForAdminCount++;
+
                         if (numberOfPlayers == 1) {
                             numberOfPlayersLabel.setText(numberOfPlayers + " player waiting in lobby");
                         }
@@ -326,7 +343,7 @@ public class MultiplayerLobbyCtrl {
                     }
                 });
             }
-        }, 0, 2*1000); //run every 2 seconds
+        }, 0, 300); //run every 2 seconds
     }
 
 
