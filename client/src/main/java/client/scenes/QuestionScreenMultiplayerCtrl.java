@@ -16,17 +16,18 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 
 public class QuestionScreenMultiplayerCtrl {
@@ -61,6 +62,12 @@ public class QuestionScreenMultiplayerCtrl {
 
     private ScaleTransition timeBarAnimation;
     private ScaleTransition transitionTimerAnimation;
+
+    private SessionLobbyStatus lobbyStatus;
+    private ArrayList<Emoji> emojisReceivedThisQuestion;
+    private boolean doublePoints;
+    private boolean removeAnAnswer;
+    private Timer emoteJokerUpdateTimer;
 
     @Inject
     public QuestionScreenMultiplayerCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -137,6 +144,31 @@ public class QuestionScreenMultiplayerCtrl {
     @FXML
     private ImageView thirdAnswerImage;
 
+    @FXML
+    private Button jokerButton1; // Double Points
+    @FXML
+    private Button jokerButton2; // 50/50 Remove one wrong answer
+    @FXML
+    private Button jokerButton3; // Reduce time
+
+    @FXML
+    private Button emoteButtonSmile;
+    @FXML
+    private Button emoteButtonSad;
+    @FXML
+    private Button emoteButtonAngry;
+    @FXML
+    private Button emoteButtonSurprise;
+    @FXML
+    private Button emoteButtonCelebrate;
+    @FXML
+    private Button emoteButtonSunglasses;
+
+    @FXML
+    private ScrollPane chatBox;
+    @FXML
+    private AnchorPane chatBoxContent;
+
     /**
      * Initialise a multiplayer game
      */
@@ -145,6 +177,13 @@ public class QuestionScreenMultiplayerCtrl {
         this.sessionType = sessionType;
         restartTimer();
         transitionTimer.setVisible(false);
+
+        // Reset variables every question
+        this.doublePoints = false;
+        this.removeAnAnswer = false;
+        this.emojisReceivedThisQuestion = new ArrayList<>();
+
+        initialiseEmotesAndJokers();
 
         questionUpdateTimer = new Timer();
         questionUpdateTimer.scheduleAtFixedRate(new TimerTask() {
@@ -184,6 +223,18 @@ public class QuestionScreenMultiplayerCtrl {
 
             }
         }, 0, 1000);
+
+        // Timer that regularly calls update methods
+        emoteJokerUpdateTimer = new Timer();
+        emoteJokerUpdateTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                lobbyStatus = Utils.getLobbyStatus();
+
+                receiveEmotes();
+                receiveJokers();
+            }
+        }, 0, 20);
     }
 
     /**
@@ -588,6 +639,97 @@ public class QuestionScreenMultiplayerCtrl {
         );
         timer.setCycleCount(6);
         timer.play();
+    }
+
+    /**
+     * Initialise all event handling for the emote and joker buttons (Should be called every new question)
+     */
+    public void initialiseEmotesAndJokers() {
+        // Set up the on action event for each emote button corresponding to their image
+        emoteButtonSmile.setOnAction(e -> sendEmote("smile"));
+        emoteButtonSad.setOnAction(e -> sendEmote("sad"));
+        emoteButtonAngry.setOnAction(e -> sendEmote("angry"));
+        emoteButtonSurprise.setOnAction(e -> sendEmote("surprise"));
+        emoteButtonCelebrate.setOnAction(e -> sendEmote("celebrate"));
+        emoteButtonSunglasses.setOnAction(e -> sendEmote("sunglasses"));
+
+        //TODO
+        // Turn off joker buttons that have already been used (or cant be used for the question type)
+    }
+
+    /**
+     * Once the player clicks an emote button, this method is called
+     * It then sends the emote to the other players in the session
+     *
+     * @param emoteType identifies which emote button was clicked and what emote to send
+     */
+    private void sendEmote(String emoteType) {
+        Utils.setEmoji(Session.getNickname(), emoteType);
+    }
+
+    /**
+     * Receive any emotes sent by other players and display them in the chat box
+     */
+    private void receiveEmotes() {
+        System.out.println("\n\n\t\tIN RECEIVE EMOTES\n\n");
+
+        List<Emoji> activeEmojiList = lobbyStatus.getEmojiList();
+
+        // Loop through all active emojis and display them according to the user that sent it
+        for (Emoji emoji: activeEmojiList) {
+
+            if (emojisReceivedThisQuestion.contains(emoji)) {
+                continue;
+            }
+
+            emojisReceivedThisQuestion.add(emoji);
+
+            String emoteText;
+
+            // Get the right emote text
+            switch (emoji.getEmojiType()) {
+                case "smile" -> emoteText = "\uD83D\uDE00";
+                case "sad" -> emoteText = "\uD83D\uDE22";
+                case "angry" -> emoteText = "\uD83D\uDE21";
+                case "surprise" -> emoteText = "\uD83D\uDE32";
+                case "celebrate" -> emoteText = "\uD83C\uDF89";
+                case "sunglasses" -> emoteText = "\uD83D\uDE0E";
+                default -> throw new IllegalStateException("Unexpected value: " + emoji.getEmojiType());
+            }
+
+            Label message = new Label(emoji.getUserApplying() + ": " + emoteText);
+            message.setOpacity(1);
+            message.setStyle("-fx-font-size: 12pt; -fx-text-fill: black");
+            message.setTextAlignment(TextAlignment.CENTER);
+
+            Platform.runLater(() -> chatBoxContent.getChildren().add(message));
+        }
+    }
+
+    public void useJokerDoublePoints() {
+        doublePoints = true;
+
+        //TODO
+        // Send to server that joker has been used
+    }
+
+    public void useJokerRemoveAnAnswer() {
+        //TODO
+        // Check if the joker can be used for the question type
+
+        removeAnAnswer = true;
+
+        //TODO
+        // Send to server that joker has been used
+    }
+
+    public void useJokerReduceTime() {
+        //TODO
+        // Send to server that joker has been used
+    }
+
+    private void receiveJokers() {
+        //TODO
     }
 
     public void transitionStuff() {

@@ -104,28 +104,25 @@
             </Label>
          </children>
       </Pane>
-      <Button fx:id="jokerButton1" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1260.0" layoutY="629.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: #f15025;" styleClass="standardButton" textFill="WHITE">
+      <Button fx:id="jokerButton1" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1260.0" layoutY="629.0" mnemonicParsing="false" onAction="#useJokerDoublePoints" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: #f15025;" styleClass="standardButton" textFill="WHITE">
          <graphic>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" >
-               <image>
-                  <Image url="/photos/jokerDoublePoints.png" />
-               </image></ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/jokerDoublePoints.png"/>
+            </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="jokerButton2" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1340.0" layoutY="629.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: #f15025;" styleClass="standardButton" textFill="WHITE">
+      <Button fx:id="jokerButton2" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1340.0" layoutY="629.0" mnemonicParsing="false" onAction="#useJokerRemoveAnAnswer" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: #f15025;" styleClass="standardButton" textFill="WHITE">
          <graphic>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" >
-               <image>
-                  <Image url="/photos/joker5050.png" />
-               </image></ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/joker5050.png"/>
+            </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="jokerButton3" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1420.0" layoutY="629.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: #f15025;" styleClass="standardButton" textFill="WHITE">
+      <Button fx:id="jokerButton3" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1420.0" layoutY="629.0" mnemonicParsing="false" onAction="#useJokerReduceTime" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: #f15025;" styleClass="standardButton" textFill="WHITE">
          <graphic>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" >
-               <image>
-                  <Image url="/photos/jokerLessTime.png" />
-               </image></ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/jokerLessTime.png"/>
+            </ImageView>
          </graphic>
       </Button>
       <ScrollPane fx:id="chatBox" hbarPolicy="NEVER" layoutX="1260.0" layoutY="28.0" pannable="true" prefHeight="435.0" prefWidth="235.0" style="-fx-background-color: #474747;" vbarPolicy="ALWAYS">
@@ -135,50 +132,44 @@
       </ScrollPane>
       <Button fx:id="emoteButtonSmile" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1265.0" layoutY="480.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
          <graphic>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" >
-               <image>
-                  <Image url="/photos/emoteSmile.png" />
-               </image></ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/emoteSmile.png"/>
+            </ImageView>
          </graphic>
       </Button>
       <Button fx:id="emoteButtonSad" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1345.0" layoutY="480.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
          <graphic>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" >
-               <image>
-                  <Image url="/photos/emoteSad.png" />
-               </image></ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/emoteSad.png"/>
+            </ImageView>
          </graphic>
       </Button>
       <Button fx:id="emoteButtonAngry" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1425.0" layoutY="480.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
          <graphic>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" >
-               <image>
-                  <Image url="/photos/emoteAngry.png" />
-               </image></ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/emoteAngry.png"/>
+            </ImageView>
          </graphic>
       </Button>
       <Button fx:id="emoteButtonSurprise" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1265.0" layoutY="550.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
          <graphic>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" >
-               <image>
-                  <Image url="/photos/emoteSurprise.png" />
-               </image></ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/emoteSurprise.png"/>
+            </ImageView>
          </graphic>
       </Button>
       <Button fx:id="emoteButtonCelebrate" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1345.0" layoutY="550.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
          <graphic>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" >
-               <image>
-                  <Image url="/photos/emoteCelebrate.png" />
-               </image></ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/emoteCelebrate.png"/>
+            </ImageView>
          </graphic>
       </Button>
       <Button fx:id="emoteButtonSunglasses" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1425.0" layoutY="550.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
          <graphic>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" >
-               <image>
-                  <Image url="/photos/emoteSunglasses.png" />
-               </image></ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/emoteSunglasses.png"/>
+            </ImageView>
          </graphic>
       </Button>
    </children>
