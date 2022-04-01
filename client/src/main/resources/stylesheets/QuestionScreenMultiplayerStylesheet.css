@@ -62,3 +62,48 @@
     -fx-background-radius: 22;
     -fx-cursor: hand;
 }
+
+#chatBox {
+    -fx-font-family: "Fugaz One", cursive;
+    -fx-font-size: 12pt;
+    -fx-background-radius: 22;
+    -fx-border-width: 0;
+    -fx-border-radius: 22;
+    -fx-background-color: null;
+}
+
+#chatBox .content {
+    -fx-background-radius: 22;
+}
+
+#chatBoxContent {
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: #ced0ce;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #ced0ce;
+    -fx-background-radius: 22;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #f15025;
+    -fx-background-radius: 22;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: #ced0ce;
+    -fx-background-radius: 22;
+}
+
+.increment-arrow, .decrement-arrow {
+    -fx-background-color:  #474747;
+}
