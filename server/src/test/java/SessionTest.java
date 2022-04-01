@@ -51,10 +51,32 @@ public class SessionTest {
         x.addPlayer("test");
         assertFalse(x.haveEveryoneAnswered());
     }
+    @Test
+    public void haveEveryoneAnsweredMultiplayerTest(){
+        Session x = new Session(true,repo.activities);
+        x.setCurrentQuestion(1);
+        x.addPlayer("user1");
+        x.addPlayer("user2");
+        Answer answer3 = new Answer("user1",2,2);
+        x.addAnswer(answer3);
+        Answer answer = new Answer("user1",2,1);
+        x.addAnswer(answer);
+        assertFalse(x.haveEveryoneAnswered());
+        Answer answer2 = new Answer("user2",2,1);
+        x.addAnswer(answer2);
+        assertTrue(x.haveEveryoneAnswered());
+    }
 
     @Test
     public void getQuestionNotStartedTest() {
         Session x = new Session(false,repo.activities);
+        assertEquals(Session.emptyQ,x.getCurrentQuestion());
+    }
+    @Test
+    public void getQuestionEndedTest(){
+        Session x = new Session(false,repo.activities);
+        x.setStarted(true);
+        x.endGame();
         assertEquals(Session.emptyQ,x.getCurrentQuestion());
     }
 
@@ -71,6 +93,22 @@ public class SessionTest {
     public void isSingleplayerAvailable() {
         Session x = new Session(false,repo.activities);
         assertTrue(x.isAvailable("test"));
+    }
+
+    @Test
+    public void isAvailableTest(){
+        Session x = new Session(true,repo.activities);
+        List<String> playerList = new ArrayList<String>();
+        for (int i = 0; i < 20; i++) {
+            String name = "player" + i;
+            playerList.add(name);
+        }
+        x.setPlayerList(playerList);
+        assertFalse(x.isAvailable("player40"));
+        playerList.remove("player2");
+        x.setPlayerList(playerList);
+        assertFalse(x.isAvailable("player1"));
+
     }
 
     @Test
@@ -166,14 +204,23 @@ public class SessionTest {
         x.addPlayer("test"); //Add player
         x.startGame(); //Start it
         x.getCurrentQuestion(); //Move question counter to 0
-
         assertEquals(new ArrayList<Joker>(), x.getJokersForCurrentQuestion("test2"));
-
         x.addJoker(0,"test",0);
+        x.addJoker(2,"test",2);
         List<Joker> toBeObtained = new ArrayList<Joker>();
         toBeObtained.add(new Joker("test",0,0));
         assertEquals(new ArrayList<Joker>(), x.getJokersForCurrentQuestion("test"));
         assertEquals(toBeObtained, x.getJokersForCurrentQuestion("test2"));
+        Joker joker = new Joker("user",2,2);
+        toBeObtained.add(joker);
+        assertNotEquals(toBeObtained,x.getJokersForCurrentQuestion("test"));
+        x.setUsedJokers(toBeObtained);
+        List<Joker> newList = new ArrayList<Joker>();
+        newList.add(new Joker("test",3,0));
+        x.addJoker(3,"test",0);
+        assertNotEquals(newList, x.getJokersForCurrentQuestion("test"));
+
+
     }
 
     @Test
@@ -182,13 +229,11 @@ public class SessionTest {
         x.addPlayer("test"); //Add player
         x.startGame(); //Start it
         x.getCurrentQuestion(); //Move question counter to 0
-
-        x.addJoker(0,"test",0);
         List<Joker> toBeObtained = new ArrayList<Joker>();
         toBeObtained.add(new Joker("test",0,0));
-
-        assertEquals(1,x.getJokersForCurrentQuestion("test2").size());
-        assertEquals(toBeObtained,x.getJokersForCurrentQuestion("test2"));
+        assertTrue(x.addJoker(0,"test",0));
+        assertEquals(toBeObtained, x.getUsedJokers());
+        assertEquals(1, x.getUsedJokers().size());
     }
 
     @Test
@@ -260,6 +305,20 @@ public class SessionTest {
         Session x = new Session(false,repo.activities);
         assertFalse(x.addAnswer(null));
     }
+    @Test
+    public void addAnswerAlreadyAddedTest(){
+        Session x = new Session(false,repo.activities);
+        List<Answer> answerList= new ArrayList<Answer>();
+        List<String> playerList = new ArrayList<String>();
+        playerList.add("user");
+        x.setPlayerList(playerList);
+        Answer answer = new Answer("user",3,x.getCurrentQuestionNum());
+        assertTrue(x.isPlayerInSession(answer.getNickname()));
+        assertTrue(x.getCurrentQuestionNum() == answer.getQuestionNum());
+        x.addAnswer(answer);
+        Answer answer2 = new Answer("user",3,x.getCurrentQuestionNum());
+        assertFalse(x.addAnswer(answer2));
+    }
 
     @Test
     public void addPlayerNotInSessionAnswer() {
@@ -278,6 +337,12 @@ public class SessionTest {
     public void nullEqualsTest() {
         Session x = new Session(false,repo.activities);
         assertFalse(x.equals(null));
+    }
+    @Test
+    public void otherObjectEqualsTest(){
+        Session x = new Session(false,repo.activities);
+        Emoji emoji = new Emoji("user","emoji");
+        assertFalse(x.equals(emoji));
     }
 
     @Test
@@ -300,6 +365,64 @@ public class SessionTest {
     public void equalsSameInstanceTest() {
         Session x = new Session(false,repo.activities);
         assertTrue(x.equals(x));
+    }
+    @Test
+    public void equalsSameOtherInstanceTest(){
+        Session x = new Session(false,repo.activities);
+        Session y = new Session(false,repo.activities);
+        y.setQuestionStartedAt(x.getQuestionStartedAt());
+        y.setAnswers(x.getAnswers());
+        y.setCurrentQuestionNum(x.getCurrentQuestionNum());
+        y.setQuestions(x.getQuestions());
+        assertTrue(x.equals(y));
+        y.setQuestionStartedAt(1);
+        assertFalse(x.equals(y));
+        y.setQuestionStartedAt(x.getQuestionStartedAt());
+        Session z = new Session(false,repo.activities);
+        List<Answer> answerList= new ArrayList<Answer>();
+        Answer answer = new Answer();
+        answerList.add(answer);
+        y.setAnswers(answerList);
+        assertFalse(x.equals(y));
+        y.setAnswers(x.getAnswers());
+        y.setCurrentQuestionNum(2);
+        assertFalse(x.equals(y));
+        y.setCurrentQuestionNum(x.getCurrentQuestionNum());
+        y.setQuestions(z.getQuestions());
+        assertFalse(x.equals(y));
+        y.setQuestions(x.getQuestions());
+        assertTrue(x.equals(y));
+        y.setCurrentQuestion(2);
+        assertFalse(x.equals(y));
+        y.setCurrentQuestion(x.getCurrentQuestionNum());
+        y.setEnded(true);
+        assertFalse(x.equals(y));
+        y.setEnded(false);
+        y.setGameAdmin("user1");
+        assertFalse(x.equals(y));
+        y.setGameAdmin(x.getGameAdmin());
+        y.setGameType(true);
+        assertFalse(x.equals(y));
+        y.setGameType(false);
+        y.setStarted(true);
+        assertFalse(x.equals(y));
+        y.setStarted(false);
+        Joker joker = new Joker("user",2,3);
+        List<Joker> jokers = new ArrayList<Joker>();
+        jokers.add(joker);
+        y.setUsedJokers(jokers);
+        assertFalse(x.equals(y));
+        y.setUsedJokers(x.getUsedJokers());
+        List<String> playerList = new ArrayList<String>();
+        playerList.add("user");
+        y.setPlayerList(playerList);
+        assertFalse(x.equals(y));
+
+    }
+    @Test
+    public void getPlayerLimitTest(){
+        Session x = new Session(false,repo.activities);
+        assertEquals(20,x.getPlayerLimit());
     }
 
     @Test

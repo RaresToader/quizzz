@@ -35,6 +35,17 @@ class GuessQuestionTest {
     }
 
     @Test
+    public void testEqualsWithNull() {
+        assertFalse(g.equals(null));
+    }
+
+    @Test
+    public void testEqualsWithItself() {
+        assertTrue(g.equals(g));
+    }
+
+
+    @Test
     void testNotEquals() {
         GuessQuestion n = new GuessQuestion("Don't guess the cost", new Activity("02-nft", "02/nft.png",
                 "Creating an NFT", 142000L, "https://postergrind.com/how-much-energy-does-it-take-to-make-an-nft/"));

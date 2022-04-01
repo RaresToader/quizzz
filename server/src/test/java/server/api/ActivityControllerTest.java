@@ -2,6 +2,7 @@ package server.api;
 
 
 import commons.Activity;
+import commons.InsteadOfQuestion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -350,5 +351,12 @@ public class ActivityControllerTest {
         assertDoesNotThrow(() -> {
             systemUnderTest.loadActivities();
         });
+    }
+
+    @Test
+    public void testTestMethod() {
+        InsteadOfQuestion q = new InsteadOfQuestion(new Activity("test", "test", "test", 0L, "test"),new Activity("test2", "test2", "test2", 0L, "test2"),new Activity("test3", "test3", "test3", 0L, "test3"),new Activity("test4", "test4", "test4", 0L, "test4"));
+        var actual = systemUnderTest.test();
+        assertEquals(q,actual.getBody());
     }
 }
