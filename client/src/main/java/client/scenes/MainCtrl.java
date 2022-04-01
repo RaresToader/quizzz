@@ -200,10 +200,10 @@ public class MainCtrl {
     public void showMultiplayer() {
         primaryStage.setTitle("Multiplayer");
         primaryStage.setScene(this.questionScreenMultiplayer);
+        primaryStage.centerOnScreen(); // Re-center the window when changing to a scene with a different size
         questionScreenMultiplayerCtrl.init(true); //True for multiplayer session
     }
-
-
+    
     public void showAdminPanel() {
         primaryStage.setTitle("Admin Panel");
         primaryStage.setScene(this.adminPanelScreen);
