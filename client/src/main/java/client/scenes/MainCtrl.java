@@ -53,10 +53,10 @@ public class MainCtrl {
     private Scene questionScreen;
     private QuestionScreenMultiplayerCtrl questionScreenMultiplayerCtrl;
     private Scene questionScreenMultiplayer;
+    private MultiplayerMiddleLeaderboardCtrl multiPlayerMiddleLeaderboardCtrl;
+    private Scene multiPlayerMiddleLeaderboardScreen;
     private MultiPlayerFinalLeaderboardCtrl multiPlayerFinalLeaderboardCtrl;
     private Scene multiPlayerFinalLeaderboardScreen;
-    private Scene multiPlayerMiddleLeaderboardScreen;
-    private MultiplayerMiddleLeaderboardCtrl multiPlayerMiddleLeaderboardCtrl;
 
 
     private static final String iconPath = "/photos/clientIcon.png";
