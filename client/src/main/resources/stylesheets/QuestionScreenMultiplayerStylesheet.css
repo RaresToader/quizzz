@@ -78,10 +78,6 @@
 
 #chatBoxContent {
     -fx-line-spacing: -16;
-    -fx-padding: 0;
-    -fx-indent: 0;
-    -fx-end-margin: 0;
-    -fx-start-margin: 0;
     -fx-background-radius: 22;
 }
 

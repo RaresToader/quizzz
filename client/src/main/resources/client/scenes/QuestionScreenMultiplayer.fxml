@@ -7,10 +7,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.image.Image?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1500.0" style="-fx-background-color: #191919;" stylesheets="/stylesheets/QuestionScreenMultiplayerStylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.QuestionScreenMultiplayerCtrl">
    <children>
       <Pane layoutX="28.0" layoutY="28.0" prefHeight="664.0" prefWidth="1224.0" style="-fx-background-color: #474747;" styleClass="screenDividerBackground">
@@ -126,9 +127,9 @@
          </graphic>
       </Button>
       <ScrollPane fx:id="chatBox" hbarPolicy="NEVER" layoutX="1260.0" layoutY="28.0" pannable="true" prefHeight="435.0" prefWidth="235.0" style="-fx-background-color: #474747;" vbarPolicy="ALWAYS">
-        <content>
-          <AnchorPane fx:id="chatBoxContent" minHeight="0.0" minWidth="0.0" prefHeight="435.0" prefWidth="235.0" style="-fx-background-color: #474747;" />
-        </content>
+         <content>
+            <VBox fx:id="chatBoxContent" prefHeight="435.0" prefWidth="235.0" style="-fx-background-color: #474747;" />
+         </content>
       </ScrollPane>
       <Button fx:id="emoteButtonSmile" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1265.0" layoutY="480.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
          <graphic>

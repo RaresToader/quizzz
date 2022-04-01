@@ -20,9 +20,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
@@ -167,7 +166,7 @@ public class QuestionScreenMultiplayerCtrl {
     @FXML
     private ScrollPane chatBox;
     @FXML
-    private AnchorPane chatBoxContent;
+    private VBox chatBoxContent;
 
     /**
      * Initialise a multiplayer game
@@ -653,6 +652,13 @@ public class QuestionScreenMultiplayerCtrl {
         emoteButtonCelebrate.setOnAction(e -> sendEmote("celebrate"));
         emoteButtonSunglasses.setOnAction(e -> sendEmote("sunglasses"));
 
+        // Add some space at the top of the chat box
+        Label blankLabel = new Label();
+        blankLabel.setOpacity(1);
+        blankLabel.setStyle("-fx-font-size: 12pt; -fx-text-fill: black");
+        blankLabel.setTextAlignment(TextAlignment.CENTER);
+        Platform.runLater(() -> chatBoxContent.getChildren().add(new Label()));
+
         //TODO
         // Turn off joker buttons that have already been used (or cant be used for the question type)
     }
@@ -671,8 +677,6 @@ public class QuestionScreenMultiplayerCtrl {
      * Receive any emotes sent by other players and display them in the chat box
      */
     private void receiveEmotes() {
-        System.out.println("\n\n\t\tIN RECEIVE EMOTES\n\n");
-
         List<Emoji> activeEmojiList = lobbyStatus.getEmojiList();
 
         // Loop through all active emojis and display them according to the user that sent it
@@ -697,7 +701,7 @@ public class QuestionScreenMultiplayerCtrl {
                 default -> throw new IllegalStateException("Unexpected value: " + emoji.getEmojiType());
             }
 
-            Label message = new Label(emoji.getUserApplying() + ": " + emoteText);
+            Label message = new Label("  " + emoji.getUserApplying() + ": " + emoteText);
             message.setOpacity(1);
             message.setStyle("-fx-font-size: 12pt; -fx-text-fill: black");
             message.setTextAlignment(TextAlignment.CENTER);
@@ -708,6 +712,7 @@ public class QuestionScreenMultiplayerCtrl {
 
     public void useJokerDoublePoints() {
         doublePoints = true;
+        jokerButton1.setDisable(true);
 
         //TODO
         // Send to server that joker has been used
@@ -718,6 +723,7 @@ public class QuestionScreenMultiplayerCtrl {
         // Check if the joker can be used for the question type
 
         removeAnAnswer = true;
+        jokerButton2.setDisable(true);
 
         //TODO
         // Send to server that joker has been used
@@ -725,11 +731,15 @@ public class QuestionScreenMultiplayerCtrl {
 
     public void useJokerReduceTime() {
         //TODO
+        // Check if the joker can still be used for this question
         // Send to server that joker has been used
+
+        jokerButton3.setDisable(true);
     }
 
     private void receiveJokers() {
         //TODO
+        // (Copy some stuff from receive emotes and change some stuff)
     }
 
     public void transitionStuff() {
