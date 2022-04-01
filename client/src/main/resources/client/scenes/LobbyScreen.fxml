@@ -119,25 +119,5 @@
             </Label>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="88.0" fitWidth="96.0" layoutX="512.0" layoutY="220.0">
-         <image>
-            <Image url="@../../photos/emotes2.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="88.0" fitWidth="96.0" layoutX="504.0" layoutY="370.0">
-         <image>
-            <Image url="@../../photos/emotes3.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="88.0" fitWidth="96.0" layoutX="986.0" layoutY="295.0">
-         <image>
-            <Image url="@../../photos/emotes4.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="88.0" fitWidth="96.0" layoutX="988.0" layoutY="213.0">
-         <image>
-            <Image url="@../../photos/emotes1.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
