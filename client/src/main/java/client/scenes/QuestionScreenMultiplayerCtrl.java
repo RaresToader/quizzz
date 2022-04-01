@@ -222,18 +222,6 @@ public class QuestionScreenMultiplayerCtrl {
 
             }
         }, 0, 1000);
-
-        // Timer that regularly calls update methods
-        emoteJokerUpdateTimer = new Timer();
-        emoteJokerUpdateTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                lobbyStatus = Utils.getLobbyStatus();
-
-                receiveEmotes();
-                receiveJokers();
-            }
-        }, 0, 20);
     }
 
     /**
@@ -644,6 +632,18 @@ public class QuestionScreenMultiplayerCtrl {
      * Initialise all event handling for the emote and joker buttons (Should be called every new question)
      */
     public void initialiseEmotesAndJokers() {
+        // Timer that regularly calls update methods
+        emoteJokerUpdateTimer = new Timer();
+        emoteJokerUpdateTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                lobbyStatus = Utils.getLobbyStatus();
+
+                receiveEmotes();
+                receiveJokers();
+            }
+        }, 0, 20);
+
         // Set up the on action event for each emote button corresponding to their image
         emoteButtonSmile.setOnAction(e -> sendEmote("smile"));
         emoteButtonSad.setOnAction(e -> sendEmote("sad"));
