@@ -61,7 +61,8 @@ public class Session {
         //If everyone has answered that question OR this is first question OR time has passed then get new question
         if(this.haveEveryoneAnswered() || questionStartedAt == -1 || date.getTime()-questionStartedAt > 20000) {
             this.currentQuestion++;
-            this.questionStartedAt = date.getTime();
+            if(currentQuestion == 0) this.questionStartedAt = date.getTime();
+            else this.questionStartedAt = date.getTime()+5000; //Offset because of transition screen
         }
 
         //If there have already been 20 questions, end the game
