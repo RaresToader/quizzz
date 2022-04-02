@@ -53,10 +53,10 @@ public class MainCtrl {
     private Scene questionScreen;
     private QuestionScreenMultiplayerCtrl questionScreenMultiplayerCtrl;
     private Scene questionScreenMultiplayer;
+    private MultiplayerMiddleLeaderboardCtrl multiPlayerMiddleLeaderboardCtrl;
+    private Scene multiPlayerMiddleLeaderboardScreen;
     private MultiPlayerFinalLeaderboardCtrl multiPlayerFinalLeaderboardCtrl;
     private Scene multiPlayerFinalLeaderboardScreen;
-    private Scene multiPlayerMiddleLeaderboardScreen;
-    private MultiplayerMiddleLeaderboardCtrl multiPlayerMiddleLeaderboardCtrl;
 
 
     private static final String iconPath = "/photos/clientIcon.png";
@@ -229,10 +229,10 @@ public class MainCtrl {
     public void showMultiplayer() {
         primaryStage.setTitle("Multiplayer");
         primaryStage.setScene(this.questionScreenMultiplayer);
+        primaryStage.centerOnScreen(); // Re-center the window when changing to a scene with a different size
         questionScreenMultiplayerCtrl.init(true); //True for multiplayer session
     }
-
-
+    
     public void showAdminPanel() {
         primaryStage.setTitle("Admin Panel");
         primaryStage.setScene(this.adminPanelScreen);

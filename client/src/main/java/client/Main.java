@@ -38,7 +38,7 @@ public class Main extends Application {
 
         var enterMenu = FXML.load(EnterMenuCtrl.class, "client", "scenes", "EnterMenu.fxml");
         var multiPlayerFinalLeaderboard = FXML.load(MultiPlayerFinalLeaderboardCtrl.class, "client","scenes","FinalLeaderboard.fxml");
-        var multiPlayerMiddleLeaderboard =  FXML.load(MultiplayerMiddleLeaderboardCtrl.class, "client","scenes","FinalLeaderboard.fxml");
+        var multiPlayerMiddleLeaderboard =  FXML.load(MultiplayerMiddleLeaderboardCtrl.class, "client","scenes","LeaderboardMultiplayer.fxml");
         var splash = FXML.load(SplashCtrl.class, "client", "scenes", "SplashScreen.fxml");
         var queue = FXML.load(QueueCtrl.class, "client", "scenes", "QueueScreen.fxml");
         var multiLobby = FXML.load(MultiplayerLobbyCtrl.class, "client", "scenes", "MultiplayerLobbyScreen.fxml");
