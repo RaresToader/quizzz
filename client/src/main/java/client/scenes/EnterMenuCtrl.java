@@ -19,7 +19,8 @@ import java.util.Scanner;
 
 public class EnterMenuCtrl {
 
-    private static final String usernameFileName = "username.log";
+    private static final String usernameFileName   = "username.log";
+    private static final String serverAddrFileName = "serveraddr.log";
 
     private final MainCtrl mainCtrl;
     private final MultiplayerLobbyCtrl mLobbyCtrl;
@@ -44,7 +45,8 @@ public class EnterMenuCtrl {
     }
 
     public void initialize() {
-        username.setText(EnterMenuCtrl.getUsernameFromFile());
+        username.setText(EnterMenuCtrl.getStringFromFile(usernameFileName));
+        server.setText(EnterMenuCtrl.getStringFromFile(serverAddrFileName));
     }
 
     @FXML
@@ -61,6 +63,7 @@ public class EnterMenuCtrl {
                 displayErrorText("Username is too long! (max 8 characters)");
                 return;
             }
+
             if (serverAddr == null || serverAddr.length() == 0 || !Utils.validateServer(serverAddr)) { //Invalid serverAddr
                 displayErrorText("Server address is invalid!");
                 return;
@@ -72,11 +75,16 @@ public class EnterMenuCtrl {
             }
 
 
+            //Set serverAddress
+            String processedServerAddr = "http://" + serverAddr + "/";
+            Utils.setServerAddr(processedServerAddr);
+            Session.setServerAddr(processedServerAddr);
+            ServerUtils.setServerAddr(processedServerAddr);
 
-            EnterMenuCtrl.saveUsernameToFile(nickname);
+            EnterMenuCtrl.saveStringToFile(nickname,usernameFileName);
+            EnterMenuCtrl.saveStringToFile(serverAddr,serverAddrFileName);
             Session.setNickname(nickname);
             this.serverUtils.addPlayer(nickname);
-            Session.setServerAddr(serverAddr);
             mainCtrl.showSplash();
 
             if (Utils.getCurrentSessionPlayers().size() <= 1) {
@@ -89,12 +97,13 @@ public class EnterMenuCtrl {
     }
 
     /**
-     * Gets username from file
-     * @return String value of saved username ("" - empty string if empty file)
+     * Gets username/serverAddr from file
+     * @param filename - String value representing username or serverAddr
+     * @return String value of saved username/serverAddr ("" - empty string if empty file)
      */
-    private static String getUsernameFromFile() {
+    private static String getStringFromFile(String filename) {
         try {
-            File myObj = new File(usernameFileName);
+            File myObj = new File(filename);
             Scanner myReader = new Scanner(myObj);
             String data = "";
             while (myReader.hasNextLine()) {
@@ -106,20 +115,20 @@ public class EnterMenuCtrl {
             e.printStackTrace();
             return "";
         }
-
     }
 
     /**
-     * Saves username into file for further usage
-     * @param username - username to be saved
+     * Saves username/serverAddr into file for further usage
+     * @param data - String value to be saved
+     * @param filename - file that we write into
      * @return Boolean value whether operation was successful or not
      */
-    private static boolean saveUsernameToFile(String username) {
+    private static boolean saveStringToFile(String data, String filename) {
         try {
-            File usernameFile = new File(usernameFileName);
-            usernameFile.createNewFile(); //Only creates new file if exists
-            FileWriter myWriter = new FileWriter(usernameFileName);
-            myWriter.write(username);
+            File usedFile = new File(filename);
+            usedFile.createNewFile(); //Only creates new file if exists
+            FileWriter myWriter = new FileWriter(filename);
+            myWriter.write(data);
             myWriter.close();
             return true;
         } catch (IOException e) {
@@ -127,6 +136,7 @@ public class EnterMenuCtrl {
             return false;
         }
     }
+
 
     private void displayErrorText(String text) {
         errorText.setText(text);
