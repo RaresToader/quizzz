@@ -240,4 +240,12 @@ public class ServerUtilsTest {
         ServerUtils server = new ServerUtils();
         assertEquals(new Player("kuba",Long.valueOf(6975)),server.updatePlayerInRepo("kuba",Long.valueOf(55)));
     }
+
+    @Test
+    public void setServerAddrTest() {
+        ServerUtils.setServerAddr("abc");
+        assertEquals("abc",ServerUtils.getServerAddr());
+        ServerUtils.setServerAddr("http://localhost:8080/");
+    }
+
 }
