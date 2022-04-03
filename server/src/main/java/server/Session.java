@@ -4,6 +4,8 @@ import commons.*;
 
 import java.util.*;
 
+import static java.util.Map.Entry.comparingByValue;
+
 public class Session {
     private static final int playerLimit = 20; //To be determined
     private List<String> playerList;
@@ -45,8 +47,8 @@ public class Session {
     public boolean haveEveryoneAnswered() {
         int playerNum = playerList.size();
         int answersNum = 0;
-        for (Answer x : answers) {
-            if (x.getQuestionNum() == this.currentQuestion) answersNum++;
+        for (int i = 0; i < answers.size(); i++) {
+            if (answers.get(i).getQuestionNum() == this.currentQuestion) answersNum++;
         }
 
         return answersNum == playerNum;
@@ -59,7 +61,8 @@ public class Session {
         //If everyone has answered that question OR this is first question OR time has passed then get new question
         if(this.haveEveryoneAnswered() || questionStartedAt == -1 || date.getTime()-questionStartedAt > 20000) {
             this.currentQuestion++;
-            this.questionStartedAt = date.getTime();
+            if(currentQuestion == 0) this.questionStartedAt = date.getTime();
+            else this.questionStartedAt = date.getTime()+5000; //Offset because of transition screen
         }
 
         //If there have already been 20 questions, end the game
@@ -89,6 +92,14 @@ public class Session {
     }
 
     /**
+     * Get's the player limit of a session
+     * @return int - player limit
+     */
+    public int getPlayerLimit(){
+        return Session.playerLimit;
+    }
+
+    /**
      * @param p - Player to be added to game
      * @return boolean value whether operation of addition was successful
      */
@@ -100,6 +111,7 @@ public class Session {
             this.gameAdmin = p;
         }
 
+        this.currentScores.put(p,0);
         this.playerList.add(p);
         return true;
     }
@@ -119,13 +131,19 @@ public class Session {
 
 
         //If answer has already been submitted
-        for(Answer ans : this.answers) {
-            if(ans.getQuestionNum() == x.getQuestionNum() && ans.getNickname().equals(x.getNickname())) {
+        List<Answer> answerList = getAnswers();
+        int size = answerList.size();
+        for(int i = 0; i < size; i++) {
+            if(answerList.get(i).getQuestionNum() == x.getQuestionNum() && answerList.get(i).getNickname().equals(x.getNickname())) {
                 return false;
             }
         }
-
-        this.currentScores.put(x.getNickname(),x.getAnswer());
+        if(currentScores.get(x.getNickname()) != null) {
+            this.currentScores.put(x.getNickname(), this.currentScores.get(x.getNickname()) + x.getAnswer());
+        }
+        else {
+            this.currentScores.put(x.getNickname(),x.getAnswer());
+        }
         this.answers.add(x);
         return true;
     }
@@ -168,10 +186,12 @@ public class Session {
      */
     public List<Joker> getJokersForCurrentQuestion(String username) {
         List<Joker> retList = new ArrayList<Joker>();
-        for(Joker x : usedJokers) {
-            if(x.getQuestionNum() != this.currentQuestion || x.getUsedBy().equals(username)) continue;
+        List<Joker> usedJokers = getUsedJokers();
+        int size = usedJokers.size();
+        for(int i = 0; i < size; i++) {
+            if(usedJokers.get(i).getQuestionNum() != this.currentQuestion || usedJokers.get(i).getUsedBy().equals(username)) continue;
 
-            retList.add(x);
+            retList.add(usedJokers.get(i));
         }
 
         return retList;
@@ -222,7 +242,7 @@ public class Session {
         for (int i = 0; i < emojiListLength; i++){
             if(emojiList.get(i).getStartTimeEmoji() > (date.getTime() - 5000 )){ //emoji's have an expiry time of 5 seconds
                 for (int a = 0; a < activeEmojiList.size(); a++){
-                    if(emojiList.get(i).getUserApplying() == activeEmojiList.get(a).getUserApplying() &&
+                    if(Objects.equals(emojiList.get(i).getUserApplying(), activeEmojiList.get(a).getUserApplying()) &&
                     emojiList.get(i).getStartTimeEmoji() >= activeEmojiList.get(a).getStartTimeEmoji()){
                         activeEmojiList.remove(a);
 
@@ -247,6 +267,46 @@ public class Session {
      * Setter for questionStartedAt ONLY FOR TESTING PURPOSES
      */
     public void setQuestionStartedAt(Long questionStartedAt) {
+        this.questionStartedAt = questionStartedAt;
+    }
+
+    public void setPlayerList(List<String> playerList) {
+        this.playerList = playerList;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
+    }
+
+    public void setGameAdmin(String gameAdmin) {
+        this.gameAdmin = gameAdmin;
+    }
+
+    public void setGameType(boolean gameType) {
+        this.gameType = gameType;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
+
+    public void setUsedJokers(List<Joker> usedJokers) {
+        this.usedJokers = usedJokers;
+    }
+
+    public void setCurrentQuestion(int currentQuestion) {
+        this.currentQuestion = currentQuestion;
+    }
+
+    public void setQuestionStartedAt(long questionStartedAt) {
         this.questionStartedAt = questionStartedAt;
     }
 
@@ -287,17 +347,17 @@ public class Session {
     public List<Joker> getUsedJokers() {
         return this.usedJokers;
     }
+
     public List<Emoji> getEmojiList(){
         return this.emojiList;
     }
 
-    public HashMap<String, Integer> getCurrentScores() {
-        return currentScores;
+    public List<Map.Entry<String,Integer>> getCurrentLeaderboard() {
+        List<Map.Entry<String,Integer>> list = new ArrayList<Map.Entry<String,Integer>>(currentScores.entrySet());
+        Collections.sort(list,comparingByValue());
+        return list;
     }
 
-    public ArrayList<Map.Entry<String,Integer>> getCurrentLeaderboard() {
-        return new ArrayList<Map.Entry<String,Integer>>(currentScores.entrySet());
-    }
 
     @Override
     public String toString() {

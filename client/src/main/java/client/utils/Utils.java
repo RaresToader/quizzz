@@ -16,8 +16,23 @@ import java.util.Map;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class Utils {
-    //Temporary variable of server address will be changed for Session.serverAddr after tests
     private static String SERVER = "http://localhost:8080/";
+
+    /**
+     * Setter for SERVER variable
+     * @param serverAddr - String variable being serverAddr
+     */
+    public static void setServerAddr(String serverAddr) {
+        Utils.SERVER = serverAddr;
+    }
+
+    /**
+     * Getter for serverAddr from Utils class
+     * @return String valuer being serverAddr of Utils class
+     */
+    public static String getServerAddr() {
+        return SERVER;
+    }
 
     /**
      * Determines whether given String is composed only from alphaNumeric chars

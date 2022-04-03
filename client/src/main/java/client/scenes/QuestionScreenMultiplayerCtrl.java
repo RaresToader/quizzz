@@ -16,20 +16,20 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 
-public class QuestionScreenCtrl {
+public class QuestionScreenMultiplayerCtrl {
 
     private final MainCtrl mainCtrl;
     private boolean toEnd = false;
@@ -62,8 +62,14 @@ public class QuestionScreenCtrl {
     private ScaleTransition timeBarAnimation;
     private ScaleTransition transitionTimerAnimation;
 
+    private SessionLobbyStatus lobbyStatus;
+    private ArrayList<Emoji> emojisReceivedThisQuestion;
+    private boolean doublePoints;
+    private boolean removeAnAnswer;
+    private Timer emoteJokerUpdateTimer;
+
     @Inject
-    public QuestionScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+    public QuestionScreenMultiplayerCtrl(ServerUtils server, MainCtrl mainCtrl) {
         this.serverUtils = server;
         this.mainCtrl = mainCtrl;
     }
@@ -137,14 +143,46 @@ public class QuestionScreenCtrl {
     @FXML
     private ImageView thirdAnswerImage;
 
+    @FXML
+    private Button jokerButton1; // Double Points
+    @FXML
+    private Button jokerButton2; // 50/50 Remove one wrong answer
+    @FXML
+    private Button jokerButton3; // Reduce time
+
+    @FXML
+    private Button emoteButtonSmile;
+    @FXML
+    private Button emoteButtonSad;
+    @FXML
+    private Button emoteButtonAngry;
+    @FXML
+    private Button emoteButtonSurprise;
+    @FXML
+    private Button emoteButtonCelebrate;
+    @FXML
+    private Button emoteButtonSunglasses;
+
+    @FXML
+    private ScrollPane chatBox;
+    @FXML
+    private VBox chatBoxContent;
+
     /**
-     * Initialise a singleplayer game
+     * Initialise a multiplayer game
      */
     public void init(boolean sessionType) {
         Session.setQuestionNum(0);
         this.sessionType = sessionType;
         restartTimer();
         transitionTimer.setVisible(false);
+
+        // Reset variables every question
+        this.doublePoints = false;
+        this.removeAnAnswer = false;
+        this.emojisReceivedThisQuestion = new ArrayList<>();
+
+        initialiseEmotesAndJokers();
 
         questionUpdateTimer = new Timer();
         questionUpdateTimer.scheduleAtFixedRate(new TimerTask() {
@@ -175,7 +213,7 @@ public class QuestionScreenCtrl {
                                     }
                                 }
                             }
-                        //System.out.println(Session.getQuestionNum()); //DEBUG LINE
+                            //System.out.println(Session.getQuestionNum()); //DEBUG LINE
                         } catch (org.json.simple.parser.ParseException e) {
                             e.printStackTrace();
                         }
@@ -215,7 +253,7 @@ public class QuestionScreenCtrl {
             question.setText(((InsteadOfQuestion) currQuestion).getQuestion());
             activity.setText(((InsteadOfQuestion) currQuestion).getPromptActivity().getTitle());
             String path = "/photos/" + ((InsteadOfQuestion) currQuestion).getPromptActivity().getImage_path();
-            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenMultiplayerCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
             firstConsump.setText(((InsteadOfQuestion) currQuestion).getFirstChoice().getTitle());
             secondConsump.setText(((InsteadOfQuestion) currQuestion).getSecondChoice().getTitle());
             thirdConsump.setText(((InsteadOfQuestion) currQuestion).getThirdChoice().getTitle());
@@ -233,7 +271,7 @@ public class QuestionScreenCtrl {
             question.setText(((GuessQuestion) currQuestion).getQuestion());
             activity.setText(((GuessQuestion) currQuestion).getActivity().getTitle());
             String path = "/photos/" + ((GuessQuestion) currQuestion).getActivity().getImage_path();
-            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+            activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenMultiplayerCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
             guess.setText("");
             guess.setDisable(false);
             submit.setDisable(false);
@@ -254,7 +292,7 @@ public class QuestionScreenCtrl {
         question.setText(((ConsumpQuestion) currQuestion).getQuestion());
         activity.setText(((ConsumpQuestion) currQuestion).getActivity().getTitle());
         String path = "/photos/" + ((ConsumpQuestion) currQuestion).getActivity().getImage_path();
-        activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+        activityImage.setImage(new Image(Objects.requireNonNull(QuestionScreenMultiplayerCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
         firstConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getFirst()));
         secondConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getSecond()));
         thirdConsump.setText(Long.toString(((ConsumpQuestion) currQuestion).getThird()));
@@ -273,13 +311,13 @@ public class QuestionScreenCtrl {
         question.setText(currQuestion.getQuestion());
         firstAnswer.setText(((QuizzQuestion) currQuestion).getFirstChoice().getTitle());
         String path = "/photos/" + ((QuizzQuestion) currQuestion).getFirstChoice().getImage_path();
-        firstAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+        firstAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenMultiplayerCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
         secondAnswer.setText(((QuizzQuestion) currQuestion).getSecondChoice().getTitle());
         path = "/photos/" + ((QuizzQuestion) currQuestion).getSecondChoice().getImage_path();
-        secondAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+        secondAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenMultiplayerCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
         thirdAnswer.setText(((QuizzQuestion) currQuestion).getThirdChoice().getTitle());
         path = "/photos/" + ((QuizzQuestion) currQuestion).getThirdChoice().getImage_path();
-        thirdAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
+        thirdAnswerImage.setImage(new Image(Objects.requireNonNull(QuestionScreenMultiplayerCtrl.class.getResourceAsStream(path)), 300, 300, false, false));
 
         firstAnswer.setStyle("-fx-background-color: #CED0CE;");
         secondAnswer.setStyle("-fx-background-color: #CED0CE;");
@@ -403,46 +441,6 @@ public class QuestionScreenCtrl {
             check(thirdConsump);
         }
     }
-
-    /**
-     * When the user clicks on the submit button, this method calculates the points that should be
-     * received, shows whether the question was answered correctly and if not it shows the correct answer
-     */
-    public void submitGuess() {
-        if (guess.getText() == "") {
-            return;
-        }
-        if (currQuestion instanceof GuessQuestion) {
-            questionTimer.pause();
-            points = timeLeft * 25 + 500;
-
-            chosenAnswer = guess.getText();
-            correctAnswer = ((GuessQuestion) currQuestion).getCorrectGuess();
-            if (chosenAnswer.equals(correctAnswer)) {
-                question.setText("Yeah, that's right!");
-                guess.setStyle("-fx-background-color: green;");
-                points = points * 2;
-                Utils.submitAnswer(points);
-                totalPoints += points;
-                pointCounter.setText("current points: " + totalPoints);
-            } else if (Math.abs(Long.parseLong(correctAnswer) - Long.parseLong(chosenAnswer)) < Long.parseLong(correctAnswer) * 0.3) {
-                question.setText("Very close!");
-                guess.setStyle("-fx-background-color: orange;");
-                totalPoints += points;
-                Utils.submitAnswer(points);
-                pointCounter.setText("current points: " + totalPoints);
-                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
-            } else {
-                Utils.submitAnswer(0);
-                question.setText("That's wrong!");
-                guess.setStyle("-fx-background-color: red;");
-                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
-            }
-            submit.setDisable(true);
-            transition();
-        }
-    }
-
     /**
      * checks if the answer chosen was the right one, and if so distributes the points. Display the wh for each
      * choice.
@@ -470,7 +468,6 @@ public class QuestionScreenCtrl {
             question.setText("Yeah, that's right!");
             chosenBox.setStyle("-fx-background-color: green;");
             totalPoints += points;
-            Utils.submitAnswer(points);
             pointCounter.setText("current points: " + totalPoints);
         } else {
             question.setText("That's wrong!");
@@ -480,13 +477,51 @@ public class QuestionScreenCtrl {
     }
 
     /**
+     * When the user clicks on the submit button, this method calculates the points that should be
+     * received, shows whether the question was answered correctly and if not it shows the correct answer
+     */
+    public void submitGuess() {
+        if (guess.getText() == "") {
+            return;
+        }
+        if (currQuestion instanceof GuessQuestion) {
+            Utils.submitAnswer(0);
+            questionTimer.pause();
+            points = timeLeft * 25 + 500;
+
+            chosenAnswer = guess.getText();
+            correctAnswer = ((GuessQuestion) currQuestion).getCorrectGuess();
+            if (chosenAnswer.equals(correctAnswer)) {
+                question.setText("Yeah, that's right!");
+                guess.setStyle("-fx-background-color: green;");
+                points = points * 2;
+                totalPoints += points;
+                pointCounter.setText("current points: " + totalPoints);
+            } else if (Math.abs(Long.parseLong(correctAnswer) - Long.parseLong(chosenAnswer)) < Long.parseLong(correctAnswer) * 0.3) {
+                question.setText("Very close!");
+                guess.setStyle("-fx-background-color: orange;");
+                totalPoints += points;
+                pointCounter.setText("current points: " + totalPoints);
+                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
+            } else {
+                question.setText("That's wrong!");
+                guess.setStyle("-fx-background-color: red;");
+                guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
+            }
+            submit.setDisable(true);
+            transition();
+        }
+    }
+
+
+
+    /**
      * handles the display when the chosen answer was not the right answer.
      */
     public void wrongAnswer() {
         String first = "";
         String second = "";
         String third = "";
-        Utils.submitAnswer(0);
         if (currQuestion instanceof QuizzQuestion) {
             first = ((QuizzQuestion) currQuestion).getFirstChoice().getTitle();
             second = ((QuizzQuestion) currQuestion).getSecondChoice().getTitle();
@@ -547,6 +582,7 @@ public class QuestionScreenCtrl {
      * handles the transition between two questions.
      */
     public void transition() {
+        Utils.submitAnswer(totalPoints);
         confirmButton.setVisible(false);
         notConfirmButton.setVisible(false);
         confirmButton.setDisable(true);
@@ -590,6 +626,129 @@ public class QuestionScreenCtrl {
         );
         timer.setCycleCount(6);
         timer.play();
+    }
+
+    /**
+     * Initialise all event handling for the emote and joker buttons (Should be called every new question)
+     */
+    public void initialiseEmotesAndJokers() {
+        // Timer that regularly calls update methods
+        emoteJokerUpdateTimer = new Timer();
+        emoteJokerUpdateTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                lobbyStatus = Utils.getLobbyStatus();
+
+                receiveEmotes();
+                receiveJokers();
+            }
+        }, 0, 20);
+
+        // Set up the on action event for each emote button corresponding to their image
+        emoteButtonSmile.setOnAction(e -> sendEmote("smile"));
+        emoteButtonSad.setOnAction(e -> sendEmote("sad"));
+        emoteButtonAngry.setOnAction(e -> sendEmote("angry"));
+        emoteButtonSurprise.setOnAction(e -> sendEmote("surprise"));
+        emoteButtonCelebrate.setOnAction(e -> sendEmote("celebrate"));
+        emoteButtonSunglasses.setOnAction(e -> sendEmote("sunglasses"));
+
+        // Add some space at the top of the chat box
+        Label blankLabel = new Label();
+        blankLabel.setOpacity(1);
+        blankLabel.setStyle("-fx-font-size: 12pt; -fx-text-fill: black;");
+        blankLabel.setTextAlignment(TextAlignment.CENTER);
+        Platform.runLater(() -> chatBoxContent.getChildren().add(new Label()));
+
+        // Listener to scroll to the bottom of the chat box once a new message has been received
+        chatBox.needsLayoutProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                chatBox.setVvalue(chatBox.getVmax()); // Auto scroll to the bottom so player can always see the latest message
+            }
+        });
+
+        //TODO
+        // Turn off joker buttons that have already been used (or cant be used for the question type)
+    }
+
+    /**
+     * Once the player clicks an emote button, this method is called
+     * It then sends the emote to the other players in the session
+     *
+     * @param emoteType identifies which emote button was clicked and what emote to send
+     */
+    private void sendEmote(String emoteType) {
+        Utils.setEmoji(Session.getNickname(), emoteType);
+    }
+
+    /**
+     * Receive any emotes sent by other players and display them in the chat box
+     */
+    private void receiveEmotes() {
+        List<Emoji> activeEmojiList = lobbyStatus.getEmojiList();
+
+        // Loop through all active emojis and display them according to the user that sent it
+        for (Emoji emoji: activeEmojiList) {
+
+            if (emojisReceivedThisQuestion.contains(emoji)) {
+                continue;
+            }
+
+            emojisReceivedThisQuestion.add(emoji);
+
+            String emoteText;
+
+            // Get the right emote text
+            switch (emoji.getEmojiType()) {
+                case "smile" -> emoteText = "\uD83D\uDE00";
+                case "sad" -> emoteText = "\uD83D\uDE22";
+                case "angry" -> emoteText = "\uD83D\uDE21";
+                case "surprise" -> emoteText = "\uD83D\uDE32";
+                case "celebrate" -> emoteText = "\uD83C\uDF89";
+                case "sunglasses" -> emoteText = "\uD83D\uDE0E";
+                default -> throw new IllegalStateException("Unexpected value: " + emoji.getEmojiType());
+            }
+
+            Label message = new Label("  " + emoji.getUserApplying() + ": " + emoteText);
+            message.setOpacity(1);
+            message.setStyle("-fx-font-size: 12pt; -fx-text-fill: black;");
+            message.setTextAlignment(TextAlignment.CENTER);
+
+            Platform.runLater(() -> {
+                chatBoxContent.getChildren().add(message);
+            });
+        }
+    }
+
+    public void useJokerDoublePoints() {
+        doublePoints = true;
+        jokerButton1.setDisable(true);
+
+        //TODO
+        // Send to server that joker has been used
+    }
+
+    public void useJokerRemoveAnAnswer() {
+        //TODO
+        // Check if the joker can be used for the question type
+
+        removeAnAnswer = true;
+        jokerButton2.setDisable(true);
+
+        //TODO
+        // Send to server that joker has been used
+    }
+
+    public void useJokerReduceTime() {
+        //TODO
+        // Check if the joker can still be used for this question
+        // Send to server that joker has been used
+
+        jokerButton3.setDisable(true);
+    }
+
+    private void receiveJokers() {
+        //TODO
+        // (Copy some stuff from receive emotes and change some stuff)
     }
 
     public void transitionStuff() {

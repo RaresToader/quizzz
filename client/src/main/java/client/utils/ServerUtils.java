@@ -28,7 +28,24 @@ import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerUtils {
 
-    private static final String SERVER = "http://localhost:8080/";
+    private static String SERVER = "http://localhost:8080/";
+
+
+    /**
+     * Setter for serverAddr
+     * @param serverAddr - value to be new serverAddr
+     */
+    public static void setServerAddr(String serverAddr) {
+        ServerUtils.SERVER = serverAddr;
+    }
+
+    /**
+     * Gtter for serverAddr
+     * @return SERVER variable from ServerUtils
+     */
+    public static String getServerAddr() {
+        return SERVER;
+    }
 
     /**
      * Adds a player by a username

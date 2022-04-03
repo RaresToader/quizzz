@@ -48,6 +48,53 @@ public class SessionContollerTest {
     }
 
     @Test
+    public void get60RandomActivitiesTest() {
+        TestActivityRepository emptyRepo = new TestActivityRepository();
+        for(int i=0; i<60; i++) {
+            Activity toBeAdded = new Activity("test"+i, "test","10", 10L       ,"test");
+            emptyRepo.save(toBeAdded);
+        }
+        SessionController sess = new SessionController(emptyRepo);
+        assertNotNull(sess.get60RandomActivities());
+    }
+
+    @Test
+    public void lobbyNotAssignedStatusTest() {
+        SessionController sess = new SessionController(repo);
+        assertEquals(new SessionLobbyStatus(new ArrayList<Emoji>(),false, "none"), sess.getLobbyStatus("test"));
+    }
+
+    @Test
+    public void displayAllDetailsEmpty() {
+        SessionController sess = new SessionController(repo);
+        assertEquals("NO SESSION",sess.displayAllSessionDetails("test"));
+    }
+
+    @Test
+    public void displayAllDetailsNonEmpty() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",repo.activities);
+        Session x = SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        assertEquals(x.toString(),sess.displayAllSessionDetails("test"));
+    }
+
+    @Test
+    public void getLeaderboardNoSession() {
+        SessionController sess = new SessionController(repo);
+        assertEquals(new ArrayList<>(),sess.getCurrentLeaderboard("test"));
+    }
+
+    @Test
+    public void getLeaderboardNonEmpty() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",repo.activities);
+        Session x = SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        assertEquals(x.getCurrentLeaderboard(),sess.getCurrentLeaderboard("test"));
+    }
+
+
+
+    @Test
     public void getActivePlayersTest() {
         SessionController sess = new SessionController(repo);
         int singlePlayerSessCount = 55;
@@ -93,6 +140,9 @@ public class SessionContollerTest {
         list.add("test3");
         HashMap<String,Integer> expected = new HashMap<>();
         expected.put("test1",10);
+        expected.put("test",0);
+        expected.put("test2",0);
+        expected.put("test3",0);
         session.addAnswer(new Answer("test1",10,-1));
         assertEquals(new ArrayList<>(expected.entrySet()),session.getCurrentLeaderboard());
     }
@@ -268,4 +318,52 @@ public class SessionContollerTest {
         assertTrue(sess.isUsernameValid("test2"));
         assertFalse(sess.isUsernameValid("test"));
     }
+
+    @Test
+    public void joinSessionNotFoundTest() {
+        SessionController sess = new SessionController(repo);
+        assertTrue(sess.joinSession("test"));
+    }
+
+    @Test
+    public void joinSessionAlreadyInTest() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",repo.activities);
+        assertFalse(sess.joinSession("test"));
+    }
+
+    @Test
+    public void joinSessionAvailableFoundTest() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test",repo.activities);
+        assertTrue(sess.joinSession("test3"));
+    }
+
+    @Test
+    public void joinSessionNotAvailableFoundTest() {
+        SessionController sess = new SessionController(repo);
+        assertTrue(sess.joinSession("test3"));
+    }
+
+    @Test
+    public void startSessionNotFoundTest() {
+        SessionController sess = new SessionController(repo);
+        assertFalse(sess.startSession("test"));
+    }
+
+    @Test
+    public void startSessionNotEnoughTest() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test",repo.activities);
+        assertFalse(sess.startSession("test"));
+    }
+
+    @Test
+    public void startSessionSuccessTest() {
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",repo.activities);
+        assertTrue(sess.startSession("test"));
+    }
+
+
 }

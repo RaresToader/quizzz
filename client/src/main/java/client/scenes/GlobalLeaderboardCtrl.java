@@ -68,6 +68,7 @@ public class GlobalLeaderboardCtrl {
         }
         barChart.getData().addAll(series1);
         refreshLeaderboardAndBarChart = new Timer();
+        barChart.setCache(false);
         refreshLeaderboardAndBarChart.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -86,6 +87,7 @@ public class GlobalLeaderboardCtrl {
                      */
                     if (!players2nd.equals(players.get())) {
                         barChart.getData().clear();
+                        barChart.layout();
                         barChart.getData().addAll(series2nd);
                         players.set(players2nd);
                     }
@@ -102,5 +104,18 @@ public class GlobalLeaderboardCtrl {
     public void buttonOnOrOff(boolean isFromSplash) {
         this.playAgain.setVisible(!isFromSplash);
         this.playAgain.setDisable(isFromSplash);
+    }
+
+    public void changeGoBack() {
+        goBack.setOnAction(event -> {
+            Utils.leaveSession();
+            mainCtrl.showSingleplayerLobby();
+        });
+    }
+    public void changeBackGoBack() {   // amazing name i know
+        goBack.setOnAction(event -> {
+            Utils.leaveSession();
+            mainCtrl.showSplash();
+        });
     }
 }
