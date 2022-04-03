@@ -69,15 +69,22 @@
     -fx-background-radius: 22;
     -fx-border-width: 0;
     -fx-border-radius: 22;
-    -fx-background-color: null;
+    -fx-background-color: transparent;
+}
+
+#chatBox .viewport {
+    -fx-background-color: transparent;
+    -fx-background-radius: 22;
 }
 
 #chatBox .content {
+    -fx-background-color: transparent;
     -fx-background-radius: 22;
 }
 
 #chatBoxContent {
     -fx-line-spacing: -16;
+    -fx-background-color: transparent;
     -fx-background-radius: 22;
 }
 
