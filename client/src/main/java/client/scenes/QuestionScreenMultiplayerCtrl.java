@@ -655,16 +655,9 @@ public class QuestionScreenMultiplayerCtrl {
         // Add some space at the top of the chat box
         Label blankLabel = new Label();
         blankLabel.setOpacity(1);
-        blankLabel.setStyle("-fx-font-size: 12pt; -fx-text-fill: black;");
+        blankLabel.setStyle("-fx-font-size: 12pt; -fx-text-fill: black");
         blankLabel.setTextAlignment(TextAlignment.CENTER);
         Platform.runLater(() -> chatBoxContent.getChildren().add(new Label()));
-
-        // Listener to scroll to the bottom of the chat box once a new message has been received
-        chatBox.needsLayoutProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                chatBox.setVvalue(chatBox.getVmax()); // Auto scroll to the bottom so player can always see the latest message
-            }
-        });
 
         //TODO
         // Turn off joker buttons that have already been used (or cant be used for the question type)
@@ -710,12 +703,10 @@ public class QuestionScreenMultiplayerCtrl {
 
             Label message = new Label("  " + emoji.getUserApplying() + ": " + emoteText);
             message.setOpacity(1);
-            message.setStyle("-fx-font-size: 12pt; -fx-text-fill: black;");
+            message.setStyle("-fx-font-size: 12pt; -fx-text-fill: black");
             message.setTextAlignment(TextAlignment.CENTER);
 
-            Platform.runLater(() -> {
-                chatBoxContent.getChildren().add(message);
-            });
+            Platform.runLater(() -> chatBoxContent.getChildren().add(message));
         }
     }
 

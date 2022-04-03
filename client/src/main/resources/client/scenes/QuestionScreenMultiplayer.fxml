@@ -126,12 +126,11 @@
             </ImageView>
          </graphic>
       </Button>
-      <ScrollPane fx:id="chatBox" hbarPolicy="NEVER" hmax="0.0" layoutX="1260.0" layoutY="28.0" pannable="true" prefHeight="435.0" prefWidth="235.0" style="-fx-background-color: #CED0CE;" vbarPolicy="ALWAYS">
+      <ScrollPane fx:id="chatBox" hbarPolicy="NEVER" layoutX="1260.0" layoutY="28.0" pannable="true" prefHeight="435.0" prefWidth="235.0" style="-fx-background-color: #474747;" vbarPolicy="ALWAYS">
          <content>
-            <VBox fx:id="chatBoxContent" prefHeight="435.0" prefWidth="235.0" />
+            <VBox fx:id="chatBoxContent" prefHeight="435.0" prefWidth="235.0" style="-fx-background-color: #474747;" />
          </content>
       </ScrollPane>
-
       <Button fx:id="emoteButtonSmile" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1265.0" layoutY="480.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
