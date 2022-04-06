@@ -27,7 +27,7 @@
         </module>
         <module name="MethodLength">    <!-- Maximum number of lines in a function is 60-->
             <property name="tokens" value="METHOD_DEF"/>
-            <property name="max" value="60"/>
+            <property name="max" value="70"/>
         </module>
     </module>
 
