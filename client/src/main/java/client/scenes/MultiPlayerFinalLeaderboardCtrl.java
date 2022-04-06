@@ -57,6 +57,17 @@ public class MultiPlayerFinalLeaderboardCtrl {
 
     public void init(){
 
+        playerList = new ArrayList<>();
+        playerList.add(p1);
+        playerList.add(p2);
+        playerList.add(p3);
+        playerList.add(p4);
+        playerList.add(p5);
+        playerList.add(p6);
+        playerList.add(p7);
+        playerList.add(p8);
+        playerList.add(p9);
+        playerList.add(p10);
         List<Map.Entry<String,Integer>> players = Utils.getCurrentLeaderBoard(Session.getNickname());
         for(int i = 0;i< playerList.size();i++) {
             playerList.get(i).setText("");
@@ -64,12 +75,26 @@ public class MultiPlayerFinalLeaderboardCtrl {
         for (int i = 0; i < players.size();i++) {
             playerList.get(i).setText(players.get(i).getKey() + ": " + players.get(i).getValue());
         }
-    }
-    public void goBack() {
         Utils.leaveSession();
-        mainCtrl.showSplash();
     }
+
+    /**
+     * goes back to splash
+     */
+    public void goBack() {
+        mainCtrl.showSplash();
+        for(int i = 0;i< playerList.size();i++) {
+            playerList.get(i).setText("");
+        }
+    }
+
+    /**
+     * puts the  player back into the multiplayer lobby
+     */
     public void playAgain() {
-        mainCtrl.showMultiplayerLobby();
+        for(int i = 0;i< playerList.size();i++) {
+            playerList.get(i).setText("");
+        }
+        mainCtrl.goToMultiplayerQueue();
     }
 }
