@@ -68,7 +68,6 @@ public class MultiPlayerFinalLeaderboardCtrl {
         playerList.add(p8);
         playerList.add(p9);
         playerList.add(p10);
-        p1.setText("lol");
         List<Map.Entry<String,Integer>> players = Utils.getCurrentLeaderBoard(Session.getNickname());
         for(int i = 0;i< playerList.size();i++) {
             playerList.get(i).setText("");
@@ -77,11 +76,20 @@ public class MultiPlayerFinalLeaderboardCtrl {
             playerList.get(i).setText(players.get(i).getKey() + ": " + players.get(i).getValue());
         }
     }
+
+    /**
+     * goes back to splash
+     */
     public void goBack() {
         Utils.leaveSession();
         mainCtrl.showSplash();
     }
+
+    /**
+     * puts the  player back into the multiplayer lobby
+     */
     public void playAgain() {
+        Utils.leaveSession();
         mainCtrl.showMultiplayerLobby();
     }
 }
