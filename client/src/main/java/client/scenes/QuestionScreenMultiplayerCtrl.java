@@ -13,7 +13,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -23,10 +25,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class QuestionScreenMultiplayerCtrl {
@@ -176,7 +181,15 @@ public class QuestionScreenMultiplayerCtrl {
         this.sessionType = sessionType;
         restartTimer();
         transitionTimer.setVisible(false);
-
+        this.pointCounter.getScene().getWindow().setOnCloseRequest(e -> {
+            boolean actuallyQuit = confirmQuitGame();
+            if(actuallyQuit){
+                Utils.leaveSession();
+            }
+            else{
+                e.consume();
+            }
+        });
         // Reset variables every question
         this.doublePoints = false;
         this.removeAnAnswer = false;
@@ -204,7 +217,7 @@ public class QuestionScreenMultiplayerCtrl {
                                 Date date = new Date();
                                 Question newQuestion = quizzQuestionServerParsed.getQuestion();
                                 Session.setQuestionNum(quizzQuestionServerParsed.getQuestionNum());
-                                timeLeft = (int)(20-(date.getTime()-quizzQuestionServerParsed.getStartTime())/1000); //Sync timer with server
+                                timeLeft = (int) (20 - (date.getTime() - quizzQuestionServerParsed.getStartTime()) / 1000); //Sync timer with server
 
                                 if (!newQuestion.equals(currQuestion)) {
                                     currQuestion = newQuestion;
@@ -225,6 +238,50 @@ public class QuestionScreenMultiplayerCtrl {
     }
 
     /**
+     * When you click 'X' a box is displayed to ask you if
+     * you are really sure you want to quit the game
+     *
+     * @return a boolean, whether the user really wants to quit, or not
+     */
+    public boolean confirmQuitGame() {
+        Stage confirmStage = new Stage();
+        confirmStage.initModality(Modality.APPLICATION_MODAL);
+        confirmStage.setTitle("Quit");
+        confirmStage.setMinWidth(200);
+        Label text = new Label();
+        text.setText("Are you sure you want to quit?");
+        Button confirmQuit = new Button("Yes");
+        Button closeQuit = new Button("No");
+        confirmQuit.setStyle("-fx-background-color: #f15025;");
+        confirmQuit.setStyle("-fx-font-size: 38pt;");
+        confirmQuit.setStyle("-fx-line-spacing: -16;");
+        confirmQuit.setStyle("-fx-padding: 0;");
+        confirmQuit.setStyle("-fx-indent: 0;");
+        confirmQuit.setStyle("-fx-end-margin: 0;");
+        confirmQuit.setStyle("-fx-start-margin: 0;");
+        confirmQuit.setStyle("-fx-background-radius: 22;");
+        confirmQuit.setStyle("-fx-cursor: hand;");
+        closeQuit.setStyle(confirmQuit.getStyle());
+        AtomicBoolean yesOrNo = new AtomicBoolean(false);
+        confirmQuit.setOnMouseClicked(e -> {
+            yesOrNo.set(true);
+            confirmStage.close();
+        });
+        closeQuit.setOnMouseClicked(e -> {
+            yesOrNo.set(false);
+            confirmStage.close();
+        });
+        VBox screenLayout = new VBox(20);
+        screenLayout.getChildren().addAll(text, confirmQuit, closeQuit);
+        screenLayout.setAlignment(Pos.CENTER);
+        Scene theScene = new Scene(screenLayout);
+        confirmStage.setScene(theScene);
+        confirmStage.showAndWait();
+        return yesOrNo.get();
+
+    }
+
+    /**
      * checks if the game is over and if not display the next question and restarts the timer.
      */
     public void nextDisplay() {
@@ -240,7 +297,7 @@ public class QuestionScreenMultiplayerCtrl {
      * display the next question
      */
     public void setNewQuestion() {
-        questionNumber.setText(Session.getQuestionNum()+1 + "/20");
+        questionNumber.setText(Session.getQuestionNum() + 1 + "/20");
         endButton.setDisable(false);
         questionNumber.setVisible(true);
         if (currQuestion instanceof QuizzQuestion) {
@@ -441,6 +498,7 @@ public class QuestionScreenMultiplayerCtrl {
             check(thirdConsump);
         }
     }
+
     /**
      * checks if the answer chosen was the right one, and if so distributes the points. Display the wh for each
      * choice.
@@ -512,7 +570,6 @@ public class QuestionScreenMultiplayerCtrl {
             transition();
         }
     }
-
 
 
     /**
@@ -687,7 +744,7 @@ public class QuestionScreenMultiplayerCtrl {
         List<Emoji> activeEmojiList = lobbyStatus.getEmojiList();
 
         // Loop through all active emojis and display them according to the user that sent it
-        for (Emoji emoji: activeEmojiList) {
+        for (Emoji emoji : activeEmojiList) {
 
             if (emojisReceivedThisQuestion.contains(emoji)) {
                 continue;
