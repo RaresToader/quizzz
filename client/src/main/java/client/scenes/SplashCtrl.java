@@ -173,12 +173,12 @@ public class SplashCtrl {
     public void logoAnimation() {
         System.out.println("IN LOGO ANIMATION");
         Random random = new Random();
-        FadeTransition emoteFadeOut = new FadeTransition(Duration.seconds(random.nextInt(4)), zapp);
+        FadeTransition emoteFadeOut = new FadeTransition(Duration.seconds(random.nextInt(4) + 1), zapp);
         emoteFadeOut.setFromValue(1);
         emoteFadeOut.setToValue(0);
         emoteFadeOut.setDelay(Duration.seconds(random.nextInt(2)));
 
-        FadeTransition emoteFadeIn = new FadeTransition(Duration.seconds(random.nextInt(4)), zapp);
+        FadeTransition emoteFadeIn = new FadeTransition(Duration.seconds(random.nextInt(4) + 1), zapp);
         emoteFadeIn.setFromValue(0);
         emoteFadeIn.setToValue(1);
         emoteFadeIn.setDelay(Duration.seconds(random.nextInt(2)));

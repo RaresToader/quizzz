@@ -173,6 +173,10 @@ public class MultiplayerLobbyCtrl {
         if (removeEmojiTimer != null) {
             removeEmojiTimer.cancel();
         }
+        if (numberOfPlayersTimer != null) {
+            numberOfPlayersTimer.cancel();
+        }
+
         setLeader(false);
 
         Utils.leaveSession();
@@ -436,6 +440,7 @@ public class MultiplayerLobbyCtrl {
             // If the player is no longer in the session's player list
             if (!playerList.contains(playerTags.get(tag))) {
                 playerTags.replace(tag, null);
+                tag.getSecond().setText("");
             }
 
             // If it is the player's tag, and it has not been set yet
