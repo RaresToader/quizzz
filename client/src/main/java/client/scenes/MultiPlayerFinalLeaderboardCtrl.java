@@ -75,21 +75,26 @@ public class MultiPlayerFinalLeaderboardCtrl {
         for (int i = 0; i < players.size();i++) {
             playerList.get(i).setText(players.get(i).getKey() + ": " + players.get(i).getValue());
         }
+        Utils.leaveSession();
     }
 
     /**
      * goes back to splash
      */
     public void goBack() {
-        Utils.leaveSession();
         mainCtrl.showSplash();
+        for(int i = 0;i< playerList.size();i++) {
+            playerList.get(i).setText("");
+        }
     }
 
     /**
      * puts the  player back into the multiplayer lobby
      */
     public void playAgain() {
-        Utils.leaveSession();
-        mainCtrl.showQueue();
+        for(int i = 0;i< playerList.size();i++) {
+            playerList.get(i).setText("");
+        }
+        mainCtrl.goToMultiplayerQueue();
     }
 }

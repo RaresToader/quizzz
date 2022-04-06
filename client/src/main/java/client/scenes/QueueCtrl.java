@@ -32,7 +32,6 @@ public class QueueCtrl {
     }
 
     public void init() {
-        System.out.println(Utils.joinSession());
         if (Utils.joinSession()) {
             transitionTimeLeft = 3;
             transitionTimer = new Timeline(

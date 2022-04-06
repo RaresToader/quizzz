@@ -232,6 +232,9 @@ public class MainCtrl {
         primaryStage.centerOnScreen(); // Re-center the window when changing to a scene with a different size
         questionScreenMultiplayerCtrl.init(true); //True for multiplayer session
     }
+    public void goToMultiplayerQueue() {
+        splashCtrl.goToMultiplayerQueue();
+    }
     
     public void showAdminPanel() {
         primaryStage.setTitle("Admin Panel");
