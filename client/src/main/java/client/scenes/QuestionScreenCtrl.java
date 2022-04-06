@@ -51,7 +51,7 @@ public class QuestionScreenCtrl {
                         public void handle(ActionEvent event) {
                             timeLeft -= 1;
                             time.setText(timeLeft + " seconds");
-                            if (timeLeft == 0) {
+                            if (timeLeft <= 0) {
                                 timeRanOut();
                             }
                         }
@@ -372,13 +372,13 @@ public class QuestionScreenCtrl {
                         event -> {
                             timeLeft -= 1;
                             time.setText(timeLeft + " seconds");
-                            if (timeLeft == 0) {
+                            if (timeLeft <= 0) {
                                 timeRanOut();
                             }
                         }
                 )
         );
-        questionTimer.setCycleCount(20);
+        questionTimer.setCycleCount(25);
         questionTimer.play();
 
         timeBarAnimation = new ScaleTransition(Duration.seconds(20), timeBarFill);
