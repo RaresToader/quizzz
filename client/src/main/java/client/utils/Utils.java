@@ -5,6 +5,7 @@ import commons.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.GenericType;
 import org.glassfish.jersey.client.ClientConfig;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -83,20 +84,34 @@ public class Utils {
         JSONParser jsonParser = new JSONParser();
         JSONObject wholeServerQuizzQuestion = (JSONObject) jsonParser.parse(result);
         JSONObject question = (JSONObject) wholeServerQuizzQuestion.get("question");
+
+        //Json parse
+        JSONArray jokerList = (JSONArray) wholeServerQuizzQuestion.get("jokerList");
+        List<Joker> finalJokers = new ArrayList<Joker>();
+        if(jokerList != null) {
+            for (Object o : jokerList) {
+                JSONObject x = (JSONObject) o;
+                long jokerType   = (long)x.get("jokerType");
+                long questionNum = (long)x.get("questionNum");
+
+                finalJokers.add(new Joker((String) x.get("usedBy"), Math.toIntExact(jokerType), Math.toIntExact(questionNum)));
+            }
+        }
+
         Question finalQuestion;
         String type = (String) question.get("type");
         if (type.equals("QuizzQuestion")) {
             finalQuestion = parseQuizzQuestion(question);
-            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), new ArrayList<>());
+            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), finalJokers);
         } else if (type.equals("ConsumpQuestion")) {
             finalQuestion = parseConsumpQuestion(question);
-            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), new ArrayList<>());
+            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), finalJokers);
         } else if (type.equals("GuessQuestion")) {
             finalQuestion = parseGuessQuestion(question);
-            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), new ArrayList<>());
+            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), finalJokers);
         } else if (type.equals("InsteadOfQuestion")) {
             finalQuestion = parseInsteadOfQuestion(question);
-            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), new ArrayList<>());
+            return new QuizzQuestionServerParsed(finalQuestion, (long) wholeServerQuizzQuestion.get("startTime"), (Long) wholeServerQuizzQuestion.get("questionNum"), finalJokers);
         } else {
             throw new IllegalArgumentException("Wrong question");
         }
