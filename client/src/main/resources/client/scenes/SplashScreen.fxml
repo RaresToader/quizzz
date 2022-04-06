@@ -82,7 +82,7 @@
             <Font size="72.0" />
          </font>
          <graphic>
-            <ImageView fx:id="zapp" id="zapp" fitHeight="118.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="zapp" fitHeight="118.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="/photos/zapp!.png" />
                </image>
