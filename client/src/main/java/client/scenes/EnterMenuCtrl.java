@@ -64,13 +64,7 @@ public class EnterMenuCtrl {
                 return;
             }
 
-            try {
-                if (serverAddr == null || serverAddr.length() == 0 || !Utils.validateServer(serverAddr)) { //Invalid serverAddr
-                    displayErrorText("Server address is invalid!");
-                    return;
-                }
-            }
-            catch (Exception e){
+            if (serverAddr == null || serverAddr.length() == 0 || !Utils.validateServer(serverAddr)) { //Invalid serverAddr
                 displayErrorText("Server address is invalid!");
                 return;
             }
@@ -98,7 +92,7 @@ public class EnterMenuCtrl {
             }
         }
         else {
-            displayErrorText("Provided username is invalid! (Must be alphanumeric)");
+            displayErrorText("Provided username is invalid!");
         }
     }
 

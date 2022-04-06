@@ -32,28 +32,28 @@ public class QueueCtrl {
     }
 
     public void init() {
-        transitionTimeLeft = 3;
-        transitionTimer = new Timeline(
-                new KeyFrame(Duration.seconds(1),
-                        event -> {
+        if (Utils.joinSession()) {
+            transitionTimeLeft = 3;
+            transitionTimer = new Timeline(
+                    new KeyFrame(Duration.seconds(1),
+                            event -> {
                             System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
-                            if (transitionTimeLeft == 0) {
-                                if (Utils.joinSession()) {
+                                if (transitionTimeLeft == 0) {
                                     mainCtrl.showMultiplayerLobby();
                                 }
-                                else{ // ERROR
-                                    System.out.println("Joining a lobby has failed!");
-                                    init(); // Try again
+                                else {
+                                    transitionTimeLeft -= 1;
                                 }
                             }
-                            else {
-                                transitionTimeLeft -= 1;
-                            }
-                        }
-                )
-        );
-        transitionTimer.setCycleCount(4);
-        transitionTimer.play();
+                    )
+            );
+            transitionTimer.setCycleCount(4);
+            transitionTimer.play();
+        }
+        else {
+            // ERROR
+            System.out.println("Joining a lobby has failed!");
+        }
     }
 
     public void goBackToSplash() {
