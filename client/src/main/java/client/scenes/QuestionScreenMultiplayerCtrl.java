@@ -982,7 +982,12 @@ public class QuestionScreenMultiplayerCtrl {
         timeBarAnimation.stop();
         questionUpdateTimer.cancel();
         Player player = serverUtils.getPlayer(Session.getNickname());
-        transitionTimer.setText("The game just ended, well played!");
+        if (player.getScore() < totalPoints) {
+            serverUtils.updatePlayerInRepo(Session.getNickname(), totalPoints);
+            transitionTimer.setText("Congratulations! You improved your score!");
+        } else {
+            transitionTimer.setText("You had a higher score before! Try again!");
+        }
         notQuizzPage();
         notGuessPage();
         notConsumpPage();
@@ -1007,7 +1012,7 @@ public class QuestionScreenMultiplayerCtrl {
 
                             showQuizzPage();
 
-                            mainCtrl.showFinalLeaderboard();
+                            mainCtrl.showGlobalLeaderboard(false);
 
                             time.setVisible(true);
                             timeBarBackground.setVisible(true);
