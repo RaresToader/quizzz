@@ -1,0 +1,27 @@
+@import "MainStylesheet.css";
+
+
+.standardButton {
+    -fx-background-color: #f15025;
+    -fx-font-size: 24pt;
+    -fx-line-spacing: -16;
+    -fx-padding: 0;
+    -fx-indent: 0;
+    -fx-end-margin: 0;
+    -fx-start-margin: 0;
+    -fx-background-radius: 22;
+    -fx-cursor: hand;
+}
+.standardPlayerLabel {
+    -fx-background-color: CED0CE;
+    -fx-background-radius: 22;
+    -fx-font-size: 30pt;
+}
+
+.standardButton:hover{
+    -fx-background-color: #c3330c;
+    -fx-border-color: white;
+    -fx-border-radius: 24;
+    -fx-border-width: 4;
+    -fx-border-insets: -4;
+}
