@@ -470,7 +470,7 @@ public class MultiplayerLobbyCtrl {
         Timeline transitionTimer = new Timeline(
                 new KeyFrame(Duration.seconds(1),
                         event -> {
-                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
+                            //System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
                             label1.setText("Game starting in " + transitionTimeLeft);
 
                             if (transitionTimeLeft <= 0) {

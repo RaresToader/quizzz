@@ -209,7 +209,11 @@ public class SessionController {
             return false;
         }
 
-        //TODO when we know values of jokerType we need to add validation for those too
+        //Wrong jokerType provided
+        if(jokerType < 1 || jokerType > 3) {
+            return false;
+        }
+
         return x.addJoker(jokerType,nickname,questionNum);
     }
 
