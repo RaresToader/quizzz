@@ -61,7 +61,7 @@ public class Session {
         //If everyone has answered that question OR this is first question OR time has passed then get new question
         if(this.haveEveryoneAnswered() || questionStartedAt == -1 || date.getTime()-questionStartedAt > 20000) {
             this.currentQuestion++;
-            if(currentQuestion == 0) this.questionStartedAt = date.getTime();
+            if(currentQuestion == 0 || this.gameType) this.questionStartedAt = date.getTime();
             else this.questionStartedAt = date.getTime()+5000; //Offset because of transition screen
         }
 
@@ -71,7 +71,7 @@ public class Session {
             return Session.emptyQ;
         }
 
-        List<Joker> jokers = this.getJokersForCurrentQuestion("test");
+        List<Joker> jokers = this.getJokersForCurrentQuestion("emptyUsernameLongerThan8chars");
 
         return new QuizzQuestionServerParsed(this.questions.get(currentQuestion),this.questionStartedAt,this.currentQuestion,jokers);
     }
