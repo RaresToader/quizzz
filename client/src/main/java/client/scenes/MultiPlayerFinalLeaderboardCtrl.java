@@ -90,6 +90,6 @@ public class MultiPlayerFinalLeaderboardCtrl {
      */
     public void playAgain() {
         Utils.leaveSession();
-        mainCtrl.showMultiplayerLobby();
+        mainCtrl.showQueue();
     }
 }
