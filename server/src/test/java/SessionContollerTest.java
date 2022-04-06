@@ -290,7 +290,7 @@ public class SessionContollerTest {
         Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
         x.startGame();
         x.getCurrentQuestion();
-        assertTrue(sess.addJoker("test",0,0));
+        assertTrue(sess.addJoker("test",1,0));
     }
 
     @Test

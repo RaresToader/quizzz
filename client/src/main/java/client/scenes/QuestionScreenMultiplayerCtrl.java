@@ -217,7 +217,6 @@ public class QuestionScreenMultiplayerCtrl {
                                 if(newQuestion.equals(currQuestion) && !readyForNextQuestion && !reduceTime) timeLeft = (int)(20-(date.getTime()-quizzQuestionServerParsed.getStartTime())/1000); //Sync timer with server
 
                                 receiveJokers(quizzQuestionServerParsed.getJokerList());
-                                System.out.println(quizzQuestionServerParsed.getJokerList());
 
                                 if(!newQuestion.equals(currQuestion)) {
                                     currQuestion = newQuestion;
@@ -250,9 +249,6 @@ public class QuestionScreenMultiplayerCtrl {
             return;
         }
 
-        System.out.println("Curr question"+currQuestion);
-        System.out.println("displayed: "+displayedQ);
-        System.out.println("Is ready?"+readyForNextQuestion);
         if(!currQuestion.equals(displayedQ)) {
             setNewQuestion();
             restartTimer();
@@ -569,9 +565,7 @@ public class QuestionScreenMultiplayerCtrl {
      * handles the display when the chosen answer was not the right answer.
      */
     public void wrongAnswer() {
-        String first = "";
-        String second = "";
-        String third = "";
+        String first = "", second = "", third = "";
         if (currQuestion instanceof QuizzQuestion) {
             correctAnswer = ((QuizzQuestion) currQuestion).getMostExpensive();
             first = ((QuizzQuestion) currQuestion).getFirstChoice().getTitle();
@@ -791,8 +785,6 @@ public class QuestionScreenMultiplayerCtrl {
      * Applies removeAnAnswer joker
      */
     public void useJokerRemoveAnAnswer() {
-        System.out.println(Utils.addJoker(new Joker(Session.getNickname(),2,(int)Session.getQuestionNum())));
-
         if(currQuestion instanceof GuessQuestion) {
             guess.setText(((GuessQuestion) currQuestion).getCorrectGuess());
         } else if(currQuestion instanceof QuizzQuestion) {
