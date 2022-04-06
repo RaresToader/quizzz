@@ -411,9 +411,15 @@ public class QuestionScreenCtrl {
     public void chooseFirst() {
         setCorrectAnswer();
         if (currQuestion instanceof QuizzQuestion) {
+            chosenAnswer = ((QuizzQuestion) currQuestion).getFirstChoice().getTitle();
             check(firstAnswer);
         }
-        if (currQuestion instanceof ConsumpQuestion || currQuestion instanceof InsteadOfQuestion) {
+        if (currQuestion instanceof ConsumpQuestion) {
+            chosenAnswer = Long.toString(((ConsumpQuestion) currQuestion).getFirst());
+            check(firstConsump);
+        }
+        if (currQuestion instanceof InsteadOfQuestion) {
+            chosenAnswer = ((InsteadOfQuestion) currQuestion).getFirstChoice().toString();
             check(firstConsump);
         }
     }
@@ -424,9 +430,15 @@ public class QuestionScreenCtrl {
     public void chooseSecond() {
         setCorrectAnswer();
         if (currQuestion instanceof QuizzQuestion) {
+            chosenAnswer = ((QuizzQuestion) currQuestion).getSecondChoice().getTitle();
             check(secondAnswer);
         }
-        if (currQuestion instanceof ConsumpQuestion || currQuestion instanceof InsteadOfQuestion) {
+        if (currQuestion instanceof ConsumpQuestion) {
+            chosenAnswer = Long.toString(((ConsumpQuestion) currQuestion).getSecond());
+            check(secondConsump);
+        }
+        if (currQuestion instanceof InsteadOfQuestion) {
+            chosenAnswer = ((InsteadOfQuestion) currQuestion).getSecondChoice().toString();
             check(secondConsump);
         }
     }
@@ -438,9 +450,15 @@ public class QuestionScreenCtrl {
     public void chooseThird() {
         setCorrectAnswer();
         if (currQuestion instanceof QuizzQuestion) {
+            chosenAnswer = ((QuizzQuestion) currQuestion).getThirdChoice().getTitle();
             check(thirdAnswer);
         }
-        if (currQuestion instanceof ConsumpQuestion || currQuestion instanceof InsteadOfQuestion) {
+        if (currQuestion instanceof ConsumpQuestion) {
+            chosenAnswer = Long.toString(((ConsumpQuestion) currQuestion).getThird());
+            check(thirdConsump);
+        }
+        if (currQuestion instanceof InsteadOfQuestion) {
+            chosenAnswer = ((InsteadOfQuestion) currQuestion).getThirdChoice().toString();
             check(thirdConsump);
         }
     }
