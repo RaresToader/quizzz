@@ -13,20 +13,24 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class QuestionScreenCtrl {
@@ -145,7 +149,15 @@ public class QuestionScreenCtrl {
         this.sessionType = sessionType;
         restartTimer();
         transitionTimer.setVisible(false);
-
+        this.pointCounter.getScene().getWindow().setOnCloseRequest(e -> {
+            boolean actuallyQuit = confirmQuitGame();
+            if(actuallyQuit){
+                Utils.leaveSession();
+            }
+            else{
+                e.consume();
+            }
+        });
         questionUpdateTimer = new Timer();
         questionUpdateTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -166,7 +178,7 @@ public class QuestionScreenCtrl {
                                 Date date = new Date();
                                 Question newQuestion = quizzQuestionServerParsed.getQuestion();
                                 Session.setQuestionNum(quizzQuestionServerParsed.getQuestionNum());
-                                timeLeft = (int)(20-(date.getTime()-quizzQuestionServerParsed.getStartTime())/1000); //Sync timer with server
+                                timeLeft = (int) (20 - (date.getTime() - quizzQuestionServerParsed.getStartTime()) / 1000); //Sync timer with server
 
                                 if (!newQuestion.equals(currQuestion)) {
                                     currQuestion = newQuestion;
@@ -175,7 +187,7 @@ public class QuestionScreenCtrl {
                                     }
                                 }
                             }
-                        //System.out.println(Session.getQuestionNum()); //DEBUG LINE
+                            //System.out.println(Session.getQuestionNum()); //DEBUG LINE
                         } catch (org.json.simple.parser.ParseException e) {
                             e.printStackTrace();
                         }
@@ -199,10 +211,53 @@ public class QuestionScreenCtrl {
     }
 
     /**
+     * When you click 'X' a box is displayed to ask you if
+     * you are really sure you want to quit the game
+     * @return a boolean, whether the user really wants to quit, or not
+     */
+    public boolean confirmQuitGame() {
+        Stage confirmStage = new Stage();
+        confirmStage.initModality(Modality.APPLICATION_MODAL);
+        confirmStage.setTitle("Quit");
+        confirmStage.setMinWidth(200);
+        Label text = new Label();
+        text.setText("Are you sure you want to quit?");
+        Button confirmQuit = new Button("Yes");
+        Button closeQuit = new Button("No");
+        confirmQuit.setStyle("-fx-background-color: #f15025;");
+        confirmQuit.setStyle("-fx-font-size: 38pt;");
+        confirmQuit.setStyle("-fx-line-spacing: -16;");
+        confirmQuit.setStyle("-fx-padding: 0;");
+        confirmQuit.setStyle("-fx-indent: 0;");
+        confirmQuit.setStyle("-fx-end-margin: 0;");
+        confirmQuit.setStyle("-fx-start-margin: 0;");
+        confirmQuit.setStyle("-fx-background-radius: 22;");
+        confirmQuit.setStyle("-fx-cursor: hand;");
+        closeQuit.setStyle(confirmQuit.getStyle());
+        AtomicBoolean yesOrNo = new AtomicBoolean(false);
+        confirmQuit.setOnMouseClicked(e -> {
+            yesOrNo.set(true);
+            confirmStage.close();
+        });
+        closeQuit.setOnMouseClicked(e -> {
+            yesOrNo.set(false);
+            confirmStage.close();
+        });
+        VBox screenLayout = new VBox(20);
+        screenLayout.getChildren().addAll(text, confirmQuit, closeQuit);
+        screenLayout.setAlignment(Pos.CENTER);
+        Scene theScene = new Scene(screenLayout);
+        confirmStage.setScene(theScene);
+        confirmStage.showAndWait();
+        return yesOrNo.get();
+
+    }
+
+    /**
      * display the next question
      */
     public void setNewQuestion() {
-        questionNumber.setText(Session.getQuestionNum()+1 + "/20");
+        questionNumber.setText(Session.getQuestionNum() + 1 + "/20");
         endButton.setDisable(false);
         questionNumber.setVisible(true);
         if (currQuestion instanceof QuizzQuestion) {
