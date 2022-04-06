@@ -364,7 +364,7 @@ public class QuestionScreenCtrl {
      * restarts the timer
      */
     public void restartTimer() {
-        timeLeft = 2;
+        timeLeft = 20;
         time.setText(timeLeft + " seconds");
         questionTimer.pause();
         questionTimer = new Timeline(
@@ -378,7 +378,7 @@ public class QuestionScreenCtrl {
                         }
                 )
         );
-        questionTimer.setCycleCount(2);
+        questionTimer.setCycleCount(20);
         questionTimer.play();
 
         timeBarAnimation = new ScaleTransition(Duration.seconds(20), timeBarFill);
