@@ -66,7 +66,7 @@ public class Session {
         }
 
         //If there have already been 20 questions, end the game
-        if(currentQuestion >= 2) {
+        if(currentQuestion >= questions.size()) {
             this.endGame();
             return Session.emptyQ;
         }

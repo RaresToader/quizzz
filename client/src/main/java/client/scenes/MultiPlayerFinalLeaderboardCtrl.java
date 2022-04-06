@@ -57,7 +57,6 @@ public class MultiPlayerFinalLeaderboardCtrl {
 
     public void init(){
 
-        playerList = new ArrayList<>();
         List<Map.Entry<String,Integer>> players = Utils.getCurrentLeaderBoard(Session.getNickname());
         for(int i = 0;i< playerList.size();i++) {
             playerList.get(i).setText("");
