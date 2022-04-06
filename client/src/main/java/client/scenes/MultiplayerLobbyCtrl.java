@@ -209,20 +209,6 @@ public class MultiplayerLobbyCtrl {
         playerTags.put(new Triple<>(playerNameBackground9, playerNameLabel9, playerEmote9), null);
         playerTags.put(new Triple<>(playerNameBackground10, playerNameLabel10, playerEmote10), null);
 
-        // Initialise map to hold the emote animations for each player
-        // Used to store the animation so that it can be cancelled when a new emote is received and is to be placed on top of the currently displayed emote
-        emoteAnimationsMap.put(playerEmote1, null);
-        emoteAnimationsMap.put(playerEmote2, null);
-        emoteAnimationsMap.put(playerEmote3, null);
-        emoteAnimationsMap.put(playerEmote4, null);
-        emoteAnimationsMap.put(playerEmote5, null);
-        emoteAnimationsMap.put(playerEmote6, null);
-        emoteAnimationsMap.put(playerEmote7, null);
-        emoteAnimationsMap.put(playerEmote8, null);
-        emoteAnimationsMap.put(playerEmote9, null);
-        emoteAnimationsMap.put(playerEmote10, null);
-
-
         // Timer that regularly calls update methods
         playerUpdateTimer = new Timer();
         playerUpdateTimer.scheduleAtFixedRate(new TimerTask() {
@@ -284,6 +270,19 @@ public class MultiplayerLobbyCtrl {
         emoteButtonSurprise.setOnAction(e -> sendEmote("surprise"));
         emoteButtonCelebrate.setOnAction(e -> sendEmote("celebrate"));
         emoteButtonSunglasses.setOnAction(e -> sendEmote("sunglasses"));
+
+        // Initialise map to hold the emote animations for each player
+        // Used to store the animation so that it can be cancelled when a new emote is received and is to be placed on top of the currently displayed emote
+        emoteAnimationsMap.put(playerEmote1, null);
+        emoteAnimationsMap.put(playerEmote2, null);
+        emoteAnimationsMap.put(playerEmote3, null);
+        emoteAnimationsMap.put(playerEmote4, null);
+        emoteAnimationsMap.put(playerEmote5, null);
+        emoteAnimationsMap.put(playerEmote6, null);
+        emoteAnimationsMap.put(playerEmote7, null);
+        emoteAnimationsMap.put(playerEmote8, null);
+        emoteAnimationsMap.put(playerEmote9, null);
+        emoteAnimationsMap.put(playerEmote10, null);
     }
 
     /**
@@ -383,7 +382,6 @@ public class MultiplayerLobbyCtrl {
                     recentlyReceivedEmojis.remove(emoji);
                 }
             }, 6000);
-
             
             String userApplying = emoji.getUserApplying();
             ImageView playerEmoteImageView = null;
@@ -397,7 +395,6 @@ public class MultiplayerLobbyCtrl {
 
             if (playerEmoteImageView != null) {
                 String emotePNG;
-
                 // Get the right emote image
                 switch (emoji.getEmojiType()) {
                     case "smile" -> emotePNG = "/photos/emoteSmile.png";
@@ -415,15 +412,12 @@ public class MultiplayerLobbyCtrl {
                 }
 
                 playerEmoteImageView.setImage(new Image(emotePNG));
-
                 playerEmoteImageView.setOpacity(1);
                 FadeTransition emoteFadeOut = new FadeTransition(Duration.seconds(2), playerEmoteImageView);
                 emoteFadeOut.setFromValue(1);
                 emoteFadeOut.setToValue(0);
                 emoteFadeOut.setDelay(Duration.seconds(2));
-
                 emoteFadeOut.play();
-
                 // Add animation to hash map, so it can later be cancelled if needed to be overrun
                 emoteAnimationsMap.replace(playerEmoteImageView, emoteFadeOut);
             }
