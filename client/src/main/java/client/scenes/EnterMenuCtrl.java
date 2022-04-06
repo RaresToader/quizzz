@@ -69,17 +69,16 @@ public class EnterMenuCtrl {
                 return;
             }
 
-            if (!serverUtils.isUsernameValid(nickname)) {
-                displayErrorText("This username is currently in use!");
-                return;
-            }
-
-
             //Set serverAddress
             String processedServerAddr = "http://" + serverAddr + "/";
             Utils.setServerAddr(processedServerAddr);
             Session.setServerAddr(processedServerAddr);
             ServerUtils.setServerAddr(processedServerAddr);
+
+            if (!serverUtils.isUsernameValid(nickname)) {
+                displayErrorText("This username is currently in use!");
+                return;
+            }
 
             EnterMenuCtrl.saveStringToFile(nickname,usernameFileName);
             EnterMenuCtrl.saveStringToFile(serverAddr,serverAddrFileName);
