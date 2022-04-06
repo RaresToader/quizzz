@@ -13,20 +13,25 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.inject.Inject;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class QuestionScreenMultiplayerCtrl {
@@ -34,12 +39,15 @@ public class QuestionScreenMultiplayerCtrl {
     private final MainCtrl mainCtrl;
     private boolean toEnd = false;
     private final ServerUtils serverUtils;
+    private Question displayedQ   = new QuizzQuestion("Not assigned", null, null, null);
     private Question currQuestion = new QuizzQuestion("Not assigned", null, null, null);
     private String chosenAnswer;
     private String correctAnswer;
     private boolean sessionType;
     private int points;
     private int totalPoints;
+    private List<Joker> usedJokers;
+
     private Timeline questionTimer = new Timeline(
             new KeyFrame(Duration.seconds(1),
                     new EventHandler<>() {
@@ -48,19 +56,31 @@ public class QuestionScreenMultiplayerCtrl {
                         public void handle(ActionEvent event) {
                             timeLeft -= 1;
                             time.setText(timeLeft + " seconds");
-                            if (timeLeft == 0) {
+                            if (timeLeft <= 0) {
                                 timeRanOut();
                             }
                         }
                     }
             )
     );
+
     public int timeLeft;
     public int transitionTimeLeft;
     private Timer questionUpdateTimer;
 
     private ScaleTransition timeBarAnimation;
     private ScaleTransition transitionTimerAnimation;
+
+    private SessionLobbyStatus lobbyStatus;
+    private ArrayList<Emoji> emojisReceivedThisQuestion;
+
+    private boolean doublePoints;
+    private boolean removeAnAnswer;
+    private boolean reduceTime;
+
+    private boolean readyForNextQuestion;
+
+    private Timer emoteJokerUpdateTimer;
 
     @Inject
     public QuestionScreenMultiplayerCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -137,14 +157,56 @@ public class QuestionScreenMultiplayerCtrl {
     @FXML
     private ImageView thirdAnswerImage;
 
+    @FXML
+    private Button jokerButton1; // Double Points
+    @FXML
+    private Button jokerButton2; // 50/50 Remove one wrong answer
+    @FXML
+    private Button jokerButton3; // Reduce time
+
+    @FXML
+    private Button emoteButtonSmile;
+    @FXML
+    private Button emoteButtonSad;
+    @FXML
+    private Button emoteButtonAngry;
+    @FXML
+    private Button emoteButtonSurprise;
+    @FXML
+    private Button emoteButtonCelebrate;
+    @FXML
+    private Button emoteButtonSunglasses;
+
+    @FXML
+    private ScrollPane chatBox;
+    @FXML
+    private VBox chatBoxContent;
+
     /**
      * Initialise a multiplayer game
      */
     public void init(boolean sessionType) {
+        usedJokers = new ArrayList<>(); //Clear jokerList
+
         Session.setQuestionNum(0);
         this.sessionType = sessionType;
         restartTimer();
         transitionTimer.setVisible(false);
+        this.pointCounter.getScene().getWindow().setOnCloseRequest(e -> {
+            boolean actuallyQuit = confirmQuitGame();
+            if(actuallyQuit){
+                Utils.leaveSession();
+            }
+            else{
+                e.consume();
+            }
+        });
+        // Reset variables every question
+        this.doublePoints = false;
+        this.removeAnAnswer = false;
+        this.emojisReceivedThisQuestion = new ArrayList<>();
+
+        initialiseEmotesAndJokers();
 
         questionUpdateTimer = new Timer();
         questionUpdateTimer.scheduleAtFixedRate(new TimerTask() {
@@ -156,9 +218,6 @@ public class QuestionScreenMultiplayerCtrl {
                     public void run() {
                         try {
                             QuizzQuestionServerParsed quizzQuestionServerParsed = Utils.getCurrentQuestion(sessionType); //gathers current question
-                            //System.out.println(quizzQuestionServerParsed); //DEBUG LINE
-                            //System.out.println("Downloaded question no.: "+quizzQuestionServerParsed.getQuestionNum()); //DEBUG LINE
-
                             if (quizzQuestionServerParsed.equals(Session.emptyQ)) { //If gathered question is equal to empty Question
                                 questionUpdateTimer.cancel();
                                 toEnd = true;
@@ -166,16 +225,24 @@ public class QuestionScreenMultiplayerCtrl {
                                 Date date = new Date();
                                 Question newQuestion = quizzQuestionServerParsed.getQuestion();
                                 Session.setQuestionNum(quizzQuestionServerParsed.getQuestionNum());
-                                timeLeft = (int)(20-(date.getTime()-quizzQuestionServerParsed.getStartTime())/1000); //Sync timer with server
 
-                                if (!newQuestion.equals(currQuestion)) {
+                                //Only update base for timer upon receivement of new question or when reduceTime joker is not applied
+                                if(newQuestion.equals(currQuestion) && !readyForNextQuestion && !reduceTime) timeLeft = (int)(20-(date.getTime()-quizzQuestionServerParsed.getStartTime())/1000); //Sync timer with server
+
+                                receiveJokers(quizzQuestionServerParsed.getJokerList());
+
+                                if(!newQuestion.equals(currQuestion)) {
                                     currQuestion = newQuestion;
-                                    if (Session.getQuestionNum() == 0) {
+
+                                    //Reset jokers on new question
+                                    doublePoints   = false;
+                                    reduceTime     = false;
+                                    removeAnAnswer = false;
+                                    if (readyForNextQuestion || Session.getQuestionNum() == 0) {
                                         nextDisplay();
                                     }
                                 }
                             }
-                        //System.out.println(Session.getQuestionNum()); //DEBUG LINE
                         } catch (org.json.simple.parser.ParseException e) {
                             e.printStackTrace();
                         }
@@ -187,6 +254,50 @@ public class QuestionScreenMultiplayerCtrl {
     }
 
     /**
+     * When you click 'X' a box is displayed to ask you if
+     * you are really sure you want to quit the game
+     *
+     * @return a boolean, whether the user really wants to quit, or not
+     */
+    public boolean confirmQuitGame() {
+        Stage confirmStage = new Stage();
+        confirmStage.initModality(Modality.APPLICATION_MODAL);
+        confirmStage.setTitle("Quit");
+        confirmStage.setMinWidth(200);
+        Label text = new Label();
+        text.setText("Are you sure you want to quit?");
+        Button confirmQuit = new Button("Yes");
+        Button closeQuit = new Button("No");
+        confirmQuit.setStyle("-fx-background-color: #f15025;");
+        confirmQuit.setStyle("-fx-font-size: 38pt;");
+        confirmQuit.setStyle("-fx-line-spacing: -16;");
+        confirmQuit.setStyle("-fx-padding: 0;");
+        confirmQuit.setStyle("-fx-indent: 0;");
+        confirmQuit.setStyle("-fx-end-margin: 0;");
+        confirmQuit.setStyle("-fx-start-margin: 0;");
+        confirmQuit.setStyle("-fx-background-radius: 22;");
+        confirmQuit.setStyle("-fx-cursor: hand;");
+        closeQuit.setStyle(confirmQuit.getStyle());
+        AtomicBoolean yesOrNo = new AtomicBoolean(false);
+        confirmQuit.setOnMouseClicked(e -> {
+            yesOrNo.set(true);
+            confirmStage.close();
+        });
+        closeQuit.setOnMouseClicked(e -> {
+            yesOrNo.set(false);
+            confirmStage.close();
+        });
+        VBox screenLayout = new VBox(20);
+        screenLayout.getChildren().addAll(text, confirmQuit, closeQuit);
+        screenLayout.setAlignment(Pos.CENTER);
+        Scene theScene = new Scene(screenLayout);
+        confirmStage.setScene(theScene);
+        confirmStage.showAndWait();
+        return yesOrNo.get();
+
+    }
+
+    /**
      * checks if the game is over and if not display the next question and restarts the timer.
      */
     public void nextDisplay() {
@@ -194,14 +305,21 @@ public class QuestionScreenMultiplayerCtrl {
             endOfGame();
             return;
         }
-        setNewQuestion();
-        restartTimer();
+
+        if(!currQuestion.equals(displayedQ)) {
+            setNewQuestion();
+            restartTimer();
+        } else if(readyForNextQuestion) {
+            question.setText("Wait for other players");
+        }
     }
 
     /**
      * display the next question
      */
     public void setNewQuestion() {
+        readyForNextQuestion = false;
+        displayedQ = currQuestion;
         questionNumber.setText(Session.getQuestionNum()+1 + "/20");
         endButton.setDisable(false);
         questionNumber.setVisible(true);
@@ -318,7 +436,7 @@ public class QuestionScreenMultiplayerCtrl {
                         event -> {
                             timeLeft -= 1;
                             time.setText(timeLeft + " seconds");
-                            if (timeLeft == 0) {
+                            if (timeLeft <= 0) {
                                 timeRanOut();
                             }
                         }
@@ -337,6 +455,7 @@ public class QuestionScreenMultiplayerCtrl {
      * handles when the time runs out
      */
     public void timeRanOut() {
+        questionTimer.pause();
         question.setText("Time ran out!");
         if (currQuestion instanceof ConsumpQuestion || currQuestion instanceof QuizzQuestion || currQuestion instanceof InsteadOfQuestion) {
             wrongAnswer();
@@ -403,6 +522,7 @@ public class QuestionScreenMultiplayerCtrl {
             check(thirdConsump);
         }
     }
+
     /**
      * checks if the answer chosen was the right one, and if so distributes the points. Display the wh for each
      * choice.
@@ -410,7 +530,6 @@ public class QuestionScreenMultiplayerCtrl {
      * @param chosenBox box of the answer that was chosen
      */
     public void check(Button chosenBox) {
-
         questionTimer.pause();
         points = timeLeft * 25 + 500;
 
@@ -426,15 +545,26 @@ public class QuestionScreenMultiplayerCtrl {
         if (currQuestion instanceof InsteadOfQuestion) {
             correctAnswer = ((InsteadOfQuestion) currQuestion).getCorrectChoice().toString();
         }
+
         if (chosenAnswer.equals(correctAnswer)) {
             question.setText("Yeah, that's right!");
             chosenBox.setStyle("-fx-background-color: green;");
+
+            //If joker is applied
+            if(doublePoints) {
+                points *= 2;
+                doublePoints = false;
+            }
+
             totalPoints += points;
             pointCounter.setText("current points: " + totalPoints);
         } else {
+            points = 0;
             question.setText("That's wrong!");
             wrongAnswer();
         }
+
+        Utils.submitAnswer(points);
         transition();
     }
 
@@ -447,7 +577,6 @@ public class QuestionScreenMultiplayerCtrl {
             return;
         }
         if (currQuestion instanceof GuessQuestion) {
-            Utils.submitAnswer(0);
             questionTimer.pause();
             points = timeLeft * 25 + 500;
 
@@ -457,34 +586,45 @@ public class QuestionScreenMultiplayerCtrl {
                 question.setText("Yeah, that's right!");
                 guess.setStyle("-fx-background-color: green;");
                 points = points * 2;
+                //If double points joker was applied
+                if(doublePoints) {
+                    points*=2;
+                    doublePoints = false;
+                }
                 totalPoints += points;
                 pointCounter.setText("current points: " + totalPoints);
             } else if (Math.abs(Long.parseLong(correctAnswer) - Long.parseLong(chosenAnswer)) < Long.parseLong(correctAnswer) * 0.3) {
                 question.setText("Very close!");
                 guess.setStyle("-fx-background-color: orange;");
+                //If double points joker was applied
+                if(doublePoints) {
+                    points*=2;
+                    doublePoints = false;
+                }
                 totalPoints += points;
                 pointCounter.setText("current points: " + totalPoints);
                 guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
             } else {
+                points = 0;
                 question.setText("That's wrong!");
                 guess.setStyle("-fx-background-color: red;");
                 guessLabel.setText("this consumes " + ((GuessQuestion) currQuestion).getActivity().getConsumption_in_wh() + " wh");
             }
+
+            Utils.submitAnswer(points);
             submit.setDisable(true);
             transition();
         }
     }
 
 
-
     /**
      * handles the display when the chosen answer was not the right answer.
      */
     public void wrongAnswer() {
-        String first = "";
-        String second = "";
-        String third = "";
+        String first = "", second = "", third = "";
         if (currQuestion instanceof QuizzQuestion) {
+            correctAnswer = ((QuizzQuestion) currQuestion).getMostExpensive();
             first = ((QuizzQuestion) currQuestion).getFirstChoice().getTitle();
             second = ((QuizzQuestion) currQuestion).getSecondChoice().getTitle();
             third = ((QuizzQuestion) currQuestion).getThirdChoice().getTitle();
@@ -503,6 +643,7 @@ public class QuestionScreenMultiplayerCtrl {
             }
         }
         if (currQuestion instanceof ConsumpQuestion) {
+            correctAnswer = ((ConsumpQuestion) currQuestion).getConsump();
             first = Long.toString(((ConsumpQuestion) currQuestion).getFirst());
             second = Long.toString(((ConsumpQuestion) currQuestion).getSecond());
             third = Long.toString(((ConsumpQuestion) currQuestion).getThird());
@@ -521,6 +662,7 @@ public class QuestionScreenMultiplayerCtrl {
             }
         }
         if (currQuestion instanceof InsteadOfQuestion) {
+            correctAnswer = ((InsteadOfQuestion) currQuestion).getCorrectChoice().toString();
             first = ((InsteadOfQuestion) currQuestion).getFirstChoice().toString();
             second = ((InsteadOfQuestion) currQuestion).getSecondChoice().toString();
             third = ((InsteadOfQuestion) currQuestion).getThirdChoice().toString();
@@ -544,7 +686,6 @@ public class QuestionScreenMultiplayerCtrl {
      * handles the transition between two questions.
      */
     public void transition() {
-        Utils.submitAnswer(totalPoints);
         confirmButton.setVisible(false);
         notConfirmButton.setVisible(false);
         confirmButton.setDisable(true);
@@ -569,7 +710,6 @@ public class QuestionScreenMultiplayerCtrl {
         Timeline timer = new Timeline(
                 new KeyFrame(Duration.seconds(1),
                         event -> {
-//                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
                             if (transitionTimeLeft == 0) {
                                 transitionTimerAnimation.stop();
                                 transitionTimer.setOpacity(1);
@@ -578,6 +718,7 @@ public class QuestionScreenMultiplayerCtrl {
                                 timeBarBackground.setVisible(true);
                                 endButton.setDisable(false);
                                 time.setVisible(true);
+                                readyForNextQuestion = true;
                                 nextDisplay();
                             } else {
                                 transitionTimeLeft -= 1;
@@ -586,17 +727,238 @@ public class QuestionScreenMultiplayerCtrl {
                         }
                 )
         );
-        timer.setCycleCount(6);
+        timer.setCycleCount(3);
         timer.play();
     }
 
+    /**
+     * Initialise all event handling for the emote and joker buttons (Should be called every new question)
+     */
+    public void initialiseEmotesAndJokers() {
+        // Timer that regularly calls update methods
+        emoteJokerUpdateTimer = new Timer();
+        emoteJokerUpdateTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                lobbyStatus = Utils.getLobbyStatus();
+
+                receiveEmotes();
+            }
+        }, 0, 20);
+
+        // Set up the on action event for each emote button corresponding to their image
+        emoteButtonSmile.setOnAction(e -> sendEmote("smile"));
+        emoteButtonSad.setOnAction(e -> sendEmote("sad"));
+        emoteButtonAngry.setOnAction(e -> sendEmote("angry"));
+        emoteButtonSurprise.setOnAction(e -> sendEmote("surprise"));
+        emoteButtonCelebrate.setOnAction(e -> sendEmote("celebrate"));
+        emoteButtonSunglasses.setOnAction(e -> sendEmote("sunglasses"));
+
+        // Add some space at the top of the chat box
+        Label blankLabel = new Label();
+        blankLabel.setOpacity(1);
+        blankLabel.setStyle("-fx-font-size: 12pt; -fx-text-fill: black;");
+        blankLabel.setTextAlignment(TextAlignment.CENTER);
+        Platform.runLater(() -> chatBoxContent.getChildren().add(new Label()));
+
+        // Listener to scroll to the bottom of the chat box once a new message has been received
+        chatBox.needsLayoutProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                chatBox.setVvalue(chatBox.getVmax()); // Auto scroll to the bottom so player can always see the latest message
+            }
+        });
+
+        //TODO
+        // Turn off joker buttons that have already been used (or cant be used for the question type)
+    }
+
+    /**
+     * Once the player clicks an emote button, this method is called
+     * It then sends the emote to the other players in the session
+     *
+     * @param emoteType identifies which emote button was clicked and what emote to send
+     */
+    private void sendEmote(String emoteType) {
+        Utils.setEmoji(Session.getNickname(), emoteType);
+    }
+
+    /**
+     * Receive any emotes sent by other players and display them in the chat box
+     */
+    private void receiveEmotes() {
+        List<Emoji> activeEmojiList = lobbyStatus.getEmojiList();
+
+        // Loop through all active emojis and display them according to the user that sent it
+        for (Emoji emoji : activeEmojiList) {
+
+            if (emojisReceivedThisQuestion.contains(emoji)) {
+                continue;
+            }
+
+            emojisReceivedThisQuestion.add(emoji);
+
+            String emoteText;
+
+            // Get the right emote text
+            switch (emoji.getEmojiType()) {
+                case "smile" -> emoteText = "\uD83D\uDE00";
+                case "sad" -> emoteText = "\uD83D\uDE22";
+                case "angry" -> emoteText = "\uD83D\uDE21";
+                case "surprise" -> emoteText = "\uD83D\uDE32";
+                case "celebrate" -> emoteText = "\uD83C\uDF89";
+                case "sunglasses" -> emoteText = "\uD83D\uDE0E";
+                default -> throw new IllegalStateException("Unexpected value: " + emoji.getEmojiType());
+            }
+
+            Label message = new Label("  " + emoji.getUserApplying() + ": " + emoteText);
+            message.setOpacity(1);
+            message.setStyle("-fx-font-size: 12pt; -fx-text-fill: black;");
+            message.setTextAlignment(TextAlignment.CENTER);
+
+            Platform.runLater(() -> {
+                chatBoxContent.getChildren().add(message);
+            });
+        }
+    }
+
+    /*
+    Joker types:
+        - 1 double points
+        - 2 remove one incorrect answer
+        - 3 reduce time joker
+     */
+
+    /**
+     * Applies doublePoints joker
+     */
+    public void useJokerDoublePoints() {
+        doublePoints = true;
+        jokerButton1.setDisable(true);
+
+        Utils.addJoker(new Joker(Session.getNickname(),1,(int)Session.getQuestionNum()));
+    }
+
+    /**
+     * Applies removeAnAnswer joker
+     */
+    public void useJokerRemoveAnAnswer() {
+        if(currQuestion instanceof GuessQuestion) {
+            guess.setText(((GuessQuestion) currQuestion).getCorrectGuess());
+        } else if(currQuestion instanceof QuizzQuestion) {
+            String corrAnswer = ((QuizzQuestion) currQuestion).getMostExpensive();
+            double randomPick = Math.random(); //Random number 0 OR 1 telling which answer to pick
+
+            if(((QuizzQuestion)currQuestion).getFirstChoice().getTitle().equals(corrAnswer)) {
+                if(randomPick < 0.5) secondAnswer.setStyle("-fx-background-color: red;");
+                else thirdAnswer.setStyle("-fx-background-color: red;");
+            } else if(((QuizzQuestion)currQuestion).getSecondChoice().getTitle().equals(corrAnswer)) {
+                if(randomPick < 0.5) firstAnswer.setStyle("-fx-background-color: red;");
+                else thirdAnswer.setStyle("-fx-background-color: red;");
+            } else {
+                if(randomPick < 0.5) firstAnswer.setStyle("-fx-background-color: red;");
+                else secondAnswer.setStyle("-fx-background-color: red;");
+            }
+        } else if(currQuestion instanceof ConsumpQuestion) {
+            String corrAnswer = ((ConsumpQuestion) currQuestion).getConsump();
+            double randomPick = Math.random(); //Random number 0 OR 1 telling which answer to pick
+
+            if(Long.toString(((ConsumpQuestion)currQuestion).getFirst()).equals(corrAnswer)) {
+                if(randomPick < 0.5) secondConsump.setStyle("-fx-background-color: red;");
+                else thirdConsump.setStyle("-fx-background-color: red;");
+            } else if(Long.toString(((ConsumpQuestion)currQuestion).getSecond()).equals(corrAnswer)) {
+                if(randomPick < 0.5) firstConsump.setStyle("-fx-background-color: red;");
+                else thirdConsump.setStyle("-fx-background-color: red;");
+            } else {
+                if(randomPick < 0.5) firstConsump.setStyle("-fx-background-color: red;");
+                else secondConsump.setStyle("-fx-background-color: red;");
+            }
+        } else {
+            String corrAnswer = ((InsteadOfQuestion)currQuestion).getCorrectChoice().toString();
+            double randomPick = Math.random(); //Random number 0 OR 1 telling which answer to pick
+
+            if(((InsteadOfQuestion)currQuestion).getFirstChoice().toString().equals(corrAnswer)) {
+                if(randomPick < 0.5) secondConsump.setStyle("-fx-background-color: red;");
+                else thirdConsump.setStyle("-fx-background-color: red;");
+            } else if(((InsteadOfQuestion)currQuestion).getSecondChoice().toString().equals(corrAnswer)) {
+                if(randomPick < 0.5) firstConsump.setStyle("-fx-background-color: red;");
+                else thirdConsump.setStyle("-fx-background-color: red;");
+            } else {
+                if(randomPick < 0.5) firstConsump.setStyle("-fx-background-color: red;");
+                else secondConsump.setStyle("-fx-background-color: red;");
+            }
+        }
+        jokerButton2.setDisable(true);
+    }
+
+    /**
+     * Applies reduceTime joker
+     */
+    public void useJokerReduceTime() {
+        //Send reduceTime joker to server
+        Utils.addJoker(new Joker(Session.getNickname(),3,(int)Session.getQuestionNum()));
+
+        jokerButton3.setDisable(true);
+    }
+
+    /**
+     * Provides name for jokerType
+     * @param jokerType - Integer value <1,3> being type of Joker
+     * @return String description of given joker
+     */
+    private String getJokerDescription(int jokerType) {
+        switch(jokerType) {
+            case 1 -> {
+                return "2x";
+            }
+            case 2 -> {
+                return "50/50";
+            }
+            case 3 -> {
+                return "time/2";
+            }
+        }
+
+        return "";
+    }
+
+    /**
+     * Manages jokerList
+     * @param receivedJokers
+     */
+    private void receiveJokers(List<Joker> receivedJokers) {
+        if(receivedJokers == null || receivedJokers.size() == 0) return;
+
+        //For each received joker
+        for(Joker x : receivedJokers) {
+            if(usedJokers.contains(x)) continue;
+
+            //Display to others that PLAYER x has used joker
+            Label message = new Label("  " + x.getUsedBy()+" used "+this.getJokerDescription(x.getJokerType()));
+            message.setOpacity(1);
+            message.setStyle("-fx-font-size: 12pt; -fx-text-fill: black;");
+            message.setTextAlignment(TextAlignment.CENTER);
+            Platform.runLater(() -> {
+                chatBoxContent.getChildren().add(message);
+            });
+
+            //Append joker to used joker list
+            usedJokers.add(x);
+            //If reduced time joker was used by not me on current question
+            if(!x.getUsedBy().equals(Session.getNickname()) && x.getJokerType() == 3 && x.getQuestionNum() == Session.getQuestionNum()) {
+                timeLeft/=2;
+                reduceTime = true;
+            }
+        }
+    }
+
+
     public void transitionStuff() {
         timeBarAnimation.pause();
-        transitionTimeLeft = 5;
+        transitionTimeLeft = 2;
         transitionTimer.setVisible(true);
         transitionTimer.setText(transitionTimeLeft + " seconds until next question!");
 
-        transitionTimerAnimation = new ScaleTransition(Duration.seconds(2), transitionTimer);
+        transitionTimerAnimation = new ScaleTransition(Duration.seconds(1), transitionTimer);
         transitionTimerAnimation.setFromX(1);
         transitionTimerAnimation.setToX(0.8);
         transitionTimerAnimation.setFromY(1);

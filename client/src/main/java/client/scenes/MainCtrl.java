@@ -53,6 +53,12 @@ public class MainCtrl {
     private Scene questionScreen;
     private QuestionScreenMultiplayerCtrl questionScreenMultiplayerCtrl;
     private Scene questionScreenMultiplayer;
+    private MultiplayerMiddleLeaderboardCtrl multiPlayerMiddleLeaderboardCtrl;
+    private Scene multiPlayerMiddleLeaderboardScreen;
+    private MultiPlayerFinalLeaderboardCtrl multiPlayerFinalLeaderboardCtrl;
+    private Scene multiPlayerFinalLeaderboardScreen;
+
+
     private static final String iconPath = "/photos/clientIcon.png";
 
     public RotateTransition rotationAnimation1;
@@ -61,7 +67,14 @@ public class MainCtrl {
     public RotateTransition rotationAnimation4;
 
     public void initialize(Stage primaryStage, Pair<EnterMenuCtrl, Parent> enterMenu,
-                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl, Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen, Pair<QuestionScreenMultiplayerCtrl, Parent> questionScreenMultiplayer, Pair<QueueCtrl, Parent> queue, Pair<SingleplayerLobbyCtrl, Parent> singleLobbyScreen, Pair<AdminPanelCtrl, Parent> admin, Pair<MultiplayerLobbyCtrl, Parent> multiLobbyScreen) {
+                           Pair<SplashCtrl, Parent> splash, Pair<GlobalLeaderboardCtrl,
+                           Parent> globalLeaderboard, Pair<QuestionScreenCtrl, Parent> questionScreen,
+                           Pair<QuestionScreenMultiplayerCtrl, Parent> questionScreenMultiplayer,
+                           Pair<QueueCtrl, Parent> queue, Pair<SingleplayerLobbyCtrl,
+                           Parent> singleLobbyScreen, Pair<AdminPanelCtrl, Parent> admin,
+                           Pair<MultiplayerLobbyCtrl, Parent> multiLobbyScreen,
+                           Pair<MultiPlayerFinalLeaderboardCtrl,Parent> multiplayerFinalLeaderboard,
+                           Pair<MultiplayerMiddleLeaderboardCtrl,Parent> multiplayerMiddleLeaderboard) {
 
         this.primaryStage = primaryStage;
         this.enterMenuCtrl = enterMenu.getKey();
@@ -90,6 +103,12 @@ public class MainCtrl {
 
         this.questionScreenMultiplayerCtrl = questionScreenMultiplayer.getKey();
         this.questionScreenMultiplayer = new Scene(questionScreenMultiplayer.getValue());
+
+        this.multiPlayerMiddleLeaderboardCtrl = multiplayerMiddleLeaderboard.getKey();
+        this.multiPlayerMiddleLeaderboardScreen = new Scene(multiplayerMiddleLeaderboard.getValue());
+
+        this.multiPlayerFinalLeaderboardCtrl = multiplayerFinalLeaderboard.getKey();
+        this.multiPlayerFinalLeaderboardScreen = new Scene(multiplayerFinalLeaderboard.getValue());
 
         //Set program icon
         this.primaryStage.getIcons().add(new Image(Objects.requireNonNull(MainCtrl.class.getResourceAsStream(iconPath))));
@@ -134,6 +153,16 @@ public class MainCtrl {
         globalLeaderboardCtrl.buttonOnOrOff(isFromSplash);
         primaryStage.setTitle("Global Leaderboard");
         primaryStage.setScene(this.globalLeadScreen);
+    }
+    public void showMiddleLeaderboard() {
+        primaryStage.setTitle("In-game Leaderboard");
+        multiPlayerMiddleLeaderboardCtrl.init();
+        primaryStage.setScene(this.multiPlayerMiddleLeaderboardScreen);
+    }
+    public void showFinalLeaderboard() {
+        primaryStage.setTitle("Final Leaderboard");
+        multiPlayerFinalLeaderboardCtrl.init();
+        primaryStage.setScene(this.multiPlayerFinalLeaderboardScreen);
     }
     public void showGlobalLeaderboard(boolean isFromSplash, boolean isFromLobby) {
         if(isFromLobby) {
@@ -200,10 +229,10 @@ public class MainCtrl {
     public void showMultiplayer() {
         primaryStage.setTitle("Multiplayer");
         primaryStage.setScene(this.questionScreenMultiplayer);
+        primaryStage.centerOnScreen(); // Re-center the window when changing to a scene with a different size
         questionScreenMultiplayerCtrl.init(true); //True for multiplayer session
     }
-
-
+    
     public void showAdminPanel() {
         primaryStage.setTitle("Admin Panel");
         primaryStage.setScene(this.adminPanelScreen);

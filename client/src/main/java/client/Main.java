@@ -37,6 +37,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 
         var enterMenu = FXML.load(EnterMenuCtrl.class, "client", "scenes", "EnterMenu.fxml");
+        var multiPlayerFinalLeaderboard = FXML.load(MultiPlayerFinalLeaderboardCtrl.class, "client","scenes","FinalLeaderboard.fxml");
+        var multiPlayerMiddleLeaderboard =  FXML.load(MultiplayerMiddleLeaderboardCtrl.class, "client","scenes","LeaderboardMultiplayer.fxml");
         var splash = FXML.load(SplashCtrl.class, "client", "scenes", "SplashScreen.fxml");
         var queue = FXML.load(QueueCtrl.class, "client", "scenes", "QueueScreen.fxml");
         var multiLobby = FXML.load(MultiplayerLobbyCtrl.class, "client", "scenes", "MultiplayerLobbyScreen.fxml");
@@ -46,6 +48,6 @@ public class Main extends Application {
         var questionScreen = FXML.load(QuestionScreenCtrl.class, "client", "scenes", "QuestionScreen.fxml");
         var questionScreenMultiplayer = FXML.load(QuestionScreenMultiplayerCtrl.class, "client", "scenes", "QuestionScreenMultiplayer.fxml");
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, enterMenu, splash, globalLeaderboard, questionScreen, questionScreenMultiplayer, queue, singleLobby, adminPanel, multiLobby);
+        mainCtrl.initialize(primaryStage, enterMenu, splash, globalLeaderboard, questionScreen, questionScreenMultiplayer, queue, singleLobby, adminPanel, multiLobby,multiPlayerFinalLeaderboard,multiPlayerMiddleLeaderboard);
     }
 }

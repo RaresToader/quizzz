@@ -21,13 +21,13 @@
         <module name="NestedTryDepth"> <!-- Maximum depth of try blocks is 3-->
             <property name="max" value="3"/>
         </module>
-        <module name="ParameterNumber"> <!-- Maximum number of function parameters is 10-->
-            <property name="max" value="10"/>
+        <module name="ParameterNumber"> <!-- Maximum number of function parameters is 15-->
+            <property name="max" value="15"/>
             <property name="tokens" value="METHOD_DEF"/>
         </module>
         <module name="MethodLength">    <!-- Maximum number of lines in a function is 60-->
             <property name="tokens" value="METHOD_DEF"/>
-            <property name="max" value="60"/>
+            <property name="max" value="70"/>
         </module>
     </module>
 

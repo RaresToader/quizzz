@@ -333,4 +333,11 @@ public class UtilsTest {
         js.put("thirdChoice",activity);
         assertEquals(q,Utils.parseInsteadOfQuestion(js));
     }
+
+    @Test
+    public void setServerAddrTest() {
+        Utils.setServerAddr("abc");
+        assertEquals("abc",Utils.getServerAddr());
+        Utils.setServerAddr("http://localhost:8080/");
+    }
 }

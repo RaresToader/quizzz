@@ -2,14 +2,17 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.image.Image?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #191919;" stylesheets="/stylesheets/QuestionScreenMultiplayerStylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.QuestionScreenMultiplayerCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1500.0" style="-fx-background-color: #191919;" stylesheets="/stylesheets/QuestionScreenMultiplayerStylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.QuestionScreenMultiplayerCtrl">
    <children>
       <Pane layoutX="28.0" layoutY="28.0" prefHeight="664.0" prefWidth="1224.0" style="-fx-background-color: #474747;" styleClass="screenDividerBackground">
          <children>
@@ -102,5 +105,74 @@
             </Label>
          </children>
       </Pane>
+      <Button fx:id="jokerButton1" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1260.0" layoutY="629.0" mnemonicParsing="false" onAction="#useJokerDoublePoints" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: #f15025;" styleClass="standardButton" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/jokerDoublePoints.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="jokerButton2" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1340.0" layoutY="629.0" mnemonicParsing="false" onAction="#useJokerRemoveAnAnswer" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: #f15025;" styleClass="standardButton" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/joker5050.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="jokerButton3" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1420.0" layoutY="629.0" mnemonicParsing="false" onAction="#useJokerReduceTime" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: #f15025;" styleClass="standardButton" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/jokerLessTime.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ScrollPane fx:id="chatBox" hbarPolicy="NEVER" hmax="0.0" layoutX="1260.0" layoutY="28.0" pannable="true" prefHeight="435.0" prefWidth="235.0" style="-fx-background-color: #CED0CE;" vbarPolicy="ALWAYS">
+         <content>
+            <VBox fx:id="chatBoxContent" prefHeight="435.0" prefWidth="235.0" />
+         </content>
+      </ScrollPane>
+
+      <Button fx:id="emoteButtonSmile" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1265.0" layoutY="480.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/emoteSmile.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="emoteButtonSad" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1345.0" layoutY="480.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/emoteSad.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="emoteButtonAngry" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1425.0" layoutY="480.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/emoteAngry.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="emoteButtonSurprise" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1265.0" layoutY="550.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/emoteSurprise.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="emoteButtonCelebrate" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1345.0" layoutY="550.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/emoteCelebrate.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="emoteButtonSunglasses" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="1425.0" layoutY="550.0" mnemonicParsing="false" onAction="#confirmPage" prefHeight="60.0" prefWidth="60.0" styleClass="standardEmoteButton" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="/photos/emoteSunglasses.png"/>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

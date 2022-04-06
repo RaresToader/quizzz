@@ -185,7 +185,7 @@ public class MultiplayerLobbyCtrl {
         startButton.setDisable(true);
         startButton.setVisible(false);
 
-        System.out.println("\n\n\n\t\t\t" + Utils.startSession() + "\n\n\n");
+        Utils.startSession();
     }
 
     /**
@@ -236,7 +236,6 @@ public class MultiplayerLobbyCtrl {
                 receiveEmotes();
 
                 if (lobbyStatus.isStarted()) {
-                    System.out.println("\n\n\n\t\t\tlobbyStatus.isStarted()\n\n\n");
                     startGame();
                 }
 
@@ -460,14 +459,18 @@ public class MultiplayerLobbyCtrl {
         if (removeEmojiTimer != null) {
             removeEmojiTimer.cancel();
         }
-
-        System.out.println("\n\n\n\t\t\tIN startGame()\n\n\n");
+        if (waitingForAdminTimer != null) {
+            waitingForAdminTimer.cancel();
+        }
+        if (numberOfPlayersTimer != null) {
+            numberOfPlayersTimer.cancel();
+        }
 
         transitionTimeLeft = 5;
         Timeline transitionTimer = new Timeline(
                 new KeyFrame(Duration.seconds(1),
                         event -> {
-                            System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
+                            //System.out.println("transitionTimeLeft = " + transitionTimeLeft); //DEBUG LINE
                             label1.setText("Game starting in " + transitionTimeLeft);
 
                             if (transitionTimeLeft <= 0) {
