@@ -812,7 +812,12 @@ public class QuestionScreenMultiplayerCtrl {
 
             Label message = new Label("  " + emoji.getUserApplying() + ": " + emoteText);
             message.setOpacity(1);
-            message.setStyle("-fx-font-size: 12pt; -fx-text-fill: black;");
+            if (Objects.equals(emoji.getUserApplying(), Session.getNickname())) {
+                message.setStyle("-fx-font-size: 12pt; -fx-text-fill: #f15025;");
+            }
+            else {
+                message.setStyle("-fx-font-size: 12pt; -fx-text-fill: black;");
+            }
             message.setTextAlignment(TextAlignment.CENTER);
 
             Platform.runLater(() -> {
@@ -935,7 +940,7 @@ public class QuestionScreenMultiplayerCtrl {
             //Display to others that PLAYER x has used joker
             Label message = new Label("  " + x.getUsedBy()+" used "+this.getJokerDescription(x.getJokerType()));
             message.setOpacity(1);
-            message.setStyle("-fx-font-size: 12pt; -fx-text-fill: black;");
+            message.setStyle("-fx-font-size: 12pt; -fx-text-fill: red;");
             message.setTextAlignment(TextAlignment.CENTER);
             Platform.runLater(() -> {
                 chatBoxContent.getChildren().add(message);

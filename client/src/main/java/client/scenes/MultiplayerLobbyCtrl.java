@@ -437,6 +437,7 @@ public class MultiplayerLobbyCtrl {
 
         // Run through all players and player labels and check if the players are still in the session
         for (Triple<StackPane, Text, ImageView> tag : playerTags.keySet()) {
+
             // If the player is no longer in the session's player list
             if (!playerList.contains(playerTags.get(tag))) {
                 playerTags.replace(tag, null);
@@ -444,9 +445,14 @@ public class MultiplayerLobbyCtrl {
             }
 
             // If it is the player's tag, and it has not been set yet
-            if (Objects.equals(tag.getSecond().getText(), Session.getNickname()) && ownPlayerTag == null) {
-                ownPlayerTag = tag;
-                ownPlayerTag.getSecond().setFill(Color.web("#f15025"));
+            if (Objects.equals(tag.getSecond().getText(), Session.getNickname())) {
+                if (ownPlayerTag == null) {
+                    ownPlayerTag = tag;
+                    ownPlayerTag.getSecond().setFill(Color.web("#f15025"));
+                }
+            }
+            else {
+                tag.getSecond().setFill(Color.web("black"));
             }
 
             // If it is the tag of the lobby leader
