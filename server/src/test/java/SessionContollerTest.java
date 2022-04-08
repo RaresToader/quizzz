@@ -238,6 +238,17 @@ public class SessionContollerTest {
     }
 
     @Test
+    public void submitAnswerMinusOneTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",repo.activities);
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.setCurrentQuestion(-1);
+        assertFalse(sess.submitAnswer("test",2,x.getCurrentQuestionNum()));
+
+    }
+
+    @Test
     public void submitAnswerTest() {
         SessionController sess = new SessionController(repo);
         SessionContainer.createSession(false,"test",repo.activities);
@@ -272,7 +283,7 @@ public class SessionContollerTest {
         assertFalse(sess.addJoker("test",0,-1));
     }
     @Test
-    public void addJokerHasEnded(){
+    public void addJokerHasEndedTest(){
         SessionController sess = new SessionController(repo);
         SessionContainer.createSession(false,"test",repo.activities);
         Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
@@ -282,7 +293,7 @@ public class SessionContollerTest {
         assertFalse(sess.addJoker("test",1,x.getCurrentQuestionNum()));
     }
     @Test
-    public void addJokerQuestionNumMinusOne(){
+    public void addJokerQuestionNumMinusOneTest(){
         SessionController sess = new SessionController(repo);
         SessionContainer.createSession(false,"test",repo.activities);
         Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
