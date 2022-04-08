@@ -397,12 +397,30 @@ public class SessionContollerTest {
         SessionContainer.createSession(true,"test",repo.activities);
         assertFalse(sess.startSession("test"));
     }
+    @Test
+    public void startSessionAlreadyStarted(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test", repo.activities);
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.addPlayer("test2");
+        assertFalse(sess.startSession("test"));
+    }
+    @Test
+    public void startSessionNotAdminTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test", repo.activities);
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.addPlayer("test2");
+        assertFalse(sess.startSession("test2"));
+    }
 
     @Test
     public void startSessionSuccessTest() {
         SessionController sess = new SessionController(repo);
         SessionContainer.createSession(false,"test",repo.activities);
         assertTrue(sess.startSession("test"));
+
     }
 
 
