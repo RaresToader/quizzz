@@ -348,6 +348,36 @@ public class SessionContollerTest {
         assertTrue(x.hasEnded());
     }
     @Test
+    public void leaveSessionEndedOnePlayerTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test", repo.activities);
+        Session x = SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.endGame();
+        assertTrue(sess.leaveSession("test"));
+    }
+    @Test
+    public void leaveSessionEndedTwoPlayerTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test", repo.activities);
+        Session x = SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.addPlayer("test2");
+        x.startGame();
+        x.endGame();
+        assertTrue(sess.leaveSession("test"));
+    }
+    @Test
+    public void leaveSessionNotEndedTwoPlayerTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test", repo.activities);
+        Session x = SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.addPlayer("test2");
+        x.startGame();
+        assertTrue(sess.leaveSession("test"));
+        assertFalse(x.hasEnded());
+    }
+
+    @Test
     public void validUsernameTest() {
         SessionController sess = new SessionController(repo);
         List<Session> sessionList = new ArrayList<>();
