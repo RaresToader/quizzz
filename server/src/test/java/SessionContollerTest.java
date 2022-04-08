@@ -238,6 +238,17 @@ public class SessionContollerTest {
     }
 
     @Test
+    public void submitAnswerMinusOneTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",repo.activities);
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.setCurrentQuestion(-1);
+        assertFalse(sess.submitAnswer("test",2,x.getCurrentQuestionNum()));
+
+    }
+
+    @Test
     public void submitAnswerTest() {
         SessionController sess = new SessionController(repo);
         SessionContainer.createSession(false,"test",repo.activities);
@@ -271,6 +282,25 @@ public class SessionContollerTest {
         Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
         assertFalse(sess.addJoker("test",0,-1));
     }
+    @Test
+    public void addJokerHasEndedTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",repo.activities);
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.endGame();
+        x.getCurrentQuestion();
+        assertFalse(sess.addJoker("test",1,x.getCurrentQuestionNum()));
+    }
+    @Test
+    public void addJokerQuestionNumMinusOneTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",repo.activities);
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.setCurrentQuestion(-1);
+        assertFalse(sess.addJoker("test",1,x.getCurrentQuestionNum()));
+    }
 
     @Test
     public void addJokerWrongQuestionNumTest() {
@@ -280,6 +310,16 @@ public class SessionContollerTest {
         x.startGame();
         x.getCurrentQuestion();
         assertFalse(sess.addJoker("test",0,5));
+    }
+    @Test
+    public void addJokerWrongJokerTypeProvided(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(false,"test",repo.activities);
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.getCurrentQuestion();
+        assertFalse(sess.addJoker("test", 0,x.getCurrentQuestionNum()));
+        assertFalse(sess.addJoker("test",4,x.getCurrentQuestionNum()));
     }
 
 
@@ -307,6 +347,36 @@ public class SessionContollerTest {
         assertTrue(sess.leaveSession("test"));
         assertTrue(x.hasEnded());
     }
+    @Test
+    public void leaveSessionEndedOnePlayerTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test", repo.activities);
+        Session x = SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.endGame();
+        assertTrue(sess.leaveSession("test"));
+    }
+    @Test
+    public void leaveSessionEndedTwoPlayerTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test", repo.activities);
+        Session x = SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.addPlayer("test2");
+        x.startGame();
+        x.endGame();
+        assertTrue(sess.leaveSession("test"));
+    }
+    @Test
+    public void leaveSessionNotEndedTwoPlayerTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test", repo.activities);
+        Session x = SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.addPlayer("test2");
+        x.startGame();
+        assertTrue(sess.leaveSession("test"));
+        assertFalse(x.hasEnded());
+    }
+
     @Test
     public void validUsernameTest() {
         SessionController sess = new SessionController(repo);
@@ -357,12 +427,30 @@ public class SessionContollerTest {
         SessionContainer.createSession(true,"test",repo.activities);
         assertFalse(sess.startSession("test"));
     }
+    @Test
+    public void startSessionAlreadyStarted(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test", repo.activities);
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.startGame();
+        x.addPlayer("test2");
+        assertFalse(sess.startSession("test"));
+    }
+    @Test
+    public void startSessionNotAdminTest(){
+        SessionController sess = new SessionController(repo);
+        SessionContainer.createSession(true,"test", repo.activities);
+        Session x = (Session)SessionContainer.getSession(SessionContainer.findUserSession("test"));
+        x.addPlayer("test2");
+        assertFalse(sess.startSession("test2"));
+    }
 
     @Test
     public void startSessionSuccessTest() {
         SessionController sess = new SessionController(repo);
         SessionContainer.createSession(false,"test",repo.activities);
         assertTrue(sess.startSession("test"));
+
     }
 
 
