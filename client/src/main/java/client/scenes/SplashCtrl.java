@@ -2,13 +2,17 @@ package client.scenes;
 
 import client.utils.ServerUtils;
 import client.utils.Utils;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 import javax.inject.Inject;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,6 +33,9 @@ public class SplashCtrl {
         this.queueCtrl = queueCtrl;
 
     }
+
+    @FXML
+    private ImageView zapp;
 
     @FXML
     private Button single;
@@ -80,6 +87,8 @@ public class SplashCtrl {
                 });
             }
         }, 0, 2*1000); //Update active player number every 2 seconds
+
+        logoAnimation();
     }
 
     /**
@@ -159,5 +168,24 @@ public class SplashCtrl {
     public void toSinglePlayerLobby() {
         activePlayersTimer.cancel();
         mainCtrl.showSingleplayerLobby();
+    }
+
+    public void logoAnimation() {
+        System.out.println("IN LOGO ANIMATION");
+        Random random = new Random();
+        FadeTransition emoteFadeOut = new FadeTransition(Duration.seconds(random.nextInt(4) + 1), zapp);
+        emoteFadeOut.setFromValue(1);
+        emoteFadeOut.setToValue(0);
+        emoteFadeOut.setDelay(Duration.seconds(random.nextInt(2)));
+
+        FadeTransition emoteFadeIn = new FadeTransition(Duration.seconds(random.nextInt(4) + 1), zapp);
+        emoteFadeIn.setFromValue(0);
+        emoteFadeIn.setToValue(1);
+        emoteFadeIn.setDelay(Duration.seconds(random.nextInt(2)));
+
+        emoteFadeOut.play();
+        emoteFadeOut.setOnFinished(e -> emoteFadeIn.play());
+        emoteFadeIn.setOnFinished(e -> logoAnimation());
+
     }
 }

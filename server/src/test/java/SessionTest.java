@@ -88,6 +88,27 @@ public class SessionTest {
         x.startGame();
         assertEquals(testQ, x.getCurrentQuestion().getQuestion());
     }
+    @Test
+    public void getQuestionEveryoneHasAnsweredTest(){
+        Session x = new Session(true,repo.activities);
+        x.startGame();
+        x.setCurrentQuestion(1);
+        x.addPlayer("user1");
+        x.addPlayer("user2");
+        x.addAnswer(new Answer("user1",1,1));
+        x.addAnswer(new Answer("user2",2,1));
+        x.getCurrentQuestion();
+        assertEquals(2,x.getCurrentQuestionNum());
+    }
+    @Test
+    public void getQuestionGameNotStartedTest(){
+        Session x = new Session(true,repo.activities);
+        x.addPlayer("user1");
+        x.startGame();
+        x.setCurrentQuestionNum(1);
+        x.getCurrentQuestion().setStartTime(-1);
+        assertEquals(2,x.getCurrentQuestionNum());
+    }
 
     @Test
     public void isSingleplayerAvailable() {

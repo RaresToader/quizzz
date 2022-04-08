@@ -64,13 +64,14 @@ public class EnterMenuCtrl {
                 return;
             }
 
-            if (serverAddr == null || serverAddr.length() == 0 || !Utils.validateServer(serverAddr)) { //Invalid serverAddr
-                displayErrorText("Server address is invalid!");
-                return;
+            try {
+                if (serverAddr == null || serverAddr.length() == 0 || !Utils.validateServer(serverAddr)) { //Invalid serverAddr
+                    displayErrorText("Server address is invalid!");
+                    return;
+                }
             }
-
-            if (!serverUtils.isUsernameValid(nickname)) {
-                displayErrorText("This username is currently in use!");
+            catch (Exception e){
+                displayErrorText("Server address is invalid!");
                 return;
             }
 
@@ -80,6 +81,11 @@ public class EnterMenuCtrl {
             Utils.setServerAddr(processedServerAddr);
             Session.setServerAddr(processedServerAddr);
             ServerUtils.setServerAddr(processedServerAddr);
+
+            if (!serverUtils.isUsernameValid(nickname)) {
+                displayErrorText("This username is currently in use!");
+                return;
+            }
 
             EnterMenuCtrl.saveStringToFile(nickname,usernameFileName);
             EnterMenuCtrl.saveStringToFile(serverAddr,serverAddrFileName);
@@ -92,7 +98,7 @@ public class EnterMenuCtrl {
             }
         }
         else {
-            displayErrorText("Provided username is invalid!");
+            displayErrorText("Provided username is invalid! (Must be alphanumeric)");
         }
     }
 

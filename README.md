@@ -24,7 +24,9 @@ Add your own name (do not add the names for others!) to the section below.
 <!-- - (please make sure the photos have the same size) --> 
 
 ## How to run it
-
+Instructions for running the project: to open the server just run the normal gradle task bootrun, and to run the client, just run the normal gradle task run. 
+One important note is that the first time one runs a server, needs to open a client, and click the load button in the admin panel in order to load all the activities to the database, 
+because otherwise singleplayer/multiplayer won't work due to not being able to generate questions.
 ## How to contribute to it
 
 ## Copyright / License (opt.)
